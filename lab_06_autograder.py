@@ -59,7 +59,7 @@ class MainWindow(QMainWindow):
             error_calling_function = False
             try:
                 try:
-                    result = biggest_number()
+                    result = sm.biggest_number()
                 except:
                     result = '"Function biggest_number() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True
@@ -83,7 +83,7 @@ class MainWindow(QMainWindow):
             error_calling_function = False        
             try:
                 try:
-                    result = biggest_number()
+                    result = sm.biggest_number()
                 except:
                     result = '"Function biggest_number() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True
@@ -107,7 +107,7 @@ class MainWindow(QMainWindow):
             error_calling_function = False        
             try:
                 try:
-                    result = biggest_number()
+                    result = sm.biggest_number()
                 except:
                     result = '"Function biggest_number() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True
@@ -131,7 +131,7 @@ class MainWindow(QMainWindow):
             error_calling_function = False        
             try:
                 try:
-                    result = biggest_number()
+                    result = sm.biggest_number()
                 except:
                     result = '"Function biggest_number() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True
@@ -158,7 +158,7 @@ class MainWindow(QMainWindow):
             error_calling_function = False        
             try:
                 try:
-                    result = repeated_doubler(5, 4)
+                    result = sm.repeated_doubler(5, 4)
                 except:
                     result = '"Function repeated_doubler() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True
@@ -182,7 +182,7 @@ class MainWindow(QMainWindow):
             self.result.append(False)
             try:
                 try:
-                    result = repeated_doubler(0, 3)
+                    result = sm.repeated_doubler(0, 3)
                 except:
                     result = '"Function repeated_doubler() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True
@@ -208,7 +208,7 @@ class MainWindow(QMainWindow):
             self.result.append(False)
             try:
                 try:
-                    result = fib_num(1)
+                    result = sm.fib_num(1)
                 except:
                     result = '"Function fib_num() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True                
@@ -232,7 +232,7 @@ class MainWindow(QMainWindow):
             self.result.append(False)
             try:
                 try:
-                    result = fib_num(2)
+                    result = sm.fib_num(2)
                 except:
                     result = '"Function fib_num() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True                
@@ -256,7 +256,7 @@ class MainWindow(QMainWindow):
             self.result.append(False)
             try:
                 try:
-                    result = fib_num(3)
+                    result = sm.fib_num(3)
                 except:
                     result = '"Function fib_num() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True                
@@ -280,7 +280,7 @@ class MainWindow(QMainWindow):
             self.result.append(False)
             try:
                 try:
-                    result = fib_num(4)
+                    result = sm.fib_num(4)
                 except:
                     result = '"Function fib_num() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True                
@@ -304,7 +304,7 @@ class MainWindow(QMainWindow):
             self.result.append(False)
             try:
                 try:
-                    result = fib_num(9)
+                    result = sm.fib_num(9)
                 except:
                     result = '"Function fib_num() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True                
@@ -328,7 +328,7 @@ class MainWindow(QMainWindow):
             self.result.append(False)
             try:
                 try:
-                    result = fib_num(16)
+                    result = sm.fib_num(16)
                 except:
                     result = '"Function fib_num() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True                
@@ -354,7 +354,7 @@ class MainWindow(QMainWindow):
             self.result.append(False)
             try:
                 try:
-                    result = make_bill()
+                    result = sm.make_bill()
                 except:
                     result = '"Function fib_num() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True                
@@ -378,7 +378,7 @@ class MainWindow(QMainWindow):
             self.result.append(False)
             try:
                 try:
-                    result = make_bill()
+                    result = sm.make_bill()
                 except:
                     result = '"Function fib_num() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True                
@@ -402,7 +402,7 @@ class MainWindow(QMainWindow):
             self.result.append(False)
             try:
                 try:
-                    result = make_bill()
+                    result = sm.make_bill()
                 except:
                     result = '"Function fib_num() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True                
@@ -428,7 +428,7 @@ class MainWindow(QMainWindow):
             self.result.append(False)
             try:
                 try:
-                    result = is_prime(3)
+                    result = sm.is_prime(3)
                 except:
                     result = '"Function is_prime() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True                
@@ -451,7 +451,7 @@ class MainWindow(QMainWindow):
             self.result.append(False)
             try:
                 try:
-                    result = is_prime(11)
+                    result = sm.is_prime(11)
                 except:
                     result = '"Function is_prime() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True                
@@ -474,7 +474,7 @@ class MainWindow(QMainWindow):
             self.result.append(False)
             try:
                 try:
-                    result = is_prime(1)
+                    result = sm.is_prime(1)
                 except:
                     result = '"Function is_prime() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True                
@@ -497,7 +497,7 @@ class MainWindow(QMainWindow):
             self.result.append(False)
             try:
                 try:
-                    result = is_prime(2)
+                    result = sm.is_prime(2)
                 except:
                     result = '"Function is_prime() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True                
@@ -520,7 +520,7 @@ class MainWindow(QMainWindow):
             self.result.append(False)
             try:
                 try:
-                    result = is_prime(12)
+                    result = sm.is_prime(12)
                 except:
                     result = '"Function is_prime() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True                
@@ -545,7 +545,7 @@ class MainWindow(QMainWindow):
             self.result.append(False)
             try:
                 try:
-                    result = count_primes(17)
+                    result = sm.count_primes(17)
                 except:
                     result = '"Function count_primes() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True
@@ -568,7 +568,7 @@ class MainWindow(QMainWindow):
             self.result.append(False)
             try:
                 try:
-                    result = count_primes(16)
+                    result = sm.count_primes(16)
                 except:
                     result = '"Function count_primes() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True
