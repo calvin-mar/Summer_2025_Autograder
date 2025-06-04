@@ -42,7 +42,7 @@ class MainWindow(QMainWindow):
             object.setText("<img src='octagon.png' width='32' height='32'><font color=black>" + " There is a problem with your file.  " + s_error_msg + " </font>")
             self.vbox.addWidget(object)
         else:
-
+             specific_student.loader.exec_module(sm)
             ########################################################################
             # Start of tests #######################################################
             ########################################################################
