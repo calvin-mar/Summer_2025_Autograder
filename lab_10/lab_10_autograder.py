@@ -6,196 +6,129 @@ import re
 import os
 import importlib.util
 
-# Graphics/PyQt imports
-from PyQt6.QtCore import QSize, Qt, QRect
-from PyQt6.QtWidgets import *
-from layout_colorwidget import Color
+def autoGrader(student_submission):
+    passes = []
+    error_msgs = []
+    print("Autograder starting...")
 
-class MainWindow(QMainWindow):
-    def __init__(self, student_submission):
-        super().__init__()
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    specific = importlib.util.spec_from_file_location("autograder_assistant", os.path.join(dir_path, "autograder_assistant.py"))
+    assistant = importlib.util.module_from_spec(specific)
+    specific.loader.exec_module(assistant)
 
-        self.scroll = QScrollArea()
-        self.widget = QWidget()
-        self.vbox = QVBoxLayout()
+    name = student_submission[:-3]
+    specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, student_submission))
+    sm = importlib.util.module_from_spec(specific_student)
 
-        self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-
+    TIMEOUT = 30 
+    b_proceed, s_error_msg = assistant.syntax_checker(student_submission, TIMEOUT)
+    if b_proceed == False:
+        passes.append(False)
+        error_msgs.append("There is a problem with your file.")
+    else:
+        specific_student.loader.exec_module(sm)
+        ########################################################################
+        # Start of tests #######################################################
+        ########################################################################
         i_test_num = 1
-        print("Autograder starting...")
-
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-        specific = importlib.util.spec_from_file_location("syntax_checker_module", os.path.join(dir_path, "syntax_checker_module.py"))
-        module = importlib.util.module_from_spec(specific)
-        specific.loader.exec_module(module)
-
-        name = student_submission[:-3]
-        specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, student_submission))
-        sm = importlib.util.module_from_spec(specific_student)
-
-        TIMEOUT = 30 
-        b_proceed, s_error_msg = module.syntax_checker(student_submission, TIMEOUT)
-        if b_proceed == False:
-            object = QLabel("There is a problem with your file.")
-            object.setText("<img src='octagon.png' width='32' height='32'><font color=black>" + " There is a problem with your file.  " + s_error_msg + " </font>")
-            self.vbox.addWidget(object)
-        else:
-            specific_student.loader.exec_module(sm)
-        ##################################################################################################
-        ###end new code
-        ##################################################################################################
-
-
-            ########################################################################
-            # Start of tests #######################################################
-            ########################################################################
-            self.result = []
-            # Test 1: 
-            object = QLabel("Test " + str(i_test_num))
-            object.setWordWrap(True)
-            self.result.append(False)
-            try:
-                assert len(lab_10_student_submission.l_first) == 4
-                assert lab_10_student_submission.l_first[0] == "A"
-                assert lab_10_student_submission.l_first[1] == "B"
-                assert lab_10_student_submission.l_first[2] == "C"
-                assert lab_10_student_submission.l_first[3] == "D"
-                
-                object.setText("<img src='check.png' width='32' height='32'><font color=black>Question " + str(i_test_num) + " Passed </font>")
-                self.result[i_test_num-1] = True
-            except:
-                object.setText("<img src='octagon.png' width='32' height='32'><font color=black>Question " + str(i_test_num) + " Failed: List l_first does not contain the correct values of \"A\", \"B\", \"C\", and \"D\" or it does not have length exactly 4. </font>")
-
-            self.vbox.addWidget(object)
-            i_test_num = i_test_num + 1
-
-            # Test 2: 
-            object = QLabel("Test " + str(i_test_num))
-            object.setWordWrap(True)
-            self.result.append(False)
-            try:
-                assert len(lab_10_student_submission.l_last) == 3
-                assert lab_10_student_submission.l_last[0] == "K"
-                assert lab_10_student_submission.l_last[1] == "L"
-                assert lab_10_student_submission.l_last[2] == "M"
-                object.setText("<img src='check.png' width='32' height='32'><font color=black>Question " + str(i_test_num) + " Passed </font>")
-                self.result[i_test_num-1] = True
-            except:
-                object.setText("<img src='octagon.png' width='32' height='32'><font color=black>Question " + str(i_test_num) + " Failed: List l_last does not contain the correct values of \"K\", \"L\", and \"M\" or it does not have length exactly 3. </font>")
-
-            self.vbox.addWidget(object)
-            i_test_num = i_test_num + 1
-
-            # Test 3: 
-            object = QLabel("Test " + str(i_test_num))
-            object.setWordWrap(True)
-            self.result.append(False)
-            try:
-                assert len(lab_10_student_submission.l_mid) == 3
-                assert lab_10_student_submission.l_mid[0] == "F"
-                assert lab_10_student_submission.l_mid[1] == "G"
-                assert lab_10_student_submission.l_mid[2] == "H"
-                object.setText("<img src='check.png' width='32' height='32'><font color=black>Question " + str(i_test_num) + " Passed </font>")
-                self.result[i_test_num-1] = True
-            except:
-                object.setText("<img src='octagon.png' width='32' height='32'><font color=black>Question " + str(i_test_num) + " Failed: List l_last does not contain the correct values of \"F\", \"G\", and \"H\" or it does not have length exactly 3. </font>")
-
-            self.vbox.addWidget(object)
-            i_test_num = i_test_num + 1
-
-            # Test 4: 
-            object = QLabel("Test " + str(i_test_num))
-            object.setWordWrap(True)
-            self.result.append(False)
-            try:
-                lab_10_student_submission.l_copy_nums[0] = 5
-                lab_10_student_submission.l_copy_nums[1] = 15
-                lab_10_student_submission.l_copy_nums[2] = 25
-                lab_10_student_submission.l_copy_nums[3] = 35
-                lab_10_student_submission.l_copy_nums[4] = 45
-                assert len(lab_10_student_submission.l_nums) == 5
-                assert len(lab_10_student_submission.l_copy_nums) == 5
-                assert lab_10_student_submission.l_nums[0] == 0
-                assert lab_10_student_submission.l_nums[1] == 10
-                assert lab_10_student_submission.l_nums[2] == 20
-                assert lab_10_student_submission.l_nums[3] == 30
-                assert lab_10_student_submission.l_nums[4] == 40
-                assert lab_10_student_submission.l_copy_nums[0] == 5
-                assert lab_10_student_submission.l_copy_nums[1] == 15
-                assert lab_10_student_submission.l_copy_nums[2] == 25
-                assert lab_10_student_submission.l_copy_nums[3] == 35
-                assert lab_10_student_submission.l_copy_nums[4] == 45
-
-                object.setText("<img src='check.png' width='32' height='32'><font color=black>Question " + str(i_test_num) + " Passed </font>")
-                self.result[i_test_num-1] = True
-            except:
-                object.setText("<img src='octagon.png' width='32' height='32'><font color=black>Question " + str(i_test_num) + " Failed: List l_copy_nums is not a correct copy of l_nums because overwriting a value in l_copy_nums overwrites a value in l_nums or the length of l_copy_nums is not correct. </font>")
-
-            self.vbox.addWidget(object)
-            i_test_num = i_test_num + 1
+        # Test 1: Task 1: Test biggest_number() function with biggest in 1st position
+        error_calling_function = False
+        try:
+            assert len(sm.l_first) == 4
+            assert sm.l_first[0] == "A"
+            assert sm.l_first[1] == "B"
+            assert sm.l_first[2] == "C"
+            assert sm.l_first[3] == "D"
             
-            object = QLabel("Summary of Tests")
-            object.setWordWrap(True)
-            num_passed = 0
-            total = 0
-            for value in self.result:
-                total += 1
-                if value:
-                    num_passed += 1
-            if(total == num_passed):
-                object.setText("<img src='check.png' width='32' height='32'><font color=black>CONGRATULATIONS YOU PASSED ALL TESTS!!!</font>")
-            else:
-                object.setText("<img src='octagon.png' width='32' height='32'><font color=black>You passed " + str(num_passed) + "/" + str(total) + " tests.</font>")
-            self.vbox.insertWidget(0, object)
+            passses.append(True)
+        except:
+            passes.append(False)
+            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: List l_first does not contain the correct values of \"A\", \"B\", \"C\", and \"D\" or it does not have length exactly 4. </font>")
 
-            ########################################################################
-            # End of tests
-            ########################################################################
-
-        print("...Autograder completed.")
-        print()
-        print("You may close the Autograder window to exit.")
         
-        self.vbox.addStretch()
-        self.widget.setLayout(self.vbox)
+        i_test_num = i_test_num + 1
 
-        #Scroll Area Properties
-        self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        self.scroll.setWidgetResizable(True)
-        self.scroll.setWidget(self.widget)
+        # Test 2: 
+        
+        
+        
+        try:
+            assert len(sm.l_last) == 3
+            assert sm.l_last[0] == "K"
+            assert sm.l_last[1] == "L"
+            assert sm.l_last[2] == "M"
+            passses.append(True)
+        except:
+            passes.append(False)
+            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: List l_last does not contain the correct values of \"K\", \"L\", and \"M\" or it does not have length exactly 3. </font>")
 
-        self.setCentralWidget(self.scroll)
+        
+        i_test_num = i_test_num + 1
 
-        self.setGeometry(600, 100, 800, 600)
-        self.setWindowTitle('Lists Part 2 Autograder')
-        self.show()
+        # Test 3: 
+        
+        
+        
+        try:
+            assert len(sm.l_mid) == 3
+            assert sm.l_mid[0] == "F"
+            assert sm.l_mid[1] == "G"
+            assert sm.l_mid[2] == "H"
+            passses.append(True)
+        except:
+            passes.append(False)
+            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: List l_last does not contain the correct values of \"F\", \"G\", and \"H\" or it does not have length exactly 3. </font>")
 
-        return
+        
+        i_test_num = i_test_num + 1
 
+        # Test 4: 
+        
+        
+        
+        try:
+            sm.l_copy_nums[0] = 5
+            sm.l_copy_nums[1] = 15
+            sm.l_copy_nums[2] = 25
+            sm.l_copy_nums[3] = 35
+            sm.l_copy_nums[4] = 45
+            assert len(sm.l_nums) == 5
+            assert len(sm.l_copy_nums) == 5
+            assert sm.l_nums[0] == 0
+            assert sm.l_nums[1] == 10
+            assert sm.l_nums[2] == 20
+            assert sm.l_nums[3] == 30
+            assert sm.l_nums[4] == 40
+            assert sm.l_copy_nums[0] == 5
+            assert sm.l_copy_nums[1] == 15
+            assert sm.l_copy_nums[2] == 25
+            assert sm.l_copy_nums[3] == 35
+            assert sm.l_copy_nums[4] == 45
 
-    def exit_clicked(self):
-        self.dialog.close()
+            passses.append(True)
+        except:
+            passes.append(False)
+            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: List l_copy_nums is not a correct copy of l_nums because overwriting a value in l_copy_nums overwrites a value in l_nums or the length of l_copy_nums is not correct. </font>")
+        ########################################################################
+        # End of tests
+        ########################################################################
 
-    def resizeEvent(self, event):
-        super().resizeEvent(event)
-        for i in range(self.vbox.count()):
-              widget = self.vbox.itemAt(i).widget()
-              if isinstance(widget, QLabel):
-                    widget.setMaximumWidth(self.scroll.viewport().width()-20)
+    print("...Autograder completed.")
+    print()
+    print("You may close the Autograder window to exit.")
+    
+    return passes, error_msgs, assistant
+
 def testing(queue):
-	window = MainWindow("lab_10_student_submission.py")
+	passes, error_msgs,assistant = autoGrader("lab_10_student_submission.py")
 	ret = queue.get()
-	ret["result"] = window.result
-	window.hide()
+	ret["result"] = passes
 	queue.put(ret)
 	return
 
 def main():
-	app = QApplication(sys.argv)
-	window = MainWindow("lab_10_student_submission.py")
-	window.show()
-	app.exec()
+	passes, error_msgs,assistant = autoGrader("lab_10_student_submission.py")
+	assistant.displayWindow(passes, error_msgs)
+	
 if __name__ == "__main__":
     main()
