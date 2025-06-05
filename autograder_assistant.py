@@ -151,6 +151,7 @@ class MainWindow(QMainWindow):
             image = QLabel("Image here")
             image.setFixedSize(32,32)
             text = QLabel("Test" + str(i_test_num+1))
+            text.setWordWrap(True)
             if passes[i_test_num]:
                 image.setText("<img src='check.png' width='32' height='32'>")
                 text.setText("Test " + str(i_test_num+1) +" Passed!")
@@ -196,7 +197,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.scroll)
 
         self.setGeometry(600, 100, 800, 600)
-        self.setWindowTitle('While Loops Autograder')
+        self.setWindowTitle('Autograder')
         self.show()
 
         return
