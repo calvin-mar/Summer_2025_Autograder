@@ -203,6 +203,7 @@ def autoGrader(student_submission):
     print("...Autograder completed.")
     print()
     print("You may close the Autograder window to exit.")
+    return passes, error_msgs, assistant
     
 
 def testing(queue):
