@@ -145,6 +145,16 @@ class MainWindow(QMainWindow):
 
         num_passed = 0
         error_count = 0
+
+        print(error_msgs)
+
+        #Trimming "failed" from error messages
+        i=0
+        while i < len(error_msgs):
+                error_msgs[i]=error_msgs[i].replace(" Failed: ", "")
+                
+                i+=1
+        print(error_msgs)
         
         for i_test_num in range(len(passes)):
             test = QHBoxLayout()
@@ -159,7 +169,8 @@ class MainWindow(QMainWindow):
                 num_passed += 1
             else:
                 image.setText("<img src='redX.png' width='32' height='32'>")
-                text.setText("<font color=black>Test " + str(i_test_num+1) + error_msgs[error_count])
+                text.setText("<font color=black><b>Test " + str(i_test_num+1) + " failed: <br></b>" + error_msgs[error_count])
+                
                 error_count += 1
             test.addWidget(image)
             test.addWidget(text)
@@ -168,16 +179,18 @@ class MainWindow(QMainWindow):
 
         if(len(passes) > 1):
             summary = QHBoxLayout()
-            image = QLabel("Image Here")
-            image.setFixedSize(52,52)
+            #image = QLabel("Image Here")
+            
+            #image.setFixedSize(52,52)
             object = QLabel("Summary of Tests")
             object.setWordWrap(True)
+            object.setAlignment(Qt.AlignmentFlag.AlignCenter)
             if(len(passes) == num_passed):
                 image.setText("<img src='check.png' width='52' height='52'>")
-                object.setText("<font color=black>CONGRATULATIONS YOU PASSED ALL TESTS!!!</font>")
+                object.setText("<font color=green>CONGRATULATIONS YOU PASSED ALL TESTS!!!</font>")
             else:
-                image.setText("<img src='octagon.png' width='52' height='52'><font color=black>")
-                object.setText("You passed " + str(num_passed) + "/" + str(len(passes)) + " tests.")
+                #image.setText("<img src='octagon.png' width='52' height='52'><font color=black>")
+                object.setText("<font color=red>You passed " + str(num_passed) + "/" + str(len(passes)) + " tests")
             image.setGeometry(QRect(object.x(), object.y(), object.width()-100, object.height()))
             font = QFont(object.font().family(), pointSize=24, weight=105)
             font.setBold(True)
@@ -218,4 +231,6 @@ def displayWindow(passses, error_msgs):
     window = MainWindow(passses, error_msgs)
     window.show()
     app.exec()
+
+
             
