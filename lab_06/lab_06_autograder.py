@@ -16,6 +16,7 @@ from layout_colorwidget import Color
 def autoGrader(student_submission):
     passes = []
     error_msgs = []
+    
     print("Autograder starting...")
 
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -597,8 +598,9 @@ def testing(queue):
 	return
 
 def main():
-	passes, error_msgs,assistant = autoGrader("lab_06_student_submission.py")
-	assistant.displayWindow(passes, error_msgs)
+    testSets = [4, 2, 6, 3, 5, 2]
+    passes, error_msgs,assistant = autoGrader("lab_06_student_submission.py")
+    assistant.displayWindow(passes, error_msgs, testSets)
 	
 if __name__ == "__main__":
     main()
