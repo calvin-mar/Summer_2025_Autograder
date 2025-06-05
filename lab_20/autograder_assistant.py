@@ -133,7 +133,7 @@ def syntax_checker(filename, timeout):
         return b_proceed, s_error_msg
 
 class MainWindow(QMainWindow):
-    def __init__(self, passes, error_msgs):
+    def __init__(self, passes, error_msgs, testSets):
         super().__init__()
 
         self.scroll = QScrollArea()
@@ -145,38 +145,88 @@ class MainWindow(QMainWindow):
 
         num_passed = 0
         error_count = 0
-        
+
+        print(error_msgs)
+
+        #Trimming "failed" from error messages
+        i=0
+
+        while i < len(error_msgs):
+                error_msgs[i]=error_msgs[i].replace(" Failed: ", "")
+                
+                i+=1
+        print(error_msgs)
+        seperateSets = False
+        if len(testSets) >=1:
+                seperateSets = True
+        print(testSets)
+        index=0
+        j=1
+        if seperateSets:
+                test = QHBoxLayout()
+                text = QLabel()
+                text.setText("<font color=black size=7><b>Task 1:<br>")
+                test.setAlignment(Qt.AlignmentFlag.AlignBottom)
+                text.setAlignment(Qt.AlignmentFlag.AlignBottom)
+                text.setFixedSize(100,32)
+                test.addWidget(text)
+                self.vbox.addLayout(test)
         for i_test_num in range(len(passes)):
+            #task seperation
+
+            if seperateSets and index<testSets[j-1]:
+                    print("true ", index)
+                    index+=1
+            elif seperateSets:
+                    print("false")
+                    test = QHBoxLayout()
+                    text = QLabel()
+                    text.setText("<font color=black size=7><b>Task " + str(j+1)+ ":<br>")
+                    test.addWidget(text)
+                    test.setAlignment(Qt.AlignmentFlag.AlignBottom)
+                    text.setAlignment(Qt.AlignmentFlag.AlignBottom)
+                    text.setFixedSize(100,32)
+                    self.vbox.addLayout(test)
+                    j+=1
+                    index=1
+
             test = QHBoxLayout()
             image = QLabel("Image here")
             image.setFixedSize(32,32)
             text = QLabel("Test" + str(i_test_num+1))
             text.setWordWrap(True)
+            text.setMargin(5)
             if passes[i_test_num]:
                 image.setText("<img src='check.png' width='32' height='32'>")
                 text.setText("Test " + str(i_test_num+1) +" Passed!")
                 num_passed += 1
             else:
-                image.setText("<img src='octagon.png' width='32' height='32'>")
-                text.setText(error_msgs[error_count])
+                image.setText("<img src='redX.png' width='32' height='32'>")
+                text.setText("<font color=black size=5>Test " + str(i_test_num+1) + " failed: <br></b></font>" + error_msgs[error_count])
+                
                 error_count += 1
             test.addWidget(image)
             test.addWidget(text)
             self.vbox.addLayout(test)
 
 
+
+
+
         if(len(passes) > 1):
             summary = QHBoxLayout()
-            image = QLabel("Image Here")
-            image.setFixedSize(52,52)
+            #image = QLabel("Image Here")
+            
+            #image.setFixedSize(52,52)
             object = QLabel("Summary of Tests")
             object.setWordWrap(True)
+            object.setAlignment(Qt.AlignmentFlag.AlignCenter)
             if(len(passes) == num_passed):
                 image.setText("<img src='check.png' width='52' height='52'>")
-                object.setText("<font color=black>CONGRATULATIONS YOU PASSED ALL TESTS!!!</font>")
+                object.setText("<font color=green>CONGRATULATIONS YOU PASSED ALL TESTS!!!</font>")
             else:
-                image.setText("<img src='octagon.png' width='52' height='52'><font color=black>")
-                object.setText("You passed " + str(num_passed) + "/" + str(len(passes)) + " tests.")
+                #image.setText("<img src='octagon.png' width='52' height='52'><font color=black>")
+                object.setText("<font color=red>You passed " + str(num_passed) + "/" + str(len(passes)) + " tests")
             image.setGeometry(QRect(object.x(), object.y(), object.width()-100, object.height()))
             font = QFont(object.font().family(), pointSize=24, weight=105)
             font.setBold(True)
@@ -212,9 +262,8 @@ class MainWindow(QMainWindow):
               if isinstance(widget, QLabel):
                     widget.setMaximumWidth(self.scroll.viewport().width()-20)
         
-def displayWindow(passses, error_msgs):
+def displayWindow(passses, error_msgs, testSets):
     app = QApplication(sys.argv)
-    window = MainWindow(passses, error_msgs)
+    window = MainWindow(passses, error_msgs, testSets)
     window.show()
     app.exec()
-            

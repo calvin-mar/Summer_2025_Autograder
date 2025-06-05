@@ -332,8 +332,9 @@ def testing(queue):
 	return
 
 def main():
-	passes, error_msgs,assistant = autoGrader("lab_09_student_submission.py")
-	assistant.displayWindow(passes, error_msgs)
+    testSums = []
+    passes, error_msgs,assistant = autoGrader("lab_09_student_submission.py")
+    assistant.displayWindow(passes, error_msgs, testSums)
 	
 if __name__ == "__main__":
     main()

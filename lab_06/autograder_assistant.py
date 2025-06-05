@@ -162,15 +162,19 @@ class MainWindow(QMainWindow):
         print(testSets)
         index=0
         j=1
-        test = QHBoxLayout()
-        text = QLabel()
-        text.setText("<font color=black size=7><b>Task 1:<br>")
-        test.addWidget(text)
-        self.vbox.addLayout(test)
+        if seperateSets:
+                test = QHBoxLayout()
+                text = QLabel()
+                text.setText("<font color=black size=7><b>Task 1:<br>")
+                test.setAlignment(Qt.AlignmentFlag.AlignBottom)
+                text.setAlignment(Qt.AlignmentFlag.AlignBottom)
+                text.setFixedSize(100,32)
+                test.addWidget(text)
+                self.vbox.addLayout(test)
         for i_test_num in range(len(passes)):
             #task seperation
 
-            if index<testSets[j-1] and seperateSets:
+            if seperateSets and index<testSets[j-1]:
                     print("true ", index)
                     index+=1
             elif seperateSets:
@@ -180,6 +184,8 @@ class MainWindow(QMainWindow):
                     text.setText("<font color=black size=7><b>Task " + str(j+1)+ ":<br>")
                     test.addWidget(text)
                     test.setAlignment(Qt.AlignmentFlag.AlignBottom)
+                    text.setAlignment(Qt.AlignmentFlag.AlignBottom)
+                    text.setFixedSize(100,32)
                     self.vbox.addLayout(test)
                     j+=1
                     index=1
@@ -196,7 +202,7 @@ class MainWindow(QMainWindow):
                 num_passed += 1
             else:
                 image.setText("<img src='redX.png' width='32' height='32'>")
-                text.setText("<font color=black size=5><b>Test " + str(i_test_num+1) + " failed: <br></b></font>" + error_msgs[error_count])
+                text.setText("<font color=black size=5>Test " + str(i_test_num+1) + " failed: <br></b></font>" + error_msgs[error_count])
                 
                 error_count += 1
             test.addWidget(image)
@@ -261,6 +267,3 @@ def displayWindow(passses, error_msgs, testSets):
     window = MainWindow(passses, error_msgs, testSets)
     window.show()
     app.exec()
-
-
-            

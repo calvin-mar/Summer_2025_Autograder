@@ -386,8 +386,9 @@ def testing(queue):
 	return
 
 def main():
-	passes, error_msgs,assistant = autoGrader("lab_08_student_submission.py")
-	assistant.displayWindow(passes, error_msgs)
+    testSets = [4, 2, 6, 1, 1]
+    passes, error_msgs,assistant = autoGrader("lab_08_student_submission.py")
+    assistant.displayWindow(passes, error_msgs, testSets)
 	
 if __name__ == "__main__":
     main()
