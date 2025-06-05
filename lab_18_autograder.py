@@ -110,7 +110,7 @@ class MainWindow(QMainWindow):
                 ['YORK PEPPERMINT PATTIE (H)', '1 lg. pattie (43g)', '149', '4g', 'n/a', '1.5g', '33.5g', '16.5mg', '7.5mg']]
             try:
                 try:
-                    result = get_data()
+                    result = sm.get_data()
                 except:
                     result = '"Function get_data() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True
@@ -135,7 +135,7 @@ class MainWindow(QMainWindow):
             error_calling_function = False
             try:
                 try:
-                    result = get_avg_sat_fat(l2d_solution)
+                    result = sm.get_avg_sat_fat(l2d_solution)
                 except:
                     result = '"Function get_avg_sat_fat() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True
@@ -162,7 +162,7 @@ class MainWindow(QMainWindow):
             error_calling_function = False
             try:
                 try:
-                    result = add_allergy_info(l2d_solution)
+                    result = sm.add_allergy_info(l2d_solution)
                 except:
                     result = '"Function add_allergy_info() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True
@@ -187,7 +187,7 @@ class MainWindow(QMainWindow):
             error_calling_function = False
             try:
                 try:
-                    write_safe_candies(l2d_solution2)
+                    sm.write_safe_candies(l2d_solution2)
                 except:
                     result = '"Function write_safe_candies() caused an error.  Try adding some print statements to it to see what is happening!"'
                     error_calling_function = True
