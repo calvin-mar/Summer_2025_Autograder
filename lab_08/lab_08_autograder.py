@@ -44,9 +44,9 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function biggest_smallest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function biggest_smallest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: biggest_smallest_number() should return 100 and 10 when the user enters 100, 80, 30, 90, 20, 10, 50, 40, 70, 60, but it returns " + str(result[0]) + " and " + str(result[1]) + ".</font>")
+                error_msgs.append(" Failed: biggest_smallest_number() should return 100 and 10 when the user enters 100, 80, 30, 90, 20, 10, 50, 40, 70, 60, but it returns " + str(result[0]) + " and " + str(result[1]) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -68,9 +68,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function biggest_smallest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function biggest_smallest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: biggest_smallest_number() should return 100 and 10 when the user enters 50, 20, 80, 40, 10, 70, 90, 60, 30, 100, but it returns " + str(result[0]) + " and " + str(result[1]) + ".</font>")
+                error_msgs.append(" Failed: biggest_smallest_number() should return 100 and 10 when the user enters 50, 20, 80, 40, 10, 70, 90, 60, 30, 100, but it returns " + str(result[0]) + " and " + str(result[1]) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -92,9 +92,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function biggest_smallest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function biggest_smallest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: biggest_smallest_number() should return 100 and 10 when the user enters 40, 70, 30, 80, 100, 90, 60, 10, 20, 50, but it returns " + str(result[0]) + " and " + str(result[1]) + ".</font>")
+                error_msgs.append(" Failed: biggest_smallest_number() should return 100 and 10 when the user enters 40, 70, 30, 80, 100, 90, 60, 10, 20, 50, but it returns " + str(result[0]) + " and " + str(result[1]) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -116,9 +116,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function biggest_smallest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function biggest_smallest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: biggest_smallest_number() should return -10 and -100 when the user enters -50, -80, -100, -30, -10, -20, -70, -90, -60, -40, but it returns " + str(result[0]) + " and " + str(result[1]) + ".</font>")
+                error_msgs.append(" Failed: biggest_smallest_number() should return -10 and -100 when the user enters -50, -80, -100, -30, -10, -20, -70, -90, -60, -40, but it returns " + str(result[0]) + " and " + str(result[1]) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -142,9 +142,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function repeated_doubler() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function repeated_doubler() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: repeated_doubler() should return 80 when the arguments are 5 and 4, but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: repeated_doubler() should return 80 when the arguments are 5 and 4, but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -166,9 +166,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function repeated_doubler() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function repeated_doubler() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: repeated_doubler() should return 0 when the arguments are 0 and 3, but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: repeated_doubler() should return 0 when the arguments are 0 and 3, but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -192,9 +192,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: fib_num() should return 0 when the argument is 1, but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: fib_num() should return 0 when the argument is 1, but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -216,9 +216,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: fib_num() should return 1 when the argument is 2, but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: fib_num() should return 1 when the argument is 2, but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -240,9 +240,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: fib_num() should return 1 when the argument is 3, but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: fib_num() should return 1 when the argument is 3, but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -264,9 +264,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: fib_num() should return 2 when the argument is 4, but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: fib_num() should return 2 when the argument is 4, but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -288,9 +288,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: fib_num() should return 21 when the argument is 9, but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: fib_num() should return 21 when the argument is 9, but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -312,9 +312,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: fib_num() should return 610 when the argument is 16, but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: fib_num() should return 610 when the argument is 16, but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -337,9 +337,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function leaf_sum() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function leaf_sum() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: leaf_sum() should return 10 when the argument is 4 and values entered are 1, 2, 3 and 4, but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: leaf_sum() should return 10 when the argument is 4 and values entered are 1, 2, 3 and 4, but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -363,9 +363,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function class_leaf_sum() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function class_leaf_sum() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: class_leaf_sum() should return 40 when the argument is 3 and values entered are (Student 1: 2 days, 9 + 8 leaves.  Student 2: 3 days, 1 + 1 + 1 leaves.  Student 3: 4 days, 4 +5 + 6 + 5 leaves), but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: class_leaf_sum() should return 40 when the argument is 3 and values entered are (Student 1: 2 days, 9 + 8 leaves.  Student 2: 3 days, 1 + 1 + 1 leaves.  Student 3: 4 days, 4 +5 + 6 + 5 leaves), but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1

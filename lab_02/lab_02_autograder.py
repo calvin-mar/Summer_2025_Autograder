@@ -41,9 +41,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             try:
-                error_msgs.append("<font color=black>Question " + str(i_test_num) + " Temperature Conversions Failed: " + str(sm.f_celsius) + " degrees Celsius should equal " + str(((9/5) * lab_02_studentsub.f_celsius + 32)) + " degrees Fahrenheit but your code has it equal " + str(lab_02_studentsub.f_temp_fahr) + " degrees Fahrenheit.  Make sure your variables are named correctly if your value is correct.</font>")
+                error_msgs.append(" Temperature Conversions Failed: " + str(sm.f_celsius) + " degrees Celsius should equal " + str(((9/5) * lab_02_studentsub.f_celsius + 32)) + " degrees Fahrenheit but your code has it equal " + str(lab_02_studentsub.f_temp_fahr) + " degrees Fahrenheit.  Make sure your variables are named correctly if your value is correct.</font>")
             except:
-                error_msgs.append("<font color=black>Question " + str(i_test_num) + " Temperature Conversions Failed: variables are not named correctly or have incorrect values.</font>")
+                error_msgs.append(" Temperature Conversions Failed: variables are not named correctly or have incorrect values.</font>")
 
 
         
@@ -59,9 +59,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             try:
-                error_msgs.append("<font color=black>Question " + str(i_test_num) + " Distance Conversions Failed: " + str(sm.f_miles) + " miles should equal " + str((lab_02_studentsub.f_miles / 3.1) * 5) + " kilometers but your code has it equal " + str(lab_02_studentsub.f_distance_km) + " kilometers.  Make sure your variables are named correctly if your value is correct.</font>")
+                error_msgs.append(" Distance Conversions Failed: " + str(sm.f_miles) + " miles should equal " + str((lab_02_studentsub.f_miles / 3.1) * 5) + " kilometers but your code has it equal " + str(lab_02_studentsub.f_distance_km) + " kilometers.  Make sure your variables are named correctly if your value is correct.</font>")
             except:
-                error_msgs.append("<font color=black>Question " + str(i_test_num) + " Distance Conversions Failed: variables are not named correctly or have incorrect values.</font>")
+                error_msgs.append(" Distance Conversions Failed: variables are not named correctly or have incorrect values.</font>")
                 
 
         
@@ -89,9 +89,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             try:
-                error_msgs.append("<font color=black>Question " + str(i_test_num) + " Pizza Data Failed: Areas should be S: " + str(f_small_area) + ", M: " + str(f_med_area) + ", L: " + str(f_large_area) + " and costs should be S: " + str(f_small_cost) + ", M: " + str(f_med_cost) + ", L: " + str(f_large_cost) + ". Make sure your variables are named correctly if your values are correct.</font>")
+                error_msgs.append(" Pizza Data Failed: Areas should be S: " + str(f_small_area) + ", M: " + str(f_med_area) + ", L: " + str(f_large_area) + " and costs should be S: " + str(f_small_cost) + ", M: " + str(f_med_cost) + ", L: " + str(f_large_cost) + ". Make sure your variables are named correctly if your values are correct.</font>")
             except:
-                error_msgs.append("<font color=black>Question " + str(i_test_num) + " Pizza Data Failed: variables are not named correctly or have incorrect values.</font>")
+                error_msgs.append(" Pizza Data Failed: variables are not named correctly or have incorrect values.</font>")
 
         
         i_test_num = i_test_num + 1
@@ -123,9 +123,9 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             try:
-                error_msgs.append("<font color=black>Question " + str(i_test_num) + " Olympics Party Failed: For " + str(sm.i_people) + " people, the values should be " + str(i_roll_packs) + " roll packs, "  + str(i_soda_packs) + " soda packs, "  + str(i_hot_dog_packs) + " hot dog packs, "  + str(i_chip_boxes) + " chip boxes.  There should be the following items left over: "  + str(i_rem_rolls) + " rolls, "  + str(i_rem_sodas) + " sodas, "  + str(i_rem_hot_dogs) + " hot dogs, and "  + str(i_rem_chips) + " bags of chips.  Make sure your variables are named correctly if your values are correct.</font>")
+                error_msgs.append(" Olympics Party Failed: For " + str(sm.i_people) + " people, the values should be " + str(i_roll_packs) + " roll packs, "  + str(i_soda_packs) + " soda packs, "  + str(i_hot_dog_packs) + " hot dog packs, "  + str(i_chip_boxes) + " chip boxes.  There should be the following items left over: "  + str(i_rem_rolls) + " rolls, "  + str(i_rem_sodas) + " sodas, "  + str(i_rem_hot_dogs) + " hot dogs, and "  + str(i_rem_chips) + " bags of chips.  Make sure your variables are named correctly if your values are correct.</font>")
             except:
-                error_msgs.append("<font color=black>Question " + str(i_test_num) + " Olympics Party Failed: variables are not named correctly or have incorrect values.</font>")
+                error_msgs.append(" Olympics Party Failed: variables are not named correctly or have incorrect values.</font>")
 
         ########################################################################
         # End of tests

@@ -38,7 +38,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: List l_cities is not empty or does not exist. </font>")
+            error_msgs.append(" Failed: List l_cities is not empty or does not exist. </font>")
 
         
         i_test_num = i_test_num + 1
@@ -56,7 +56,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: List l_miles does not contain precisely 3.1, 6.2, 13.1, 26.2 in that order or else it also contains additional values.</font>")
+            error_msgs.append(" Failed: List l_miles does not contain precisely 3.1, 6.2, 13.1, 26.2 in that order or else it also contains additional values.</font>")
 
         
         i_test_num = i_test_num + 1
@@ -70,7 +70,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Variable f_third doesn't hold the value 26.2. </font>")
+            error_msgs.append(" Failed: Variable f_third doesn't hold the value 26.2. </font>")
 
         
         i_test_num = i_test_num + 1
@@ -88,7 +88,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: List l_states does not contain precisely \"MA\", \"IN\", \"TN\", and \"WV\" in that order or else it also contains additional values. </font>")
+            error_msgs.append(" Failed: List l_states does not contain precisely \"MA\", \"IN\", \"TN\", and \"WV\" in that order or else it also contains additional values. </font>")
 
         
         i_test_num = i_test_num + 1
@@ -102,7 +102,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Variable s_state doesn't hold the value \"IN\". </font>")
+            error_msgs.append(" Failed: Variable s_state doesn't hold the value \"IN\". </font>")
 
         
         i_test_num = i_test_num + 1
@@ -121,7 +121,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: List l_countries does not contain precisely \"US\", \"Japan\", \"Brazil\", \"Mexico\", \"Canada\" in that order or else it also contains additional values. </font>")
+            error_msgs.append(" Failed: List l_countries does not contain precisely \"US\", \"Japan\", \"Brazil\", \"Mexico\", \"Canada\" in that order or else it also contains additional values. </font>")
 
         
         i_test_num = i_test_num + 1
@@ -141,7 +141,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: List l_cars does not contain precisely \"Ferrari\", \"Sonata\", \"Bug\", \"Rio\", \"Corolla\", \"Maserati\" in that order or else it also contains additional values. </font>")
+            error_msgs.append(" Failed: List l_cars does not contain precisely \"Ferrari\", \"Sonata\", \"Bug\", \"Rio\", \"Corolla\", \"Maserati\" in that order or else it also contains additional values. </font>")
 
         
         i_test_num = i_test_num + 1
@@ -163,7 +163,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: List l_names does not contain the correct number of items or the correct items. </font>")
+            error_msgs.append(" Failed: List l_names does not contain the correct number of items or the correct items. </font>")
 
         
         i_test_num = i_test_num + 1
@@ -185,7 +185,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: List l_names does not contain the correct number of items or the correct items. </font>")
+            error_msgs.append(" Failed: List l_names does not contain the correct number of items or the correct items. </font>")
 
         
         i_test_num = i_test_num + 1
@@ -199,7 +199,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: The value of i_num_names is not correct. </font>")
+            error_msgs.append(" Failed: The value of i_num_names is not correct. </font>")
 
         
         i_test_num = i_test_num + 1
@@ -214,7 +214,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: b_camry_present and/or b_sonata_present is incorrect. </font>")
+            error_msgs.append(" Failed: b_camry_present and/or b_sonata_present is incorrect. </font>")
 
         
         i_test_num = i_test_num + 1
@@ -229,7 +229,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: i_suzy_location and/or i_dave_location is incorrect. </font>")
+            error_msgs.append(" Failed: i_suzy_location and/or i_dave_location is incorrect. </font>")
 
         
         i_test_num = i_test_num + 1
@@ -247,7 +247,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: List l_grades does not contain precisely the values returned by the function call all increased by 2. </font>")
+            error_msgs.append(" Failed: List l_grades does not contain precisely the values returned by the function call all increased by 2. </font>")
 
         
         i_test_num = i_test_num + 1
@@ -265,7 +265,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: List l_grades2 is not sorted from low to high or contains the wrong number of grades (should be 4). </font>")
+            error_msgs.append(" Failed: List l_grades2 is not sorted from low to high or contains the wrong number of grades (should be 4). </font>")
 
         
         i_test_num = i_test_num + 1
@@ -283,7 +283,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: List l_grades3 is not sorted from high to low or contains the wrong number of grades (should be 4). </font>")
+            error_msgs.append(" Failed: List l_grades3 is not sorted from high to low or contains the wrong number of grades (should be 4). </font>")
 
         
         i_test_num = i_test_num + 1
@@ -297,7 +297,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: i_biggest is not the biggest value in the list l_grades. </font>")
+            error_msgs.append(" Failed: i_biggest is not the biggest value in the list l_grades. </font>")
 
         
         i_test_num = i_test_num + 1
@@ -311,7 +311,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: i_smallest is not the smallest value in the list l_grades. </font>")
+            error_msgs.append(" Failed: i_smallest is not the smallest value in the list l_grades. </font>")
 
 
         ########################################################################

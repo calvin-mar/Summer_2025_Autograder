@@ -103,9 +103,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function get_data() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function get_data() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: get_data() returns an incorrect result.  Try to compare the data file to the list your function returned to see where things went wrong.</font>")
+                error_msgs.append(" Failed: get_data() returns an incorrect result.  Try to compare the data file to the list your function returned to see where things went wrong.</font>")
 
 
         i_test_num = i_test_num + 1
@@ -129,9 +129,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function get_avg_sat_fat() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function get_avg_sat_fat() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: get_avg_sat_fat() should return roughly 5.5606060606060606, but it returns \"" + str(result) + "\".</font>")
+                error_msgs.append(" Failed: get_avg_sat_fat() should return roughly 5.5606060606060606, but it returns \"" + str(result) + "\".</font>")
 
 
         i_test_num = i_test_num + 1
@@ -155,9 +155,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function add_allergy_info() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function add_allergy_info() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: add_allergy_info() returns an incorrect result.  Try to compare the data file to the list your function returned to see where things went wrong.</font>")
+                error_msgs.append(" Failed: add_allergy_info() returns an incorrect result.  Try to compare the data file to the list your function returned to see where things went wrong.</font>")
 
 
         i_test_num = i_test_num + 1
@@ -186,9 +186,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function write_safe_candies() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function write_safe_candies() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: write_safe_candies() writes an incorrect value to the file.  Look at the file correct.csv to see what should have been written to the file safe.csv.</font>")
+                error_msgs.append(" Failed: write_safe_candies() writes an incorrect value to the file.  Look at the file correct.csv to see what should have been written to the file safe.csv.</font>")
 
 
         i_test_num = i_test_num + 1

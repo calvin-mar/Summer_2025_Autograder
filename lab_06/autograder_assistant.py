@@ -150,15 +150,16 @@ class MainWindow(QMainWindow):
             test = QHBoxLayout()
             image = QLabel("Image here")
             image.setFixedSize(32,32)
-            text = QLabel("Test" + str(i_test_num+1))
+            text = QLabel("<fontTest" + str(i_test_num+1))
             text.setWordWrap(True)
+            text.setMargin(5)
             if passes[i_test_num]:
                 image.setText("<img src='check.png' width='32' height='32'>")
                 text.setText("Test " + str(i_test_num+1) +" Passed!")
                 num_passed += 1
             else:
-                image.setText("<img src='octagon.png' width='32' height='32'>")
-                text.setText(error_msgs[error_count])
+                image.setText("<img src='redX.png' width='32' height='32'>")
+                text.setText("<font color=black>Test " + str(i_test_num+1) + error_msgs[error_count])
                 error_count += 1
             test.addWidget(image)
             test.addWidget(text)

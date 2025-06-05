@@ -45,9 +45,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function get_estimate() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function get_estimate() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: get_estimate() should return 252 when the user enters s:1, m:2, l:3, xl:4, xxl:5, xxxl:6.</font>")
+                error_msgs.append(" Failed: get_estimate() should return 252 when the user enters s:1, m:2, l:3, xl:4, xxl:5, xxxl:6.</font>")
 
         
         i_test_num = i_test_num + 1
@@ -67,9 +67,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function get_quantities() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function get_quantities() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: get_quantities() should return 1, 2, 3, 4, 5, 6 when the user enters s:1, m:2, l:3, xl:4, xxl:5, xxxl:6.</font>")
+                error_msgs.append(" Failed: get_quantities() should return 1, 2, 3, 4, 5, 6 when the user enters s:1, m:2, l:3, xl:4, xxl:5, xxxl:6.</font>")
         i_test_num = i_test_num + 1
 
 
@@ -88,9 +88,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function validate_combination() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function validate_combination() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: validate_combination() should return True when given 3 valid numbers like 12, 33, 0.</font>")
+                error_msgs.append(" Failed: validate_combination() should return True when given 3 valid numbers like 12, 33, 0.</font>")
 
         
         i_test_num = i_test_num + 1
@@ -112,9 +112,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function validate_combination() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function validate_combination() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: validate_combination() should return False with first number &#60; 0.</font>")
+                error_msgs.append(" Failed: validate_combination() should return False with first number &#60; 0.</font>")
 
         
         i_test_num = i_test_num + 1
@@ -135,9 +135,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function validate_combination() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function validate_combination() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: validate_combination() should return False with second number &#60; 0.</font>")
+                error_msgs.append(" Failed: validate_combination() should return False with second number &#60; 0.</font>")
 
         i_test_num = i_test_num + 1
 
@@ -159,9 +159,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function validate_combination() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function validate_combination() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: validate_combination() should return False with third number &#60; 0.</font>")
+                error_msgs.append(" Failed: validate_combination() should return False with third number &#60; 0.</font>")
 
         i_test_num = i_test_num + 1
 
@@ -180,9 +180,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function validate_combination() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function validate_combination() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: validate_combination() should return False with first number > 39.</font>")
+                error_msgs.append(" Failed: validate_combination() should return False with first number > 39.</font>")
 
         
         i_test_num = i_test_num + 1
@@ -202,9 +202,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function validate_combination() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function validate_combination() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: validate_combination() should return False with second number > 39.</font>")
+                error_msgs.append(" Failed: validate_combination() should return False with second number > 39.</font>")
 
         i_test_num = i_test_num + 1
 
@@ -223,9 +223,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function validate_combination() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function validate_combination() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: validate_combination() should return False with third number > 39.</font>")
+                error_msgs.append(" Failed: validate_combination() should return False with third number > 39.</font>")
 
         i_test_num = i_test_num + 1
 
@@ -244,9 +244,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function validate_combination() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function validate_combination() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: validate_combination() should return False with the same first and second numbers.</font>")
+                error_msgs.append(" Failed: validate_combination() should return False with the same first and second numbers.</font>")
 
         i_test_num = i_test_num + 1
 
@@ -265,9 +265,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function validate_combination() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function validate_combination() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: validate_combination() should return False with the same second and third numbers.</font>")
+                error_msgs.append(" Failed: validate_combination() should return False with the same second and third numbers.</font>")
 
         i_test_num = i_test_num + 1
 
@@ -287,9 +287,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function order_combo_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function order_combo_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: order_combo_meal() should return 8.97 and True when given a sandwich, side, and drink with values of 1, 2, and 4 respectively.</font>")
+                error_msgs.append(" Failed: order_combo_meal() should return 8.97 and True when given a sandwich, side, and drink with values of 1, 2, and 4 respectively.</font>")
 
         
         i_test_num = i_test_num + 1
@@ -310,9 +310,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function order_combo_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function order_combo_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: order_combo_meal() should return 2.99 and False when given a side and drink with values of 1 and a sandwich with a value of 0.</font>")
+                error_msgs.append(" Failed: order_combo_meal() should return 2.99 and False when given a side and drink with values of 1 and a sandwich with a value of 0.</font>")
 
         i_test_num = i_test_num + 1
 
@@ -331,9 +331,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function order_combo_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function order_combo_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: order_combo_meal() should return 2.99 and False when given a sandwich and drink with values of 1 and a side with a value of 0.</font>")
+                error_msgs.append(" Failed: order_combo_meal() should return 2.99 and False when given a sandwich and drink with values of 1 and a side with a value of 0.</font>")
 
         i_test_num = i_test_num + 1
 
@@ -352,9 +352,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function order_combo_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function order_combo_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: order_combo_meal() should return 3.98 and False when given a sandwich and side with values of 1 and a drink with a value of 0.</font>")
+                error_msgs.append(" Failed: order_combo_meal() should return 3.98 and False when given a sandwich and side with values of 1 and a drink with a value of 0.</font>")
  
         i_test_num = i_test_num + 1
 
@@ -373,9 +373,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function get_item_price() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function get_item_price() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: get_item_price() should return 3.99 when given a drink with a value of 4.</font>")
+                error_msgs.append(" Failed: get_item_price() should return 3.99 when given a drink with a value of 4.</font>")
 
         i_test_num = i_test_num + 1
 
@@ -394,9 +394,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function get_item_price() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function get_item_price() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: get_item_price() should return 0.0 when given a sandwich with a value of -1.</font>")
+                error_msgs.append(" Failed: get_item_price() should return 0.0 when given a sandwich with a value of -1.</font>")
 
         
         i_test_num = i_test_num + 1
@@ -416,9 +416,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function get_item_price() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function get_item_price() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: get_item_price() should return 0.0 when given a sandwich with a value of 5.</font>")
+                error_msgs.append(" Failed: get_item_price() should return 0.0 when given a sandwich with a value of 5.</font>")
 
         
         i_test_num = i_test_num + 1
@@ -438,9 +438,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function validate_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function validate_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: validate_meal() should return True when given a sandwich, side, and drink all with values of 1.</font>")
+                error_msgs.append(" Failed: validate_meal() should return True when given a sandwich, side, and drink all with values of 1.</font>")
 
         
         i_test_num = i_test_num + 1
@@ -460,9 +460,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function validate_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function validate_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: validate_meal() should return False when given a sandwich with a value of 0.</font>")
+                error_msgs.append(" Failed: validate_meal() should return False when given a sandwich with a value of 0.</font>")
 
         i_test_num = i_test_num + 1
 
@@ -481,9 +481,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function validate_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function validate_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: validate_meal() should return False when given a side with a value of 0.</font>")
+                error_msgs.append(" Failed: validate_meal() should return False when given a side with a value of 0.</font>")
 
         i_test_num = i_test_num + 1
 
@@ -502,9 +502,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function validate_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function validate_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: validate_meal() should return False when given a drink with a value of 0.</font>")
+                error_msgs.append(" Failed: validate_meal() should return False when given a drink with a value of 0.</font>")
 
         i_test_num = i_test_num + 1
 
@@ -523,9 +523,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function validate_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function validate_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: validate_meal() should return False when given a sandwich with a value of 4.</font>")
+                error_msgs.append(" Failed: validate_meal() should return False when given a sandwich with a value of 4.</font>")
 
         
         i_test_num = i_test_num + 1
@@ -545,9 +545,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function validate_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function validate_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: validate_meal() should return False when given a side with a value of 3.</font>")
+                error_msgs.append(" Failed: validate_meal() should return False when given a side with a value of 3.</font>")
 
         i_test_num = i_test_num + 1
 
@@ -565,9 +565,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function validate_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function validate_meal() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: validate_meal() should return False when given a drink with a value of 5.</font>")
+                error_msgs.append(" Failed: validate_meal() should return False when given a drink with a value of 5.</font>")
 
         i_test_num = i_test_num + 1
         ########################################################################

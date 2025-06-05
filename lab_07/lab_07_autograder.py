@@ -40,7 +40,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: double_it() should return 0 with argument 0, but it returns " + str(result) + ".</font>")
+            error_msgs.append(" Failed: double_it() should return 0 with argument 0, but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -57,7 +57,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: double_it() should return 26 with argument 13, but it returns " + str(result) + ".</font>")
+            error_msgs.append(" Failed: double_it() should return 26 with argument 13, but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -72,7 +72,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: double_it() should return -54 with argument -27, but it returns " + str(result) + ".</font>")
+            error_msgs.append(" Failed: double_it() should return -54 with argument -27, but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -90,7 +90,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: get_total() should return 73 when the user enters 0, -9, 5, 77, -1, but it returns " + str(result) + ".</font>")
+            error_msgs.append(" Failed: get_total() should return 73 when the user enters 0, -9, 5, 77, -1, but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -108,7 +108,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: calc_avg() should return 4.333333333333333 when the user enters 5, 6, 2, -1, but it returns " + str(result) + ".</font>")
+            error_msgs.append(" Failed: calc_avg() should return 4.333333333333333 when the user enters 5, 6, 2, -1, but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -130,7 +130,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: get_sum() should return 20 when the user calls it with argument 5 and then enters 5, 6, 2, -1, 8, but it returns " + str(result) + ".</font>")
+            error_msgs.append(" Failed: get_sum() should return 20 when the user calls it with argument 5 and then enters 5, 6, 2, -1, 8, but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -153,7 +153,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: find_smallest() should return 40 when the user calls it with argument 5 and then enters 100, 50, 60, 40, 70, but it returns " + str(result) + ".</font>")
+            error_msgs.append(" Failed: find_smallest() should return 40 when the user calls it with argument 5 and then enters 100, 50, 60, 40, 70, but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -176,7 +176,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: count_num_fives() should return 3 when the user calls it with argument 10 and then enters 100, 5, 60, 5, 70, 1, 6, 5, 4, 77 but it returns " + str(result) + ".</font>")
+            error_msgs.append(" Failed: count_num_fives() should return 3 when the user calls it with argument 10 and then enters 100, 5, 60, 5, 70, 1, 6, 5, 4, 77 but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -199,7 +199,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: convert_dollars_to_euros() should return 2.225 when the user enters 2.5 but it returns " + str(result) + ".</font>")
+            error_msgs.append(" Failed: convert_dollars_to_euros() should return 2.225 when the user enters 2.5 but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -222,7 +222,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: is_even() should return True when the user enters 22 but it returns " + str(result) + ".</font>")
+            error_msgs.append(" Failed: is_even() should return True when the user enters 22 but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -243,7 +243,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: is_even() should return False when the user enters 21 but it returns " + str(result) + ".</font>")
+            error_msgs.append(" Failed: is_even() should return False when the user enters 21 but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -264,7 +264,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: count_evens() should return 2 when the arguments are 2 and 8, but it returns " + str(result) + ".</font>")
+            error_msgs.append(" Failed: count_evens() should return 2 when the arguments are 2 and 8, but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -284,7 +284,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: count_evens() should return 2 when the arguments are 8 and 2, but it returns " + str(result) + ".</font>")
+            error_msgs.append(" Failed: count_evens() should return 2 when the arguments are 8 and 2, but it returns " + str(result) + ".</font>")
 
         
         i_test_num = i_test_num + 1
@@ -304,7 +304,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: temp_monitor() should return pleasant for argument 60.5.</font>")
+            error_msgs.append(" Failed: temp_monitor() should return pleasant for argument 60.5.</font>")
 
         
         i_test_num = i_test_num + 1

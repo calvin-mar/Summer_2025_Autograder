@@ -43,7 +43,7 @@ def autoGrader(student_submission):
             passses.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: List l_first does not contain the correct values of \"A\", \"B\", \"C\", and \"D\" or it does not have length exactly 4. </font>")
+            error_msgs.append(" Failed: List l_first does not contain the correct values of \"A\", \"B\", \"C\", and \"D\" or it does not have length exactly 4. </font>")
 
         
         i_test_num = i_test_num + 1
@@ -60,7 +60,7 @@ def autoGrader(student_submission):
             passses.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: List l_last does not contain the correct values of \"K\", \"L\", and \"M\" or it does not have length exactly 3. </font>")
+            error_msgs.append(" Failed: List l_last does not contain the correct values of \"K\", \"L\", and \"M\" or it does not have length exactly 3. </font>")
 
         
         i_test_num = i_test_num + 1
@@ -77,7 +77,7 @@ def autoGrader(student_submission):
             passses.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: List l_last does not contain the correct values of \"F\", \"G\", and \"H\" or it does not have length exactly 3. </font>")
+            error_msgs.append(" Failed: List l_last does not contain the correct values of \"F\", \"G\", and \"H\" or it does not have length exactly 3. </font>")
 
         
         i_test_num = i_test_num + 1
@@ -108,7 +108,7 @@ def autoGrader(student_submission):
             passses.append(True)
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: List l_copy_nums is not a correct copy of l_nums because overwriting a value in l_copy_nums overwrites a value in l_nums or the length of l_copy_nums is not correct. </font>")
+            error_msgs.append(" Failed: List l_copy_nums is not a correct copy of l_nums because overwriting a value in l_copy_nums overwrites a value in l_nums or the length of l_copy_nums is not correct. </font>")
         ########################################################################
         # End of tests
         ########################################################################

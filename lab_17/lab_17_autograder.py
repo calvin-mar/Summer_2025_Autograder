@@ -63,9 +63,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function load_misspellings() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function load_misspellings() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: load_misspellings() should return " + str(test_dict) + " but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: load_misspellings() should return " + str(test_dict) + " but it returns " + str(result) + ".</font>")
 
 
         i_test_num = i_test_num + 1
@@ -90,9 +90,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function fix_misspellings() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function fix_misspellings() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: fix_misspellings() should return \"when i am late getting home my goat doofus may make a mistake and eat my cat this keeps mee from getting home late all the time becuz i love my goat and dont want him to get a hairball from eating my cat\", but it returns \"" + str(result) + "\".</font>")
+                error_msgs.append(" Failed: fix_misspellings() should return \"when i am late getting home my goat doofus may make a mistake and eat my cat this keeps mee from getting home late all the time becuz i love my goat and dont want him to get a hairball from eating my cat\", but it returns \"" + str(result) + "\".</font>")
 
 
         i_test_num = i_test_num + 1
@@ -123,9 +123,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function word_count() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function word_count() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: word_count() should return dictionary: \"" + str(test_dict2) + "\" with argument \"" + s_text + "\" but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: word_count() should return dictionary: \"" + str(test_dict2) + "\" with argument \"" + s_text + "\" but it returns " + str(result) + ".</font>")
 
 
         i_test_num = i_test_num + 1
@@ -153,9 +153,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function output_fixed_text() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function output_fixed_text() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: output_fixed_text() writes an incorrect value to the file.  Look at the file fixed_example.txt to see what should have been written to the file fixed.txt.</font>")
+                error_msgs.append(" Failed: output_fixed_text() writes an incorrect value to the file.  Look at the file fixed_example.txt to see what should have been written to the file fixed.txt.</font>")
 
 
         i_test_num = i_test_num + 1
@@ -179,9 +179,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function make_dictionary() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function make_dictionary() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: make_dictionary() should return should return " + str(spanish_dict) + " but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: make_dictionary() should return should return " + str(spanish_dict) + " but it returns " + str(result) + ".</font>")
 
 
         i_test_num = i_test_num + 1
@@ -203,9 +203,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function get_text_to_translate() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function get_text_to_translate() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: get_text_to_translate() should return \"hola mi amigo donde esta la salle de de bano\" but it returns \"" + str(result) + "\".</font>")
+                error_msgs.append(" Failed: get_text_to_translate() should return \"hola mi amigo donde esta la salle de de bano\" but it returns \"" + str(result) + "\".</font>")
 
 
         i_test_num = i_test_num + 1
@@ -230,9 +230,9 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_calling_function == True:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function translate() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+                error_msgs.append(" Failed: Function translate() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
             else:
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: translate() should return \"hello my friend where is ????? ????? ????? ????? bathroom\" and " + str(d_answer) + ", but it returns \"" + result + "\" and " + str(d_xlate_errors) + ".</font>")
+                error_msgs.append(" Failed: translate() should return \"hello my friend where is ????? ????? ????? ????? bathroom\" and " + str(d_answer) + ", but it returns \"" + result + "\" and " + str(d_xlate_errors) + ".</font>")
 
 
         i_test_num = i_test_num + 1

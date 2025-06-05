@@ -52,13 +52,13 @@ def autoGrader(student_submission):
             except:
                 result = '"Function read_data() crashed with an error!"'
                 error_code = "crash"
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function read_data() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
+                error_msgs.append(" Failed: Function read_data() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
             assert result == "AAACCCGGGTTTACTTAGCGA"
             passes.append(True)
         except:
             passes.append(False)
             if error_code != "crash":
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: read_data(\"shark.txt\") should return AAACCCGGGTTTACTTAGCGA, but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: read_data(\"shark.txt\") should return AAACCCGGGTTTACTTAGCGA, but it returns " + str(result) + ".</font>")
 
 
         i_test_num = i_test_num + 1
@@ -76,12 +76,12 @@ def autoGrader(student_submission):
             except:
                 result = '"Function read_data() crashed with an error!"'
                 error_code = "crash"
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function read_data() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
+                error_msgs.append(" Failed: Function read_data() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
             assert result == "ACGACGTTTAAACCR"
             passes.append(True)
         except:
             if error_code != "crash":
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: read_data(\"elephant.txt\") should return ACGACGTTTAAACCR, but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: read_data(\"elephant.txt\") should return ACGACGTTTAAACCR, but it returns " + str(result) + ".</font>")
 
 
         i_test_num = i_test_num + 1
@@ -101,13 +101,13 @@ def autoGrader(student_submission):
             except:
                 result = '"Function is_valid_strand() crashed with an error!"'
                 error_code = "crash"
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function is_valid_strand() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
+                error_msgs.append(" Failed: Function is_valid_strand() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
             assert result == True
             passes.append(True)
         except:
             passes.append(False)
             if error_code != "crash":
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: is_valid_strand() with strand \"ACGCGTGTATACAAATTT\" should return True, but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: is_valid_strand() with strand \"ACGCGTGTATACAAATTT\" should return True, but it returns " + str(result) + ".</font>")
 
 
         i_test_num = i_test_num + 1
@@ -148,7 +148,7 @@ def autoGrader(student_submission):
                 passes.append(False)
                 result = '"Function is_valid_strand() crashed with an error!"'
                 error_code = "crash"
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function is_valid_strand() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
+                error_msgs.append(" Failed: Function is_valid_strand() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
             assert result1 == False
             assert result2 == False
             assert result3 == False
@@ -174,7 +174,7 @@ def autoGrader(student_submission):
             passes.append(True)
         except:
             if error_code != "crash":
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: is_valid_strand() with an invalid strand should return False, but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: is_valid_strand() with an invalid strand should return False, but it returns " + str(result) + ".</font>")
 
 
         i_test_num = i_test_num + 1
@@ -196,13 +196,13 @@ def autoGrader(student_submission):
             except:
                 result = '"Function num_differences() crashed with an error!"'
                 error_code = "crash"
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function num_differences() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
+                error_msgs.append(" Failed: Function num_differences() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
             assert result == 0
             passes.append(True)
         except:
             passes.append(False)
             if error_code != "crash":
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: num_differences() with 2 identical strands should return 0, but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: num_differences() with 2 identical strands should return 0, but it returns " + str(result) + ".</font>")
 
 
         i_test_num = i_test_num + 1
@@ -221,13 +221,13 @@ def autoGrader(student_submission):
             except:
                 result = '"Function num_differences() crashed with an error!"'
                 error_code = "crash"
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function num_differences() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
+                error_msgs.append(" Failed: Function num_differences() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
             assert result == 5
             passes.append(True)
         except:
             passes.append(False)
             if error_code != "crash":
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: num_differences() with these strands \"TAACGCTGGTGTACA\" and \"AAACCCGGGTTTACT\" should return 5, but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: num_differences() with these strands \"TAACGCTGGTGTACA\" and \"AAACCCGGGTTTACT\" should return 5, but it returns " + str(result) + ".</font>")
 
 
         i_test_num = i_test_num + 1
@@ -248,13 +248,13 @@ def autoGrader(student_submission):
             except:
                 result = '"Function complement() crashed with an error!"'
                 error_code = "crash"
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function complement() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
+                error_msgs.append(" Failed: Function complement() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
             assert result == "TTTGGGCCCAAATGA"
             passes.append(True)
         except:
             passes.append(False)
             if error_code != "crash":
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: complement() with strand \"AAACCCGGGTTTACT\" should return \"TTTGGGCCCAAATGA\", but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: complement() with strand \"AAACCCGGGTTTACT\" should return \"TTTGGGCCCAAATGA\", but it returns " + str(result) + ".</font>")
 
 
         i_test_num = i_test_num + 1
@@ -275,13 +275,13 @@ def autoGrader(student_submission):
             except:
                 result = '"Function get_triplets() crashed with an error!"'
                 error_code = "crash"
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function get_triplets() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
+                error_msgs.append(" Failed: Function get_triplets() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
             assert result == ["ACG", "CGT", "GTA", "TAC", "AAA", "TTT"]
             passes.append(True)
         except:
             passes.append(False)
             if error_code != "crash":
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: get_triplets() with strand \"ACGCGTGTATACAAATTT\" should return [\"ACG\", \"CGT\", \"GTA\", \"TAC\", \"AAA\", \"TTT\"], but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: get_triplets() with strand \"ACGCGTGTATACAAATTT\" should return [\"ACG\", \"CGT\", \"GTA\", \"TAC\", \"AAA\", \"TTT\"], but it returns " + str(result) + ".</font>")
 
 
         i_test_num = i_test_num + 1
@@ -303,13 +303,13 @@ def autoGrader(student_submission):
             except:
                 result = '"Function get_amino_acids() crashed with an error!"'
                 error_code = "crash"
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function get_amino_acids() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
+                error_msgs.append(" Failed: Function get_amino_acids() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
             assert result == "TRVYKF"
             passes.append(True)
         except:
             passes.append(False)
             if error_code != "crash":
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: get_amino_acids() with argument [\"ACG\", \"CGT\", \"GTA\", \"TAC\", \"AAA\", \"TTT\"] should return \"TRVYKF\", but it returns " + str(result) + ".</font>")
+                error_msgs.append(" Failed: get_amino_acids() with argument [\"ACG\", \"CGT\", \"GTA\", \"TAC\", \"AAA\", \"TTT\"] should return \"TRVYKF\", but it returns " + str(result) + ".</font>")
 
 
         i_test_num = i_test_num + 1
@@ -394,7 +394,7 @@ def autoGrader(student_submission):
             except:
                 result = '"Function my_sort() crashed with an error!"'
                 error_code = "crash"
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: Function get_acid() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
+                error_msgs.append(" Failed: Function get_acid() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening! </font>")
             assert result1 == "F"
             assert result2 == "F"
             assert result3 == "L"
@@ -463,7 +463,7 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             if error_code != "crash":
-                error_msgs.append("<font color=black>Test " + str(i_test_num) + " Failed: get_acid() returns an incorrect value for one of the 64 inputs! Which one?  Happy debugging! </font>")
+                error_msgs.append(" Failed: get_acid() returns an incorrect value for one of the 64 inputs! Which one?  Happy debugging! </font>")
 
 
         i_test_num = i_test_num + 1
