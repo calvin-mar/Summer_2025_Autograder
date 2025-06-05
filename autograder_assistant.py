@@ -212,7 +212,7 @@ class MainWindow(QMainWindow):
               if isinstance(widget, QLabel):
                     widget.setMaximumWidth(self.scroll.viewport().width()-20)
         
-def displayWinow(passses, error_msgs):
+def displayWindow(passses, error_msgs):
     app = QApplication(sys.argv)
     window = MainWindow(passses, error_msgs)
     window.show()
