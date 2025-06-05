@@ -10,7 +10,7 @@ import time
 import importlib.util
 
 def syntax_checker(filename, TIMEOUT):
-        print("Syntax checker starting...")
+        #print("Syntax checker starting...")
 
         ##################################################################################################
         ### new code
