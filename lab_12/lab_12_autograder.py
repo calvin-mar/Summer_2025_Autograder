@@ -81,7 +81,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable i_task_1 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable i_task_1 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -97,7 +97,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable s_task_2 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable s_task_2 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -112,7 +112,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable b_task_3 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable b_task_3 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -127,7 +127,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable s_task_4 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable s_task_4 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -142,7 +142,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable b_task_7 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable b_task_7 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -157,7 +157,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable b_task_6 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable b_task_6 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -172,7 +172,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable l_task_7 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable l_task_7 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -188,7 +188,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable i_task_8_start and i_task_8_stop exist and have the correct values. </font>")
+            error_msgs.append(" Failed: Make sure the variable i_task_8_start and i_task_8_stop exist and have the correct values. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -203,7 +203,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable s_task_9 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable s_task_9 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -224,7 +224,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable s_task_10 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable s_task_10 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -239,7 +239,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable i_task_11 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable i_task_11 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -254,7 +254,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable b_task_12 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable b_task_12 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -269,7 +269,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable b_task_13 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable b_task_13 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -284,7 +284,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable i_task_14 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable i_task_14 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -299,7 +299,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable s_task_15 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable s_task_15 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -314,7 +314,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable b_task_16 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable b_task_16 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -329,7 +329,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable b_task_17 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable b_task_17 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -344,7 +344,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable b_task_18 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable b_task_18 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -359,7 +359,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable s_task_19 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable s_task_19 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -374,7 +374,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable l_task_20 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable l_task_20 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -389,7 +389,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable i_task_21 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable i_task_21 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -409,7 +409,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable s_task_22 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable s_task_22 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -424,7 +424,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable i_task_23 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable i_task_23 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -439,7 +439,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable 2_task_24 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable 2_task_24 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -454,7 +454,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable b_task_25 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable b_task_25 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -469,7 +469,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable s_task_26 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable s_task_26 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -486,7 +486,7 @@ def autoGrader(student_submission):
             
         except:
             passes.append(False)
-            error_msgs.append("<font color=black>Question " + str(i_test_num) + " Failed: Make sure the variable l_task_27 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable l_task_27 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1
@@ -512,8 +512,9 @@ def testing(queue):
 	return
 
 def main():
-	passes, error_msgs,assistant = autoGrader("lab_12_student_submission.py")
-	assistant.displayWindow(passes, error_msgs)
+    testSets = []
+    passes, error_msgs,assistant = autoGrader("lab_12_student_submission.py")
+    assistant.displayWindow(passes, error_msgs, testSets)
 	
 if __name__ == "__main__":
     main()
