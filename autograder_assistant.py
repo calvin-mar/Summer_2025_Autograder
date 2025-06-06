@@ -239,7 +239,7 @@ class MainWindow(QMainWindow):
             text.setMargin(5)
             if passes[i_test_num]:
                 image.setText("<img src='check.png' width='32' height='32'>")
-                text.setText("Test " + str(i_test_num+1) +" Passed!")
+                text.setText("<b>Test " + str(i_test_num+1) +" Passed!</b>")
                 num_passed += 1
             else:
                 image.setText("<img src='redX.png' width='32' height='32'>")
@@ -256,14 +256,14 @@ class MainWindow(QMainWindow):
 
         if(len(passes) > 1):
             summary = QHBoxLayout()
-            #image = QLabel("Image Here")
+            image = QLabel("")
             
-            #image.setFixedSize(52,52)
+            image.setFixedSize(52,52)
             object = QLabel("Summary of Tests")
             object.setWordWrap(True)
             object.setAlignment(Qt.AlignmentFlag.AlignCenter)
             if(len(passes) == num_passed):
-                image.setText("<img src='check.png' width='52' height='52'>")
+                #image.setText("<img src='check.png' width='52' height='52'>")
                 object.setText("<font color=green>CONGRATULATIONS YOU PASSED ALL TESTS!!!</font>")
             else:
                 #image.setText("<img src='octagon.png' width='52' height='52'><font color=black>")
