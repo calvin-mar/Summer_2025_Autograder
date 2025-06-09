@@ -5,6 +5,7 @@ import astor
 import re
 import os
 import importlib.util
+from multiprocessing import shared_memory as shm
 
 def autoGrader(student_submission):
     passes = []
@@ -30,88 +31,122 @@ def autoGrader(student_submission):
         ########################################################################
         # Start of tests #######################################################
         ########################################################################
-        i_test_num = 1
-        # Test 1: Task 1: Test biggest_number() function with biggest in 1st position
-        error_calling_function = False
-        try:
-            result = sm.double_it(0)
-            assert result == 0
-            
-            passes.append(True)
-        except:
-            passes.append(False)
-            error_msgs.append(" Failed: double_it() should return 0 with argument 0, but it returns " + str(result) + ".</font>")
+        # Test 1: Task 1: Test double_it() 
 
+        try:
+            result = assistant.is_inf(sm.double_it, (0,))
+        except:
+            result = "Error"
         
-        i_test_num = i_test_num + 1
+        if(result == "Infinite"):
+            passes.append(False)
+            error_msgs.append(" Failed: An infinite loop is detected within double_it(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function double_it() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 0):
+                passes.append(True)
+            else:
+                passes.append(False)
+                error_msgs.append(" Failed: double_it() should return 0 with argument 0, but it returns " + str(result) + ".</font>")
 
         
         # Test 2: Task 1: Test double_it() function with 13
 
-
-
         try:
-            result = sm.double_it(13)
-            assert result == 26
-            
-            passes.append(True)
+            result = assistant.is_inf(sm.double_it, (13,))
         except:
+            result = "Error"
+        
+        if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: double_it() should return 26 with argument 13, but it returns " + str(result) + ".</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within double_it(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function double_it() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 26):
+                passes.append(True)
+            else:
+                passes.append(False)
+                error_msgs.append(" Failed: double_it() should return 26 with argument 13, but it returns " + str(result) + ".</font>")
 
         
-        i_test_num = i_test_num + 1
+
 
 
         # Test 3: Task 1: Test double_it() function with -27
 
         try:
-            result = sm.double_it(-27)
-            assert result == -54
-            
-            passes.append(True)
+            result = assistant.is_inf(sm.double_it, (-27,))
         except:
+            result = "Error"
+        
+        if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: double_it() should return -54 with argument -27, but it returns " + str(result) + ".</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within double_it(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function double_it() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == -54):
+                passes.append(True)
+            else:
+                passes.append(False)
+                error_msgs.append(" Failed: double_it() should return -54 with argument -27, but it returns " + str(result) + ".</font>")
 
         
-        i_test_num = i_test_num + 1
+
 
         ###
 
         # Test 4: Task 2: Test get_total() function
 
-
-
+        l_data = shm.ShareableList([0, -9, 5, 77, -1], name="l_data")
         try:
-            result = sm.get_total()
-            assert result == 73
-            
-            passes.append(True)
+            result = assistant.is_inf(sm.get_total)
         except:
+            result = "Error"
+        if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: get_total() should return 73 when the user enters 0, -9, 5, 77, -1, but it returns " + str(result) + ".</font>")
-
-        
-        i_test_num = i_test_num + 1
+            error_msgs.append(" Failed: An infinite loop is detected within get_total(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function get_total() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 73):
+                passes.append(True)
+            else:
+                passes.append(False)
+                error_msgs.append(" Failed: get_total() should return 73 when the user enters 0, -9, 5, 77, -1, but it returns " + str(result) + ".</font>")
+        l_data.shm.close()
+        l_data.shm.unlink()  
 
         ###
 
         # Test 5: Task 3: Test calc_avg() function
 
 
-
+        l_data = shm.ShareableList([5, 6, 2, -1], name="l_data")
         try:
-            result = sm.calc_avg()
-            assert result == 4.333333333333333
-            
-            passes.append(True)
+            result = assistant.is_inf(sm.calc_avg)
         except:
+            result = "Error"
+        if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: calc_avg() should return 4.333333333333333 when the user enters 5, 6, 2, -1, but it returns " + str(result) + ".</font>")
-
-        
-        i_test_num = i_test_num + 1
+            error_msgs.append(" Failed: An infinite loop is detected within calc_avg(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function calc_avg() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 4.333333333333333):
+                passes.append(True)
+            else:
+                passes.append(False)
+                error_msgs.append(" Failed: calc_avg() should return 4.333333333333333 when the user enters 5, 6, 2, -1, but it returns " + str(result) + ".</font>")
+        l_data.shm.close()
+        l_data.shm.unlink()
 
         ###
 
@@ -119,21 +154,25 @@ def autoGrader(student_submission):
         # Test 6: Task 4: Test get_sum() function 
 
 
-
+        l_data = shm.ShareableList([5, 6, 2, -1, 8], name="l_data")
         try:
-            try:
-                result = sm.get_sum(5)
-            except:
-                result = '"Function get_sum() caused an error.  Try adding some print statements to it to see what is happening!"'
-            assert result == 20
-            
-            passes.append(True)
+            result = assistant.is_inf(sm.get_sum, (5,))
         except:
+            result = "Error"
+        if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: get_sum() should return 20 when the user calls it with argument 5 and then enters 5, 6, 2, -1, 8, but it returns " + str(result) + ".</font>")
-
-        
-        i_test_num = i_test_num + 1
+            error_msgs.append(" Failed: An infinite loop is detected within get_sum(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function get_sum() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 20):
+                passes.append(True)
+            else:
+                passes.append(False)
+                error_msgs.append(" Failed: get_sum() should return 20 when the user calls it with argument 5 and then enters 5, 6, 2, -1, 8, but it returns " + str(result) + ".</font>")
+        l_data.shm.close()
+        l_data.shm.unlink()
 
 
         ###
@@ -142,21 +181,25 @@ def autoGrader(student_submission):
         # Test 7: Task 5: Test find_smallest() function 
 
 
-
+        l_data = shm.ShareableList([100, 50, 60, 40, 70], name="l_data")
         try:
-            try:
-                result = sm.find_smallest(5)
-            except:
-                result = '"Function find_smallest() caused an error.  Try adding some print statements to it to see what is happening!"'
-            assert result == 40
-            
-            passes.append(True)
+            result = assistant.is_inf(sm.find_smallest, (5,))
         except:
+            result = "Error"
+        if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: find_smallest() should return 40 when the user calls it with argument 5 and then enters 100, 50, 60, 40, 70, but it returns " + str(result) + ".</font>")
-
-        
-        i_test_num = i_test_num + 1
+            error_msgs.append(" Failed: An infinite loop is detected within find_smallest(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function find_smallest() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 40):
+                passes.append(True)
+            else:
+                passes.append(False)
+                error_msgs.append(" Failed: find_smallest() should return 40 when the user calls it with argument 5 and then enters 100, 50, 60, 40, 70, but it returns " + str(result) + ".</font>")
+        l_data.shm.close()
+        l_data.shm.unlink()
 
 
         ###
@@ -165,21 +208,29 @@ def autoGrader(student_submission):
         # Test 8: Task 6: Test count_num_fives() function 
 
 
-
+        l_data = shm.ShareableList([100, 5, 60, 5, 70, 1, 6, 5, 4, 77], name="l_data")
         try:
-            try:
-                result = sm.count_num_fives(10)
-            except:
-                result = '"Function count_num_fives() caused an error.  Try adding some print statements to it to see what is happening!"'
-            assert result == 3
-            
-            passes.append(True)
+            result = assistant.is_inf(sm.count_num_fives, (10,))
         except:
+            result = "Error"
+        if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: count_num_fives() should return 3 when the user calls it with argument 10 and then enters 100, 5, 60, 5, 70, 1, 6, 5, 4, 77 but it returns " + str(result) + ".</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within count_num_fives(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function count_num_fives() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 3):
+                passes.append(True)
+            else:
+                passes.append(False)
+                error_msgs.append(" Failed: count_num_fives() should return 3 when the user calls it with argument 10 and then enters 100, 5, 60, 5, 70, 1, 6, 5, 4, 77 but it returns " + str(result) + ".</font>")
+        l_data.shm.close()
+        l_data.shm.unlink()
+
 
         
-        i_test_num = i_test_num + 1
+
 
 
         ###
@@ -187,22 +238,26 @@ def autoGrader(student_submission):
         
         # Test 9: Task 7: Test convert_euros_to_dollars() function 
 
-
-
+        l_data = shm.ShareableList([2.5], name="l_data")
         try:
-            try:
-                result = sm.convert_dollars_to_euros()
-            except:
-                result = '"Function convert_dollars_to_euros() caused an error.  Try adding some print statements to it to see what is happening!"'
-            assert result == 2.5*.89
-            
-            passes.append(True)
+            result = assistant.is_inf(sm.convert_dollars_to_euros)
         except:
+            result = "Error"
+    
+        if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: convert_dollars_to_euros() should return 2.225 when the user enters 2.5 but it returns " + str(result) + ".</font>")
-
-        
-        i_test_num = i_test_num + 1
+            error_msgs.append(" Failed: An infinite loop is detected within convert_dollars_to_euros(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function convert_dollars_to_euros() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 2.5*.89):
+                passes.append(True)
+            else:
+                passes.append(False)
+                error_msgs.append(" Failed: convert_dollars_to_euros() should return 2.225 when the user enters 2.5 but it returns " + str(result) + ".</font>")
+        l_data.shm.close()
+        l_data.shm.unlink()
 
 
         ###
@@ -210,64 +265,75 @@ def autoGrader(student_submission):
         
         # Test 10: Task 8: Test is_even() function with even number argument
 
-
-
         try:
-            try:
-                result = sm.is_even(22)
-            except:
-                result = '"Function is_even() caused an error.  Try adding some print statements to it to see what is happening!"'
-            assert result == True
-            
-            passes.append(True)
+            result = assistant.is_inf(sm.is_even, (22,))
         except:
+            result = "Error"
+    
+        if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: is_even() should return True when the user enters 22 but it returns " + str(result) + ".</font>")
-
-        
-        i_test_num = i_test_num + 1
+            error_msgs.append(" Failed: An infinite loop is detected within is_even(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function is_even() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == True):
+                passes.append(True)
+            else:
+                passes.append(False)
+                error_msgs.append(" Failed: is_even() should return True when the user enters 22 but it returns " + str(result) + ".</font>")     
 
         ###
 
         # Test 11: Task 8: Test is_even() function with odd number argument
 
 
-
         try:
-            try:
-                result = sm.is_even(21)
-            except:
-                result = '"Function is_even() caused an error.  Try adding some print statements to it to see what is happening!"'
-            assert result == False
-            
-            passes.append(True)
+            result = assistant.is_inf(sm.is_even, (21,))
         except:
+            result = "Error"
+    
+        if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: is_even() should return False when the user enters 21 but it returns " + str(result) + ".</font>")
-
+            error_msgs.append(" Failed: An infinite loop is detected within is_even(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function is_even() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == False):
+                passes.append(True)
+            else:
+                passes.append(False)
+                error_msgs.append(" Failed: is_even() should return False when the user enters 21 but it returns " + str(result) + ".</font>")
         
-        i_test_num = i_test_num + 1
+
 
         ###
 
         # Test 12: Task 9: Test count_evens() function with args of smaller, larger
 
 
-
         try:
-            try:
-                result = sm.count_evens(2, 8)
-            except:
-                result = '"Function count_evens() caused an error.  Try adding some print statements to it to see what is happening!"'
-            assert result == 2
-            
-            passes.append(True)
+            result = assistant.is_inf(sm.count_evens, (2,8))
         except:
+            result = "Error"
+    
+        if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: count_evens() should return 2 when the arguments are 2 and 8, but it returns " + str(result) + ".</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within count_evens(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function count_evens() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 2):
+                passes.append(True)
+            else:
+                passes.append(False)
+                error_msgs.append(" Failed: count_evens() should return 2 when the arguments are 2 and 8, but it returns " + str(result) + ".</font>")
+
 
         
-        i_test_num = i_test_num + 1
+
 
 
         # Test 13: Task 9: Test count_evens() function with args of larger, smaller
@@ -275,19 +341,25 @@ def autoGrader(student_submission):
 
 
         try:
-            try:
-                result = sm.count_evens(8, 2)
-            except:
-                result = '"Function count_evens() caused an error.  Try adding some print statements to it to see what is happening!"'
-            assert result == 2
-            
-            passes.append(True)
+            result = assistant.is_inf(sm.count_evens, (8,2))
         except:
+            result = "Error"
+    
+        if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: count_evens() should return 2 when the arguments are 8 and 2, but it returns " + str(result) + ".</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within count_evens(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function count_evens() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 2):
+                passes.append(True)
+            else:
+                passes.append(False)
+                error_msgs.append(" Failed: count_evens() should return 2 when the arguments are 8 and 2, but it returns " + str(result) + ".</font>")
 
         
-        i_test_num = i_test_num + 1
+
 
 
         # Test 14: Task 10: Test temp_monitor() function with arg 60.5 which returns the wrong value until the function is fixed
@@ -295,19 +367,25 @@ def autoGrader(student_submission):
 
 
         try:
-            try:
-                result = sm.temp_monitor(60.5)
-            except:
-                result = '"Function temp_monitor() caused an error.  Try adding some print statements to it to see what is happening!"'
-            assert result == "pleasant"
-            
-            passes.append(True)
+            result = assistant.is_inf(sm.temp_monitor, (60.5, ))
         except:
+            result = "Error"
+    
+        if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: temp_monitor() should return pleasant for argument 60.5.</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within temp_monitor(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function temp_monitor() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == "pleasant"):
+                passes.append(True)
+            else:
+                passes.append(False)
+                error_msgs.append(" Failed: temp_monitor() should return pleasant for argument 60.5.</font>")
 
         
-        i_test_num = i_test_num + 1
+
 
     print("...Autograder completed.")
     print()

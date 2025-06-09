@@ -5,6 +5,7 @@ import astor
 import re
 import os
 import importlib.util
+from multiprocessing import shared_memory as shm
 
 def autoGrader(student_submission):
     passes = []
@@ -30,98 +31,107 @@ def autoGrader(student_submission):
         ########################################################################
         # Start of tests #######################################################
         ########################################################################
-        i_test_num = 1
-        # Test 1: Task 1: Test biggest_number() function with biggest in 1st position
-        error_calling_function = False
+        # Test 1: Task 1: Test biggest_smallest_number() 
+
+
+        l_data = shm.ShareableList([100, 80, 30, 90, 20, 10, 50, 40, 70, 60], name="l_data")
         try:
-            try:
-                result = sm.biggest_smallest_number()
-            except:
-                result = '"Function biggest_smallest_number() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert result == (100, 10)
-            object.setText("<img src='check.png' width='32' height='32'><font color=black>Test " + str(i_test_num) + " Passed </font>")
-            passes.append(True)
+            result = assistant.is_inf(sm.biggest_smallest_number)
         except:
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function biggest_smallest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            result = "Error"
+        if(result == "Infinite"):
+            passes.append(False)
+            error_msgs.append(" Failed: An infinite loop is detected within biggest_smallest_number(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function biggest_smallest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == (100,10)):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: biggest_smallest_number() should return 100 and 10 when the user enters 100, 80, 30, 90, 20, 10, 50, 40, 70, 60, but it returns " + str(result[0]) + " and " + str(result[1]) + ".</font>")
+        l_data.shm.close()
+        l_data.shm.unlink()
 
-        
-        i_test_num = i_test_num + 1
 
-        
         # Test 2: Task 1: Test biggest_smallest_number() function with biggest in 10th (last) position and smallest in 1st position
         
         
         
-        error_calling_function = False
+        l_data = shm.ShareableList([50, 20, 80, 40, 10, 70, 90, 60, 30, 100], name="l_data")
         try:
-            try:
-                result = sm.biggest_smallest_number()
-            except:
-                result = '"Function biggest_smallest_number() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert result == (100, 10)
-            passes.append(True)
+            result = assistant.is_inf(sm.biggest_smallest_number)
         except:
+            result = "Error"
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function biggest_smallest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within biggest_smallest_number(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function biggest_smallest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == (100,10)):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: biggest_smallest_number() should return 100 and 10 when the user enters 50, 20, 80, 40, 10, 70, 90, 60, 30, 100, but it returns " + str(result[0]) + " and " + str(result[1]) + ".</font>")
-
-        
-        i_test_num = i_test_num + 1
-
+        l_data.shm.close()
+        l_data.shm.unlink()
 
         # Test 3: Task 1: Test biggest_smallest_number() function with biggest in 5th position and smallest in 10th (last) position
         
         
         
-        error_calling_function = False
+        l_data = shm.ShareableList([40, 70, 30, 80, 100, 90, 60, 10, 20, 50], name="l_data")
         try:
-            try:
-                result = sm.biggest_smallest_number()
-            except:
-                result = '"Function biggest_smallest_number() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert result == (100, 10)
-            passes.append(True)
+            result = assistant.is_inf(sm.biggest_smallest_number)
         except:
+            result = "Error"
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function biggest_smallest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within biggest_smallest_number(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function biggest_smallest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == (100,10)):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: biggest_smallest_number() should return 100 and 10 when the user enters 40, 70, 30, 80, 100, 90, 60, 10, 20, 50, but it returns " + str(result[0]) + " and " + str(result[1]) + ".</font>")
+        l_data.shm.close()
+        l_data.shm.unlink()
 
         
-        i_test_num = i_test_num + 1
+
 
 
         # Test 4: Task 1: Test biggest_smallest_number() function with biggest in 5th position and smallest in 3rd position but all numbers are negative
         
         
-        
-        error_calling_function = False
+        l_data = shm.ShareableList([-50, -80, -100, -30, -10, -20, -70, -90, -60, -40], name="l_data")
         try:
-            try:
-                result = sm.biggest_smallest_number()
-            except:
-                result = '"Function biggest_smallest_number() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert result == (-10, -100)
-            passes.append(True)
+            result = assistant.is_inf(sm.biggest_smallest_number)
         except:
+            result = "Error"
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function biggest_smallest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within biggest_smallest_number(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function biggest_smallest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == (-10, -100)):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: biggest_smallest_number() should return -10 and -100 when the user enters -50, -80, -100, -30, -10, -20, -70, -90, -60, -40, but it returns " + str(result[0]) + " and " + str(result[1]) + ".</font>")
+        l_data.shm.close()
+        l_data.shm.unlink()
 
         
-        i_test_num = i_test_num + 1
+
         
         ######################
 
@@ -130,48 +140,49 @@ def autoGrader(student_submission):
         
         
         
-        error_calling_function = False
         try:
-            try:
-                result = sm.repeated_doubler(5, 4)
-            except:
-                result = '"Function repeated_doubler() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert result == 80
-            passes.append(True)
+            result = assistant.is_inf(sm.repeated_doubler, (5,4))
         except:
+            result = "Error"
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function repeated_doubler() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within repeated_doubler(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function repeated_doubler() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 80):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: repeated_doubler() should return 80 when the arguments are 5 and 4, but it returns " + str(result) + ".</font>")
 
+
         
-        i_test_num = i_test_num + 1
+
 
 
         # Test 6: Task 2: Test repeated_doubler() function - double 0 3 times
         
-        
-        
-        error_calling_function = False
         try:
-            try:
-                result = sm.repeated_doubler(0, 3)
-            except:
-                result = '"Function repeated_doubler() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert result == 0
-            passes.append(True)
+            result = assistant.is_inf(sm.repeated_doubler, (0, 3))
         except:
+            result = "Error"
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function repeated_doubler() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within repeated_doubler(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function repeated_doubler() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 0):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: repeated_doubler() should return 0 when the arguments are 0 and 3, but it returns " + str(result) + ".</font>")
 
         
-        i_test_num = i_test_num + 1
+
 
         ######################
         
@@ -180,169 +191,164 @@ def autoGrader(student_submission):
         
         
         
-        error_calling_function = False
         try:
-            try:
-                result = sm.fib_num(1)
-            except:
-                result = '"Function fib_num() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert result == 0
-            passes.append(True)
+            result = assistant.is_inf(sm.fib_num, (1,))
         except:
+            result = "Error"
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within fib_num(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 0):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: fib_num() should return 0 when the argument is 1, but it returns " + str(result) + ".</font>")
 
         
-        i_test_num = i_test_num + 1
+
 
 
         # Test 8: Task 3: Test fib_num() function - 2nd fib is 1
         
         
-        
-        error_calling_function = False
         try:
-            try:
-                result = sm.fib_num(2)
-            except:
-                result = '"Function fib_num() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert result == 1
-            passes.append(True)
+            result = assistant.is_inf(sm.fib_num, (2,))
         except:
+            result = "Error"
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within fib_num(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 1):
+                passes.append(True)
             else:
-                error_msgs.append(" Failed: fib_num() should return 1 when the argument is 2, but it returns " + str(result) + ".</font>")
-
-        
-        i_test_num = i_test_num + 1
+                passes.append(False)
+                error_msgs.append(" Failed: fib_num() should return 0 when the argument is 1, but it returns " + str(result) + ".</font>")
 
 
         # Test 9: Task 3: Test fib_num() function - 3rd fib is 1
         
         
-        
-        error_calling_function = False
         try:
-            try:
-                result = sm.fib_num(3)
-            except:
-                result = '"Function fib_num() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert result == 1
-            passes.append(True)
+            result = assistant.is_inf(sm.fib_num, (3,))
         except:
+            result = "Error"
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within fib_num(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 1):
+                passes.append(True)
             else:
-                error_msgs.append(" Failed: fib_num() should return 1 when the argument is 3, but it returns " + str(result) + ".</font>")
+                passes.append(False)
+                error_msgs.append(" Failed: fib_num() should return 1 when the argument is 3, but it returns " + str(result) + ".</font>")        
 
-        
-        i_test_num = i_test_num + 1
 
 
         # Test 10: Task 3: Test fib_num() function - 4th fib is 2
         
         
         
-        error_calling_function = False
         try:
-            try:
-                result = sm.fib_num(4)
-            except:
-                result = '"Function fib_num() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert result == 2
-            passes.append(True)
+            result = assistant.is_inf(sm.fib_num, (4,))
         except:
+            result = "Error"
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within fib_num(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 2):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: fib_num() should return 2 when the argument is 4, but it returns " + str(result) + ".</font>")
-
-        
-        i_test_num = i_test_num + 1
 
 
         # Test 11: Task 3: Test fib_num() function - 9th fib is 21
         
-        
-        
-        error_calling_function = False
         try:
-            try:
-                result = sm.fib_num(9)
-            except:
-                result = '"Function fib_num() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert result == 21
-            passes.append(True)
+            result = assistant.is_inf(sm.fib_num, (9,))
         except:
+            result = "Error"
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within fib_num(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 21):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: fib_num() should return 21 when the argument is 9, but it returns " + str(result) + ".</font>")
 
         
-        i_test_num = i_test_num + 1
+
 
 
         # Test 12: Task 3: Test fib_num() function - 16th fib is 610
         
         
         
-        error_calling_function = False
         try:
-            try:
-                result = sm.fib_num(16)
-            except:
-                result = '"Function fib_num() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert result == 610
-            passes.append(True)
+            result = assistant.is_inf(sm.fib_num, (16,))
         except:
+            result = "Error"
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within fib_num(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 610):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: fib_num() should return 610 when the argument is 16, but it returns " + str(result) + ".</font>")
 
         
-        i_test_num = i_test_num + 1
+
         
 
         ######################
         # Test 13: Task 4: Test leaf_sum() function with argument 4 for 4 days with values of 1, 2, 3, 4 for a total of 10 leaves
         
         
-        
-        error_calling_function = False
+        l_data = shm.ShareableList([1,2,3,4], name="l_data")
         try:
-            try:
-                result = sm.leaf_sum(4)
-            except:
-                result = '"Function leaf_sum() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert result == 10
-            passes.append(True)
+            result = assistant.is_inf(sm.leaf_sum, (4,))
         except:
+            result = "Error"
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function leaf_sum() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within leaf_sum(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function leaf_sum() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 10):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: leaf_sum() should return 10 when the argument is 4 and values entered are 1, 2, 3 and 4, but it returns " + str(result) + ".</font>")
+        l_data.shm.close()
+        l_data.shm.unlink()
 
-        
-        i_test_num = i_test_num + 1
 
         
         ######################
@@ -350,25 +356,28 @@ def autoGrader(student_submission):
         # Test 14: Task 5: Test class_leaf_sum() function with argument 3 for 3 students.  This will then call leaf sum for each student.  Student 1: 2 days, 9 + 8 leaves.  Student 2: 3 days, 1 + 1 + 1 leaves.  Student 3: 4 days, 4 +5 + 6 + 5 leaves.  Total 40 leaves.
         
         
-        
-        error_calling_function = False
+        l_data = shm.ShareableList([2, 9, 8, 3, 1, 1, 1, 4, 4, 5, 6, 5], name="l_data")
         try:
-            try:
-                result = sm.class_leaf_sum(3)
-            except:
-                result = '"Function class_leaf_sum() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert result == 40
-            passes.append(True)
+            result = assistant.is_inf(sm.class_leaf_sum, (3,))
         except:
+            result = "Error"
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function class_leaf_sum() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within class_leaf_sum(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function class_leaf_sum() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == 40):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: class_leaf_sum() should return 40 when the argument is 3 and values entered are (Student 1: 2 days, 9 + 8 leaves.  Student 2: 3 days, 1 + 1 + 1 leaves.  Student 3: 4 days, 4 +5 + 6 + 5 leaves), but it returns " + str(result) + ".</font>")
+        l_data.shm.close()
+        l_data.shm.unlink()
 
         
-        i_test_num = i_test_num + 1
+
 
         ######################
 

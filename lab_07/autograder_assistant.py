@@ -23,7 +23,10 @@ except ImportError:
 # a program without having to use the command line to redirect input.
 def input(*args, **kwargs):
     # Access l_data Here
-    l_data = shm.ShareableList(sequence=None,name="l_data")
+    try:
+        l_data = shm.ShareableList(sequence=None,name="l_data")
+    except:
+        l_data = [None]
     list(l_data)
     #########
     i_data = l_data[0]
@@ -42,6 +45,7 @@ def wrapper(function, parameter_list, result):
         result[0] = function(*parameter_list)
         
     except Exception as e:
+        print(e)
         result[0] = "Error"
         
 def is_inf(function, parameter_list=(), input_list=[]):
@@ -195,7 +199,7 @@ class MainWindow(QMainWindow):
         num_passed = 0
         error_count = 0
 
-        print(error_msgs)
+        #print(error_msgs)
 
         #Trimming "failed" from error messages
         i=0
@@ -204,11 +208,11 @@ class MainWindow(QMainWindow):
                 error_msgs[i]=error_msgs[i].replace(" Failed: ", "")
                 
                 i+=1
-        print(error_msgs)
+        #print(error_msgs)
         seperateSets = False
         if len(testSets) >=1:
                 seperateSets = True
-        print(testSets)
+        #print(testSets)
         index=0
         j=1
         if seperateSets:

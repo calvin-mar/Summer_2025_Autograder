@@ -23,7 +23,10 @@ except ImportError:
 # a program without having to use the command line to redirect input.
 def input(*args, **kwargs):
     # Access l_data Here
-    l_data = shm.ShareableList(sequence=None,name="l_data")
+    try:
+        l_data = shm.ShareableList(sequence=None,name="l_data")
+    except:
+        l_data = [None]
     list(l_data)
     #########
     i_data = l_data[0]

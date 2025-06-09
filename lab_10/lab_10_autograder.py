@@ -40,7 +40,7 @@ def autoGrader(student_submission):
             assert sm.l_first[2] == "C"
             assert sm.l_first[3] == "D"
             
-            passses.append(True)
+            passes.append(True)
         except:
             passes.append(False)
             error_msgs.append(" Failed: List l_first does not contain the correct values of \"A\", \"B\", \"C\", and \"D\" or it does not have length exactly 4. </font>")
@@ -57,7 +57,7 @@ def autoGrader(student_submission):
             assert sm.l_last[0] == "K"
             assert sm.l_last[1] == "L"
             assert sm.l_last[2] == "M"
-            passses.append(True)
+            passes.append(True)
         except:
             passes.append(False)
             error_msgs.append(" Failed: List l_last does not contain the correct values of \"K\", \"L\", and \"M\" or it does not have length exactly 3. </font>")
@@ -74,7 +74,7 @@ def autoGrader(student_submission):
             assert sm.l_mid[0] == "F"
             assert sm.l_mid[1] == "G"
             assert sm.l_mid[2] == "H"
-            passses.append(True)
+            passes.append(True)
         except:
             passes.append(False)
             error_msgs.append(" Failed: List l_last does not contain the correct values of \"F\", \"G\", and \"H\" or it does not have length exactly 3. </font>")
@@ -105,7 +105,7 @@ def autoGrader(student_submission):
             assert sm.l_copy_nums[3] == 35
             assert sm.l_copy_nums[4] == 45
 
-            passses.append(True)
+            passes.append(True)
         except:
             passes.append(False)
             error_msgs.append(" Failed: List l_copy_nums is not a correct copy of l_nums because overwriting a value in l_copy_nums overwrites a value in l_nums or the length of l_copy_nums is not correct. </font>")
