@@ -4,15 +4,15 @@ import math
 import ast
 import astor
 import re
+import threading
+import os
+from multiprocessing import shared_memory as shm
 
 # Graphics/PyQt imports
 from PyQt6.QtCore import QSize, Qt, QRect
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import QFont
 from layout_colorwidget import Color
-
-l_data = []
-
 
 try:
     import __builtin__
@@ -22,11 +22,19 @@ except ImportError:
 # Override Python's built in input() function so we can get test data fed into
 # a program without having to use the command line to redirect input.
 def input(*args, **kwargs):
+    # Access l_data Here
+    l_data = shm.ShareableList(sequence=None,name="l_data")
+    list(l_data)
+    #########
     i_data = l_data[0]
-    del l_data[0]
+    if(i_data == None):
+        raise Exception
+    for i in range(len(l_data)-1):
+        l_data[i] = l_data[i+1]
+    l_data[-1] = None
     print("\n====================\nYour input statement:", args[0])
     print("The value entered by the autograder:", str(i_data), "\n====================\n")
-    #__builtin__.input(args[0])
+    l_data.shm.close()
     return i_data
 
 def wrapper(function, parameter_list, result):
