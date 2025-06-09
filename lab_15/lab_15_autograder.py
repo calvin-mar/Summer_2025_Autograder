@@ -42,8 +42,11 @@ def autoGrader(student_submission):
         ########################################################################
 
         # Test 1: Test get_data() function with test_file.txt file
-        
-        result = assistant.is_inf(sm.get_data, ("test_file.txt",))
+
+	try:
+       		result = assistant.is_inf(sm.get_data, ("test_file.txt",))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within get_data(). Check for unchanged loop conditions.")
@@ -58,8 +61,10 @@ def autoGrader(student_submission):
                 error_msgs.append(" Failed: get_data(\"test_file.txt\") should return [\"This is line 1 of the test file!\", \"This is line 2 of the test file!\", \"Line 3 of the data file.\", \"I love computer science!\", \"I love dogs!\"], but it returns " + str(result) + ".</font>")
 
         # Test 2: Test count_item_records() function
-        
-        result = assistant.is_inf(sm.count_item_records, ("student",["John", "student", "student_id_123", "Dave", "faculty", "faculty_id_151", "Suzy", "student", "student_id_563"]))
+        try:
+        	result = assistant.is_inf(sm.count_item_records, ("student",["John", "student", "student_id_123", "Dave", "faculty", "faculty_id_151", "Suzy", "student", "student_id_563"]))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within count_item_records(). Check for unchanged loop conditions.")
@@ -74,9 +79,11 @@ def autoGrader(student_submission):
                 error_msgs.append(" Failed: count_item_records(\"student\", [\"John\", \"student\", \"student_id_123\", \"Dave\", \"faculty\", \"faculty_id_151\", \"Suzy\", \"student\", \"student_id_563\"]) should return 2, but it returns " + str(result) + ".</font>")
 
         # Test 3: Test count_item_records() function
-        
-        result = assistant.is_inf(sm.count_item_records, ("faculty", ["John Harney", "faculty", "faculty_id_123", "John Doe", "faculty", "faculty_id_151", "Bruce Johnson", "faculty", "faculty_id_563", "John Ac", "staff", "staff_id_15632", "Ilike Badjokes", "faculty", "faculty_id_542151", "Ima Plumber", "staff", "staff_id_5653"]))
-        if(result == "Infinite"):
+        try:
+        	result = assistant.is_inf(sm.count_item_records, ("faculty", ["John Harney", "faculty", "faculty_id_123", "John Doe", "faculty", "faculty_id_151", "Bruce Johnson", "faculty", "faculty_id_563", "John Ac", "staff", "staff_id_15632", "Ilike Badjokes", "faculty", "faculty_id_542151", "Ima Plumber", "staff", "staff_id_5653"]))
+        except:
+		result = "Error"
+	if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within count_item_records(). Check for unchanged loop conditions.")
         elif(result == "Error"):
@@ -90,9 +97,12 @@ def autoGrader(student_submission):
                 error_msgs.append(" Failed: count_item_records(\"student\", [\"John Harney\", \"faculty\", \"faculty_id_123\", \"John Doe\", \"faculty\", \"faculty_id_151\", \"Bruce Johnson\", \"faculty\", \"faculty_id_563\", \"John Ac\", \"staff\", \"staff_id_15632\", \"Ilike Badjokes\", \"faculty\", \"faculty_id_542151\", \"Ima Plumber\", \"staff\", \"staff_id_5653\"]) should return 2, but it returns " + str(result) + ".</font>")
 
         # Test 4: Test count_csv_records() function
-        
-        result = assistant.is_inf(sm.count_csv_records, ("faculty", ["John Harney,faculty,faculty_id_123","John Doe,faculty,faculty_id_151","Bruce Johnson,faculty,faculty_id_563","John Ac,staff,staff_id_15632","Ilike Badjokes,faculty,faculty_id_542151","Ima Plumber,staff,staff_id_5653"]))
-        if(result == "Infinite"):
+
+	try:
+        	result = assistant.is_inf(sm.count_csv_records, ("faculty", ["John Harney,faculty,faculty_id_123","John Doe,faculty,faculty_id_151","Bruce Johnson,faculty,faculty_id_563","John Ac,staff,staff_id_15632","Ilike Badjokes,faculty,faculty_id_542151","Ima Plumber,staff,staff_id_5653"]))
+        except:
+		result = "Error"
+	if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within count_csv_records(). Check for unchanged loop conditions.")
         elif(result == "Error"):
@@ -107,8 +117,11 @@ def autoGrader(student_submission):
 
         # Test 5: Test make_data_file() function 
 
-        result = assistant.is_inf(sm.make_data_file, ("sample_file3.txt", ["John Harney","faculty","faculty_id_123","John Doe","faculty","faculty_id_151","Bruce Johnson","faculty","faculty_id_563","John Ac","staff","staff_id_15632","Ilike Badjokes","faculty","faculty_id_542151","Ima Plumber","staff","staff_id_5653"]))
-        if(result == "Infinite"):
+	try:
+        	result = assistant.is_inf(sm.make_data_file, ("sample_file3.txt", ["John Harney","faculty","faculty_id_123","John Doe","faculty","faculty_id_151","Bruce Johnson","faculty","faculty_id_563","John Ac","staff","staff_id_15632","Ilike Badjokes","faculty","faculty_id_542151","Ima Plumber","staff","staff_id_5653"]))
+        except:
+		result = "Error"
+	if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within count_csv_records(). Check for unchanged loop conditions.")
         elif(result == "Error"):
@@ -129,9 +142,12 @@ def autoGrader(student_submission):
                 error_msgs.append(" Failed: Function make_data_file() produced an incorrect file.</font>")
 
         # Test 6: Test make_data_csv_file() function
-        
-        result = assistant.is_inf(sm.make_data_csv_file, ("sample_file.txt", 3, ["John Harney","faculty","faculty_id_123","John Doe","faculty","faculty_id_151","Bruce Johnson","faculty","faculty_id_563","John Ac","staff","staff_id_15632","Ilike Badjokes","faculty","faculty_id_542151","Ima Plumber","staff","staff_id_5653"]))
-        if(result == "Infinite"):
+
+	try:
+        	result = assistant.is_inf(sm.make_data_csv_file, ("sample_file.txt", 3, ["John Harney","faculty","faculty_id_123","John Doe","faculty","faculty_id_151","Bruce Johnson","faculty","faculty_id_563","John Ac","staff","staff_id_15632","Ilike Badjokes","faculty","faculty_id_542151","Ima Plumber","staff","staff_id_5653"]))
+        except:
+		result = "Error"
+	if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within make_data_csv_file(). Check for unchanged loop conditions.")
         elif(result == "Error"):
@@ -145,11 +161,15 @@ def autoGrader(student_submission):
                 error_msgs.append(" Failed: Function make_data_csv_file() produced an incorrect file.</font>")
         
         # Test 7: Test append_to_file() function
+	    
         output_file = open("sample_file2.txt", "w")
         output_file.write("ImaTestFile")
         output_file.close()
-        result = assistant.is_inf(sm.append_to_file, ("sample_file2.txt", ["ABC", "DEF", "GHI", "JKL", "MNO", "PQR", "STU", "VWX", "YZ"]))
-        if(result == "Infinite"):
+	try:
+        	result = assistant.is_inf(sm.append_to_file, ("sample_file2.txt", ["ABC", "DEF", "GHI", "JKL", "MNO", "PQR", "STU", "VWX", "YZ"]))
+        except:
+		result = "Error"
+	if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within make_data_csv_file(). Check for unchanged loop conditions.")
         elif(result == "Error"):
