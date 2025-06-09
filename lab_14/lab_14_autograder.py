@@ -41,8 +41,11 @@ def autoGrader(student_submission):
 
         
         # Test 1: Task 1: Test my_len() function
-        
-        result = assistant.is_inf(sm.my_len, ("",))
+
+	try:
+        	result = assistant.is_inf(sm.my_len, ("",))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_len(). Check for unchanged loop conditions.")
@@ -57,8 +60,11 @@ def autoGrader(student_submission):
                 error_msgs.append(" Failed: my_len() should return 0 with argument \"\", but it returns " + str(result) + ".</font>")
 
         # Test 2: Task 1: Test my_len() function
-        
-        result = assistant.is_inf(sm.my_len, ("1",))
+
+	try:
+        	result = assistant.is_inf(sm.my_len, ("1",))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_len(). Check for unchanged loop conditions.")
@@ -74,9 +80,10 @@ def autoGrader(student_submission):
 
         # Test 3: Task 1: Test my_len() function
 
-
-
-        result = assistant.is_inf(sm.my_len, ("ab",))
+	try:
+        	result = assistant.is_inf(sm.my_len, ("ab",))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_len(). Check for unchanged loop conditions.")
@@ -92,7 +99,10 @@ def autoGrader(student_submission):
 
      # Test 4: Task 1: Test my_len() function
 
-        result = assistant.is_inf(sm.my_len, ("12345678",))
+	try:
+        	result = assistant.is_inf(sm.my_len, ("12345678",))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_len(). Check for unchanged loop conditions.")
@@ -110,7 +120,10 @@ def autoGrader(student_submission):
 
         # Test 5: Task 2: Test my_strip() function
 
-        result = assistant.is_inf(sm.my_strip, ("abc",))
+	try:
+        	result = assistant.is_inf(sm.my_strip, ("abc",))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_strip(). Check for unchanged loop conditions.")
@@ -126,7 +139,10 @@ def autoGrader(student_submission):
 
         # Test 6: Task 2: Test my_strip() function
 
-        result = assistant.is_inf(sm.my_strip, ("  d  ",))
+	try:
+        	result = assistant.is_inf(sm.my_strip, ("  d  ",))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_strip(). Check for unchanged loop conditions.")
@@ -142,7 +158,10 @@ def autoGrader(student_submission):
 
         # Test 7: Task 2: Test my_strip() function
 
-        result = assistant.is_inf(sm.my_strip, ("\t\n abc",))
+	try:
+        	result = assistant.is_inf(sm.my_strip, ("\t\n abc",))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_strip(). Check for unchanged loop conditions.")
@@ -158,7 +177,10 @@ def autoGrader(student_submission):
 
         # Test 8: Task 2: Test my_strip() function
 
-        result = assistant.is_inf(sm.my_strip, ("abc\t\t\t\n ",))
+	try:
+        	result = assistant.is_inf(sm.my_strip, ("abc\t\t\t\n ",))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_strip(). Check for unchanged loop conditions.")
@@ -173,8 +195,11 @@ def autoGrader(student_submission):
                 error_msgs.append(" Failed: my_strip() fails for argument \"abc tab tab tab new_line space\".</font>")
 
         # Test 9: Task 2: Test my_strip() function
-        
-        result = assistant.is_inf(sm.my_strip, ("\n\n\n\t   x    \n\n\t",))
+
+	try:
+        	result = assistant.is_inf(sm.my_strip, ("\n\n\n\t   x    \n\n\t",))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_strip(). Check for unchanged loop conditions.")
@@ -190,7 +215,10 @@ def autoGrader(student_submission):
 
        # Test 10: Task 2: Test my_strip() function
 
-        result = assistant.is_inf(sm.my_strip, ("  abc  def  ",))
+	try:
+        	result = assistant.is_inf(sm.my_strip, ("  abc  def  ",))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_strip(). Check for unchanged loop conditions.")
@@ -206,7 +234,10 @@ def autoGrader(student_submission):
 
         # Test 11: Task 2: Test my_strip() function
 
-        result = assistant.is_inf(sm.my_strip, ("  abc \n\t def  ",))
+	try:
+        	result = assistant.is_inf(sm.my_strip, ("  abc \n\t def  ",))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_strip(). Check for unchanged loop conditions.")
@@ -222,7 +253,10 @@ def autoGrader(student_submission):
 
         # Test 12: Task 2: Test my_strip() function
 
-        result = assistant.is_inf(sm.my_strip, ("abc\t\n def",))
+	try:
+        	result = assistant.is_inf(sm.my_strip, ("abc\t\n def",))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_strip(). Check for unchanged loop conditions.")
@@ -238,7 +272,10 @@ def autoGrader(student_submission):
 
         # Test 13: Task 2: Test my_strip() function
 
-        result = assistant.is_inf(sm.my_strip, (" \t\n \t\n ",))
+	try:
+        	result = assistant.is_inf(sm.my_strip, (" \t\n \t\n ",))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_strip(). Check for unchanged loop conditions.")
@@ -253,8 +290,11 @@ def autoGrader(student_submission):
                 error_msgs.append(" Failed: my_strip() fails for argument \"space tab new_line space tab new_line space\".</font>")
 
         # Test 14: Task 2: Test my_strip() function
-        
-        result = assistant.is_inf(sm.my_strip, ("\n\n\n\n",))
+
+	try:
+        	result = assistant.is_inf(sm.my_strip, ("\n\n\n\n",))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_strip(). Check for unchanged loop conditions.")
@@ -270,7 +310,10 @@ def autoGrader(student_submission):
 
         # Test 15: Task 2: Test my_strip() function
 
-        result = assistant.is_inf(sm.my_strip, ("\t\t\t",))
+	try:
+        	result = assistant.is_inf(sm.my_strip, ("\t\t\t",))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_strip(). Check for unchanged loop conditions.")
@@ -286,7 +329,10 @@ def autoGrader(student_submission):
 
         # Test 16: Task 2: Test my_strip() function
 
-        result = assistant.is_inf(sm.my_strip, ("     ",))
+	try:
+        	result = assistant.is_inf(sm.my_strip, ("     ",))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_strip(). Check for unchanged loop conditions.")
@@ -304,7 +350,10 @@ def autoGrader(student_submission):
 
         # Test 17: Task 3: Test my_in() function
 
-        result = assistant.is_inf(sm.my_in, ("abc", "abcdefg"))
+	try:
+        	result = assistant.is_inf(sm.my_in, ("abc", "abcdefg"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_in(). Check for unchanged loop conditions.")
@@ -320,7 +369,10 @@ def autoGrader(student_submission):
 
         # Test 18: Task 3: Test my_in() function
 
-        result = assistant.is_inf(sm.my_in, ("cdefg", "abcdefg"))
+	try:
+        	result = assistant.is_inf(sm.my_in, ("cdefg", "abcdefg"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_in(). Check for unchanged loop conditions.")
@@ -336,7 +388,10 @@ def autoGrader(student_submission):
 
         # Test 19: Task 3: Test my_in() function
 
-        result = assistant.is_inf(sm.my_in, ("ef", "abcdefg"))
+	try:
+        	result = assistant.is_inf(sm.my_in, ("ef", "abcdefg"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_in(). Check for unchanged loop conditions.")
@@ -352,7 +407,10 @@ def autoGrader(student_submission):
 
         # Test 20: Task 3: Test my_in() function
 
-        result = assistant.is_inf(sm.my_in, ("ce", "abcdefg"))
+	try:
+        	result = assistant.is_inf(sm.my_in, ("ce", "abcdefg"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_in(). Check for unchanged loop conditions.")
@@ -368,7 +426,10 @@ def autoGrader(student_submission):
 
         # Test 21: Task 3: Test my_in() function
 
-        result = assistant.is_inf(sm.my_in, ("xab", "abcdefg"))
+	try:
+        	result = assistant.is_inf(sm.my_in, ("xab", "abcdefg"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_in(). Check for unchanged loop conditions.")
@@ -384,7 +445,10 @@ def autoGrader(student_submission):
 
         # Test 22: Task 3: Test my_in() function
 
-        result = assistant.is_inf(sm.my_in, ("fgh", "abcdefg"))
+	try:
+        	result = assistant.is_inf(sm.my_in, ("fgh", "abcdefg"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_in(). Check for unchanged loop conditions.")
@@ -400,7 +464,10 @@ def autoGrader(student_submission):
 
         # Test 23: Task 3: Test my_in() function
 
-        result = assistant.is_inf(sm.my_in, ("x", "abcdefg"))
+	try:
+        	result = assistant.is_inf(sm.my_in, ("x", "abcdefg"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_in(). Check for unchanged loop conditions.")
@@ -416,7 +483,10 @@ def autoGrader(student_submission):
 
         # Test 24: Task 3: Test my_in() function
 
-        result = assistant.is_inf(sm.my_in, ("abcdefgx", "abcdefg"))
+	try:
+        	result = assistant.is_inf(sm.my_in, ("abcdefgx", "abcdefg"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_in(). Check for unchanged loop conditions.")
@@ -434,7 +504,10 @@ def autoGrader(student_submission):
 
         # Test 25: Task 4: Test my_find() function
 
-        result = assistant.is_inf(sm.my_find, ("abc", "abcdefghi"))
+	try:
+        	result = assistant.is_inf(sm.my_find, ("abc", "abcdefghi"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_find(). Check for unchanged loop conditions.")
@@ -450,7 +523,10 @@ def autoGrader(student_submission):
 
         # Test 26: Task 4: Test my_find() function
 
-        result = assistant.is_inf(sm.my_find, ("ghi", "abcdefghi"))
+	try:
+        	result = assistant.is_inf(sm.my_find, ("ghi", "abcdefghi"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_find(). Check for unchanged loop conditions.")
@@ -466,7 +542,10 @@ def autoGrader(student_submission):
 
         # Test 27: Task 4: Test my_find() function
 
-        result = assistant.is_inf(sm.my_find, ("cde", "abcdefghi"))
+	try:
+        	result = assistant.is_inf(sm.my_find, ("cde", "abcdefghi"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_find(). Check for unchanged loop conditions.")
@@ -482,7 +561,10 @@ def autoGrader(student_submission):
 
         # Test 28: Task 4: Test my_find() function
 
-        result = assistant.is_inf(sm.my_find, ("abd", "abcdefghi"))
+	try:
+        	result = assistant.is_inf(sm.my_find, ("abd", "abcdefghi"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_find(). Check for unchanged loop conditions.")
@@ -498,7 +580,10 @@ def autoGrader(student_submission):
 
         # Test 29: Task 4: Test my_find() function
 
-        result = assistant.is_inf(sm.my_find, ("xyz", "abcdefghi"))
+	try:
+        	result = assistant.is_inf(sm.my_find, ("xyz", "abcdefghi"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_find(). Check for unchanged loop conditions.")
@@ -516,7 +601,10 @@ def autoGrader(student_submission):
 
         # Test 30: Task 5: Test my_replace() function
 
-        result = assistant.is_inf(sm.my_replace, ("fish is good", "fish", "xyz"))
+	try:
+        	result = assistant.is_inf(sm.my_replace, ("fish is good", "fish", "xyz"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_replace(). Check for unchanged loop conditions.")
@@ -532,7 +620,10 @@ def autoGrader(student_submission):
 
         # Test 31: Task 5: Test my_replace() function
 
-        result = assistant.is_inf(sm.my_replace, ("fish is good", " i", "xyz"))
+	try:
+        	result = assistant.is_inf(sm.my_replace, ("fish is good", " i", "xyz"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_replace(). Check for unchanged loop conditions.")
@@ -548,7 +639,10 @@ def autoGrader(student_submission):
 
         # Test 32: Task 5: Test my_replace() function
 
-        result = assistant.is_inf(sm.my_replace, ("fish is good", "goo", "xyz"))
+	try:
+        	result = assistant.is_inf(sm.my_replace, ("fish is good", "goo", "xyz"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_replace(). Check for unchanged loop conditions.")
@@ -564,7 +658,10 @@ def autoGrader(student_submission):
 
         # Test 33: Task 5: Test my_replace() function
 
-        result = assistant.is_inf(sm.my_replace, ("fish is good", "od", "axyz"))
+	try:
+        	result = assistant.is_inf(sm.my_replace, ("fish is good", "od", "axyz"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_replace(). Check for unchanged loop conditions.")
@@ -580,7 +677,10 @@ def autoGrader(student_submission):
 
         # Test 34: Task 5: Test my_replace() function
 
-        result = assistant.is_inf(sm.my_replace, ("fish is good", "h i", "xyz"))
+	try:
+        	result = assistant.is_inf(sm.my_replace, ("fish is good", "h i", "xyz"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_replace(). Check for unchanged loop conditions.")
@@ -596,7 +696,10 @@ def autoGrader(student_submission):
 
         # Test 35: Task 5: Test my_replace() function
 
-        result = assistant.is_inf(sm.my_replace, ("fish is good", "x", "xyz"))
+	try:
+        	result = assistant.is_inf(sm.my_replace, ("fish is good", "x", "xyz"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_replace(). Check for unchanged loop conditions.")
@@ -612,7 +715,10 @@ def autoGrader(student_submission):
 
         # Test 36: Task 5: Test my_replace() function
 
-        result = assistant.is_inf(sm.my_replace, ("fish is good", " ", "xyz"))
+	try:
+        	result = assistant.is_inf(sm.my_replace, ("fish is good", " ", "xyz"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_replace(). Check for unchanged loop conditions.")
@@ -628,7 +734,10 @@ def autoGrader(student_submission):
 
         # Test 37: Task 5: Test my_replace() function
 
-        result = assistant.is_inf(sm.my_replace, ("fish is fish", "ish", "xyz"))
+	try:
+        	result = assistant.is_inf(sm.my_replace, ("fish is fish", "ish", "xyz"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_replace(). Check for unchanged loop conditions.")
@@ -646,7 +755,10 @@ def autoGrader(student_submission):
 
         # Test 38: Task 6: Test my_simple_split() function
 
-        result = assistant.is_inf(sm.my_simple_split, ("a", "banana"))
+	try:
+        	result = assistant.is_inf(sm.my_simple_split, ("a", "banana"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_simple_split(). Check for unchanged loop conditions.")
@@ -662,7 +774,10 @@ def autoGrader(student_submission):
 
         # Test 39: Task 6: Test my_simple_split() function
 
-        result = assistant.is_inf(sm.my_simple_split, ("a", "anna"))
+	try:
+        	result = assistant.is_inf(sm.my_simple_split, ("a", "anna"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_simple_split(). Check for unchanged loop conditions.")
@@ -678,7 +793,10 @@ def autoGrader(student_submission):
 
         # Test 40: Task 6: Test my_simple_split() function
 
-        result = assistant.is_inf(sm.my_simple_split, ("a", "xaax"))
+	try:
+	        result = assistant.is_inf(sm.my_simple_split, ("a", "xaax"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_simple_split(). Check for unchanged loop conditions.")
@@ -694,7 +812,10 @@ def autoGrader(student_submission):
 
         # Test 41: Task 6: Test my_simple_split() function
 
-        result = assistant.is_inf(sm.my_simple_split, ("a", "xaaax"))
+	try:
+        	result = assistant.is_inf(sm.my_simple_split, ("a", "xaaax"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_simple_split(). Check for unchanged loop conditions.")
@@ -710,7 +831,10 @@ def autoGrader(student_submission):
 
         # Test 42: Task 6: Test my_simple_split() function
 
-        result = assistant.is_inf(sm.my_simple_split, ("a", "a"))
+	try:
+        	result = assistant.is_inf(sm.my_simple_split, ("a", "a"))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within my_simple_split(). Check for unchanged loop conditions.")
