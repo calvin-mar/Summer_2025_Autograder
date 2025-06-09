@@ -89,8 +89,10 @@ def autoGrader(student_submission):
             ['TWIZZLERS STRAWBERRY (H)', '1 pkg (71g)', '262.5', '1g', 'n/a', '2.5g', '66g', '196.5mg', '25mg'],
             ['WHATCHAMACALLIT (H)', '1 bar (51g)', '256.5', '13g', '5.5g', '4.5g', '30g', '116.5mg', '62mg'],
             ['YORK PEPPERMINT PATTIE (H)', '1 lg. pattie (43g)', '149', '4g', 'n/a', '1.5g', '33.5g', '16.5mg', '7.5mg']]
-
-        result = assistant.is_inf(sm.get_data)
+	try:
+       		result = assistant.is_inf(sm.get_data)
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within get_data(). Check for unchanged loop conditions.")
@@ -105,9 +107,10 @@ def autoGrader(student_submission):
                 error_msgs.append(" Failed: get_data() returns an incorrect result.  Try to compare the data file to the list your function returned to see where things went wrong.</font>")
 
         # Test 2: Task 2: Test get_avg_sat_fat() function 
-        
-        result = assistant.is_inf(sm.get_avg_sat_fat, (l2d_solution,))
-        print(result)
+        try:
+		result = assistant.is_inf(sm.get_avg_sat_fat, (l2d_solution,))
+       	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within get_avg_sat_fat(). Check for unchanged loop conditions.")
@@ -163,9 +166,10 @@ def autoGrader(student_submission):
                          ['TWIZZLERS STRAWBERRY (H)', '1 pkg (71g)', '262.5', '1g', 'n/a', '2.5g', '66g', '196.5mg', '25mg', False, False],
                          ['WHATCHAMACALLIT (H)', '1 bar (51g)', '256.5', '13g', '5.5g', '4.5g', '30g', '116.5mg', '62mg', True, True],
                          ['YORK PEPPERMINT PATTIE (H)', '1 lg. pattie (43g)', '149', '4g', 'n/a', '1.5g', '33.5g', '16.5mg', '7.5mg', False, True]]
-
-        result = assistant.is_inf(sm.add_allergy_info, (l2d_solution2,))
-        print(result)
+	try:
+        	result = assistant.is_inf(sm.add_allergy_info, (l2d_solution2,))
+       	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within add_allergy_info(). Check for unchanged loop conditions.")
@@ -180,8 +184,10 @@ def autoGrader(student_submission):
                 error_msgs.append(" Failed: add_allergy_info() returns an incorrect result.  Try to compare the data file to the list your function returned to see where things went wrong.</font>")
         
         # Test 4: Task 4: Test write_safe_candies() function
-        
-        result = assistant.is_inf(sm.write_safe_candies, (l2d_solution2,))
+        try:
+        	result = assistant.is_inf(sm.write_safe_candies, (l2d_solution2,))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within get_avg_sat_fat(). Check for unchanged loop conditions.")
