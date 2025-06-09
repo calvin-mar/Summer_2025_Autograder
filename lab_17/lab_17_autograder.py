@@ -47,8 +47,10 @@ def autoGrader(student_submission):
 
         # Test 1: Task 1: Test load_misspellings() function
         test_dict = {"doofis":"doofus", "gote":"goat", "miztake":"mistake", "l8":"late", "kat":"cat"}
-
-        result = assistant.is_inf(sm.load_misspellings)
+	try:
+        	result = assistant.is_inf(sm.load_misspellings)
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within load_misspellings(). Check for unchanged loop conditions.")
@@ -66,7 +68,10 @@ def autoGrader(student_submission):
 
         test_dict = {"doofis":"doofus", "gote":"goat", "miztake":"mistake", "l8":"late", "kat":"cat"}
 
-        result = assistant.is_inf(sm.fix_misspellings, (test_dict,))
+	try:
+        	result = assistant.is_inf(sm.fix_misspellings, (test_dict,))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within fix_misspellings(). Check for unchanged loop conditions.")
@@ -92,8 +97,10 @@ def autoGrader(student_submission):
                 
             else:
                 test_dict2[word] = 1
-                
-        result = assistant.is_inf(sm.word_count, (s_text,))
+        try:  
+        	result = assistant.is_inf(sm.word_count, (s_text,))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within word_count(). Check for unchanged loop conditions.")
@@ -108,8 +115,11 @@ def autoGrader(student_submission):
                 error_msgs.append(" Failed: word_count() should return dictionary: \"" + str(test_dict2) + "\" with argument \"" + s_text + "\" but it returns " + str(result) + ".</font>")
 
         # Test 4: Task 1: Test output_fixed_text() function
-        
-        result = assistant.is_inf(sm.output_fixed_text, (s_text,))
+
+	try:
+        	result = assistant.is_inf(sm.output_fixed_text, (s_text,))
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within output_fixed_text(). Check for unchanged loop conditions.")
@@ -132,7 +142,10 @@ def autoGrader(student_submission):
         # Test 5: Task 2: Test make_dictionary() function
 
         spanish_dict = {"amigo":"friend", "hola":"hello", "mi":"my", "donde":"where", "esta":"is", "diablo":"devil", "bano":"bathroom"}        
-        result = assistant.is_inf(sm.make_dictionary)
+        try:
+		result = assistant.is_inf(sm.make_dictionary)
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within make_dictionary(). Check for unchanged loop conditions.")
@@ -147,8 +160,10 @@ def autoGrader(student_submission):
                 error_msgs.append(" Failed: make_dictionary() should return should return " + str(spanish_dict) + " but it returns " + str(result) + ".</font>")
 
         # Test 6: Task 2: Test get_text_to_translate() function
-        
-        result = assistant.is_inf(sm.get_text_to_translate)
+        try:
+        	result = assistant.is_inf(sm.get_text_to_translate)
+	except:
+		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: An infinite loop is detected within get_text_to_translate(). Check for unchanged loop conditions.")
@@ -164,8 +179,11 @@ def autoGrader(student_submission):
 
         # Test 7: Task 2: Test translate() function
         s_translate_me = "hola mi amigo donde esta la salle de de bano"
-        
-        result = assistant.is_inf(sm.translate, (spanish_dict, s_translate_me))
+
+	try:
+        	result = assistant.is_inf(sm.translate, (spanish_dict, s_translate_me))
+	except:
+		result = "Error"
         d_xlate_errors = result[1]
         result = result[0]
         if(result == "Infinite"):
