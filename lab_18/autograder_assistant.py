@@ -39,8 +39,8 @@ def input(*args, **kwargs):
 
 def wrapper(function, parameter_list, result):
     try:
-        function(*parameter_list)
-        result[0] = "All Good"
+        result[0] = function(*parameter_list)
+        
     except Exception as e:
         result[0] = "Error"
         
@@ -58,7 +58,7 @@ def is_inf(function, parameter_list=(), input_list=[]):
     elif p.is_alive():
         return "Infinite"
     else:
-        return "All Good"
+        return result[0]
 
 def syntax_checker(filename, timeout):
         print("Syntax checker starting...")

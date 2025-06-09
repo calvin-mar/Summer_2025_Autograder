@@ -39,8 +39,8 @@ def input(*args, **kwargs):
 
 def wrapper(function, parameter_list, result):
     try:
-        function(*parameter_list)
-        result[0] = "All Good"
+        result[0] = function(*parameter_list)
+        
     except Exception as e:
         result[0] = "Error"
         
@@ -58,7 +58,7 @@ def is_inf(function, parameter_list=(), input_list=[]):
     elif p.is_alive():
         return "Infinite"
     else:
-        return "All Good"
+        return result[0]
 
 def syntax_checker(filename, timeout):
         print("Syntax checker starting...")
@@ -195,7 +195,7 @@ class MainWindow(QMainWindow):
         num_passed = 0
         error_count = 0
 
-        print(error_msgs)
+        #print(error_msgs)
 
         #Trimming "failed" from error messages
         i=0
@@ -204,11 +204,11 @@ class MainWindow(QMainWindow):
                 error_msgs[i]=error_msgs[i].replace(" Failed: ", "")
                 
                 i+=1
-        print(error_msgs)
+        #print(error_msgs)
         seperateSets = False
         if len(testSets) >=1:
                 seperateSets = True
-        print(testSets)
+        #print(testSets)
         index=0
         j=1
         if seperateSets:

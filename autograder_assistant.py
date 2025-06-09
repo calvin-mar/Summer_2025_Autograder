@@ -195,7 +195,7 @@ class MainWindow(QMainWindow):
         num_passed = 0
         error_count = 0
 
-        print(error_msgs)
+        #print(error_msgs)
 
         #Trimming "failed" from error messages
         i=0
@@ -204,11 +204,11 @@ class MainWindow(QMainWindow):
                 error_msgs[i]=error_msgs[i].replace(" Failed: ", "")
                 
                 i+=1
-        print(error_msgs)
+        #print(error_msgs)
         seperateSets = False
         if len(testSets) >=1:
                 seperateSets = True
-        print(testSets)
+        #print(testSets)
         index=0
         j=1
         if seperateSets:
