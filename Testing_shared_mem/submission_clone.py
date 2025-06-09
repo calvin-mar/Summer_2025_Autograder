@@ -7,7 +7,8 @@ def eat():
     return 1
 def add(a,b):
     c = int(input("Number: "))
-    return a + b + b
+    #print(c)
+    return a + b + c
 def test():
     g = 1
     return g

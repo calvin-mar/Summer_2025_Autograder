@@ -5,12 +5,13 @@ import astor
 import re
 import os
 import importlib.util
+from multiprocessing import shared_memory as shm
 
 
 def autoGrader(student_submission):
     passes = []
     error_msgs = []
-
+    l_data = shm.ShareableList([50,10,15], name="l_data")
     i_test_num = 1
     print("Autograder starting...")
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -29,19 +30,21 @@ def autoGrader(student_submission):
         error_msgs.append("There is a problem with your file.")
     else:
         specific_student.loader.exec_module(sm)
+        
 
 
         ########################################################################
         # Start of tests #######################################################
         ########################################################################
-        # Test 1: 
+        # Test 1:
+        
         try:
             assert sm.f_temp_fahr == (9/5) * sm.f_celsius + 32
             passes.append(True)
         except:
             passes.append(False)
             try:
-                error_msgs.append(" Temperature Conversions Failed: " + str(sm.f_celsius) + " degrees Celsius should equal " + str(((9/5) * lab_02_studentsub.f_celsius + 32)) + " degrees Fahrenheit but your code has it equal " + str(lab_02_studentsub.f_temp_fahr) + " degrees Fahrenheit.  Make sure your variables are named correctly if your value is correct.</font>")
+                error_msgs.append(" Temperature Conversions Failed: " + str(sm.f_celsius) + " degrees Celsius should equal " + str(((9/5) * sm.f_celsius + 32)) + " degrees Fahrenheit but your code has it equal " + str(sm.f_temp_fahr) + " degrees Fahrenheit.  Make sure your variables are named correctly if your value is correct.</font>")
             except:
                 error_msgs.append(" Temperature Conversions Failed: variables are not named correctly or have incorrect values.</font>")
 
@@ -59,7 +62,7 @@ def autoGrader(student_submission):
         except:
             passes.append(False)
             try:
-                error_msgs.append(" Distance Conversions Failed: " + str(sm.f_miles) + " miles should equal " + str((lab_02_studentsub.f_miles / 3.1) * 5) + " kilometers but your code has it equal " + str(lab_02_studentsub.f_distance_km) + " kilometers.  Make sure your variables are named correctly if your value is correct.</font>")
+                error_msgs.append(" Distance Conversions Failed: " + str(sm.f_miles) + " miles should equal " + str((sm.f_miles / 3.1) * 5) + " kilometers but your code has it equal " + str(sm.f_distance_km) + " kilometers.  Make sure your variables are named correctly if your value is correct.</font>")
             except:
                 error_msgs.append(" Distance Conversions Failed: variables are not named correctly or have incorrect values.</font>")
                 
@@ -130,7 +133,8 @@ def autoGrader(student_submission):
         ########################################################################
         # End of tests
         ########################################################################
-
+    l_data.shm.close()
+    l_data.shm.unlink()
 
     print("...Autograder completed.")
     print()
@@ -147,7 +151,7 @@ def testing(queue):
 
 def main():
 	passes, error_msgs,assistant = autoGrader("lab_02_student_submission.py")
-	assistant.displayWindow(passes, error_msgs, testSets)
+	assistant.displayWindow(passes, error_msgs)
 	
 if __name__ == "__main__":
     main()
