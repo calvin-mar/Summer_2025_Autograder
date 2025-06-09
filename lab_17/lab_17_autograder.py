@@ -10,7 +10,7 @@ import os
 # Graphics/PyQt imports
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import *
-from layout_colorwidget import Color
+#from layout_colorwidget import Color
 
 
 from dave_utilities import *
@@ -44,62 +44,43 @@ def autoGrader(student_submission):
         ########################################################################
         # Start of tests #######################################################
         ########################################################################
-        i_test_num = 1
 
         # Test 1: Task 1: Test load_misspellings() function
         test_dict = {"doofis":"doofus", "gote":"goat", "miztake":"mistake", "l8":"late", "kat":"cat"}
 
-
-
-        error_calling_function = False
-        try:
-            try:
-                result = sm.load_misspellings()
-            except:
-                result = '"Function load_misspellings() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert dave_utilities.compare_dicts(result, test_dict) == True
-            passes.append(True)
-        except:
+        result = assistant.is_inf(sm.load_misspellings)
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function load_misspellings() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within load_misspellings(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function load_misspellings() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(dave_utilities.compare_dicts(result, test_dict) == True):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: load_misspellings() should return " + str(test_dict) + " but it returns " + str(result) + ".</font>")
 
+        # Test 2: Task 1: Test fix_misspellings() function
 
-        i_test_num = i_test_num + 1
+        test_dict = {"doofis":"doofus", "gote":"goat", "miztake":"mistake", "l8":"late", "kat":"cat"}
 
-
-
-        # Test 2: Task 1: Test fix_misspellings() function 
-
-
-
-        s_text = ""
-        error_calling_function = False
-        try:
-            try:
-                result = sm.fix_misspellings(test_dict)
-            except:
-                result = '"Function fix_misspellings() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert result == "when i am late getting home my goat doofus may make a mistake and eat my cat this keeps mee from getting home late all the time becuz i love my goat and dont want him to get a hairball from eating my cat"
-            s_text = result          
-            passes.append(True)
-        except:
+        result = assistant.is_inf(sm.fix_misspellings, (test_dict,))
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function fix_misspellings() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within fix_misspellings(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function fix_misspellings() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == "when i am late getting home my goat doofus may make a mistake and eat my cat this keeps mee from getting home late all the time becuz i love my goat and dont want him to get a hairball from eating my cat"):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: fix_misspellings() should return \"when i am late getting home my goat doofus may make a mistake and eat my cat this keeps mee from getting home late all the time becuz i love my goat and dont want him to get a hairball from eating my cat\", but it returns \"" + str(result) + "\".</font>")
 
-
-        i_test_num = i_test_num + 1
-
-
         # Test 3: Task 1: Test word_count() function 
-
 
 
         test_dict2 = {}
@@ -111,134 +92,96 @@ def autoGrader(student_submission):
                 
             else:
                 test_dict2[word] = 1
-        error_calling_function = False
-        try:
-            try:
-                result = sm.word_count(s_text)
-            except:
-                result = '"Function word_count() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert dave_utilities.compare_dicts(test_dict2, result) == True
-            passes.append(True)
-        except:
+                
+        result = assistant.is_inf(sm.word_count, (s_text,))
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function word_count() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within word_count(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function word_count() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(dave_utilities.compare_dicts(test_dict2, result) == True):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: word_count() should return dictionary: \"" + str(test_dict2) + "\" with argument \"" + s_text + "\" but it returns " + str(result) + ".</font>")
 
-
-        i_test_num = i_test_num + 1
-
-
-        # Test 4: Task 1: Test output_fixed_text() function 
-
-
-
-        error_calling_function = False
-        try:
-            try:
-                result = sm.output_fixed_text(s_text)
-            except:
-                result = '"Function output_fixed_text() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
+        # Test 4: Task 1: Test output_fixed_text() function
+        
+        result = assistant.is_inf(sm.output_fixed_text, (s_text,))
+        if(result == "Infinite"):
+            passes.append(False)
+            error_msgs.append(" Failed: An infinite loop is detected within output_fixed_text(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function output_fixed_text() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
             inp_file_1 = open("fixed.txt", "r")
             s_data1 = inp_file_1.read()
             inp_file_1.close()
             inp_file_2 = open("fixed_example.txt", "r")
             s_data2 = inp_file_2.read()
             inp_file_2.close()
-            assert s_data1.strip() == s_data2.strip()
-            passes.append(True)
-        except:
-            passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function output_fixed_text() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            if(s_data1.strip() == s_data2.strip()):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: output_fixed_text() writes an incorrect value to the file.  Look at the file fixed_example.txt to see what should have been written to the file fixed.txt.</font>")
 
-
-        i_test_num = i_test_num + 1
-
-
-        # Test 5: Task 2: Test make_dictionary() function 
-
-
-
+        # Test 5: Task 2: Test make_dictionary() function
 
         spanish_dict = {"amigo":"friend", "hola":"hello", "mi":"my", "donde":"where", "esta":"is", "diablo":"devil", "bano":"bathroom"}        
-        error_calling_function = False
-        try:
-            try:
-                result = sm.make_dictionary()
-            except:
-                result = '"Function make_dictionary() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert dave_utilities.compare_dicts(result, spanish_dict) == True
-            passes.append(True)
-        except:
+        result = assistant.is_inf(sm.make_dictionary)
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function make_dictionary() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within make_dictionary(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function make_dictionary() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(dave_utilities.compare_dicts(result, spanish_dict) == True):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: make_dictionary() should return should return " + str(spanish_dict) + " but it returns " + str(result) + ".</font>")
 
-
-        i_test_num = i_test_num + 1
-
-
-        # Test 6: Task 2: Test get_text_to_translate() function 
-
-
-
-        error_calling_function = False
-        try:
-            try:
-                result = sm.get_text_to_translate()
-            except:
-                result = '"Function get_text_to_translate() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert result == "hola mi amigo donde esta la salle de de bano"
-            passes.append(True)
-        except:
+        # Test 6: Task 2: Test get_text_to_translate() function
+        
+        result = assistant.is_inf(sm.get_text_to_translate)
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function get_text_to_translate() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within get_text_to_translate(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function get_text_to_translate() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            if(result == "hola mi amigo donde esta la salle de de bano"):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: get_text_to_translate() should return \"hola mi amigo donde esta la salle de de bano\" but it returns \"" + str(result) + "\".</font>")
 
-
-        i_test_num = i_test_num + 1
-
-
-        # Test 7: Task 2: Test translate() function 
-
-
-            
-        error_calling_function = False
+        # Test 7: Task 2: Test translate() function
         s_translate_me = "hola mi amigo donde esta la salle de de bano"
-        try:
-            try:
-                result, d_xlate_errors = sm.translate(spanish_dict, s_translate_me)
-            except:
-                result = '"Function translate() caused an error.  Try adding some print statements to it to see what is happening!"'
-                error_calling_function = True
-            assert result == "hello my friend where is ????? ????? ????? ????? bathroom"
-            d_answer = {"la":1, "salle":1, "de":2}
-            assert dave_utilities.compare_dicts(d_xlate_errors, d_answer) == True
-            passes.append(True)
-        except:
+        
+        result = assistant.is_inf(sm.translate, (spanish_dict, s_translate_me))
+        d_xlate_errors = result[1]
+        result = result[0]
+        if(result == "Infinite"):
             passes.append(False)
-            if error_calling_function == True:
-                error_msgs.append(" Failed: Function translate() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: An infinite loop is detected within translate(). Check for unchanged loop conditions.")
+        elif(result == "Error"):
+            passes.append(False)
+            error_msgs.append(" Failed: Function translate() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        else:
+            d_answer = {"la":1, "salle":1, "de":2}
+            if(result == "hello my friend where is ????? ????? ????? ????? bathroom" and dave_utilities.compare_dicts(d_xlate_errors, d_answer) == True):
+                passes.append(True)
             else:
+                passes.append(False)
                 error_msgs.append(" Failed: translate() should return \"hello my friend where is ????? ????? ????? ????? bathroom\" and " + str(d_answer) + ", but it returns \"" + result + "\" and " + str(d_xlate_errors) + ".</font>")
 
-
-        i_test_num = i_test_num + 1
-           
-
-        
         ########################################################################
         # End of tests
         ########################################################################
