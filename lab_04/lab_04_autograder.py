@@ -42,10 +42,10 @@ def autoGrader(student_submission):
         
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within double_a_number(). Check for unchanged loop conditions.")
+            error_msgs.append(" Failed: Function double_a_number() caused an error. It might contain an infinite loop or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!"")
         elif(result == "Error"):
             passes.append(False)
-            error_msgs.append("Function double_a_number() caused an error.  Try adding some print statements to it to see what is happening!")
+            error_msgs.append(" Failed: Function double_a_number() caused an error. Try adding some print statements to it to see what is happening!")
         else:
             if(result == 6):
                 passes.append(True)
@@ -67,10 +67,10 @@ def autoGrader(student_submission):
             
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within biggest_number(). Check for unchanged loop conditions.")
+            error_msgs.append(" Failed: Function biggest_number() caused an error. It might contain an infinite loop or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!"")
         elif(result == "Error"):
             passes.append(False)
-            error_msgs.append("Function biggest_number() caused an error.  Try adding some print statements to it to see what is happening!")
+            error_msgs.append(" Failed: Function biggest_number() caused an error.  Try adding some print statements to it to see what is happening!")
         else:
             if(result == 3):
                 passes.append(True)
@@ -89,10 +89,10 @@ def autoGrader(student_submission):
             
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within biggest_number(). Check for unchanged loop conditions.")
+            error_msgs.append(" Failed: Function biggest_number() caused an error. It might contain an infinite loop or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!"")
         elif(result == "Error"):
             passes.append(False)
-            error_msgs.append("Function biggest_number() caused an error.  Try adding some print statements to it to see what is happening!")
+            error_msgs.append(" Failed: Function biggest_number() caused an error.  Try adding some print statements to it to see what is happening!")
         else:
             if(result == 3):
                 passes.append(True)
@@ -110,10 +110,10 @@ def autoGrader(student_submission):
         
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within biggest_number(). Check for unchanged loop conditions.")
+            error_msgs.append(" Failed: Function biggest_number() caused an error. It might contain an infinite loop or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!"")
         elif(result == "Error"):
             passes.append(False)
-            error_msgs.append("Function biggest_number() caused an error. or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!")
+            error_msgs.append(" Failed: Function biggest_number() caused an error. It might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!")
         else:
             if(result == 3):
                 passes.append(True)
@@ -134,10 +134,10 @@ def autoGrader(student_submission):
           
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within is_even(). Check for unchanged loop conditions.")
+            error_msgs.append(" Failed: Function is_even() caused an error. It might contain an infinite loop or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!"")
         elif(result == "Error"):
             passes.append(False)
-            error_msgs.append("Function is_even() caused an error. or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!")
+            error_msgs.append(" Failed: Function is_even() caused an error. It might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!")
         else:
             if(result == False):
                 passes.append(True)
@@ -155,10 +155,10 @@ def autoGrader(student_submission):
             
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within is_even(). Check for unchanged loop conditions.")
+            error_msgs.append(" Failed: Function is_even() caused an error. It might contain an infinite loop or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!"")
         elif(result == "Error"):
             passes.append(False)
-            error_msgs.append("Function is_even() caused an error. or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!")
+            error_msgs.append(" Failed: Function is_even() caused an error. It might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!")
         else:
             if(result == True):
                 passes.append(True)
@@ -179,10 +179,10 @@ def autoGrader(student_submission):
              
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within rectangle_area(). Check for unchanged loop conditions.")
+            error_msgs.append(" Failed: Function rectangle_area() caused an error. It might contain an infinite loop or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!"")
         elif(result == "Error"):
             passes.append(False)
-            error_msgs.append("Function rectangle_area() caused an error. or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!")
+            error_msgs.append(" Failed: Function rectangle_area() caused an error. It might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!")
         else:
             if(result == 15):
                 passes.append(True)
@@ -203,10 +203,10 @@ def autoGrader(student_submission):
         
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within km_to_miles(). Check for unchanged loop conditions.")
+            error_msgs.append(" Failed: Function km_to_miles() caused an error. It might contain an infinite loop or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!"")
         elif(result == "Error"):
             passes.append(False)
-            error_msgs.append("Function km_to_miles() caused an error. or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!")
+            error_msgs.append(" Failed: Function km_to_miles() caused an error. It might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!")
         else:
             if(result == 15):
                 passes.append(True)
@@ -229,10 +229,10 @@ def autoGrader(student_submission):
         
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within is_leap_year(). Check for unchanged loop conditions.")
+            error_msgs.append(" Failed: Function is_leap_year() caused an error. It might contain an infinite loop or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!"")
         elif(result == "Error"):
             passes.append(False)
-            error_msgs.append("Function is_leap_year() caused an error or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!")
+            error_msgs.append(" Failed: Function is_leap_year() caused an error. It might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!")
         else:
             if(result == False):
                 passes.append(True)
@@ -249,10 +249,10 @@ def autoGrader(student_submission):
  
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within is_leap_year(). Check for unchanged loop conditions.")
+            error_msgs.append(" Failed: Function is_leap_year() caused an error. It might contain an infinite loop or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!"")
         elif(result == "Error"):
             passes.append(False)
-            error_msgs.append("Function is_leap_year() caused an error or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!")
+            error_msgs.append(" Failed: Function is_leap_year() caused an error. It might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!")
         else:
             if(result == True):
                 passes.append(True)
@@ -270,10 +270,10 @@ def autoGrader(student_submission):
          
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within is_leap_year(). Check for unchanged loop conditions.")
+            error_msgs.append(" Failed: Function is_leap_year() caused an error. It might contain an infinite loop or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!"")
         elif(result == "Error"):
             passes.append(False)
-            error_msgs.append("Function is_leap_year() caused an error or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!")
+            error_msgs.append(" Failed: Function is_leap_year() caused an error.It might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!")
         else:
             if(result == False):
                 passes.append(True)
@@ -294,10 +294,10 @@ def autoGrader(student_submission):
         
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within is_leap_year(). Check for unchanged loop conditions.")
+            error_msgs.append(" Failed: Function is_even() caused an error. It might contain an infinite loop or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!"")
         elif(result == "Error"):
             passes.append(False)
-            error_msgs.append("Function is_leap_year() caused an error or it might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!")
+            error_msgs.append(" Failed: Function is_leap_year() caused an error. It might not be defined (perhaps you made a typo in the name). Try adding some print statements to it to see what is happening!")
         else:
             if(result == True):
                 passes.append(True)
