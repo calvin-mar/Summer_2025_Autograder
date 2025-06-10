@@ -44,7 +44,6 @@ def input(*args, **kwargs):
 def wrapper(function, parameter_list, result):
     try:
         result[0] = function(*parameter_list)
-        
     except Exception as e:
         result[0] = "Error"
         
@@ -57,10 +56,10 @@ def is_inf(function, parameter_list=(), input_list=[]):
     p = threading.Thread(target=wrapper, args=(function,parameter_list, result), daemon=True)
     p.start()
     p.join(3)
-    if result[0] == "Error":
-        return "Error"
-    elif p.is_alive():
+    if p.is_alive():
         return "Infinite"
+    elif result[0] == "Error":
+        return "Error"
     else:
         return result[0]
 
@@ -75,10 +74,10 @@ class Color(QWidget):
 
 def syntax_checker(filename, timeout=0):
         print("Syntax checker starting...")
-
         ##################################################################################################
         ### new code
         ##################################################################################################
+
         dir_path = os.path.dirname(os.path.realpath(__file__))
         name = filename[:-3]
         specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, filename))
