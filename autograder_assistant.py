@@ -22,6 +22,10 @@ except ImportError:
 
 # Override Python's built in input() function so we can get test data fed into
 # a program without having to use the command line to redirect input.
+
+class InputException(Exception):
+    pass
+
 def input(*args, **kwargs):
     # Access l_data Here
     try:
@@ -32,7 +36,7 @@ def input(*args, **kwargs):
     #########
     i_data = l_data[0]
     if(i_data == None):
-        raise Exception
+        raise InputException("There is an unexpected input call.")
     for i in range(len(l_data)-1):
         l_data[i] = l_data[i+1]
     l_data[-1] = None
@@ -44,7 +48,7 @@ def input(*args, **kwargs):
 def wrapper(function, parameter_list, result):
     try:
         result[0] = function(*parameter_list)
-    except Exception as e:
+    except InputException as e:
         result[0] = "Error"
         
 def is_inf(function, parameter_list=(), input_list=[]):
