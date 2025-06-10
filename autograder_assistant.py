@@ -12,7 +12,7 @@ from multiprocessing import shared_memory as shm
 from PyQt6.QtCore import QSize, Qt, QRect
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import QFont
-from layout_colorwidget import Color
+from PyQt6.QtGui import QColor, QPalette
 
 try:
     import __builtin__
@@ -63,12 +63,28 @@ def is_inf(function, parameter_list=(), input_list=[]):
     else:
         return result[0]
 
-def syntax_checker(filename, timeout):
+class Color(QWidget):
+    def __init__(self, color):
+        super().__init__()
+        self.setAutoFillBackground(True)
+
+        palette = self.palette()
+        palette.setColor(QPalette.ColorRole.Window, QColor(color))
+        self.setPalette(palette)
+
+def syntax_checker(filename, timeout=0):
         print("Syntax checker starting...")
 
         ##################################################################################################
         ### new code
         ##################################################################################################
+
+        name = filename[:-3]
+        specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, filename))
+        sm = importlib.util.module_from_spec(specific_student)
+        inf = is_inf(specific_student.loader.exec_module, (sm,))
+        if(inf == "Infinite"):
+            return False, "There is a problem with your code, you may have an infinite loop outside of a function. Check that all loops have a ending condition."
 
         # Check for triple quote and triple apostrophes
         s_triple_res = ""#check_for_triples()
@@ -123,6 +139,9 @@ def syntax_checker(filename, timeout):
             if "continue" in s_trimmed_code:
                 b_proceed = False
                 s_error_msg = s_error_msg + "Your code contains <b><font color=orange>continue</font></b> which is not allowed.  "
+            if "random.choice" in s_trimmed_code:
+                b_proceed = False
+                s_error_msg = s_error_msg + "Your code contains <b><font color=orange>random.choice</font></b> which is not allowed.  "
 
             # look for print(f or print(F
             if re.search("print\\s*\\(\\s*[fF]\\s*[\'\"]+", s_trimmed_code) != None:
