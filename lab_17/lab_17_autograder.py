@@ -53,7 +53,7 @@ def autoGrader(student_submission):
 		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within load_misspellings(). Check for unchanged loop conditions.")
+            error_msgs.append(" Failed: Function load_misspellings() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         elif(result == "Error"):
             passes.append(False)
             error_msgs.append(" Failed: Function load_misspellings() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -74,7 +74,7 @@ def autoGrader(student_submission):
 		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within fix_misspellings(). Check for unchanged loop conditions.")
+            error_msgs.append(" Failed: Function fix_misspellings() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         elif(result == "Error"):
             passes.append(False)
             error_msgs.append(" Failed: Function fix_misspellings() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -103,7 +103,7 @@ def autoGrader(student_submission):
 		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within word_count(). Check for unchanged loop conditions.")
+            error_msgs.append(" Failed: Function word_count() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         elif(result == "Error"):
             passes.append(False)
             error_msgs.append(" Failed: Function word_count() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -122,7 +122,7 @@ def autoGrader(student_submission):
 		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within output_fixed_text(). Check for unchanged loop conditions.")
+            error_msgs.append(" Failed: Function output_fixed_text() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         elif(result == "Error"):
             passes.append(False)
             error_msgs.append(" Failed: Function output_fixed_text() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -148,7 +148,7 @@ def autoGrader(student_submission):
 		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within make_dictionary(). Check for unchanged loop conditions.")
+            error_msgs.append("Failed: Function make_dictionary() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         elif(result == "Error"):
             passes.append(False)
             error_msgs.append(" Failed: Function make_dictionary() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -166,7 +166,7 @@ def autoGrader(student_submission):
 		result = "Error"
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within get_text_to_translate(). Check for unchanged loop conditions.")
+            error_msgs.append(" Failed: Function get_text_to_translate() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         elif(result == "Error"):
             passes.append(False)
             error_msgs.append(" Failed: Function get_text_to_translate() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -188,7 +188,7 @@ def autoGrader(student_submission):
         result = result[0]
         if(result == "Infinite"):
             passes.append(False)
-            error_msgs.append(" Failed: An infinite loop is detected within translate(). Check for unchanged loop conditions.")
+            error_msgs.append(" Failed: Function translate() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         elif(result == "Error"):
             passes.append(False)
             error_msgs.append(" Failed: Function translate() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
