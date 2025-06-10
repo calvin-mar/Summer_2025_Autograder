@@ -23,12 +23,16 @@ def autoGrader(student_submission):
     specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, student_submission))
     sm = importlib.util.module_from_spec(specific_student)
 
+    l_data.close()
+    l_data.unlink()
+
     TIMEOUT = 30 
     b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), TIMEOUT)
     if b_proceed == False:
         passes.append(False)
         error_msgs.append("There is a problem with your file.")
     else:
+        l_data = shm.ShareableList([50,10,15], name="l_data")
         specific_student.loader.exec_module(sm)
         
 
