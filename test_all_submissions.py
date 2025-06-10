@@ -9,7 +9,7 @@ import importlib.util
 # Graphics/PyQt imports
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import *
-from layout_colorwidget import Color
+#from layout_colorwidget import Color
 
 ## This section contains to function to block and enable print
 ## The purpose of this is to avoid flooding the shell with
@@ -85,17 +85,35 @@ class MainWindow(QMainWindow):
         cwd = os.getcwd()
         for name in os.listdir(cwd):
             if(not os.path.isfile(name) and name != "__pycache__"):
-                testCase = QLabel("Test for " + str(name))
+                testCase = QHBoxLayout()
+                image = QLabel("")
+                image.setFixedSize(52,52)
+                text = QLabel("Test for " + str(name))
+                text.setWordWrap(True)
+                text.setMargin(5)
+                
                 blockPrint()
-                result = test_submission(name)
+                results = test_submission(name)
                 enablePrint()
-                if(result):
-                    testCase.setText("<img src='check.png' width='32' height='32'><font color=black>Test for " + str(name) + " Passed </font>")
-                else:
-                    testCase.setText("<img src='octagon.png' width='32' height='32'><font color=black>Test for " + str(name) + " Failed </font>")
 
-                testCase.setWordWrap(True)
-                self.vbox.addWidget(testCase)
+                num_passed = 0
+                failed_list = []
+                for index in range(len(results)):
+                    if results[index]:
+                        num_passed +=1
+                    else:
+                        failed_list.append(str(index+1))
+
+                if(num_passed == len(results)):
+                    image.setText("<img src='check.png' width='52' height='52'>")
+                    text.setText("<font size=6><b>" + str(name) + " passed all tests!</b></font>")
+                else:
+                    image.setText("<img src='redX.png' width='52' height='52'>")
+                    text.setText("<font size=6><b>" + str(name) + " passed " + str(num_passed) + " tests. They need to complete test(s) " + ", ".join(failed_list) + ".</b></font>")
+                    
+                testCase.addWidget(image)
+                testCase.addWidget(text)
+                self.vbox.addLayout(testCase)
         
         self.vbox.addStretch()
         self.widget.setLayout(self.vbox)
@@ -108,7 +126,7 @@ class MainWindow(QMainWindow):
 
         self.setCentralWidget(self.scroll)
 
-        self.setGeometry(600, 100, 800, 600)
+        self.setGeometry(600, 100, 820, 600)
         self.setWindowTitle('All Submissions')
         self.show()
         
