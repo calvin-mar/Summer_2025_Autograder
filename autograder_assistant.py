@@ -7,6 +7,7 @@ import re
 import threading
 import os
 from multiprocessing import shared_memory as shm
+import importlib.util
 
 # Graphics/PyQt imports
 from PyQt6.QtCore import QSize, Qt, QRect
