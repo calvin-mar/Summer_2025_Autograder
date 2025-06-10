@@ -23,9 +23,6 @@ def autoGrader(student_submission):
     specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, student_submission))
     sm = importlib.util.module_from_spec(specific_student)
 
-    l_data.close()
-    l_data.unlink()
-
     TIMEOUT = 30 
     b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), TIMEOUT)
     l_data.shm.close()
