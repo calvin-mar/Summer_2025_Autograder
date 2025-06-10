@@ -79,7 +79,7 @@ def syntax_checker(filename, timeout=0):
         ##################################################################################################
         ### new code
         ##################################################################################################
-
+        dir_path = os.path.dirname(os.path.realpath(__file__))
         name = filename[:-3]
         specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, filename))
         sm = importlib.util.module_from_spec(specific_student)
