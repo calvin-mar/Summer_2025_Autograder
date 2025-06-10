@@ -28,12 +28,19 @@ def autoGrader(student_submission):
 
     TIMEOUT = 30 
     b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), TIMEOUT)
+    l_data.shm.close()
+    l_data.shm.unlink()
     if b_proceed == False:
         passes.append(False)
-        error_msgs.append("There is a problem with your file.")
+        if s_error_msg != "":
+            error_msgs.append(s_error_msg)
+        else:
+            error_msgs.append("There is a problem with your file.")
     else:
         l_data = shm.ShareableList([50,10,15], name="l_data")
         specific_student.loader.exec_module(sm)
+        #l_data.shm.close()
+        #l_data.shm.unlink()
         
 
 
@@ -137,8 +144,8 @@ def autoGrader(student_submission):
         ########################################################################
         # End of tests
         ########################################################################
-    l_data.shm.close()
-    l_data.shm.unlink()
+        l_data.shm.close()
+        l_data.shm.unlink()
 
     print("...Autograder completed.")
     print()
@@ -146,12 +153,9 @@ def autoGrader(student_submission):
     
     return passes, error_msgs, assistant
 
-def testing(queue):
+def testing():
 	passes, error_msgs,assistant = autoGrader("lab_02_student_submission.py")
-	ret = queue.get()
-	ret["result"] = passes
-	queue.put(ret)
-	return
+	return passes
 
 def main():
 	passes, error_msgs,assistant = autoGrader("lab_02_student_submission.py")
