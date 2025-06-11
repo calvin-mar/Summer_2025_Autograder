@@ -49,7 +49,7 @@ def wrapper(function, parameter_list, result):
     try:
         result[0] = function(*parameter_list)
     except InputException as e:
-        result[0] = "Error"
+        result[0] = "Input"
         
 def is_inf(function, parameter_list=(), input_list=[]):
     # Return either Infinite, Error, or All Good
@@ -64,6 +64,8 @@ def is_inf(function, parameter_list=(), input_list=[]):
         return "Infinite"
     elif result[0] == "Error":
         return "Error"
+    elif result[0] == "Input":
+        return "Input"
     else:
         return result[0]
 
@@ -89,6 +91,8 @@ def syntax_checker(filename, timeout=0):
         inf = is_inf(specific_student.loader.exec_module, (sm,))
         if(inf == "Infinite"):
             return False, "There is a problem with your code, you may have an infinite loop outside of a function. Check that all loops have a ending condition."
+        elif(inf == "Input"):
+            return False, "There is a problem with your code, you may have unexpected or extra input statements outside of a function. Run your code and check how many inputs are called."
 
         # Check for triple quote and triple apostrophes
         s_triple_res = ""#check_for_triples()
