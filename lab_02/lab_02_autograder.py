@@ -11,7 +11,6 @@ from multiprocessing import shared_memory as shm
 def autoGrader(student_submission):
     passes = []
     error_msgs = []
-
     l_data = shm.ShareableList([50,10,15], name="l_data")
     i_test_num = 1
     print("Autograder starting...")
@@ -113,7 +112,7 @@ def autoGrader(student_submission):
 
 
         try:
-
+            i_people = 15
             i_roll_packs = i_people // 12 + 1
             i_soda_packs = (2 * i_people) // 12 + 1
             i_hot_dog_packs = i_people // 8 + 1
@@ -134,6 +133,7 @@ def autoGrader(student_submission):
             assert sm.i_rem_chips == i_rem_chips
             passes.append(True)
         except:
+            passes.append(False)
             try:
                 error_msgs.append(" Olympics Party Failed: For " + str(sm.i_people) + " people, the values should be " + str(i_roll_packs) + " roll packs, "  + str(i_soda_packs) + " soda packs, "  + str(i_hot_dog_packs) + " hot dog packs, "  + str(i_chip_boxes) + " chip boxes.  There should be the following items left over: "  + str(i_rem_rolls) + " rolls, "  + str(i_rem_sodas) + " sodas, "  + str(i_rem_hot_dogs) + " hot dogs, and "  + str(i_rem_chips) + " bags of chips.  Make sure your variables are named correctly if your values are correct.</font>")
             except:

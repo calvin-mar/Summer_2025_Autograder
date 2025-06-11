@@ -481,12 +481,9 @@ def autoGrader(student_submission):
 
     return passes, error_msgs, assistant
 
-def testing(queue):
+def testing():
 	passes, error_msgs,assistant = autoGrader("lab_06_student_submission.py")
-	ret = queue.get()
-	ret["result"] = passes
-	queue.put(ret)
-	return
+	return passes
 
 def main():
     testSets = [4, 2, 6, 3, 5, 2]

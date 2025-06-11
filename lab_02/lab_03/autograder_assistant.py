@@ -24,9 +24,8 @@ except ImportError:
 # a program without having to use the command line to redirect input.
 
 class InputException(Exception):
-    def __init__(self, message):
-        super().__init__(message)
-        self.message = message
+    pass
+
 def input(*args, **kwargs):
     # Access l_data Here
     try:
@@ -37,8 +36,7 @@ def input(*args, **kwargs):
     #########
     i_data = l_data[0]
     if(i_data == None):
-        raise InputException("InputException")
-        #raise ValueError
+        raise InputException("There is an unexpected input call.")
     for i in range(len(l_data)-1):
         l_data[i] = l_data[i+1]
     l_data[-1] = None
@@ -50,14 +48,8 @@ def input(*args, **kwargs):
 def wrapper(function, parameter_list, result):
     try:
         result[0] = function(*parameter_list)
-    except Exception as e:
-        try:
-            if(e.message == "InputException"):
-                result[0] = "Input"
-            else:
-                result[0] = "Error"
-        except:
-            result[0]
+    except InputException as e:
+        result[0] = "Input"
         
 def is_inf(function, parameter_list=(), input_list=[]):
     # Return either Infinite, Error, or All Good
@@ -68,20 +60,14 @@ def is_inf(function, parameter_list=(), input_list=[]):
     p = threading.Thread(target=wrapper, args=(function,parameter_list, result), daemon=True)
     p.start()
     p.join(3)
-    output = []
     if p.is_alive():
-        output.append(" Failed: Function " + str(function.__name__) + "() caused an error. The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!")
-        output.append(True)
+        return "Infinite"
     elif result[0] == "Error":
-        output.append(" Failed: Function " + str(function.__name__) + "() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!")
-        output.append(True)
+        return "Error"
     elif result[0] == "Input":
-        output.append("  Failed: Function " + str(function.__name__) + "() caused an error. It might contain an unexpected or extra input that is causing it to crash. Try adding some print statements to it to see what is happening!")
-        output.append(True)
+        return "Input"
     else:
-        output.append(result[0])
-        output.append(False)
-    return output
+        return result[0]
 
 class Color(QWidget):
     def __init__(self, color):
@@ -102,12 +88,11 @@ def syntax_checker(filename, timeout=0):
         name = filename[:-3]
         specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, filename))
         sm = importlib.util.module_from_spec(specific_student)
-        output = is_inf(specific_student.loader.exec_module, (sm,))
-        if(output[1]):
-            if("infinite" in output[0]):
-                return False, "There is a problem with your code, you may have an infinite loop outside of a function. Check that all loops have a ending condition."
-            elif("input" in output[0]):
-                return False, "There is a problem with your code, you may have unexpected or extra input statements outside of a function. Run your code and check how many inputs are called."
+        inf = is_inf(specific_student.loader.exec_module, (sm,))
+        if(inf == "Infinite"):
+            return False, "There is a problem with your code, you may have an infinite loop outside of a function. Check that all loops have a ending condition."
+        elif(inf == "Input"):
+            return False, "There is a problem with your code, you may have unexpected or extra input statements outside of a function. Run your code and check how many inputs are called."
 
         # Check for triple quote and triple apostrophes
         s_triple_res = ""#check_for_triples()

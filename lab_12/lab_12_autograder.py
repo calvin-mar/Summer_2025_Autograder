@@ -219,7 +219,7 @@ def autoGrader(student_submission):
             for word in l_tmp:
                 tmp_str = tmp_str + word
             
-            assert sm.s_task_10 == tmp_str
+            assert lab_12_student_submission.s_task_10 == tmp_str
             passes.append(True)
             
         except:
@@ -324,7 +324,7 @@ def autoGrader(student_submission):
 
 
         try:
-            assert sm.b_task_17 == True
+            assert lab_12_student_submission.b_task_17 == True
             passes.append(True)
             
         except:
@@ -434,7 +434,7 @@ def autoGrader(student_submission):
 
 
         try:
-            assert sm.s_task_24 == s_task_24_data.strip()
+            assert lab_12_student_submission.s_task_24 == s_task_24_data.strip()
             passes.append(True)
             
         except:
@@ -504,12 +504,9 @@ def autoGrader(student_submission):
 
     return passes, error_msgs, assistant
 
-def testing(queue):
+def testing():
 	passes, error_msgs,assistant = autoGrader("lab_12_student_submission.py")
-	ret = queue.get()
-	ret["result"] = passes
-	queue.put(ret)
-	return
+	return passes
 
 def main():
     testSets = []
