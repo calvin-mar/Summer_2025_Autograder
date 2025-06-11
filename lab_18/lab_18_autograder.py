@@ -36,7 +36,10 @@ def autoGrader(student_submission):
     b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), TIMEOUT)
     if b_proceed == False:
         passes.append(False)
-        error_msgs.append("There is a problem with your file.")
+        if s_error_msg != "":
+            error_msgs.append(s_error_msg)
+        else:
+            error_msgs.append("There is a problem with your file.")
     else:
         specific_student.loader.exec_module(sm)
 
@@ -89,10 +92,10 @@ def autoGrader(student_submission):
             ['TWIZZLERS STRAWBERRY (H)', '1 pkg (71g)', '262.5', '1g', 'n/a', '2.5g', '66g', '196.5mg', '25mg'],
             ['WHATCHAMACALLIT (H)', '1 bar (51g)', '256.5', '13g', '5.5g', '4.5g', '30g', '116.5mg', '62mg'],
             ['YORK PEPPERMINT PATTIE (H)', '1 lg. pattie (43g)', '149', '4g', 'n/a', '1.5g', '33.5g', '16.5mg', '7.5mg']]
-	try:
-       		result = assistant.is_inf(sm.get_data)
-	except:
-		result = "Error"
+        try:
+            result = assistant.is_inf(sm.get_data)
+        except:
+                result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: Function get_data() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -108,9 +111,9 @@ def autoGrader(student_submission):
 
         # Test 2: Task 2: Test get_avg_sat_fat() function 
         try:
-		result = assistant.is_inf(sm.get_avg_sat_fat, (l2d_solution,))
-       	except:
-		result = "Error"
+                result = assistant.is_inf(sm.get_avg_sat_fat, (l2d_solution,))
+        except:
+                result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: Function get_avg_sat_fat() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -166,10 +169,10 @@ def autoGrader(student_submission):
                          ['TWIZZLERS STRAWBERRY (H)', '1 pkg (71g)', '262.5', '1g', 'n/a', '2.5g', '66g', '196.5mg', '25mg', False, False],
                          ['WHATCHAMACALLIT (H)', '1 bar (51g)', '256.5', '13g', '5.5g', '4.5g', '30g', '116.5mg', '62mg', True, True],
                          ['YORK PEPPERMINT PATTIE (H)', '1 lg. pattie (43g)', '149', '4g', 'n/a', '1.5g', '33.5g', '16.5mg', '7.5mg', False, True]]
-	try:
-        	result = assistant.is_inf(sm.add_allergy_info, (l2d_solution2,))
-       	except:
-		result = "Error"
+        try:
+            result = assistant.is_inf(sm.add_allergy_info, (l2d_solution2,))
+        except:
+                result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: Function add_allergy_info() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -185,9 +188,9 @@ def autoGrader(student_submission):
         
         # Test 4: Task 4: Test write_safe_candies() function
         try:
-        	result = assistant.is_inf(sm.write_safe_candies, (l2d_solution2,))
-	except:
-		result = "Error"
+            result = assistant.is_inf(sm.write_safe_candies, (l2d_solution2,))
+        except:
+                result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: Function write_safe_candies() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -219,11 +222,11 @@ def autoGrader(student_submission):
     
 
 def testing(queue):
-	passes, error_msgs,assistant = autoGrader("lab_18_student_submission.py")
-	ret = queue.get()
-	ret["result"] = passes
-	queue.put(ret)
-	return
+    passes, error_msgs,assistant = autoGrader("lab_18_student_submission.py")
+    ret = queue.get()
+    ret["result"] = passes
+    queue.put(ret)
+    return
 
 def main():
     testSets = [1, 1, 1, 1]

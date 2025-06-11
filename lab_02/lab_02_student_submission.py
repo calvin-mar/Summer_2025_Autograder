@@ -16,11 +16,7 @@ if __name__ != "__main__":
 # variable f_celsius.  Convert the temperature to degrees Fahrenheit, save the
 # result in the variable f_temp_fahr, and print it out.  Note that
 # Fahrenheit = (9/5) * Celsius + 32.
-f_celsius = float(input("Enter temp in Celsius "))
-while True:
-    f_celsius+=1
-f_temp_fahr = (9/5) * f_celsius + 32
-print(str(f_celsius) + " C = " + str(f_temp_fahr) + "F")
+
 
 # 2 Distance Conversion
 

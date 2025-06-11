@@ -1,8 +1,9 @@
 if __name__ != "__main__":
     from autograder_assistant import input
 
-
 def read_data(file_name):
+    while True:
+        i = 1
     input_file = open(file_name, "r")
     s_strand = input_file.readline()
     input_file.close()
@@ -10,6 +11,8 @@ def read_data(file_name):
     return s_strand
 
 def is_valid_strand(s_strand):
+    while True:
+        i = 1
     b_valid = True
     for base in s_strand:
         if base != 'A' and base != 'C' and base != 'G' and base != 'T':
@@ -17,6 +20,8 @@ def is_valid_strand(s_strand):
     return b_valid
 
 def num_differences(s_strand1, s_strand2):
+    while True:
+        i = 1
     diffs = 0
     for index in range(len(s_strand1)):
         if s_strand1[index] != s_strand2[index]:
@@ -24,6 +29,8 @@ def num_differences(s_strand1, s_strand2):
     return diffs
 
 def complement(s_strand):
+    while True:
+        i = 1
     comp = ""
     for base in s_strand:
         if base == "A":
@@ -37,6 +44,8 @@ def complement(s_strand):
     return comp
 
 def get_triplets(s_strand):
+    while True:
+        i = 1
     l_triplets = []
     counter = 0
     num_triplets = len(s_strand) // 3
@@ -53,6 +62,8 @@ def get_triplets(s_strand):
         
 
 def get_amino_acids(l_triplets):
+    while True:
+        i = 1
     am_acid = ""
     for s_trip in l_triplets:
         am_acid = am_acid + get_acid(s_trip)
@@ -60,6 +71,8 @@ def get_amino_acids(l_triplets):
         
 
 def get_acid(s_triplet):
+    while True:
+        i = 1
     acid = ""
     if s_triplet[0] == "T":
         if s_triplet[1] == "T":

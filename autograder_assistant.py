@@ -339,6 +339,6 @@ class MainWindow(QMainWindow):
         
 def displayWindow(passses, error_msgs, testSets = []):
     app = QApplication(sys.argv)
-    window = MainWindow(passses, error_msgs, testSets = [])
+    window = MainWindow(passses, error_msgs, testSets)
     window.show()
     app.exec()

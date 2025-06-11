@@ -12,10 +12,6 @@ from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import *
 #from layout_colorwidget import Color
 
-
-from dave_utilities import *
-import dave_utilities
-
 def autoGrader(student_submission):
     passes = []
     error_msgs = []
@@ -34,7 +30,10 @@ def autoGrader(student_submission):
     b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), TIMEOUT)
     if b_proceed == False:
         passes.append(False)
-        error_msgs.append("There is a problem with your file.")
+        if s_error_msg != "":
+            error_msgs.append(s_error_msg)
+        else:
+            error_msgs.append("There is a problem with your file.")
     else:
         specific_student.loader.exec_module(sm)
     ##################################################################################################
@@ -47,10 +46,10 @@ def autoGrader(student_submission):
 
         # Test 1: Task 1: Test load_misspellings() function
         test_dict = {"doofis":"doofus", "gote":"goat", "miztake":"mistake", "l8":"late", "kat":"cat"}
-	try:
-        	result = assistant.is_inf(sm.load_misspellings)
-	except:
-		result = "Error"
+        try:
+            result = assistant.is_inf(sm.load_misspellings)
+        except:
+            result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: Function load_misspellings() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -58,7 +57,7 @@ def autoGrader(student_submission):
             passes.append(False)
             error_msgs.append(" Failed: Function load_misspellings() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         else:
-            if(dave_utilities.compare_dicts(result, test_dict) == True):
+            if(compare_dicts(result, test_dict) == True):
                 passes.append(True)
             else:
                 passes.append(False)
@@ -68,10 +67,10 @@ def autoGrader(student_submission):
 
         test_dict = {"doofis":"doofus", "gote":"goat", "miztake":"mistake", "l8":"late", "kat":"cat"}
 
-	try:
-        	result = assistant.is_inf(sm.fix_misspellings, (test_dict,))
-	except:
-		result = "Error"
+        try:
+            result = assistant.is_inf(sm.fix_misspellings, (test_dict,))
+        except:
+            result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: Function fix_misspellings() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -98,9 +97,9 @@ def autoGrader(student_submission):
             else:
                 test_dict2[word] = 1
         try:  
-        	result = assistant.is_inf(sm.word_count, (s_text,))
-	except:
-		result = "Error"
+            result = assistant.is_inf(sm.word_count, (s_text,))
+        except:
+            result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: Function word_count() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -108,7 +107,7 @@ def autoGrader(student_submission):
             passes.append(False)
             error_msgs.append(" Failed: Function word_count() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         else:
-            if(dave_utilities.compare_dicts(test_dict2, result) == True):
+            if(compare_dicts(test_dict2, result) == True):
                 passes.append(True)
             else:
                 passes.append(False)
@@ -116,10 +115,10 @@ def autoGrader(student_submission):
 
         # Test 4: Task 1: Test output_fixed_text() function
 
-	try:
-        	result = assistant.is_inf(sm.output_fixed_text, (s_text,))
-	except:
-		result = "Error"
+        try:
+            result = assistant.is_inf(sm.output_fixed_text, (s_text,))
+        except:
+            result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: Function output_fixed_text() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -143,9 +142,9 @@ def autoGrader(student_submission):
 
         spanish_dict = {"amigo":"friend", "hola":"hello", "mi":"my", "donde":"where", "esta":"is", "diablo":"devil", "bano":"bathroom"}        
         try:
-		result = assistant.is_inf(sm.make_dictionary)
-	except:
-		result = "Error"
+            result = assistant.is_inf(sm.make_dictionary)
+        except:
+            result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append("Failed: Function make_dictionary() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -153,7 +152,7 @@ def autoGrader(student_submission):
             passes.append(False)
             error_msgs.append(" Failed: Function make_dictionary() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         else:
-            if(dave_utilities.compare_dicts(result, spanish_dict) == True):
+            if(compare_dicts(result, spanish_dict) == True):
                 passes.append(True)
             else:
                 passes.append(False)
@@ -161,9 +160,9 @@ def autoGrader(student_submission):
 
         # Test 6: Task 2: Test get_text_to_translate() function
         try:
-        	result = assistant.is_inf(sm.get_text_to_translate)
-	except:
-		result = "Error"
+            result = assistant.is_inf(sm.get_text_to_translate)
+        except:
+            result = "Error"
         if(result == "Infinite"):
             passes.append(False)
             error_msgs.append(" Failed: Function get_text_to_translate() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -180,10 +179,10 @@ def autoGrader(student_submission):
         # Test 7: Task 2: Test translate() function
         s_translate_me = "hola mi amigo donde esta la salle de de bano"
 
-	try:
-        	result = assistant.is_inf(sm.translate, (spanish_dict, s_translate_me))
-	except:
-		result = "Error"
+        try:
+            result = assistant.is_inf(sm.translate, (spanish_dict, s_translate_me))
+        except:
+            result = "Error"
         d_xlate_errors = result[1]
         result = result[0]
         if(result == "Infinite"):
@@ -194,7 +193,7 @@ def autoGrader(student_submission):
             error_msgs.append(" Failed: Function translate() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         else:
             d_answer = {"la":1, "salle":1, "de":2}
-            if(result == "hello my friend where is ????? ????? ????? ????? bathroom" and dave_utilities.compare_dicts(d_xlate_errors, d_answer) == True):
+            if(result == "hello my friend where is ????? ????? ????? ????? bathroom" and compare_dicts(d_xlate_errors, d_answer) == True):
                 passes.append(True)
             else:
                 passes.append(False)
@@ -209,12 +208,31 @@ def autoGrader(student_submission):
     print("You may close the Autograder window to exit.")
     return passes, error_msgs, assistant
 
+## Edited from Dave Utilities
+
+def compare_dicts(dict1, dict2):
+    b_same = True
+    d1_keys = dict1.keys()
+    d2_keys = dict2.keys()
+    if len(d1_keys) != len(d2_keys):
+        return False
+    for k in d1_keys:
+        if dict1[k] != dict2[k]:
+            return False
+    for k in d2_keys:
+        if dict1[k] != dict2[k]:
+            return False
+        
+    return b_same
+
+## End Dave Utilities
+
 def testing(queue):
-	passes, error_msgs,assistant = autoGrader("lab_17_student_submission.py")
-	ret = queue.get()
-	ret["result"] = passes
-	queue.put(ret)
-	return
+    passes, error_msgs,assistant = autoGrader("lab_17_student_submission.py")
+    ret = queue.get()
+    ret["result"] = passes
+    queue.put(ret)
+    return
 
 def main():
     testSets = [4, 3]
