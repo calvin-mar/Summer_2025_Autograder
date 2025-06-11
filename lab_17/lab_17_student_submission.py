@@ -2,6 +2,18 @@ if __name__ != "__main__":
     from autograder_assistant import input
 
 
+def load_misspellings():
+    d_stuff = {}
+    input_file = open("misspellings.txt", "r")
+    kv = input_file.readline()
+    while kv != "":
+        kv = kv.strip()
+        l_kv = kv.split(":")
+        d_stuff[l_kv[0]] = l_kv[1]
+        kv = input_file.readline()
+    input_file.close()
+    return d_stuff
+
 
 def fix_misspellings(d_info):
     input_file = open("checkme.txt", "r")
@@ -27,6 +39,34 @@ def word_count(s_text):
         else:
             test_dict2[word] = 1
     return test_dict2
+    
+
+def output_fixed_text(s_data):
+    output_file = open("fixed.txt", "w")
+    output_file.write(s_data)
+    output_file.close()
+
+def make_dictionary():
+    d_stuff = {}
+    input_file = open("Spanish_to_English.txt", "r")
+    kv = input_file.readline()
+    while kv != "":
+        kv = kv.strip()
+        l_kv = kv.split(":")
+        d_stuff[l_kv[0]] = l_kv[1]
+        kv = input_file.readline()
+    input_file.close()
+    return d_stuff    
+
+
+def get_text_to_translate():
+    input_file = open("file_to_translate.txt", "r")
+    s_text = input_file.read()
+    input_file.close()
+    s_text = s_text.strip()
+    print(s_text)
+    return s_text
+
 
 def translate(d_xlate, s_text):
     l_parts = s_text.split(" ")
@@ -53,3 +93,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

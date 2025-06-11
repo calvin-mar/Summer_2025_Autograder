@@ -86,7 +86,7 @@ def add_allergy_info(l2d_candy):
             l2d_allergy[row][10] = True
         else:
             l2d_allergy[row][10] = False
-
+    print(l2d_allergy)
     return l2d_allergy
 
 def write_safe_candies(l2d_allergy):

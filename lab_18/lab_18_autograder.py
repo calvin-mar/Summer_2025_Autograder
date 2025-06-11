@@ -14,11 +14,15 @@ from PyQt6.QtWidgets import *
 #from layout_colorwidget import Color
 
 
-from dave_utilities import *
-import dave_utilities
-
-
 def autoGrader(student_submission):
+
+    try:
+        l_data = shm.ShareableList(sequence=None, name="l_data")
+        l_data.shm.close()
+        l_data.shm.unlink()
+    except:
+        pass
+
     passes = []
     error_msgs = []
     print("Autograder starting...")
@@ -34,6 +38,7 @@ def autoGrader(student_submission):
 
     TIMEOUT = 30 
     b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), TIMEOUT)
+
     if b_proceed == False:
         passes.append(False)
         if s_error_msg != "":
@@ -94,38 +99,34 @@ def autoGrader(student_submission):
             ['YORK PEPPERMINT PATTIE (H)', '1 lg. pattie (43g)', '149', '4g', 'n/a', '1.5g', '33.5g', '16.5mg', '7.5mg']]
         try:
             result = assistant.is_inf(sm.get_data)
+            if(result[1]):
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(compare_lists_2d(l2d_solution, result[0]) == True):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: get_data() returns an incorrect result.  Try to compare the data file to the list your function returned to see where things went wrong.</font>")
         except:
-                result = "Error"
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function get_data() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
             passes.append(False)
             error_msgs.append(" Failed: Function get_data() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(dave_utilities.compare_lists_2d(l2d_solution, result) == True):
-                passes.append(True)
-            else:
-                passes.append(False)
-                error_msgs.append(" Failed: get_data() returns an incorrect result.  Try to compare the data file to the list your function returned to see where things went wrong.</font>")
 
         # Test 2: Task 2: Test get_avg_sat_fat() function 
         try:
-                result = assistant.is_inf(sm.get_avg_sat_fat, (l2d_solution,))
+            result = assistant.is_inf(sm.get_avg_sat_fat, (l2d_solution,))
+            if(result[1]):
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(math.isclose(result[0], 5.5606060606060606)):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: get_avg_sat_fat() should return roughly 5.5606060606060606, but it returns \"" + str(result) + "\".</font>")
         except:
-                result = "Error"
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function get_avg_sat_fat() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
             passes.append(False)
             error_msgs.append(" Failed: Function get_avg_sat_fat() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(math.isclose(result, 5.5606060606060606)):
-                passes.append(True)
-            else:
-                passes.append(False)
-                error_msgs.append(" Failed: get_avg_sat_fat() should return roughly 5.5606060606060606, but it returns \"" + str(result) + "\".</font>")
         
         # Test 3: Task 3: Test add_allergy_info() function
         l2d_solution2 = [['3 MUSKETEERS (M)', '1 bar (51g)', '212', '6.5g', '3.5g', '1.5g', '39g', '99mg', '43mg', False, True],
@@ -171,46 +172,41 @@ def autoGrader(student_submission):
                          ['YORK PEPPERMINT PATTIE (H)', '1 lg. pattie (43g)', '149', '4g', 'n/a', '1.5g', '33.5g', '16.5mg', '7.5mg', False, True]]
         try:
             result = assistant.is_inf(sm.add_allergy_info, (l2d_solution2,))
+            if(result[1]):
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(compare_lists_2d(l2d_solution2, result[0]) == True):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: add_allergy_info() returns an incorrect result.  Try to compare the data file to the list your function returned to see where things went wrong.</font>")
         except:
-                result = "Error"
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function add_allergy_info() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
             passes.append(False)
             error_msgs.append(" Failed: Function add_allergy_info() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(dave_utilities.compare_lists_2d(l2d_solution2, result) == True):
-                passes.append(True)
-            else:
-                passes.append(False)
-                error_msgs.append(" Failed: add_allergy_info() returns an incorrect result.  Try to compare the data file to the list your function returned to see where things went wrong.</font>")
-        
+
         # Test 4: Task 4: Test write_safe_candies() function
         try:
             result = assistant.is_inf(sm.write_safe_candies, (l2d_solution2,))
+            if(result[1]):
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                inp_file_1 = open("safe.csv", "r")
+                s_data1 = inp_file_1.read()
+                inp_file_1.close()
+                inp_file_2 = open("correct.csv", "r")
+                s_data2 = inp_file_2.read()
+                inp_file_2.close()
+                if(s_data1.strip() == s_data2.strip()):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: write_safe_candies() writes an incorrect value to the file.  Look at the file correct.csv to see what should have been written to the file safe.csv.</font>")
         except:
-                result = "Error"
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function write_safe_candies() caused an error.  The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
             passes.append(False)
             error_msgs.append(" Failed: Function write_safe_candies() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            inp_file_1 = open("safe.csv", "r")
-            s_data1 = inp_file_1.read()
-            inp_file_1.close()
-            inp_file_2 = open("correct.csv", "r")
-            s_data2 = inp_file_2.read()
-            inp_file_2.close()
-            if(s_data1.strip() == s_data2.strip()):
-                passes.append(True)
-            else:
-                passes.append(False)
-                error_msgs.append(" Failed: write_safe_candies() writes an incorrect value to the file.  Look at the file correct.csv to see what should have been written to the file safe.csv.</font>")
 
-        
         ########################################################################
         # End of tests
         ########################################################################
@@ -219,7 +215,36 @@ def autoGrader(student_submission):
     print()
     print("You may close the Autograder window to exit.")
     return passes, error_msgs, assistant
-    
+
+
+##Copied from Dave Utilities
+def compare_lists_2d(l2d_list1, l2d_list2):
+    b_same = True
+    # compare shape of the lists
+    # num rows
+    if len(l2d_list1) == len(l2d_list2):
+
+        # num columns in each row
+        for index in range(len(l2d_list1)):
+            if len(l2d_list1[index]) != len(l2d_list2[index]):
+                b_same = False
+                #print("num cols not same")
+
+
+        if b_same == True:
+            # lists are same shape - compare them item by item now
+            for row in range(len(l2d_list1)):
+                for col in range(len(l2d_list1[row])):
+                    if l2d_list1[row][col] != l2d_list2[row][col]:
+                        b_same = False
+                        #print("value not same")
+    else:
+        b_same = False
+        #print("num rows not same")
+
+    return b_same
+## End copy
+
 
 def testing(queue):
     passes, error_msgs,assistant = autoGrader("lab_18_student_submission.py")
