@@ -12,7 +12,6 @@ from multiprocessing import shared_memory as shm
 from PyQt6.QtCore import QSize, Qt, QRect
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import QFont
-from layout_colorwidget import Color
 
 
 def autoGrader(student_submission):
@@ -54,21 +53,19 @@ def autoGrader(student_submission):
         l_data = shm.ShareableList([100, 80, 30, 90, 20, 10, 50, 40, 70, 60], name="l_data")
         try:
             result = assistant.is_inf(sm.biggest_number)
-        except:
-            result = "Error"
-            
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function biggest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function biggest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == 100):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + " The inputs were 100, 80, 30, 90, 20, 10, 50, 40, 70, 60. </font>"
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: biggest_number() should return 100 when the user enters 100, 80, 30, 90, 20, 10, 50, 40, 70, 60, but it returns " + str(result) + ".</font>")
+            else:
+                if(result[0] == 100):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: biggest_number() should return 100 when the user enters 100, 80, 30, 90, 20, 10, 50, 40, 70, 60, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function biggest_number() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         l_data.shm.close()
         l_data.shm.unlink()
         
@@ -77,20 +74,19 @@ def autoGrader(student_submission):
         l_data = shm.ShareableList([50, 20, 80, 40, 10, 70, 90, 60, 30, 100], name="l_data")
         try:
             result = assistant.is_inf(sm.biggest_number)
-        except:
-            result = "Error"
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function biggest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function biggest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == 100):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + " The inputs were 50, 20, 80, 40, 10, 70, 90, 60, 30, 100. </font>"
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: biggest_number() should return 100 when the user enters 50, 20, 80, 40, 10, 70, 90, 60, 30, 100, but it returns " + str(result) + ".</font>")
+            else:
+                if(result[0] == 100):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: biggest_number() should return 100 when the user enters 50, 20, 80, 40, 10, 70, 90, 60, 30, 100, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function biggest_number() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         l_data.shm.close()
         l_data.shm.unlink() 
  
@@ -99,20 +95,19 @@ def autoGrader(student_submission):
         l_data = shm.ShareableList([40, 70, 30, 80, 100, 90, 60, 10, 20, 50], name="l_data")
         try:
             result = assistant.is_inf(sm.biggest_number)
-        except:
-            result = "Error"
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function biggest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function biggest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == 100):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + " The inputs were 40, 70, 30, 80, 100, 90, 60, 10, 20, 50. </font>"
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: biggest_number() should return 100 when the user enters 40, 70, 30, 80, 100, 90, 60, 10, 20, 50, but it returns " + str(result) + ".</font>")
+            else:
+                if(result[0] == 100):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: biggest_number() should return 100 when the user enters 40, 70, 30, 80, 100, 90, 60, 10, 20, 50, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function biggest_number() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         l_data.shm.close()
         l_data.shm.unlink()      
 
@@ -121,20 +116,19 @@ def autoGrader(student_submission):
         l_data = shm.ShareableList([-50, -80, -100, -30, -10, -20, -70, -90, -60, -40], name="l_data")
         try:
             result = assistant.is_inf(sm.biggest_number)
-        except:
-            result = "Error"
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function biggest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function biggest_number() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == -10):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + " The inputs were -50, -80, -100, -30, -10, -20, -70, -90, -60, -40. </font>"
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: biggest_number() should return -10 when the user enters -50, -80, -100, -30, -10, -20, -70, -90, -60, -40, but it returns " + str(result) + ".</font>")
+            else:
+                if(result[0] == -10):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: biggest_number() should return -10 when the user enters -50, -80, -100, -30, -10, -20, -70, -90, -60, -40, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function biggest_number() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         l_data.shm.close()
         l_data.shm.unlink()              
 
@@ -143,166 +137,145 @@ def autoGrader(student_submission):
         # Test 5: Task 2: Test repeated_doubler() function - double 5 4 times
         try:
             result = assistant.is_inf(sm.repeated_doubler, (5,4))
-        except:
-            result = "Error"
-        
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function repeated_doubler() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function repeated_doubler() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == 80):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + " The paramters were 5, 4. </font>"
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: repeated_doubler() should return 80 when the arguments are 5 and 4, but it returns " + str(result) + ".</font>")
+            else:
+                if(result[0] == 80):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: repeated_doubler() should return 80 when the arguments are 5 and 4, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function repeated_doubler() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
         # Test 6: Task 2: Test repeated_doubler() function - double 0 3 times
 
         try:
             result = assistant.is_inf(sm.repeated_doubler, (0,3))
-        except:
-            result = "Error"
-
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function repeated_doubler() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function repeated_doubler() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == 0):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + " The paramters were 0, 3. </font>"
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: repeated_doubler() should return 0 when the arguments are 0 and 3, but it returns " + str(result) + ".</font>")
+            else:
+                if(result[0] == 0):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: repeated_doubler() should return 0 when the arguments are 0 and 3, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function repeated_doubler() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
-
-        ######################
+       ######################
 
         # Test 7: Task 3: Test fib_num() function - 1st fib is 0
 
         try:
             result = assistant.is_inf(sm.fib_num, (1,))
-        except:
-            result = "Error"
-        
-        
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == 0):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + " The paramter was 1. </font>"
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: fib_num() should return 0 when the argument is 1, but it returns " + str(result) + ".</font>")
+            else:
+                if(result[0] == 0):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: fib_num() should return 0 when the argument is 1, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function fib_num() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
 
         # Test 8: Task 3: Test fib_num() function - 2nd fib is 1
 
         try:
             result = assistant.is_inf(sm.fib_num, (2,))
-        except:
-            result = "Error"
-        
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == 1):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + " The paramter was 2. </font>"
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: fib_num() should return 1 when the argument is 2, but it returns " + str(result) + ".</font>")
-
+            else:
+                if(result[0] == 1):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: fib_num() should return 1 when the argument is 2, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function fib_num() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
         # Test 9: Task 3: Test fib_num() function - 3rd fib is 1
 
         try:
             result = assistant.is_inf(sm.fib_num, (3,))
-        except:
-            result = "Error"
-        
-        
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == 1):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + " The paramter was 3. </font>"
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: fib_num() should return 1 when the argument is 3, but it returns " + str(result) + ".</font>")
-
-
+            else:
+                if(result[0] == 1):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: fib_num() should return 1 when the argument is 3, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function fib_num() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
         # Test 10: Task 3: Test fib_num() function - 4th fib is 2
         try:
             result = assistant.is_inf(sm.fib_num, (4,))
-        except:
-            result = "Error"
-                
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == 2):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + " The paramter was 4. </font>"
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: fib_num() should return 2 when the argument is 4, but it returns " + str(result) + ".</font>")
-
+            else:
+                if(result[0] == 2):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: fib_num() should return 2 when the argument is 4, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function fib_num() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
         # Test 11: Task 3: Test fib_num() function - 9th fib is 21
         try:
             result = assistant.is_inf(sm.fib_num, (9,))
-        except:
-            result = "Error"
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == 21):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + " The paramter was 9. </font>"
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: fib_num() should return 21 when the argument is 9, but it returns " + str(result) + ".</font>")
-
+            else:
+                if(result[0] == 21):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: fib_num() should return 21 when the argument is 9, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function fib_num() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
         # Test 12: Task 3: Test fib_num() function - 16th fib is 610
         try:
             result = assistant.is_inf(sm.fib_num, (16,))
-        except:
-            result = "Error"
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function fib_num() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == 610):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + " The parameter was 16. </font>"
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: fib_num() should return 610 when the argument is 16, but it returns " + str(result) + ".</font>")
+            else:
+                if(result[0] == 610):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: fib_num() should return 610 when the argument is 16, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function fib_num() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
         ######################
         
@@ -311,20 +284,19 @@ def autoGrader(student_submission):
         l_data = shm.ShareableList(["coke", "1.99", "2", "burger", "4.99", "2", "done"], name="l_data")
         try:
             result = assistant.is_inf(sm.make_bill)
-        except:
-            result = "Error"
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function make_bill() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function make_bill() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(math.isclose(result, 17.84088)):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + " The inputs were \"coke\", \"1.99\", \"2\", \"burger\", \"4.99\", \"2\", \"done\". </font>"
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: make_bill() should return $17.84088 (without the $ and possibly a few more decimal places due to inaccuracies of floating point numbers) when the user inputs coke, 1.99, 2, burger, 4.99, 2, done, but it returns " + str(result) + ".</font>")
+            else:
+                if(math.isclose(result[0], 17.84088)):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: make_bill() should return $17.84088 (without the $ and possibly a few more decimal places due to inaccuracies of floating point numbers) when the user inputs coke, 1.99, 2, burger, 4.99, 2, done, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function make_bill() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         l_data.shm.close()
         l_data.shm.unlink() 
 
@@ -333,21 +305,19 @@ def autoGrader(student_submission):
         l_data = shm.ShareableList(["coke", "-1", "-4", "0", "1.99", "4", "burger", "4.99", "3", "fries", "3.49", "3","done"], name="l_data")
         try:
             result = assistant.is_inf(sm.make_bill)
-        except:
-            result = "Error"
-
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function make_bill() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function make_bill() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(math.isclose(result, 42.6852)):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + ' The inputs were "coke", "-1", "-4", "0", "1.99", "4", "burger", "4.99", "3", "fries", "3.49", "3","done". </font>'
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: make_bill() should return $42.6852 (without the $ and possibly a few more decimal places due to inaccuracies of floating point numbers) when the user inputs coke, -1, -4, 0, 1.99, 4, burger, 4.99, 3, fries, 3.49, 3, done, but it returns " + str(result) + ".</font>")
+            else:
+                if(math.isclose(result[0], 42.6852)):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: make_bill() should return $42.6852 (without the $ and possibly a few more decimal places due to inaccuracies of floating point numbers) when the user inputs coke, -1, -4, 0, 1.99, 4, burger, 4.99, 3, fries, 3.49, 3, done, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function make_bill() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         l_data.shm.close()
         l_data.shm.unlink() 
 
@@ -356,20 +326,19 @@ def autoGrader(student_submission):
         l_data = shm.ShareableList(["shake", "4.59", "2", "fish", "9.99", "0", "-4", "0", "2", "broccoli", "1.99", "1", "done"], name="l_data")
         try:
             result = assistant.is_inf(sm.make_bill)
-        except:
-            result = "Error"
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function make_bill() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function make_bill() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(math.isclose(result, 39.8097)):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + ' The inputs were "shake", "4.59", "2", "fish", "9.99", "0", "-4", "0", "2", "broccoli", "1.99", "1", "done". </font>'
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: make_bill() should return $39.8097 (without the $ and possibly a few more decimal places due to inaccuracies of floating point numbers) when the user inputs shake, 4.59, 2, fish, 9.99, 0, -4, 0, 2, broccoli, 1.99, 1, done, but it returns " + str(result) + ".</font>")
+            else:
+                if(math.isclose(result[0], 39.8097)):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: make_bill() should return $39.8097 (without the $ and possibly a few more decimal places due to inaccuracies of floating point numbers) when the user inputs shake, 4.59, 2, fish, 9.99, 0, -4, 0, 2, broccoli, 1.99, 1, done, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function make_bill() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         l_data.shm.close()
         l_data.shm.unlink() 
                     
@@ -380,143 +349,126 @@ def autoGrader(student_submission):
 
         try:
             result = assistant.is_inf(sm.is_prime, (3,))
-        except:
-            result = "Error"
-
-
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function is_prime() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function is_prime() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == True):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + ' The parameter was 3. </font>'
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: is_prime() should return True with even number 3, but it returns " + str(result) + ".</font>")
+            else:
+                if(result[0] == True):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: is_prime() should return True with even number 3, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function is_prime() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
         # Test 17: Task 5: Test is_prime() function with prime number: 11
         
         try:
             result = assistant.is_inf(sm.is_prime, (11,))
-        except:
-            result = "Error"
-
-
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function is_prime() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function is_prime() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == True):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + ' The parameter was 11. </font>'
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: is_prime() should return True with even number 11, but it returns " + str(result) + ".</font>")
+            else:
+                if(result[0] == True):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: is_prime() should return True with even number 11, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function is_prime() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
         # Test 18: Task 5: Test is_prime() function with non-prime number: 1
         
         try:
             result = assistant.is_inf(sm.is_prime, (1,))
-        except:
-            result = "Error"
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function is_prime() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function is_prime() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == False):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + ' The parameter was 1. </font>'
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: is_prime() should return False with even number 1, but it returns " + str(result) + ".</font>")
+            else:
+                if(result[0] == False):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: is_prime() should return False with even number 1, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function is_prime() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
-        # Test 19: Task 5: Test is_prime() function with non-prime number: 2
+        # Test 19: Task 5: Test is_prime() function with prime number: 2
         
         try:
             result = assistant.is_inf(sm.is_prime, (2,))
-        except:
-            result = "Error"
-
-
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function is_prime() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function is_prime() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == True):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + ' The parameter was 2. </font>'
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: is_prime() should return True with even number 2, but it returns " + str(result) + ".</font>")
+            else:
+                if(result[0] == True):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: is_prime() should return True with even number 2, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function is_prime() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
         # Test 20: Task 5: Test is_prime() function with non-prime number: 12
         
         try:
             result = assistant.is_inf(sm.is_prime, (12,))
-        except:
-            result = "Error"
-
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function is_prime() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function is_prime() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == False):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + ' The parameter was 12. </font>'
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: is_prime() should return False with even number 12, but it returns " + str(result) + ".</font>")
+            else:
+                if(result[0] == False):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: is_prime() should return False with even number 12, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function is_prime() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
         # Test 21: Task 5: Test count_primes() function with 17 answer: 7 numbers <= 17 are prime: 2, 3, 5, 7, 11, 13, 17
         
         try:
             result = assistant.is_inf(sm.count_primes, (17,))
-        except:
-            result = "Error"
-
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function count_prime() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function count_primes() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == 7):
-                passes.append(True)
-            else:
+            if(result[1]):
+                result[0] = result[0] + ' The parameter was 17. </font>'
+                error_msgs.append(result[0])
                 passes.append(False)
-                error_msgs.append(" Failed: count_primes() should return 7 with argument 17, but it returns " + str(result) + ".</font>")
+            else:
+                if(result[0] == 7):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: count_primes() should return 7 with argument 17, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function count_primes() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
         # Test 22: Task 5: Test count_primes() function with 16 answer: 6 numbers <= 16 are prime: 2, 3, 5, 7, 11, 13
         try:
             result = assistant.is_inf(sm.count_primes, (16,))
-        except:
-            result = "Error"
-
-        if(result == "Infinite"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function count_prime() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        elif(result == "Error"):
-            passes.append(False)
-            error_msgs.append(" Failed: Function count_primes() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
-        else:
-            if(result == 6):
-                passes.append(True)
+            if(result[1]):
+                result[0] = result[0] + ' The parameter was 17. </font>'
+                error_msgs.append(result[0])
+                passes.append(False)
             else:
-                passes.append(False)         
-                error_msgs.append(" Failed: count_primes() should return 6 with argument 16, but it returns " + str(result) + ".</font>")
-
+                if(result[0] == 6):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: count_primes() should return 6 with argument 16, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function count_primes() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
         
         ########################################################################
