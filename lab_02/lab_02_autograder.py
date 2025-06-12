@@ -9,6 +9,13 @@ from multiprocessing import shared_memory as shm
 
 
 def autoGrader(student_submission):
+    try:
+        l_data = shm.ShareableList(sequence=None, name="l_data")
+        l_data.shm.close()
+        l_data.shm.unlink()
+    except:
+        pass
+    
     passes = []
     error_msgs = []
     l_data = shm.ShareableList([50,10,15], name="l_data")
