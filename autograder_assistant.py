@@ -270,7 +270,7 @@ class MainWindow(QMainWindow):
                 text.setText("<font color=black size=7><b>Task 1:<br>")
                 test.setAlignment(Qt.AlignmentFlag.AlignBottom)
                 text.setAlignment(Qt.AlignmentFlag.AlignBottom)
-                text.setFixedSize(100,32)
+                text.setFixedSize(120,32)
                 test.addWidget(text)
                 self.vbox.addLayout(test)
         for i_test_num in range(len(passes)):
@@ -285,7 +285,7 @@ class MainWindow(QMainWindow):
                     test.addWidget(text)
                     test.setAlignment(Qt.AlignmentFlag.AlignBottom)
                     text.setAlignment(Qt.AlignmentFlag.AlignBottom)
-                    text.setFixedSize(100,32)
+                    text.setFixedSize(120,32)
                     self.vbox.addLayout(test)
                     j+=1
                     index=1
