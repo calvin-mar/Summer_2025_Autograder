@@ -9,17 +9,16 @@ import importlib.util
 # Graphics/PyQt imports
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import *
-#from layout_colorwidget import Color
 
 ## This section contains to function to block and enable print
 ## The purpose of this is to avoid flooding the shell with
 ## Numerous autograder starting/ending messages
 
-# Disable
+# Disable Printing
 def blockPrint():
     sys.stdout = open(os.devnull, 'w')
 
-# Restore
+# Restore Printing
 def enablePrint():
     sys.stdout = sys.__stdout__
 
@@ -40,7 +39,7 @@ def disperse_documents():
 
     # Do the Copying
     for file in files:
-        if(file != "test_all_submissions.py" and file != "README.md"):
+        if(file != "test_all_submissions.py"):
             for directory in dirs:
                 if(directory != "__pycache__"):
                     shutil.copy(file, directory)
@@ -56,7 +55,6 @@ def test_submission(directory_name):
         if( len(re.findall("lab_\d\d_autograder", file)) == 1):
             cwd = os.getcwd()
             path_to_autograder = os.path.join(cwd,directory_name,file)
-            #print(path_to_autograder)
             sys.path.append(os.path.join(cwd,directory_name))
             autograder_file = file[:-3]
             specific = importlib.util.spec_from_file_location(autograder_file, path_to_autograder)
@@ -93,24 +91,33 @@ class MainWindow(QMainWindow):
                 text.setMargin(5)
                 
                 blockPrint()
-                results = test_submission(name)
+                try:
+                    results = test_submission(name)
+                except:
+                    results = ["Bad"]
+                    
                 enablePrint()
 
+                ## This section process the individual's result and adds the appropriate message to the display
                 num_passed = 0
                 failed_list = []
                 for index in range(len(results)):
-                    if results[index]:
+                    if results[index] == True:
                         num_passed +=1
                     else:
                         failed_list.append(str(index+1))
-
                 if(num_passed == len(results)):
                     image.setText("<img src='check.png' width='52' height='52'>")
                     text.setText("<font size=6><b>" + str(name) + " passed all tests!</b></font>")
                 else:
                     image.setText("<img src='redX.png' width='52' height='52'>")
-                    text.setText("<font size=6><b>" + str(name) + " passed " + str(num_passed) + " tests. They need to complete test(s) " + ", ".join(failed_list) + ".</b></font>")
-                    
+                    if(results[0] == "Bad"):
+                        text.setText("<font size=6><b>" + str(name) + " The autograder has crashed, the most likely issue is a syntax error in the student submission.</b></font>")
+                    elif(len(results) > 1):
+                        text.setText("<font size=6><b>" + str(name) + " passed " + str(num_passed) + " tests. They need to complete test(s) " + ", ".join(failed_list) + ".</b></font>")
+                    else:
+                        text.setText("<font size=6><b>" + str(name) + " did not pass all tests. There may be a global infinite loop, syntax error, or other file problem.</b></font>")
+                        
                 testCase.addWidget(image)
                 testCase.addWidget(text)
                 self.vbox.addLayout(testCase)
