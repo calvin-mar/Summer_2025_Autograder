@@ -8,6 +8,7 @@ def get_total():
     while val != -1:
         total = total + val
         val = int(input("Enter a value "))
+        break
     return total
 
 # squares instead of doubling

@@ -44,7 +44,7 @@ def autoGrader(student_submission):
         if s_error_msg != "":
             error_msgs.append(s_error_msg)
         else:
-            error_msgs.append("There is a problem with your file.")
+            error_msgs.append("There is a problem with your file")
     else:
         specific_student.loader.exec_module(sm)
 

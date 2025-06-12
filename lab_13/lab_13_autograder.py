@@ -40,7 +40,11 @@ def autoGrader(student_submission):
     b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), TIMEOUT)
     if b_proceed == False:
         passes.append(False)
-        error_msgs.append("There is a problem with your file.")
+        if s_error_msg != "":
+            error_msgs.append(s_error_msg)
+        else:
+            error_msgs.append("There is a problem with your file.")
+
     else:
         specific_student.loader.exec_module(sm)
 
