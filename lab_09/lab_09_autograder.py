@@ -7,6 +7,13 @@ import os
 import importlib.util
 
 def autoGrader(student_submission):
+    #Making sure shared memory file does not already exist
+    try:
+        l_data = shm.ShareableList(sequence=None, name="l_data")
+        l_data.shm.close()
+        l_data.shm.unlink()
+    except:
+        pass
     passes = []
     error_msgs = []
     print("Autograder starting...")

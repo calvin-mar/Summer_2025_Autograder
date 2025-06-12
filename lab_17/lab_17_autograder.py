@@ -13,6 +13,13 @@ from PyQt6.QtWidgets import *
 #from layout_colorwidget import Color
 
 def autoGrader(student_submission):
+    try:
+        l_data = shm.ShareableList(sequence=None, name="l_data")
+        l_data.shm.close()
+        l_data.shm.unlink()
+    except:
+        pass
+    
     passes = []
     error_msgs = []
     print("Autograder starting...")
