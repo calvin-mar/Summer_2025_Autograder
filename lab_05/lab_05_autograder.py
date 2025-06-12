@@ -47,7 +47,7 @@ def autoGrader(student_submission):
 
         l_data = shm.ShareableList([1, 2, 3, 4, 5, 6], name="l_data")
         try:
-            result = assistant.is_inf(sm.get_estimate)
+            result = assistant.testFunction(sm.get_estimate)
             if(result[1]):
                 result[0] = result[0] + " The inputs were 1, 2, 3, 4, 5, 6. </font>"
                 error_msgs.append(result[0])
@@ -69,7 +69,7 @@ def autoGrader(student_submission):
 
         l_data = shm.ShareableList([1, 2, 3, 4, 5, 6], name="l_data")
         try:
-            result = assistant.is_inf(sm.get_quantities)
+            result = assistant.testFunction(sm.get_quantities)
             if(result[1]):
                 result[0] = result[0] + " The inputs were 1, 2, 3, 4, 5, 6. </font>"
                 error_msgs.append(result[0])
@@ -92,7 +92,7 @@ def autoGrader(student_submission):
         # Test 3: Task 2: Test validate_combination() function with valid data
 
         try:
-            result = assistant.is_inf(sm.validate_combination, (12, 33, 0))
+            result = assistant.testFunction(sm.validate_combination, (12, 33, 0))
             if(result[1]):
                 result[0] = result[0] + " The values were 12, 33, 0. </font>"
                 error_msgs.append(result[0])
@@ -110,7 +110,7 @@ def autoGrader(student_submission):
         # Test 4: Task 2: Test validate_combination() function with invalid data: first number below 0
 
         try:
-            result = assistant.is_inf(sm.validate_combination, (-1, 33, 0))
+            result = assistant.testFunction(sm.validate_combination, (-1, 33, 0))
             if(result[1]):
                 result[0] = result[0] + " The values were -1, 33, 0. </font>"
                 error_msgs.append(result[0])
@@ -129,7 +129,7 @@ def autoGrader(student_submission):
         # Test 5: Task 2: Test validate_combination() function with invalid data: second number below 0
 
         try:
-            result = assistant.is_inf(sm.validate_combination, (33, -1, 0))
+            result = assistant.testFunction(sm.validate_combination, (33, -1, 0))
             if(result[1]):
                 result[0] = result[0] + " The values were 33, -1, 0. </font>"
                 error_msgs.append(result[0])
@@ -147,7 +147,7 @@ def autoGrader(student_submission):
         # Test 6: Task 2: Test validate_combination() function with invalid data: third number below 0
         
         try:
-            result = assistant.is_inf(sm.validate_combination, (12, 33, -1))
+            result = assistant.testFunction(sm.validate_combination, (12, 33, -1))
             if(result[1]):
                 result[0] = result[0] + " The values were 12, 33, -1. </font>"
                 error_msgs.append(result[0])
@@ -165,7 +165,7 @@ def autoGrader(student_submission):
         # Test 7: Task 2: Test validate_combination() function with invalid data: first number above 39
 
         try:
-            result = assistant.is_inf(sm.validate_combination, (40, 33, 0))
+            result = assistant.testFunction(sm.validate_combination, (40, 33, 0))
             if(result[1]):
                 result[0] = result[0] + " The values were 40, 33, 0. </font>"
                 error_msgs.append(result[0])
@@ -182,7 +182,7 @@ def autoGrader(student_submission):
 
         # Test 8: Task 2: Test validate_combination() function with invalid data: second number above 39
         try:
-            result = assistant.is_inf(sm.validate_combination, (1, 40, 0))
+            result = assistant.testFunction(sm.validate_combination, (1, 40, 0))
             if(result[1]):
                 result[0] = result[0] + " The values were 1, 40, 0. </font>"
                 error_msgs.append(result[0])
@@ -200,7 +200,7 @@ def autoGrader(student_submission):
         # Test 9: Task 2: Test validate_combination() function with invalid data: third number above 39
         
         try:
-            result = assistant.is_inf(sm.validate_combination, (20, 33, 40))
+            result = assistant.testFunction(sm.validate_combination, (20, 33, 40))
             if(result[1]):
                 result[0] = result[0] + " The values were 20, 33, 40. </font>"
                 error_msgs.append(result[0])
@@ -217,7 +217,7 @@ def autoGrader(student_submission):
 
         # Test 10: Task 2: Test validate_combination() function with invalid data: first number same as second number
         try:
-            result = assistant.is_inf(sm.validate_combination, (33, 33, 0))
+            result = assistant.testFunction(sm.validate_combination, (33, 33, 0))
             if(result[1]):
                 result[0] = result[0] + " The values were 33, 33, 0. </font>"
                 error_msgs.append(result[0])
@@ -234,7 +234,7 @@ def autoGrader(student_submission):
 
         # Test 11: Task 2: Test validate_combination() function with invalid data: second number same as third number
         try:
-            result = assistant.is_inf(sm.validate_combination, (0, 33, 33))
+            result = assistant.testFunction(sm.validate_combination, (0, 33, 33))
             if(result[1]):
                 result[0] = result[0] + " The values were 0, 33, 33. </font>"
                 error_msgs.append(result[0])
@@ -253,7 +253,7 @@ def autoGrader(student_submission):
 
         # Test 12: Task 3: Test order_combo_meal() function with valid data
         try:
-            result = assistant.is_inf(sm.order_combo_meal, (1,2,4))
+            result = assistant.testFunction(sm.order_combo_meal, (1,2,4))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 1,2,4. </font>"
                 error_msgs.append(result[0])
@@ -270,7 +270,7 @@ def autoGrader(student_submission):
 
         # Test 13: Task 3: Test order_combo_meal() function with invalid data: invalid sandwich < 1
         try:
-            result = assistant.is_inf(sm.order_combo_meal, (0, 1, 1))
+            result = assistant.testFunction(sm.order_combo_meal, (0, 1, 1))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 0, 1, 1. </font>"
                 error_msgs.append(result[0])
@@ -288,7 +288,7 @@ def autoGrader(student_submission):
         # Test 14: Task 3: Test order_combo_meal() function with invalid data: invalid side < 1
 
         try:
-            result = assistant.is_inf(sm.order_combo_meal, (1,0,1))
+            result = assistant.testFunction(sm.order_combo_meal, (1,0,1))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 1, 0, 1. </font>"
                 error_msgs.append(result[0])
@@ -306,7 +306,7 @@ def autoGrader(student_submission):
         # Test 15: Task 3: Test order_combo_meal() function with invalid data: invalid drink < 1
 
         try:
-            result = assistant.is_inf(sm.order_combo_meal, (1,1,0))
+            result = assistant.testFunction(sm.order_combo_meal, (1,1,0))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 1, 1 , 0. </font>"
                 error_msgs.append(result[0])
@@ -323,7 +323,7 @@ def autoGrader(student_submission):
 
         # Test 16: Task 3: Test get_item_price() function with valid data
         try:
-            result = assistant.is_inf(sm.get_item_price, ("drink", 4))
+            result = assistant.testFunction(sm.get_item_price, ("drink", 4))
             if(result[1]):
                 result[0] = result[0] + " The parameters were \"drink\", 4. </font>"
                 error_msgs.append(result[0])
@@ -340,7 +340,7 @@ def autoGrader(student_submission):
                 
         # Test 17: Task 3: Test get_item_price() function with invalid data: invalid item name < 1
         try:
-            result = assistant.is_inf(sm.get_item_price, ("sandwich", -1))
+            result = assistant.testFunction(sm.get_item_price, ("sandwich", -1))
             if(result[1]):
                 result[0] = result[0] + " The parameters were \"sandwich\", -1. </font>"
                 error_msgs.append(result[0])
@@ -358,7 +358,7 @@ def autoGrader(student_submission):
         # Test 18: Task 3: Test get_item_price() function with invalid data: invalid item number > 4
 
         try:
-            result = assistant.is_inf(sm.get_item_price, ("sandwich", 5))
+            result = assistant.testFunction(sm.get_item_price, ("sandwich", 5))
             if(result[1]):
                 result[0] = result[0] + " The parameters were \"sandwich\", 5. </font>"
                 error_msgs.append(result[0])
@@ -375,7 +375,7 @@ def autoGrader(student_submission):
 
         # Test 19: Task 3: Test validate_meal() function with valid data
         try:
-            result = assistant.is_inf(sm.validate_meal, (1, 1, 1))
+            result = assistant.testFunction(sm.validate_meal, (1, 1, 1))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 1, 1, 1. </font>"
                 error_msgs.append(result[0])
@@ -392,7 +392,7 @@ def autoGrader(student_submission):
 
         # Test 20: Task 3: Test validate_meal() function with invalid data: invalid sandwich < 1
         try:
-            result = assistant.is_inf(sm.validate_meal, (0, 1, 1))
+            result = assistant.testFunction(sm.validate_meal, (0, 1, 1))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 0, 1, 1. </font>"
                 error_msgs.append(result[0])
@@ -409,7 +409,7 @@ def autoGrader(student_submission):
 
         # Test 21: Task 3: Test validate_meal() function with invalid data: invalid side < 1
         try:
-            result = assistant.is_inf(sm.validate_meal, (1, 0, 1))
+            result = assistant.testFunction(sm.validate_meal, (1, 0, 1))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 1, 0, 1. </font>"
                 error_msgs.append(result[0])
@@ -426,7 +426,7 @@ def autoGrader(student_submission):
 
         # Test 22: Task 3: Test validate_meal() function with invalid data: invalid drink < 1
         try:
-            result = assistant.is_inf(sm.validate_meal, (1, 1, 0))
+            result = assistant.testFunction(sm.validate_meal, (1, 1, 0))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 1, 1, 0. </font>"
                 error_msgs.append(result[0])
@@ -443,7 +443,7 @@ def autoGrader(student_submission):
 
         # Test 23: Task 3: Test validate_meal() function with invalid data: invalid sandwich > 3
         try:
-            result = assistant.is_inf(sm.validate_meal, (4, 1, 0))
+            result = assistant.testFunction(sm.validate_meal, (4, 1, 0))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 4, 1, 0. </font>"
                 error_msgs.append(result[0])
@@ -460,7 +460,7 @@ def autoGrader(student_submission):
 
         # Test 24: Task 3: Test validate_meal() function with invalid data: invalid side > 2
         try:
-            result = assistant.is_inf(sm.validate_meal, (1, 3, 1))
+            result = assistant.testFunction(sm.validate_meal, (1, 3, 1))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 1, 3, 1. </font>"
                 error_msgs.append(result[0])
@@ -477,7 +477,7 @@ def autoGrader(student_submission):
 
         # Test 25: Task 3: Test validate_meal() function with invalid data: invalid drink > 4
         try:
-            result = assistant.is_inf(sm.validate_meal, (1, 1, 5))
+            result = assistant.testFunction(sm.validate_meal, (1, 1, 5))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 1, 1, 5. </font>"
                 error_msgs.append(result[0])
