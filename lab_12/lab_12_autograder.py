@@ -9,7 +9,6 @@ import importlib.util
 # Graphics/PyQt imports
 from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import *
-from layout_colorwidget import Color
 
 # Data file import
 import csc170_strings_data
