@@ -22,11 +22,11 @@ except ImportError:
 
 # Override Python's built in input() function so we can get test data fed into
 # a program without having to use the command line to redirect input.
-
 class InputException(Exception):
     def __init__(self, message):
         super().__init__(message)
         self.message = message
+
 def input(*args, **kwargs):
     # Access l_data Here
     try:
@@ -47,6 +47,8 @@ def input(*args, **kwargs):
     l_data.shm.close()
     return i_data
 
+# Input: Function to run (student functions), paramaters for function, var result to return result
+# Outputs: result (error or output if passes)
 def wrapper(function, parameter_list, result):
     try:
         result[0] = function(*parameter_list)
@@ -59,7 +61,9 @@ def wrapper(function, parameter_list, result):
         except:
             result[0]
 
-#Tests for infinite loops, errors, and gets result
+# Tests for infinite loops, errors
+# Inputs: function to test, paramater list to pass, input list for input statements
+# Outputs: result or error message
 def testFunction(function, parameter_list=(), input_list=[]):
     # Return either Infinite, Error, or All Good
     global l_data
@@ -84,6 +88,7 @@ def testFunction(function, parameter_list=(), input_list=[]):
         output.append(False)
     return output
 
+#Copied from layout_colorwidget
 class Color(QWidget):
     def __init__(self, color):
         super().__init__()
@@ -92,7 +97,10 @@ class Color(QWidget):
         palette = self.palette()
         palette.setColor(QPalette.ColorRole.Window, QColor(color))
         self.setPalette(palette)
+#endCopy
 
+#Inputs filename, looks for banned syntax
+#Outputs b_proceed and s_error_msg
 def syntax_checker(filename, timeout=0):
         print("Syntax checker starting...")
         ##################################################################################################
@@ -163,7 +171,7 @@ def syntax_checker(filename, timeout=0):
             if "continue" in s_trimmed_code:
                 b_proceed = False
                 s_error_msg = s_error_msg + "Your code contains <b><font color=orange>continue</font></b> which is not allowed.  "
-            if "random.choice" in s_trimmed_code:
+            if "random.choice(" in s_trimmed_code:
                 b_proceed = False
                 s_error_msg = s_error_msg + "Your code contains <b><font color=orange>random.choice</font></b> which is not allowed.  "
 
@@ -227,6 +235,8 @@ def syntax_checker(filename, timeout=0):
 
         return b_proceed, s_error_msg
 
+# Autograder GUI
+# Inputs window, list of passes/fails, error messages to display, testSets (how many test in each task)
 class MainWindow(QMainWindow):
     def __init__(self, passes, error_msgs, testSets):
         super().__init__()
@@ -241,20 +251,17 @@ class MainWindow(QMainWindow):
         num_passed = 0
         error_count = 0
 
-        #print(error_msgs)
 
-        #Trimming "failed" from error messages
+        #Trimming " Failed: " from error messages and rewriting them manually to seperate lines
         i=0
 
         while i < len(error_msgs):
                 error_msgs[i]=error_msgs[i].replace(" Failed: ", "")
                 
                 i+=1
-        #print(error_msgs)
         seperateSets = False
         if len(testSets) >=1:
                 seperateSets = True
-        #print(testSets)
         index=0
         j=1
         if seperateSets:
@@ -267,8 +274,6 @@ class MainWindow(QMainWindow):
                 test.addWidget(text)
                 self.vbox.addLayout(test)
         for i_test_num in range(len(passes)):
-            #task seperation
-
             if seperateSets and index<testSets[j-1]:
                     print("true ", index)
                     index+=1
@@ -298,11 +303,11 @@ class MainWindow(QMainWindow):
 
                 if passes[i_test_num]:
                     image.setText("<img src='check.png' width='32' height='32'>")
-                    text.setText("<b>Test " + str(i_test_num+1) +" Passed!</b>")
+                    text.setText("<font size=5>Test " + str(i_test_num+1) +" Passed!</font>")
                     num_passed += 1
                 else:
                     image.setText("<img src='redX.png' width='32' height='32'>")
-                    text.setText("<font color=black size=5>Test " + str(i_test_num+1) + " failed: <br></b></font>" + error_msgs[error_count])
+                    text.setText("<font color=black size=5>Test " + str(i_test_num+1) + " Failed: <br></font>" + error_msgs[error_count])
                     
                     error_count += 1
             test.addWidget(image)
@@ -312,7 +317,7 @@ class MainWindow(QMainWindow):
 
 
 
-
+        # Summary at top
         if(len(passes) > 1):
             summary = QHBoxLayout()
             image = QLabel("")
@@ -322,10 +327,8 @@ class MainWindow(QMainWindow):
             object.setWordWrap(True)
             object.setAlignment(Qt.AlignmentFlag.AlignCenter)
             if(len(passes) == num_passed):
-                #image.setText("<img src='check.png' width='52' height='52'>")
                 object.setText("<font color=green>CONGRATULATIONS YOU PASSED ALL TESTS!!!</font>")
             else:
-                #image.setText("<img src='octagon.png' width='52' height='52'><font color=black>")
                 object.setText("<font color=red>You passed " + str(num_passed) + "/" + str(len(passes)) + " tests")
             image.setGeometry(QRect(object.x(), object.y(), object.width()-100, object.height()))
             font = QFont(object.font().family(), pointSize=24, weight=105)
@@ -354,7 +357,7 @@ class MainWindow(QMainWindow):
     
     def exit_clicked(self):
         self.dialog.close()
-        
+    # Dynamically resizes text wrapping as window is resized
     def resizeEvent(self, event):
         super().resizeEvent(event)
         for i in range(self.vbox.count()):
