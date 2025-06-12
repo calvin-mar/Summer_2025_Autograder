@@ -45,7 +45,7 @@ def autoGrader(student_submission):
         # Test 1: Task 1: Test double_it() 
 
         try:
-            result = assistant.is_inf(sm.double_it, (0,))
+            result = assistant.testFunction(sm.double_it, (0,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was 0. </font>"
                 error_msgs.append(result[0])
@@ -63,7 +63,7 @@ def autoGrader(student_submission):
         # Test 2: Task 1: Test double_it() function with 13
 
         try:
-            result = assistant.is_inf(sm.double_it, (13,))
+            result = assistant.testFunction(sm.double_it, (13,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was 13. </font>"
                 error_msgs.append(result[0])
@@ -81,7 +81,7 @@ def autoGrader(student_submission):
         # Test 3: Task 1: Test double_it() function with -27
 
         try:
-            result = assistant.is_inf(sm.double_it, (-27,))
+            result = assistant.testFunction(sm.double_it, (-27,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was -27. </font>"
                 error_msgs.append(result[0])
@@ -103,7 +103,7 @@ def autoGrader(student_submission):
 
         l_data = shm.ShareableList([0, -9, 5, 77, -1], name="l_data")
         try:
-            result = assistant.is_inf(sm.get_total)
+            result = assistant.testFunction(sm.get_total)
             if(result[1]):
                 result[0] = result[0] + " The inputs were 0, -9, 5, 77, -1. </font>"
                 error_msgs.append(result[0])
@@ -127,7 +127,7 @@ def autoGrader(student_submission):
 
         l_data = shm.ShareableList([5, 6, 2, -1], name="l_data")
         try:
-            result = assistant.is_inf(sm.calc_avg)
+            result = assistant.testFunction(sm.calc_avg)
             if(result[1]):
                 result[0] = result[0] + " The inputs were 5, 6, 2, -1. </font>"
                 error_msgs.append(result[0])
@@ -152,7 +152,7 @@ def autoGrader(student_submission):
 
         l_data = shm.ShareableList([5, 6, 2, -1, 8], name="l_data")
         try:
-            result = assistant.is_inf(sm.get_sum, (5,))
+            result = assistant.testFunction(sm.get_sum, (5,))
             if(result[1]):
                 result[0] = result[0] + " The parameter given was 5 and the inputs were 5, 6, 2, -1, 8. </font>"
                 error_msgs.append(result[0])
@@ -178,7 +178,7 @@ def autoGrader(student_submission):
 
         l_data = shm.ShareableList([100, 50, 60, 40, 70], name="l_data")
         try:
-            result = assistant.is_inf(sm.find_smallest, (5,))
+            result = assistant.testFunction(sm.find_smallest, (5,))
             if(result[1]):
                 result[0] = result[0] + " The parameter given was 5 and the inputs were 100, 50, 60, 40, 70. </font>"
                 error_msgs.append(result[0])
@@ -205,7 +205,7 @@ def autoGrader(student_submission):
 
         l_data = shm.ShareableList([100, 5, 60, 5, 70, 1, 6, 5, 4, 77], name="l_data")
         try:
-            result = assistant.is_inf(sm.count_num_fives, (10,))
+            result = assistant.testFunction(sm.count_num_fives, (10,))
             if(result[1]):
                 result[0] = result[0] + " The parameter given was 10 and the inputs were 100, 5, 60, 5, 70, 1, 6, 5, 4, 77. </font>"
                 error_msgs.append(result[0])
@@ -234,7 +234,7 @@ def autoGrader(student_submission):
 
         l_data = shm.ShareableList([2.5], name="l_data")
         try:
-            result = assistant.is_inf(sm.convert_dollars_to_euros)
+            result = assistant.testFunction(sm.convert_dollars_to_euros)
             if(result[1]):
                 result[0] = result[0] + " The inputs was 2.5. </font>"
                 error_msgs.append(result[0])
@@ -258,7 +258,7 @@ def autoGrader(student_submission):
         # Test 10: Task 8: Test is_even() function with even number argument
 
         try:
-            result = assistant.is_inf(sm.is_even, (22,))
+            result = assistant.testFunction(sm.is_even, (22,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was 22. </font>"
                 error_msgs.append(result[0])
@@ -279,7 +279,7 @@ def autoGrader(student_submission):
 
 
         try:
-            result = assistant.is_inf(sm.is_even, (21,))
+            result = assistant.testFunction(sm.is_even, (21,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was 21. </font>"
                 error_msgs.append(result[0])
@@ -300,7 +300,7 @@ def autoGrader(student_submission):
 
 
         try:
-            result = assistant.is_inf(sm.count_evens, (2,8))
+            result = assistant.testFunction(sm.count_evens, (2,8))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 2, 8. </font>"
                 error_msgs.append(result[0])
@@ -320,7 +320,7 @@ def autoGrader(student_submission):
 
 
         try:
-            result = assistant.is_inf(sm.count_evens, (8,2))
+            result = assistant.testFunction(sm.count_evens, (8,2))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 8, 2. </font>"
                 error_msgs.append(result[0])
@@ -340,7 +340,7 @@ def autoGrader(student_submission):
 
 
         try:
-            result = assistant.is_inf(sm.temp_monitor, (60.5, ))
+            result = assistant.testFunction(sm.temp_monitor, (60.5, ))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 8, 2. </font>"
                 error_msgs.append(result[0])
