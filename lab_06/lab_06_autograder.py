@@ -15,14 +15,6 @@ from PyQt6.QtGui import QFont
 
 
 def autoGrader(student_submission):
-    #Making sure shared memory file does not already exist
-    try:
-        l_data = shm.ShareableList(sequence=None, name="l_data")
-        l_data.shm.close()
-        l_data.shm.unlink()
-    except:
-        pass
-    
     passes = []
     error_msgs = []
     
@@ -39,17 +31,13 @@ def autoGrader(student_submission):
 
     TIMEOUT = 30 
     b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), TIMEOUT)
-
-
-    ## Add Catch HERE
-    inf = assistant.is_inf(specific_student.loader.exec_module, (sm,))
-    
+  
     if b_proceed == False:
         passes.append(False)
-        error_msgs.append("There is a problem with your file.")
-        if(inf == "Infinite"):
-            passes.append(False)
-            error_msgs.append("Check for an infinite loop in your code. There may be an infinite loop causing your code to crash")
+        if(s_error_msg != ""):
+            error_msgs.append(s_error_msg)
+        else:
+            error_msgs.append("There is a problem with your file")
     else:
         specific_student.loader.exec_module(sm)
 
