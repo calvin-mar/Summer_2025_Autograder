@@ -58,8 +58,9 @@ def wrapper(function, parameter_list, result):
                 result[0] = "Error"
         except:
             result[0]
-        
-def is_inf(function, parameter_list=(), input_list=[]):
+
+#Tests for infinite loops, errors, and gets result
+def testFunction(function, parameter_list=(), input_list=[]):
     # Return either Infinite, Error, or All Good
     global l_data
     l_data = input_list
@@ -102,7 +103,7 @@ def syntax_checker(filename, timeout=0):
         name = filename[:-3]
         specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, filename))
         sm = importlib.util.module_from_spec(specific_student)
-        output = is_inf(specific_student.loader.exec_module, (sm,))
+        output = testFunction(specific_student.loader.exec_module, (sm,))
         if(output[1]):
             if("infinite" in output[0]):
                 return False, "There is a problem with your code, you may have an infinite loop outside of a function. Check that all loops have a ending condition."
@@ -193,7 +194,7 @@ def syntax_checker(filename, timeout=0):
                 b_proceed = False
                 s_error_msg = s_error_msg + "Your code contains a list comprehension which is not allowed.  "
                 
-            if re.search("=\\s*\\[+.*for\\s+", s_trimmed_code) != None:
+            elif re.search("=\\s*\\[+.*for\\s+", s_trimmed_code) != None:
                 b_proceed = False
                 s_error_msg = s_error_msg + "Your code contains a list comprehension which is not allowed.  "
                 
@@ -291,8 +292,10 @@ class MainWindow(QMainWindow):
             text.setWordWrap(True)
             text.setMargin(5)
             if len(passes) == 1:
+                image.setText("<img src='redX.png' width='32' height='32'>")
                 text.setText(error_msgs[error_count])
             else:
+
                 if passes[i_test_num]:
                     image.setText("<img src='check.png' width='32' height='32'>")
                     text.setText("<b>Test " + str(i_test_num+1) +" Passed!</b>")
@@ -300,8 +303,8 @@ class MainWindow(QMainWindow):
                 else:
                     image.setText("<img src='redX.png' width='32' height='32'>")
                     text.setText("<font color=black size=5>Test " + str(i_test_num+1) + " failed: <br></b></font>" + error_msgs[error_count])
-                
-                error_count += 1
+                    
+                    error_count += 1
             test.addWidget(image)
             test.addWidget(text)
             self.vbox.addLayout(test)

@@ -54,7 +54,7 @@ def autoGrader(student_submission):
         # Test 1: Test get_data() function with test_file.txt file
 
         try:
-            result = assistant.is_inf(sm.get_data, ("test_file.txt",))
+            result = assistant.testFunction(sm.get_data, ("test_file.txt",))
             if(result[1]):
                 result[0] = result[0] + ' The file was "test_file.txt". </font>'
                 error_msgs.append(result[0])
@@ -71,7 +71,7 @@ def autoGrader(student_submission):
 
         # Test 2: Test count_item_records() function
         try:
-            result = assistant.is_inf(sm.count_item_records, ("student",["John", "student", "student_id_123", "Dave", "faculty", "faculty_id_151", "Suzy", "student", "student_id_563"]))
+            result = assistant.testFunction(sm.count_item_records, ("student",["John", "student", "student_id_123", "Dave", "faculty", "faculty_id_151", "Suzy", "student", "student_id_563"]))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -87,7 +87,7 @@ def autoGrader(student_submission):
 
         # Test 3: Test count_item_records() function
         try:
-            result = assistant.is_inf(sm.count_item_records, ("faculty", ["John Harney", "faculty", "faculty_id_123", "John Doe", "faculty", "faculty_id_151", "Bruce Johnson", "faculty", "faculty_id_563", "John Ac", "staff", "staff_id_15632", "Ilike Badjokes", "faculty", "faculty_id_542151", "Ima Plumber", "staff", "staff_id_5653"]))
+            result = assistant.testFunction(sm.count_item_records, ("faculty", ["John Harney", "faculty", "faculty_id_123", "John Doe", "faculty", "faculty_id_151", "Bruce Johnson", "faculty", "faculty_id_563", "John Ac", "staff", "staff_id_15632", "Ilike Badjokes", "faculty", "faculty_id_542151", "Ima Plumber", "staff", "staff_id_5653"]))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -104,7 +104,7 @@ def autoGrader(student_submission):
         # Test 4: Test count_csv_records() function
 
         try:
-            result = assistant.is_inf(sm.count_csv_records, ("faculty", ["John Harney,faculty,faculty_id_123","John Doe,faculty,faculty_id_151","Bruce Johnson,faculty,faculty_id_563","John Ac,staff,staff_id_15632","Ilike Badjokes,faculty,faculty_id_542151","Ima Plumber,staff,staff_id_5653"]))
+            result = assistant.testFunction(sm.count_csv_records, ("faculty", ["John Harney,faculty,faculty_id_123","John Doe,faculty,faculty_id_151","Bruce Johnson,faculty,faculty_id_563","John Ac,staff,staff_id_15632","Ilike Badjokes,faculty,faculty_id_542151","Ima Plumber,staff,staff_id_5653"]))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -121,7 +121,7 @@ def autoGrader(student_submission):
         # Test 5: Test make_data_file() function 
 
         try:
-            result = assistant.is_inf(sm.make_data_file, ("sample_file3.txt", ["John Harney","faculty","faculty_id_123","John Doe","faculty","faculty_id_151","Bruce Johnson","faculty","faculty_id_563","John Ac","staff","staff_id_15632","Ilike Badjokes","faculty","faculty_id_542151","Ima Plumber","staff","staff_id_5653"]))
+            result = assistant.testFunction(sm.make_data_file, ("sample_file3.txt", ["John Harney","faculty","faculty_id_123","John Doe","faculty","faculty_id_151","Bruce Johnson","faculty","faculty_id_563","John Ac","staff","staff_id_15632","Ilike Badjokes","faculty","faculty_id_542151","Ima Plumber","staff","staff_id_5653"]))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -145,7 +145,7 @@ def autoGrader(student_submission):
         # Test 6: Test make_data_csv_file() function
 
         try:
-            result = assistant.is_inf(sm.make_data_csv_file, ("sample_file.txt", 3, ["John Harney","faculty","faculty_id_123","John Doe","faculty","faculty_id_151","Bruce Johnson","faculty","faculty_id_563","John Ac","staff","staff_id_15632","Ilike Badjokes","faculty","faculty_id_542151","Ima Plumber","staff","staff_id_5653"]))
+            result = assistant.testFunction(sm.make_data_csv_file, ("sample_file.txt", 3, ["John Harney","faculty","faculty_id_123","John Doe","faculty","faculty_id_151","Bruce Johnson","faculty","faculty_id_563","John Ac","staff","staff_id_15632","Ilike Badjokes","faculty","faculty_id_542151","Ima Plumber","staff","staff_id_5653"]))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -165,7 +165,7 @@ def autoGrader(student_submission):
         output_file.write("ImaTestFile")
         output_file.close()
         try:
-            result = assistant.is_inf(sm.append_to_file, ("sample_file2.txt", ["ABC", "DEF", "GHI", "JKL", "MNO", "PQR", "STU", "VWX", "YZ"]))
+            result = assistant.testFunction(sm.append_to_file, ("sample_file2.txt", ["ABC", "DEF", "GHI", "JKL", "MNO", "PQR", "STU", "VWX", "YZ"]))
         except:
             result = "Error"
         if(result == "Infinite"):

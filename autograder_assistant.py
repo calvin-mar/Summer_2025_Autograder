@@ -58,8 +58,9 @@ def wrapper(function, parameter_list, result):
                 result[0] = "Error"
         except:
             result[0]
-        
-def is_inf(function, parameter_list=(), input_list=[]):
+
+#Tests for infinite loops, errors, and gets result
+def testFunction(function, parameter_list=(), input_list=[]):
     # Return either Infinite, Error, or All Good
     global l_data
     l_data = input_list
@@ -102,7 +103,7 @@ def syntax_checker(filename, timeout=0):
         name = filename[:-3]
         specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, filename))
         sm = importlib.util.module_from_spec(specific_student)
-        output = is_inf(specific_student.loader.exec_module, (sm,))
+        output = testFunction(specific_student.loader.exec_module, (sm,))
         if(output[1]):
             if("infinite" in output[0]):
                 return False, "There is a problem with your code, you may have an infinite loop outside of a function. Check that all loops have a ending condition."

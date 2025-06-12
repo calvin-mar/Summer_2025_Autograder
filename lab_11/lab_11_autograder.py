@@ -48,7 +48,7 @@ def autoGrader(student_submission):
         # Test 1: Task 1: Test my_len function with list []
         
         try:
-            result = assistant.is_inf(sm.my_len, ([],))
+            result = assistant.testFunction(sm.my_len, ([],))
             if(result[1]):
                 result[0] = result[0] + " The parameter was an empty list. </font>"
                 error_msgs.append(result[0])
@@ -67,7 +67,7 @@ def autoGrader(student_submission):
         
         
         try:
-            result = assistant.is_inf(sm.my_len, ([8, 6, 7, 5, 3],))
+            result = assistant.testFunction(sm.my_len, ([8, 6, 7, 5, 3],))
             if(result[1]):
                 result[0] = result[0] + " The parameter was [8, 6, 7, 5, 3]. </font>"
                 error_msgs.append(result[0])
@@ -88,7 +88,7 @@ def autoGrader(student_submission):
         
         
         try:
-            result = assistant.is_inf(sm.my_in_list, ([8, 6, 7, 5, 3],0))
+            result = assistant.testFunction(sm.my_in_list, ([8, 6, 7, 5, 3],0))
             if(result[1]):
                 result[0] = result[0] + " The parameters were [8, 6, 7, 5, 3] and 0. </font>"
                 error_msgs.append(result[0])
@@ -107,7 +107,7 @@ def autoGrader(student_submission):
         
         
         try:
-            result = assistant.is_inf(sm.my_in_list, ([8, 6, 7, 5, 3], 8))
+            result = assistant.testFunction(sm.my_in_list, ([8, 6, 7, 5, 3], 8))
             if(result[1]):
                 result[0] = result[0] + " The parameters were [8, 6, 7, 5, 3] and 8. </font>"
                 error_msgs.append(result[0])
@@ -126,7 +126,7 @@ def autoGrader(student_submission):
         
         
         try:
-            result = assistant.is_inf(sm.my_in_list, ([8, 6, 7, 5, 3], 3))
+            result = assistant.testFunction(sm.my_in_list, ([8, 6, 7, 5, 3], 3))
             if(result[1]):
                 result[0] = result[0] + " The parameters were [8, 6, 7, 5, 3] and 3. </font>"
                 error_msgs.append(result[0])
@@ -146,7 +146,7 @@ def autoGrader(student_submission):
         # Test 6: Task 3: Test my_location() function with list [8, 6, 8, 5, 3] and integer 8
         
         try:
-            result = assistant.is_inf(sm.my_location, ([8, 6, 8, 5, 3], 8))
+            result = assistant.testFunction(sm.my_location, ([8, 6, 8, 5, 3], 8))
             if(result[1]):
                 result[0] = result[0] + " The parameters were [8, 6, 8, 5, 3] and 8. </font>"
                 error_msgs.append(result[0])
@@ -165,7 +165,7 @@ def autoGrader(student_submission):
         
         
         try:
-            result = assistant.is_inf(sm.my_location, ([8, 6, 8, 5, 3], 77))
+            result = assistant.testFunction(sm.my_location, ([8, 6, 8, 5, 3], 77))
             if(result[1]):
                 result[0] = result[0] + " The parameters were [8, 6, 8, 5, 3] and 77. </font>"
                 error_msgs.append(result[0])
@@ -185,7 +185,7 @@ def autoGrader(student_submission):
         # Test 8: Task 4: Test my_reverse() function with list [8, 6, 8, 5, 3] 
         
         try:
-            result = assistant.is_inf(sm.my_reverse, ([8, 6, 8, 5, 3],))
+            result = assistant.testFunction(sm.my_reverse, ([8, 6, 8, 5, 3],))
             if(result[1]):
                 result[0] = result[0] + " The parameter was [8, 6, 8, 5, 3]. </font>"
                 error_msgs.append(result[0])
@@ -206,7 +206,7 @@ def autoGrader(student_submission):
         
         
         try:
-            result = assistant.is_inf(sm.my_extrema, ([77, 6, -1, 5, 3],))
+            result = assistant.testFunction(sm.my_extrema, ([77, 6, -1, 5, 3],))
             if(result[1]):
                 result[0] = result[0] + " The parameter was [77, 6, -1, 5, 3]. </font>"
                 error_msgs.append(result[0])
@@ -224,7 +224,7 @@ def autoGrader(student_submission):
         # Test 10: Task 5: Test my_extrema() function with list [-1, 6, 3, 5, 77] 
         
         try:
-            result = assistant.is_inf(sm.my_extrema, ([-1, 6, 3, 5, 77],))
+            result = assistant.testFunction(sm.my_extrema, ([-1, 6, 3, 5, 77],))
             if(result[1]):
                 result[0] = result[0] + " The parameter was [77, 6, -1, 5, 3]. </font>"
                 error_msgs.append(result[0])
@@ -242,7 +242,7 @@ def autoGrader(student_submission):
         # Test 11: Task 5: Test my_extrema() function with list [6, 77, 3, 5, -1] 
         
         try:
-            result = assistant.is_inf(sm.my_extrema, ([6, 77, 3, 5, -1],))
+            result = assistant.testFunction(sm.my_extrema, ([6, 77, 3, 5, -1],))
             if(result[1]):
                 result[0] = result[0] + " The parameter was [6, 77, 3, 5, -1]. </font>"
                 error_msgs.append(result[0])
@@ -262,7 +262,7 @@ def autoGrader(student_submission):
         # Test 12: Task 6: Test my_count() function with list [6, 77, 3, 5, -1] and 99
         
         try:
-            result = assistant.is_inf(sm.my_count, ([6, 77, 3, 5, -1], 99))
+            result = assistant.testFunction(sm.my_count, ([6, 77, 3, 5, -1], 99))
             if(result[1]):
                 result[0] = result[0] + " The parameters were [6, 77, 3, 5, -1], 99. </font>"
                 error_msgs.append(result[0])
@@ -280,7 +280,7 @@ def autoGrader(student_submission):
         # Test 13: Task 6: Test my_count() function with list [6, 77, 3, 5, 77] and 77
         
         try:
-            result = assistant.is_inf(sm.my_count, ([6, 77, 3, 5, 77], 77))
+            result = assistant.testFunction(sm.my_count, ([6, 77, 3, 5, 77], 77))
             if(result[1]):
                 result[0] = result[0] + " The parameters were [6, 77, 3, 5, -1], 77. </font>"
                 error_msgs.append(result[0])
@@ -300,7 +300,7 @@ def autoGrader(student_submission):
         # Test 14: Task 7: Test my_insert() function with list [0, 1, 2, 3, 4], 0, and "X"
         
         try:
-            result = assistant.is_inf(sm.my_insert, ([0, 1, 2, 3, 4], 0, "X"))
+            result = assistant.testFunction(sm.my_insert, ([0, 1, 2, 3, 4], 0, "X"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were [6, 77, 3, 5, -1], 0, and "X". </font>'
                 error_msgs.append(result[0])
@@ -318,7 +318,7 @@ def autoGrader(student_submission):
         # Test 15: Task 7: Test my_insert() function with list [0, 1, 2, 3, 4], 4, and "X"
            
         try:
-            result = assistant.is_inf(sm.my_insert, ([0, 1, 2, 3, 4], 4, "X"))
+            result = assistant.testFunction(sm.my_insert, ([0, 1, 2, 3, 4], 4, "X"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were [6, 77, 3, 5, -1], 4, and "X". </font>'
                 error_msgs.append(result[0])
@@ -338,7 +338,7 @@ def autoGrader(student_submission):
         # Test 16: Task 8: Test my_remove() function with list [0, 1, 2, 3, 4, 1, 2, 1, 2], 1
         
         try:
-            result = assistant.is_inf(sm.my_remove, ([0, 1, 2, 3, 4, 1, 2, 1, 2], 1))
+            result = assistant.testFunction(sm.my_remove, ([0, 1, 2, 3, 4, 1, 2, 1, 2], 1))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were [0, 1, 2, 3, 4, 1, 2, 1, 2], 1. </font>'
                 error_msgs.append(result[0])
@@ -356,7 +356,7 @@ def autoGrader(student_submission):
         # Test 17: Task 8: Test my_remove() function with list [0, 1, 2, 3, 4, 1, 2, 1, 2], 11
         
         try:
-            result = assistant.is_inf(sm.my_remove, ([0, 1, 2, 3, 4, 1, 2, 1, 2], 11))
+            result = assistant.testFunction(sm.my_remove, ([0, 1, 2, 3, 4, 1, 2, 1, 2], 11))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were [0, 1, 2, 3, 4, 1, 2, 1, 2], 11. </font>'
                 error_msgs.append(result[0])
@@ -377,7 +377,7 @@ def autoGrader(student_submission):
         
         
         try:
-            result = assistant.is_inf(sm.my_sort, ([8, 7, 6, 5, 4, 3, 2, 1, 0],))
+            result = assistant.testFunction(sm.my_sort, ([8, 7, 6, 5, 4, 3, 2, 1, 0],))
             if(result[1]):
                 result[0] = result[0] + ' The parameters was [8, 7, 6, 5, 4, 3, 2, 1, 0. </font>'
                 error_msgs.append(result[0])

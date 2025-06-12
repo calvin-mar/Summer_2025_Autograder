@@ -55,7 +55,7 @@ def autoGrader(student_submission):
         # Test 1: Test read_data() function with shark file: AAACCCGGGTTTACTTAGCGA\n
 
         try:
-            result = assistant.is_inf(sm.read_data, ("shark.txt",))
+            result = assistant.testFunction(sm.read_data, ("shark.txt",))
             if(result[1]):
                 result[0] = result[0] + " The filename was 'shark.txt'. </font>"
                 error_msgs.append(result[0])
@@ -73,7 +73,7 @@ def autoGrader(student_submission):
         # Test 2: Test read_data() function with elephant file: ACGACGTTTAAACCR
 
         try:
-            result = assistant.is_inf(sm.read_data, ("elephant.txt",))
+            result = assistant.testFunction(sm.read_data, ("elephant.txt",))
             if(result[1]):
                 result[0] = result[0] + " The filename was 'elephant.txt'. </font>"
                 error_msgs.append(result[0])
@@ -93,7 +93,7 @@ def autoGrader(student_submission):
         # Test 3: Test is_valid_strand() function with valid strand
 
         try:
-            result = assistant.is_inf(sm.is_valid_strand, ("ACGCGTGTATACAAATTT",))
+            result = assistant.testFunction(sm.is_valid_strand, ("ACGCGTGTATACAAATTT",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was ACGCGTGTATACAAATTT. </font>"
                 error_msgs.append(result[0])
@@ -117,7 +117,7 @@ def autoGrader(student_submission):
         try:
             cumulative = True
             for sequence in tests:
-                result = assistant.is_inf(sm.is_valid_strand,(sequence,))
+                result = assistant.testFunction(sm.is_valid_strand,(sequence,))
                 if(result[1]):
                     result[0] = result[0] + " The parameters were a variety of strands with length 18 with invalid characters in each position. </font>"
                     error_msgs.append(result[0])
@@ -142,7 +142,7 @@ def autoGrader(student_submission):
         # Test 5: Test num_differences() function with 2 strands that have no differences
 
         try:
-            result = assistant.is_inf(sm.num_differences, ("AAACCCGGGTTTACT", "AAACCCGGGTTTACT"))
+            result = assistant.testFunction(sm.num_differences, ("AAACCCGGGTTTACT", "AAACCCGGGTTTACT"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "AAACCCGGGTTTACT", "AAACCCGGGTTTACT". </font>'
                 error_msgs.append(result[0])
@@ -160,7 +160,7 @@ def autoGrader(student_submission):
         # Test 6: Test num_differences() function with 2 strands that have 5 differences including one on each end
 
         try:
-            result = assistant.is_inf(sm.num_differences, ("TAACGCTGGTGTACA", "AAACCCGGGTTTACT"))
+            result = assistant.testFunction(sm.num_differences, ("TAACGCTGGTGTACA", "AAACCCGGGTTTACT"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "TAACGCTGGTGTACA", "AAACCCGGGTTTACT". </font>'
                 error_msgs.append(result[0])
@@ -180,7 +180,7 @@ def autoGrader(student_submission):
         # Test 7: Test complement() function 
 
         try:
-            result = assistant.is_inf(sm.complement, ("AAACCCGGGTTTACT",))
+            result = assistant.testFunction(sm.complement, ("AAACCCGGGTTTACT",))
             if(result[1]):
                 result[0] = result[0] + ' The parameter was "AAACCCGGGTTTACT". </font>'
                 error_msgs.append(result[0])
@@ -200,7 +200,7 @@ def autoGrader(student_submission):
         # Test 8: Test get_triplets() function 
 
         try:
-            result = assistant.is_inf(sm.get_triplets,("ACGCGTGTATACAAATTT",))
+            result = assistant.testFunction(sm.get_triplets,("ACGCGTGTATACAAATTT",))
             if(result[1]):
                 result[0] = result[0] + ' The parameter was "ACGCGTGTATACAAATTT". </font>'
                 error_msgs.append(result[0])
@@ -220,7 +220,7 @@ def autoGrader(student_submission):
         # Test 9: Test get_amino_acids() function 
 
         try:
-            result = assistant.is_inf(sm.get_amino_acids,(["ACG", "CGT", "GTA", "TAC", "AAA", "TTT"],))
+            result = assistant.testFunction(sm.get_amino_acids,(["ACG", "CGT", "GTA", "TAC", "AAA", "TTT"],))
             if(result[1]):
                 result[0] = result[0] + ' The parameter was ["ACG", "CGT", "GTA", "TAC", "AAA", "TTT"]. </font>'
                 error_msgs.append(result[0])
@@ -250,7 +250,7 @@ def autoGrader(student_submission):
         try:
                 cumulative = True
                 for index in range(len(testCases)):
-                    result = assistant.is_inf(sm.get_acid,(testCases[index],))
+                    result = assistant.testFunction(sm.get_acid,(testCases[index],))
                     if(result[1]):
                         result[0] = result[0] + " The parameter was a list of all triplets. </font>"
                         error_msgs.append(result[0])

@@ -54,7 +54,7 @@ def autoGrader(student_submission):
         # Test 1: Task 1: Test load_misspellings() function
         test_dict = {"doofis":"doofus", "gote":"goat", "miztake":"mistake", "l8":"late", "kat":"cat"}
         try:
-            result = assistant.is_inf(sm.load_misspellings)
+            result = assistant.testFunction(sm.load_misspellings)
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -73,7 +73,7 @@ def autoGrader(student_submission):
         test_dict = {"doofis":"doofus", "gote":"goat", "miztake":"mistake", "l8":"late", "kat":"cat"}
 
         try:
-            result = assistant.is_inf(sm.fix_misspellings, (test_dict,))
+            result = assistant.testFunction(sm.fix_misspellings, (test_dict,))
             if(result[1]):
                 result[0] = result[0] + " The testing dictionary was 'doofis':'doofus', 'gote':'goat', 'miztake':'mistake', 'l8':'late', 'kat':'cat'. </font>"
                 error_msgs.append(result[0])
@@ -101,7 +101,7 @@ def autoGrader(student_submission):
             else:
                 test_dict2[word] = 1
         try:  
-            result = assistant.is_inf(sm.word_count, (s_text,))
+            result = assistant.testFunction(sm.word_count, (s_text,))
             if(result[1]):
                 result[0] = result[0] + " The text was 'when i am late getting home my goat doofus may make a mistake and eat my cat this keeps mee from getting home late all the time becuz i love my goat and dont want him to get a hairball from eating my cat'"
                 error_msgs.append(result[0])
@@ -119,7 +119,7 @@ def autoGrader(student_submission):
         # Test 4: Task 1: Test output_fixed_text() function
 
         try:
-            result = assistant.is_inf(sm.output_fixed_text, (s_text,))
+            result = assistant.testFunction(sm.output_fixed_text, (s_text,))
             if(result[1]):
                 result[0] = result[0] + " The text was 'when i am late getting home my goat doofus may make a mistake and eat my cat this keeps mee from getting home late all the time becuz i love my goat and dont want him to get a hairball from eating my cat'"
                 error_msgs.append(result[0])
@@ -145,7 +145,7 @@ def autoGrader(student_submission):
 
         spanish_dict = {"amigo":"friend", "hola":"hello", "mi":"my", "donde":"where", "esta":"is", "diablo":"devil", "bano":"bathroom"}        
         try:
-            result = assistant.is_inf(sm.make_dictionary)
+            result = assistant.testFunction(sm.make_dictionary)
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -161,7 +161,7 @@ def autoGrader(student_submission):
 
         # Test 6: Task 2: Test get_text_to_translate() function
         try:
-            result = assistant.is_inf(sm.get_text_to_translate)
+            result = assistant.testFunction(sm.get_text_to_translate)
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -179,7 +179,7 @@ def autoGrader(student_submission):
         s_translate_me = "hola mi amigo donde esta la salle de de bano"
 
         try:
-            result = assistant.is_inf(sm.translate, (spanish_dict, s_translate_me))
+            result = assistant.testFunction(sm.translate, (spanish_dict, s_translate_me))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)

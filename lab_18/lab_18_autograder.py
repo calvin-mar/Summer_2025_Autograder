@@ -98,7 +98,7 @@ def autoGrader(student_submission):
             ['WHATCHAMACALLIT (H)', '1 bar (51g)', '256.5', '13g', '5.5g', '4.5g', '30g', '116.5mg', '62mg'],
             ['YORK PEPPERMINT PATTIE (H)', '1 lg. pattie (43g)', '149', '4g', 'n/a', '1.5g', '33.5g', '16.5mg', '7.5mg']]
         try:
-            result = assistant.is_inf(sm.get_data)
+            result = assistant.testFunction(sm.get_data)
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -114,7 +114,7 @@ def autoGrader(student_submission):
 
         # Test 2: Task 2: Test get_avg_sat_fat() function 
         try:
-            result = assistant.is_inf(sm.get_avg_sat_fat, (l2d_solution,))
+            result = assistant.testFunction(sm.get_avg_sat_fat, (l2d_solution,))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -171,7 +171,7 @@ def autoGrader(student_submission):
                          ['WHATCHAMACALLIT (H)', '1 bar (51g)', '256.5', '13g', '5.5g', '4.5g', '30g', '116.5mg', '62mg', True, True],
                          ['YORK PEPPERMINT PATTIE (H)', '1 lg. pattie (43g)', '149', '4g', 'n/a', '1.5g', '33.5g', '16.5mg', '7.5mg', False, True]]
         try:
-            result = assistant.is_inf(sm.add_allergy_info, (l2d_solution2,))
+            result = assistant.testFunction(sm.add_allergy_info, (l2d_solution2,))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -187,7 +187,7 @@ def autoGrader(student_submission):
 
         # Test 4: Task 4: Test write_safe_candies() function
         try:
-            result = assistant.is_inf(sm.write_safe_candies, (l2d_solution2,))
+            result = assistant.testFunction(sm.write_safe_candies, (l2d_solution2,))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)

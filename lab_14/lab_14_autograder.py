@@ -56,7 +56,7 @@ def autoGrader(student_submission):
         # Test 1: Task 1: Test my_len() function
 
         try:
-            result = assistant.is_inf(sm.my_len, ("",))
+            result = assistant.testFunction(sm.my_len, ("",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was an empty string: \"\". </font>"
                 error_msgs.append(result[0])
@@ -74,7 +74,7 @@ def autoGrader(student_submission):
         # Test 2: Task 1: Test my_len() function
 
         try:
-            result = assistant.is_inf(sm.my_len, ("1",))
+            result = assistant.testFunction(sm.my_len, ("1",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"1\". </font>"
                 error_msgs.append(result[0])
@@ -92,7 +92,7 @@ def autoGrader(student_submission):
         # Test 3: Task 1: Test my_len() function
 
         try:
-            result = assistant.is_inf(sm.my_len, ("ab",))
+            result = assistant.testFunction(sm.my_len, ("ab",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"ab\". </font>"
                 error_msgs.append(result[0])
@@ -111,7 +111,7 @@ def autoGrader(student_submission):
      # Test 4: Task 1: Test my_len() function
 
         try:
-            result = assistant.is_inf(sm.my_len, ("12345678",))
+            result = assistant.testFunction(sm.my_len, ("12345678",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"12345678\". </font>"
                 error_msgs.append(result[0])
@@ -131,7 +131,7 @@ def autoGrader(student_submission):
         # Test 5: Task 2: Test my_strip() function
 
         try:
-            result = assistant.is_inf(sm.my_strip, ("abc",))
+            result = assistant.testFunction(sm.my_strip, ("abc",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"abc\". </font>"
                 error_msgs.append(result[0])
@@ -149,7 +149,7 @@ def autoGrader(student_submission):
         # Test 6: Task 2: Test my_strip() function
 
         try:
-            result = assistant.is_inf(sm.my_strip, ("  d  ",))
+            result = assistant.testFunction(sm.my_strip, ("  d  ",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"space space d space space\". </font>"
                 error_msgs.append(result[0])
@@ -167,7 +167,7 @@ def autoGrader(student_submission):
         # Test 7: Task 2: Test my_strip() function
 
         try:
-            result = assistant.is_inf(sm.my_strip, ("\t\n abc",))
+            result = assistant.testFunction(sm.my_strip, ("\t\n abc",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"tab new_line space abc\". </font>"
                 error_msgs.append(result[0])
@@ -185,7 +185,7 @@ def autoGrader(student_submission):
         # Test 8: Task 2: Test my_strip() function
 
         try:
-            result = assistant.is_inf(sm.my_strip, ("abc\t\t\t\n ",))
+            result = assistant.testFunction(sm.my_strip, ("abc\t\t\t\n ",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"abc tab tab tab new_line space\". </font>"
                 error_msgs.append(result[0])
@@ -203,7 +203,7 @@ def autoGrader(student_submission):
         # Test 9: Task 2: Test my_strip() function
 
         try:
-            result = assistant.is_inf(sm.my_strip, ("\n\n\n\t   x    \n\n\t",))
+            result = assistant.testFunction(sm.my_strip, ("\n\n\n\t   x    \n\n\t",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"new_line new_line new_line tab space space space x space space space space new_line new_line tab\". </font>"
                 error_msgs.append(result[0])
@@ -221,7 +221,7 @@ def autoGrader(student_submission):
        # Test 10: Task 2: Test my_strip() function
 
         try:
-            result = assistant.is_inf(sm.my_strip, ("  abc  def  ",))
+            result = assistant.testFunction(sm.my_strip, ("  abc  def  ",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"space space abc space space def space space\". </font>"
                 error_msgs.append(result[0])
@@ -239,7 +239,7 @@ def autoGrader(student_submission):
         # Test 11: Task 2: Test my_strip() function
 
         try:
-            result = assistant.is_inf(sm.my_strip, ("  abc \n\t def  ",))
+            result = assistant.testFunction(sm.my_strip, ("  abc \n\t def  ",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"space space abc space space def space space\". </font>"
                 error_msgs.append(result[0])
@@ -257,7 +257,7 @@ def autoGrader(student_submission):
         # Test 12: Task 2: Test my_strip() function
 
         try:
-            result = assistant.is_inf(sm.my_strip, ("abc\t\n def",))
+            result = assistant.testFunction(sm.my_strip, ("abc\t\n def",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"abc tab new_line space def\". </font>"
                 error_msgs.append(result[0])
@@ -275,7 +275,7 @@ def autoGrader(student_submission):
         # Test 13: Task 2: Test my_strip() function
 
         try:
-            result = assistant.is_inf(sm.my_strip, (" \t\n \t\n ",))
+            result = assistant.testFunction(sm.my_strip, (" \t\n \t\n ",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"space tab new_line space tab new_line space\". </font>"
                 error_msgs.append(result[0])
@@ -293,7 +293,7 @@ def autoGrader(student_submission):
         # Test 14: Task 2: Test my_strip() function
 
         try:
-            result = assistant.is_inf(sm.my_strip, ("\n\n\n\n",))
+            result = assistant.testFunction(sm.my_strip, ("\n\n\n\n",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"new_line new_line new_line new_line\". </font>"
                 error_msgs.append(result[0])
@@ -311,7 +311,7 @@ def autoGrader(student_submission):
         # Test 15: Task 2: Test my_strip() function
 
         try:
-            result = assistant.is_inf(sm.my_strip, ("\t\t\t",))
+            result = assistant.testFunction(sm.my_strip, ("\t\t\t",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"tab tab tab\". </font>"
                 error_msgs.append(result[0])
@@ -329,7 +329,7 @@ def autoGrader(student_submission):
         # Test 16: Task 2: Test my_strip() function
 
         try:
-            result = assistant.is_inf(sm.my_strip, ("     ",))
+            result = assistant.testFunction(sm.my_strip, ("     ",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"space space space space space\". </font>"
                 error_msgs.append(result[0])
@@ -349,7 +349,7 @@ def autoGrader(student_submission):
         # Test 17: Task 3: Test my_in() function
 
         try:
-            result = assistant.is_inf(sm.my_in, ("abc", "abcdefg"))
+            result = assistant.testFunction(sm.my_in, ("abc", "abcdefg"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "abc", "abcdefg". </font>'
                 error_msgs.append(result[0])
@@ -367,7 +367,7 @@ def autoGrader(student_submission):
         # Test 18: Task 3: Test my_in() function
 
         try:
-            result = assistant.is_inf(sm.my_in, ("cdefg", "abcdefg"))
+            result = assistant.testFunction(sm.my_in, ("cdefg", "abcdefg"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "cdefg", "abcdefg". </font>'
                 error_msgs.append(result[0])
@@ -385,7 +385,7 @@ def autoGrader(student_submission):
         # Test 19: Task 3: Test my_in() function
 
         try:
-            result = assistant.is_inf(sm.my_in, ("ef", "abcdefg"))
+            result = assistant.testFunction(sm.my_in, ("ef", "abcdefg"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "ef", "abcdefg". </font>'
                 error_msgs.append(result[0])
@@ -403,7 +403,7 @@ def autoGrader(student_submission):
         # Test 20: Task 3: Test my_in() function
 
         try:
-            result = assistant.is_inf(sm.my_in, ("ce", "abcdefg"))
+            result = assistant.testFunction(sm.my_in, ("ce", "abcdefg"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "ce", "abcdefg". </font>'
                 error_msgs.append(result[0])
@@ -421,7 +421,7 @@ def autoGrader(student_submission):
         # Test 21: Task 3: Test my_in() function
 
         try:
-            result = assistant.is_inf(sm.my_in, ("xab", "abcdefg"))
+            result = assistant.testFunction(sm.my_in, ("xab", "abcdefg"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "xab", "abcdefg". </font>'
                 error_msgs.append(result[0])
@@ -439,7 +439,7 @@ def autoGrader(student_submission):
         # Test 22: Task 3: Test my_in() function
 
         try:
-            result = assistant.is_inf(sm.my_in, ("fgh", "abcdefg"))
+            result = assistant.testFunction(sm.my_in, ("fgh", "abcdefg"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "fgh", "abcdefg". </font>'
                 error_msgs.append(result[0])
@@ -457,7 +457,7 @@ def autoGrader(student_submission):
         # Test 23: Task 3: Test my_in() function
 
         try:
-            result = assistant.is_inf(sm.my_in, ("x", "abcdefg"))
+            result = assistant.testFunction(sm.my_in, ("x", "abcdefg"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "x", "abcdefg". </font>'
                 error_msgs.append(result[0])
@@ -475,7 +475,7 @@ def autoGrader(student_submission):
         # Test 24: Task 3: Test my_in() function
 
         try:
-            result = assistant.is_inf(sm.my_in, ("abcdefgx", "abcdefg"))
+            result = assistant.testFunction(sm.my_in, ("abcdefgx", "abcdefg"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "abcdefgx", "abcdefg". </font>'
                 error_msgs.append(result[0])
@@ -495,7 +495,7 @@ def autoGrader(student_submission):
         # Test 25: Task 4: Test my_find() function
 
         try:
-            result = assistant.is_inf(sm.my_find, ("abc", "abcdefghi"))
+            result = assistant.testFunction(sm.my_find, ("abc", "abcdefghi"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "abc", "abcdefghi". </font>'
                 error_msgs.append(result[0])
@@ -513,7 +513,7 @@ def autoGrader(student_submission):
         # Test 26: Task 4: Test my_find() function
 
         try:
-            result = assistant.is_inf(sm.my_find, ("ghi", "abcdefghi"))
+            result = assistant.testFunction(sm.my_find, ("ghi", "abcdefghi"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "ghi", "abcdefghi". </font>'
                 error_msgs.append(result[0])
@@ -531,7 +531,7 @@ def autoGrader(student_submission):
         # Test 27: Task 4: Test my_find() function
 
         try:
-            result = assistant.is_inf(sm.my_find, ("cde", "abcdefghi"))
+            result = assistant.testFunction(sm.my_find, ("cde", "abcdefghi"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "cde", "abcdefghi". </font>'
                 error_msgs.append(result[0])
@@ -549,7 +549,7 @@ def autoGrader(student_submission):
         # Test 28: Task 4: Test my_find() function
 
         try:
-            result = assistant.is_inf(sm.my_find, ("abd", "abcdefghi"))
+            result = assistant.testFunction(sm.my_find, ("abd", "abcdefghi"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "abd", "abcdefghi". </font>'
                 error_msgs.append(result[0])
@@ -567,7 +567,7 @@ def autoGrader(student_submission):
         # Test 29: Task 4: Test my_find() function
 
         try:
-            result = assistant.is_inf(sm.my_find, ("xyz", "abcdefghi"))
+            result = assistant.testFunction(sm.my_find, ("xyz", "abcdefghi"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "xyz", "abcdefghi". </font>'
                 error_msgs.append(result[0])
@@ -587,7 +587,7 @@ def autoGrader(student_submission):
         # Test 30: Task 5: Test my_replace() function
 
         try:
-            result = assistant.is_inf(sm.my_replace, ("fish is good", "fish", "xyz"))
+            result = assistant.testFunction(sm.my_replace, ("fish is good", "fish", "xyz"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "fish is good", "fish", "xyz". </font>'
                 error_msgs.append(result[0])
@@ -605,7 +605,7 @@ def autoGrader(student_submission):
         # Test 31: Task 5: Test my_replace() function
 
         try:
-            result = assistant.is_inf(sm.my_replace, ("fish is good", " i", "xyz"))
+            result = assistant.testFunction(sm.my_replace, ("fish is good", " i", "xyz"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "fish is good", " i", "xyz". </font>'
                 error_msgs.append(result[0])
@@ -623,7 +623,7 @@ def autoGrader(student_submission):
         # Test 32: Task 5: Test my_replace() function
     
         try:
-            result = assistant.is_inf(sm.my_replace, ("fish is good", "goo", "xyz"))
+            result = assistant.testFunction(sm.my_replace, ("fish is good", "goo", "xyz"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "fish is good", "goo", "xyz". </font>'
                 error_msgs.append(result[0])
@@ -641,7 +641,7 @@ def autoGrader(student_submission):
         # Test 33: Task 5: Test my_replace() function
 
         try:
-            result = assistant.is_inf(sm.my_replace, ("fish is good", "od", "axyz"))
+            result = assistant.testFunction(sm.my_replace, ("fish is good", "od", "axyz"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "fish is good", "od", "axyz". </font>'
                 error_msgs.append(result[0])
@@ -659,7 +659,7 @@ def autoGrader(student_submission):
         # Test 34: Task 5: Test my_replace() function
 
         try:
-            result = assistant.is_inf(sm.my_replace, ("fish is good", "h i", "xyz"))
+            result = assistant.testFunction(sm.my_replace, ("fish is good", "h i", "xyz"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "fish is good", "h i", "xyz". </font>'
                 error_msgs.append(result[0])
@@ -677,7 +677,7 @@ def autoGrader(student_submission):
         # Test 35: Task 5: Test my_replace() function
 
         try:
-            result = assistant.is_inf(sm.my_replace, ("fish is good", "x", "xyz"))
+            result = assistant.testFunction(sm.my_replace, ("fish is good", "x", "xyz"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "fish is good", "x", "xyz". </font>'
                 error_msgs.append(result[0])
@@ -695,7 +695,7 @@ def autoGrader(student_submission):
         # Test 36: Task 5: Test my_replace() function
 
         try:
-            result = assistant.is_inf(sm.my_replace, ("fish is good", " ", "xyz"))
+            result = assistant.testFunction(sm.my_replace, ("fish is good", " ", "xyz"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "fish is good", " ", "xyz". </font>'
                 error_msgs.append(result[0])
@@ -713,7 +713,7 @@ def autoGrader(student_submission):
         # Test 37: Task 5: Test my_replace() function
 
         try:
-            result = assistant.is_inf(sm.my_replace, ("fish is fish", "ish", "xyz"))
+            result = assistant.testFunction(sm.my_replace, ("fish is fish", "ish", "xyz"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "fish is good", "ish", "xyz". </font>'
                 error_msgs.append(result[0])
@@ -733,7 +733,7 @@ def autoGrader(student_submission):
         # Test 38: Task 6: Test my_simple_split() function
 
         try:
-            result = assistant.is_inf(sm.my_simple_split, ("a", "banana"))
+            result = assistant.testFunction(sm.my_simple_split, ("a", "banana"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "a", "banana". </font>'
                 error_msgs.append(result[0])
@@ -751,7 +751,7 @@ def autoGrader(student_submission):
         # Test 39: Task 6: Test my_simple_split() function
 
         try:
-            result = assistant.is_inf(sm.my_simple_split, ("a", "anna"))
+            result = assistant.testFunction(sm.my_simple_split, ("a", "anna"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "a", "anna". </font>'
                 error_msgs.append(result[0])
@@ -769,7 +769,7 @@ def autoGrader(student_submission):
         # Test 40: Task 6: Test my_simple_split() function
 
         try:
-            result = assistant.is_inf(sm.my_simple_split, ("a", "xaax"))
+            result = assistant.testFunction(sm.my_simple_split, ("a", "xaax"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "a", "xaax". </font>'
                 error_msgs.append(result[0])
@@ -787,7 +787,7 @@ def autoGrader(student_submission):
         # Test 41: Task 6: Test my_simple_split() function
 
         try:
-            result = assistant.is_inf(sm.my_simple_split, ("a", "xaaax"))
+            result = assistant.testFunction(sm.my_simple_split, ("a", "xaaax"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "a", "xaaax". </font>'
                 error_msgs.append(result[0])
@@ -805,7 +805,7 @@ def autoGrader(student_submission):
         # Test 42: Task 6: Test my_simple_split() function
 
         try:
-            result = assistant.is_inf(sm.my_simple_split, ("a", "a"))
+            result = assistant.testFunction(sm.my_simple_split, ("a", "a"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "a", "a". </font>'
                 error_msgs.append(result[0])
