@@ -193,7 +193,7 @@ def syntax_checker(filename, timeout=0):
                 b_proceed = False
                 s_error_msg = s_error_msg + "Your code contains a list comprehension which is not allowed.  "
                 
-            if re.search("=\\s*\\[+.*for\\s+", s_trimmed_code) != None:
+            elif re.search("=\\s*\\[+.*for\\s+", s_trimmed_code) != None:
                 b_proceed = False
                 s_error_msg = s_error_msg + "Your code contains a list comprehension which is not allowed.  "
                 
