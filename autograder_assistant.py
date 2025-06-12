@@ -162,7 +162,7 @@ def syntax_checker(filename, timeout=0):
             if "continue" in s_trimmed_code:
                 b_proceed = False
                 s_error_msg = s_error_msg + "Your code contains <b><font color=orange>continue</font></b> which is not allowed.  "
-            if "random.choice" in s_trimmed_code:
+            if "random.choice(" in s_trimmed_code:
                 b_proceed = False
                 s_error_msg = s_error_msg + "Your code contains <b><font color=orange>random.choice</font></b> which is not allowed.  "
 
