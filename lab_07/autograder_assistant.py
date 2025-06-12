@@ -290,13 +290,18 @@ class MainWindow(QMainWindow):
             text = QLabel("Test" + str(i_test_num+1))
             text.setWordWrap(True)
             text.setMargin(5)
-            if passes[i_test_num]:
-                image.setText("<img src='check.png' width='32' height='32'>")
-                text.setText("<b>Test " + str(i_test_num+1) +" Passed!</b>")
-                num_passed += 1
-            else:
+            if len(passes) == 1:
                 image.setText("<img src='redX.png' width='32' height='32'>")
-                text.setText("<font color=black size=5>Test " + str(i_test_num+1) + " failed: <br></b></font>" + error_msgs[error_count])
+                text.setText(error_msgs[error_count])
+            else:
+
+                if passes[i_test_num]:
+                    image.setText("<img src='check.png' width='32' height='32'>")
+                    text.setText("<b>Test " + str(i_test_num+1) +" Passed!</b>")
+                    num_passed += 1
+                else:
+                    image.setText("<img src='redX.png' width='32' height='32'>")
+                    text.setText("<font color=black size=5>Test " + str(i_test_num+1) + " failed: <br></b></font>" + error_msgs[error_count])
                 
                 error_count += 1
             test.addWidget(image)

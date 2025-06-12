@@ -37,7 +37,6 @@ def autoGrader(student_submission):
             error_msgs.append(s_error_msg)
         else:
             error_msgs.append("There is a problem with your file.")
-
     else:
         specific_student.loader.exec_module(sm)
         ########################################################################
@@ -368,7 +367,11 @@ def testing():
 
 def main():
     testSets=[3, 1, 1, 1, 1, 1, 1, 2, 2, 1]
+
     passes, error_msgs,assistant = autoGrader("lab_07_student_submission.py")
+    #print(len(passes), passes)
+    if len(passes) != sum(testSets):
+        testSets = []
     assistant.displayWindow(passes, error_msgs, testSets)
     
 if __name__ == "__main__":
