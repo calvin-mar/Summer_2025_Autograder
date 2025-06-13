@@ -13,18 +13,33 @@ from PyQt6.QtCore import QSize, Qt, QRect
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import QFont
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-specific = importlib.util.spec_from_file_location("autograder_assistant", os.path.join(dir_path, "autograder_assistant.py"))
-assistant = importlib.util.module_from_spec(specific)
-specific.loader.exec_module(assistant)
+def loadAssistant():
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    specific = importlib.util.spec_from_file_location("autograder_assistant", os.path.join(dir_path, "autograder_assistant.py"))
+    assistant = importlib.util.module_from_spec(specific)
+    specific.loader.exec_module(assistant)
+    return assistant
 
-def autoGrader(student_submission):
+class LoadingWindow(QWidget):
+    def __init__(self):
+        QDialog.__init__(self)
+        #QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+        self.setGeometry(500,500,200,45)
+        self.label = QLabel("Autograder is running. Please be patient...", self)
+        #layout.addWidget(self.label)
+        self.show()
+     
+    def finish(self):
+        #QApplication.restoreOverrideCursor()
+        self.close()
+    
+def autoGrader(student_submission, assistant):
     passes = []
     error_msgs = []
     
     print("Autograder starting...")
 
-
+    dir_path = os.path.dirname(os.path.realpath(__file__))
     name = student_submission[:-3]
     specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, student_submission))
     sm = importlib.util.module_from_spec(specific_student)
@@ -474,21 +489,23 @@ def autoGrader(student_submission):
     print("...Autograder completed.")
     print()
     print("You may close the Autograder window to exit.")
-
+    
     return passes, error_msgs
+    #result.append(passes)
+    #result.append(error_msgs)
+
 
 def testing():
 	passes, error_msgs,assistant = autoGrader("lab_06_student_submission.py")
 	return passes
 
+
+
 def main():
+    assistant = loadAssistant()
     testSets = [4, 2, 6, 3, 5, 2]
-    
-    #passes, error_msgs = autoGrader("lab_06_student_submission.py")
-    try:
-        assistant.displayWindow(autoGrader, "lab_06_student_submission.py", testSets)
-    except Exception as e:
-        print("assistant crashed:", e)
+    assistant.displayWindow(autoGrader, "lab_06_student_submission.py", assistant, testSets)
+
 	
 if __name__ == "__main__":
     main()
