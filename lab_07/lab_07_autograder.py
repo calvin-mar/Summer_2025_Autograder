@@ -7,7 +7,7 @@ import os
 import importlib.util
 from multiprocessing import shared_memory as shm
 
-def autoGrader(student_submission):
+def autoGrader(student_submission, assistant):
     #Making sure shared memory file does not already exist
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
@@ -19,15 +19,15 @@ def autoGrader(student_submission):
     passes = []
     error_msgs = []
     print("Autograder starting...")
-
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    specific = importlib.util.spec_from_file_location("autograder_assistant", os.path.join(dir_path, "autograder_assistant.py"))
-    assistant = importlib.util.module_from_spec(specific)
-    specific.loader.exec_module(assistant)
+    if getattr(sys, "frozen", False):
+        dir_path = os.path.dirname(sys.executable)
+    else:
+        dir_path = os.path.dirname(os.path.realpath(__file__))
 
     name = student_submission[:-3]
     specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, student_submission))
     sm = importlib.util.module_from_spec(specific_student)
+
 
     TIMEOUT = 30 
     b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), TIMEOUT)
@@ -361,19 +361,26 @@ def autoGrader(student_submission):
     
     return passes, error_msgs, assistant
 
+def loadAssistant():
+    if getattr(sys, "frozen", False):
+        dir_path = os.path.dirname(sys.executable)
+    else:
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+
+    specific = importlib.util.spec_from_file_location("autograder_assistant", os.path.join(dir_path, "autograder_assistant.py"))
+    assistant = importlib.util.module_from_spec(specific)
+    specific.loader.exec_module(assistant)
+
+    return assistant
+
 def testing():
-    passes, error_msgs,assistant = autoGrader("lab_07_student_submission.py")
+    assistant = loadAssistant()
+    passes, error_msgs,assistant = autoGrader("lab_02_student_submission.py", assistant)
     return passes
 
 def main():
-    testSets=[3, 1, 1, 1, 1, 1, 1, 2, 2, 1]
+    assistant = loadAssistant()
+    assistant.displayWindow(autoGrader, "lab_02_student_submission.py", assistant)
 
-    passes, error_msgs,assistant = autoGrader("lab_07_student_submission.py")
-    #print(len(passes), passes)
-    if len(passes) != sum(testSets):
-        testSets = []
-    assistant.displayWindow(passes, error_msgs, testSets)
-    
 if __name__ == "__main__":
     main()
-

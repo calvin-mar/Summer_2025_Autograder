@@ -8,7 +8,7 @@ import importlib.util
 from multiprocessing import shared_memory as shm
 
 
-def autoGrader(student_submission):
+def autoGrader(student_submission, assistant):
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
         l_data.shm.close()
@@ -21,14 +21,15 @@ def autoGrader(student_submission):
     l_data = shm.ShareableList([50,10,15], name="l_data")
     i_test_num = 1
     print("Autograder starting...")
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    specific = importlib.util.spec_from_file_location("autograder_assistant", os.path.join(dir_path, "autograder_assistant.py"))
-    assistant = importlib.util.module_from_spec(specific)
-    specific.loader.exec_module(assistant)
+    if getattr(sys, "frozen", False):
+        dir_path = os.path.dirname(sys.executable)
+    else:
+        dir_path = os.path.dirname(os.path.realpath(__file__))
 
     name = student_submission[:-3]
     specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, student_submission))
     sm = importlib.util.module_from_spec(specific_student)
+
 
     TIMEOUT = 30 
     b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), TIMEOUT)
@@ -156,15 +157,28 @@ def autoGrader(student_submission):
     print()
     print("You may close the Autograder window to exit.")
     
-    return passes, error_msgs, assistant
+    return passes, error_msgs
+
+def loadAssistant():
+    if getattr(sys, "frozen", False):
+        dir_path = os.path.dirname(sys.executable)
+    else:
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+
+    specific = importlib.util.spec_from_file_location("autograder_assistant", os.path.join(dir_path, "autograder_assistant.py"))
+    assistant = importlib.util.module_from_spec(specific)
+    specific.loader.exec_module(assistant)
+
+    return assistant
 
 def testing():
-	passes, error_msgs,assistant = autoGrader("lab_02_student_submission.py")
-	return passes
+    assistant = loadAssistant()
+    passes, error_msgs,assistant = autoGrader("lab_02_student_submission.py", assistant)
+    return passes
 
 def main():
-	passes, error_msgs,assistant = autoGrader("lab_02_student_submission.py")
-	assistant.displayWindow(passes, error_msgs)
-	
+    assistant = loadAssistant()
+    assistant.displayWindow(autoGrader, "lab_02_student_submission.py", assistant)
+
 if __name__ == "__main__":
     main()

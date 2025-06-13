@@ -7,6 +7,7 @@ import os
 import math
 import importlib.util
 from multiprocessing import shared_memory as shm
+<<<<<<< HEAD
 from multiprocessing import freeze_support
 # Graphics/PyQt imports
 from PyQt6.QtCore import QSize, Qt, QRect
@@ -488,9 +489,14 @@ def loadAssistant():
         dir_path = os.path.dirname(sys.executable)
     else:
         dir_path = os.path.dirname(os.path.realpath(__file__))
+<<<<<<< HEAD
+=======
+
+>>>>>>> d02f65ce5e0a41111e9353d4999a7e430ee24f3f
     specific = importlib.util.spec_from_file_location("autograder_assistant", os.path.join(dir_path, "autograder_assistant.py"))
     assistant = importlib.util.module_from_spec(specific)
     specific.loader.exec_module(assistant)
+
     return assistant
 
 def testing():
@@ -500,10 +506,8 @@ def testing():
 
 def main():
     assistant = loadAssistant()
-    testSets = [4, 2, 6, 3, 5, 2]
-    assistant.displayWindow(autoGrader, "lab_06_student_submission.py", assistant, testSets)
+    assistant.displayWindow(autoGrader, "lab_06_student_submission.py", assistant)
 
-	
 if __name__ == "__main__":
     freeze_support()
     main()
