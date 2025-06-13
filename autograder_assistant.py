@@ -10,8 +10,9 @@ from multiprocessing import shared_memory as shm
 import importlib.util
 
 # Graphics/PyQt imports
-from PyQt6.QtCore import QSize, Qt, QRect
+from PyQt6.QtCore import QSize, Qt, QRect, pyqtSlot, QThreadPool, QObject, QThread, pyqtSignal, QTimer
 from PyQt6.QtWidgets import *
+from PyQt6.QtWidgets import QApplication
 from PyQt6.QtGui import QFont
 from PyQt6.QtGui import QColor, QPalette
 
@@ -234,20 +235,64 @@ def syntax_checker(filename, timeout=0):
         print("You may close the syntax checker window to exit.")
 
         return b_proceed, s_error_msg
+# Loading Window to display while autograder is running
+
+class Worker(QObject):
+    finished = pyqtSignal()
+    result_ready = pyqtSignal(object)
+    errorOccurred = pyqtSignal(str)
+    update = pyqtSignal()
+
+    def __init__(self, autoGrader, filename, assistant):
+        super().__init__()
+        self.autoGrader = autoGrader
+        self.filename = filename
+        self.assistant = assistant
+    
+    def run(self):
+        try:
+            result = self.autoGrader(self.filename, self.assistant)
+        except Exception as e:
+            self.errorOccurred.emit(str(e))
+            result = [[True], ["False"]]
+            self.finished.emit()
+        self.result_ready.emit(result)
+        self.update.emit()
+        self.finished.emit()
 
 # Autograder GUI
 # Inputs window, list of passes/fails, error messages to display, testSets (how many test in each task)
 class MainWindow(QMainWindow):
-    def __init__(self, passes, error_msgs, testSets):
-        super().__init__()
-
+    def __init__(self, autoGrader, filename, assistant,testSets):
+        super().__init__()        
         self.scroll = QScrollArea()
         self.widget = QWidget()
         self.vbox = QVBoxLayout()
 
         self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
         self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        self.setGeometry(600, 100, 800, 600)
+        self.setWindowTitle('Autograder')
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
+        ## Loading Screen
+        widget = QLabel("<b>Autograder is running...<br> Please be patient.</b>")
+        font = widget.font()
+        font.setPointSize(30)
+        widget.setFont(font)
+        widget.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
+        self.setCentralWidget(widget)
+        self.passes = []
+        self.error_msgs = []
+        self.testSets = testSets
+        self.flag = True
+        self.show()
+        self.startAutoGrader(autoGrader, filename, assistant)
+        
+
+
+    def updateWindow(self):
+        QApplication.restoreOverrideCursor()
         num_passed = 0
         error_count = 0
 
@@ -255,12 +300,12 @@ class MainWindow(QMainWindow):
         #Trimming " Failed: " from error messages and rewriting them manually to seperate lines
         i=0
 
-        while i < len(error_msgs):
-                error_msgs[i]=error_msgs[i].replace(" Failed: ", "")
+        while i < len(self.error_msgs):
+                self.error_msgs[i]=self.error_msgs[i].replace(" Failed: ", "")
                 
                 i+=1
         seperateSets = False
-        if len(testSets) >=1:
+        if len(self.testSets) >=1:
                 seperateSets = True
         index=0
         j=1
@@ -273,12 +318,10 @@ class MainWindow(QMainWindow):
                 text.setFixedSize(120,32)
                 test.addWidget(text)
                 self.vbox.addLayout(test)
-        for i_test_num in range(len(passes)):
-            if seperateSets and index<testSets[j-1]:
-                    print("true ", index)
+        for i_test_num in range(len(self.passes)):
+            if seperateSets and index<self.testSets[j-1]:
                     index+=1
             elif seperateSets:
-                    print("false")
                     test = QHBoxLayout()
                     text = QLabel()
                     text.setText("<font color=black size=7><b>Task " + str(j+1)+ ":<br>")
@@ -296,18 +339,18 @@ class MainWindow(QMainWindow):
             text = QLabel("Test" + str(i_test_num+1))
             text.setWordWrap(True)
             text.setMargin(5)
-            if len(passes) == 1:
+            if len(self.passes) == 1:
                 image.setText("<img src='redX.png' width='32' height='32'>")
-                text.setText(error_msgs[error_count])
+                text.setText(self.error_msgs[error_count])
             else:
 
-                if passes[i_test_num]:
+                if self.passes[i_test_num]:
                     image.setText("<img src='check.png' width='32' height='32'>")
                     text.setText("<font size=5>Test " + str(i_test_num+1) +" Passed!</font>")
                     num_passed += 1
                 else:
                     image.setText("<img src='redX.png' width='32' height='32'>")
-                    text.setText("<font color=black size=5>Test " + str(i_test_num+1) + " Failed: <br></font>" + error_msgs[error_count])
+                    text.setText("<font color=black size=5>Test " + str(i_test_num+1) + " Failed: <br></font>" + self.error_msgs[error_count])
                     
                     error_count += 1
             test.addWidget(image)
@@ -318,7 +361,7 @@ class MainWindow(QMainWindow):
 
 
         # Summary at top
-        if(len(passes) > 1):
+        if(len(self.passes) > 1):
             summary = QHBoxLayout()
             image = QLabel("")
             
@@ -326,10 +369,10 @@ class MainWindow(QMainWindow):
             object = QLabel("Summary of Tests")
             object.setWordWrap(True)
             object.setAlignment(Qt.AlignmentFlag.AlignCenter)
-            if(len(passes) == num_passed):
+            if(len(self.passes) == num_passed):
                 object.setText("<font color=green>CONGRATULATIONS YOU PASSED ALL TESTS!!!</font>")
             else:
-                object.setText("<font color=red>You passed " + str(num_passed) + "/" + str(len(passes)) + " tests")
+                object.setText("<font color=red>You passed " + str(num_passed) + "/" + str(len(self.passes)) + " tests")
             image.setGeometry(QRect(object.x(), object.y(), object.width()-100, object.height()))
             font = QFont(object.font().family(), pointSize=24, weight=105)
             font.setBold(True)
@@ -348,12 +391,9 @@ class MainWindow(QMainWindow):
         self.scroll.setWidget(self.widget)
 
         self.setCentralWidget(self.scroll)
-
-        self.setGeometry(600, 100, 800, 600)
-        self.setWindowTitle('Autograder')
         self.show()
 
-        return
+        return 
     
     def exit_clicked(self):
         self.dialog.close()
@@ -364,9 +404,44 @@ class MainWindow(QMainWindow):
               widget = self.vbox.itemAt(i).widget()
               if isinstance(widget, QLabel):
                     widget.setMaximumWidth(self.scroll.viewport().width()-20)
+
+    def startAutoGrader(self, autoGrader, filename, assistant):
         
-def displayWindow(passses, error_msgs, testSets = []):
+        self.thread = QThread()
+        self.worker = Worker(autoGrader, filename, assistant)
+
+        self.worker.moveToThread(self.thread)
+
+        self.thread.started.connect(self.worker.run)
+        self.worker.finished.connect(self.thread.quit)
+        self.worker.finished.connect(self.worker.deleteLater)
+        self.thread.finished.connect(self.thread.deleteLater)
+        self.worker.result_ready.connect(self.handle_result)
+        self.worker.errorOccurred.connect(self.handle_error)
+        self.worker.update.connect(self.updateWindow)
+
+        self.thread.start()
+        
+    def handle_result(self, result):
+        self.passes = result[0]
+        self.error_msgs = result[1]
+        self.flag = False
+        
+    def handle_error(self, error):
+        print(error)
+
+        
+def displayWindow(autoGrader, filename, assistant, testSets = []):
     app = QApplication(sys.argv)
-    window = MainWindow(passses, error_msgs, testSets)
+    '''
+    loading = LoadingWindow(autoGrader, filename, assistant)
+    loading.show()
+    passes = loading.passes
+    error_msgs = loading.error_msgs
+    loading.finish()
+    '''
+    #app.exec()
+    #window = MainWindow(autoGrader, filename, assistant,testSets)
+    window = MainWindow(autoGrader, filename, assistant, testSets)
     window.show()
     app.exec()
