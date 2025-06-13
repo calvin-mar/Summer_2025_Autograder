@@ -9,6 +9,7 @@ import trace
 import os
 from multiprocessing import shared_memory as shm
 import importlib.util
+import traceback
 
 # Graphics/PyQt imports
 from PyQt6.QtCore import QSize, Qt, QRect, pyqtSlot, QThreadPool, QObject, QThread, pyqtSignal, QTimer
@@ -274,7 +275,7 @@ def syntax_checker(filename, timeout=0):
 class Worker(QObject):
     finished = pyqtSignal()
     result_ready = pyqtSignal(object)
-    errorOccurred = pyqtSignal(str)
+    errorOccurred = pyqtSignal(object)
     update = pyqtSignal()
 
     def __init__(self, autoGrader, filename, assistant):
@@ -286,14 +287,17 @@ class Worker(QObject):
     def run(self):
         try:
             result = self.autoGrader(self.filename, self.assistant)
-        except Exception as e:
-            self.errorOccurred.emit(str(e))
-            result = [[True], ["False"]]
+            self.result_ready.emit(result)
+            self.update.emit()
             self.finished.emit()
-        self.result_ready.emit(result)
-        self.update.emit()
-        self.finished.emit()
+        except Exception as exc:
+            exception_info = traceback.format_exc()
+            self.errorOccurred.emit(exception_info)
 
+class problem(Exception):
+    def __init__(self, exception_info):
+        super().__init__(exception_info)
+        
 # Autograder GUI
 # Inputs window, list of passes/fails, error messages to display, testSets (how many test in each task)
 class MainWindow(QMainWindow):
@@ -458,8 +462,11 @@ class MainWindow(QMainWindow):
         self.error_msgs = result[1]
         self.flag = False
         
-    def handle_error(self, error):
-        print(error)
+    def handle_error(self, exception_info):
+        QApplication.restoreOverrideCursor()
+        self.close()
+        raise problem(str(exception_info))
+        
 
         
 def displayWindow(autoGrader, filename, assistant, testSets = []):
