@@ -20,8 +20,11 @@ def autoGrader(student_submission):
     passes = []
     error_msgs = []
     print("Autograder starting...")
+    if getattr(sys, "frozen", False):
+        dir_path = os.path.dirname(sys.executable)
+    else:
+        dir_path = os.path.dirname(os.path.realpath(__file__))
 
-    dir_path = os.path.dirname(os.path.realpath(__file__))
     specific = importlib.util.spec_from_file_location("autograder_assistant", os.path.join(dir_path, "autograder_assistant.py"))
     assistant = importlib.util.module_from_spec(specific)
     specific.loader.exec_module(assistant)
@@ -403,14 +406,25 @@ def autoGrader(student_submission):
 
     return passes, error_msgs, assistant
 
+def loadAssistant():
+    if getattr(sys, "frozen", False):
+        dir_path = os.path.dirname(sys.executable)
+    else:
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+    specific = importlib.util.spec_from_file_location("autograder_assistant", os.path.join(dir_path, "autograder_assistant.py"))
+    assistant = importlib.util.module_from_spec(specific)
+    specific.loader.exec_module(assistant)
+    return assistant
+
 def testing():
-    passes, error_msgs,assistant = autoGrader("lab_11_student_submission.py")
+    assistant = loadAssistant()
+    passes, error_msgs,assistant = autoGrader("lab_06_student_submission.py", assistant)
     return passes
 
 def main():
-    testSets = [2, 3, 2, 1, 3, 2, 2, 2, 1]
-    passes, error_msgs,assistant = autoGrader("lab_11_student_submission.py")
-    assistant.displayWindow(passes, error_msgs, testSets)
+    assistant = loadAssistant()
+    testSets = [4, 2, 6, 3, 5, 2]
+    assistant.displayWindow(autoGrader, "lab_06_student_submission.py", assistant, testSets)
     
 if __name__ == "__main__":
     main()

@@ -5,17 +5,18 @@ import ast
 import astor
 import re
 import threading
+import trace
 import os
 from multiprocessing import shared_memory as shm
 import importlib.util
-import time
+import traceback
 
 # Graphics/PyQt imports
-from PyQt6.QtCore import QSize, Qt, QRect, pyqtSignal, QThread, QTimer
+from PyQt6.QtCore import QSize, Qt, QRect, pyqtSlot, QThreadPool, QObject, QThread, pyqtSignal, QTimer
 from PyQt6.QtWidgets import *
+from PyQt6.QtWidgets import QApplication
 from PyQt6.QtGui import QFont
 from PyQt6.QtGui import QColor, QPalette
-from PyQt6 import QtGui, QtCore, QtWidgets
 
 try:
     import __builtin__
@@ -29,26 +30,61 @@ class InputException(Exception):
         super().__init__(message)
         self.message = message
 
-def input(*args, **kwargs):
-    # Access l_data Here
+def input(*args, **kwargs):    
     try:
         l_data = shm.ShareableList(sequence=None,name="l_data")
     except:
         l_data = [None]
-    list(l_data)
-    #########
     i_data = l_data[0]
     if(i_data == None):
         raise InputException("InputException")
-        #raise ValueError
+
     for i in range(len(l_data)-1):
         l_data[i] = l_data[i+1]
+    # Set last input in list of inputs to None
     l_data[-1] = None
+    
     print("\n====================\nYour input statement:", args[0])
     print("The value entered by the autograder:", str(i_data), "\n====================\n")
+    
     l_data.shm.close()
+    
     return i_data
 
+class thread_with_trace(threading.Thread):
+  """
+  This code provides a version of threading that allows for the threads to be killed.
+  It attaches a trace to the thread which monitors a variable in order to kill a function.
+  """
+  def __init__(self, *args, **keywords):
+    threading.Thread.__init__(self, *args, **keywords)
+    self.killed = False
+
+  def start(self):
+    self.__run_backup = self.run
+    self.run = self.__run      
+    threading.Thread.start(self)
+
+  def __run(self):
+    sys.settrace(self.globaltrace)
+    self.__run_backup()
+    self.run = self.__run_backup
+
+  def globaltrace(self, frame, event, arg):
+    if event == 'call':
+      return self.localtrace
+    else:
+      return None
+
+  def localtrace(self, frame, event, arg):
+    if self.killed:
+      if event == 'line':
+        raise SystemExit()
+    return self.localtrace
+
+  def kill(self):
+    self.killed = True
+    
 # Input: Function to run (student functions), paramaters for function, var result to return result
 # Outputs: result (error or output if passes)
 def wrapper(function, parameter_list, result):
@@ -71,15 +107,13 @@ def testFunction(function, parameter_list=(), input_list=[]):
     global l_data
     l_data = input_list
     result =["Error"]
-    #print(l_data)        
-    p = MyThread(function,parameter_list, result)
-    p.finished.connect(self.thread.quit)
-    p.finished.connect(self.thread.deleteLater)
-    p = threading.Thread(target=wrapper, args=(function,parameter_list, result), daemon=True)
+    #print(l_data)
+    p = thread_with_trace(target=wrapper, args=(function,parameter_list, result), daemon=True)
     p.start()
     p.join(3)
     output = []
     if p.is_alive():
+        p.kill()
         output.append(" Failed: Function " + str(function.__name__) + "() caused an error. The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!")
         output.append(True)
     elif result[0] == "Error":
@@ -107,12 +141,10 @@ class Color(QWidget):
 #Inputs filename, looks for banned syntax
 #Outputs b_proceed and s_error_msg
 def syntax_checker(filename, timeout=0):
-        print("Syntax checker starting...")
-        ##################################################################################################
-        ### new code
-        ##################################################################################################
-
-        dir_path = os.path.dirname(os.path.realpath(__file__))
+        if getattr(sys, "frozen", False):
+            dir_path = os.path.dirname(sys.executable)
+        else:
+            dir_path = os.path.dirname(os.path.realpath(__file__))
         name = filename[:-3]
         specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, filename))
         sm = importlib.util.module_from_spec(specific_student)
@@ -148,7 +180,6 @@ def syntax_checker(filename, timeout=0):
                 code = f.read() 
             parsed = ast.parse(code)
             for node in ast.walk(parsed):
-                #if isinstance(node, ast.Expr) and isinstance(node.value, ast.Str):
                 if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
                     # set value to empty string
                     node.value = ast.Constant(value='') 
@@ -223,9 +254,7 @@ def syntax_checker(filename, timeout=0):
                 b_proceed = False
                 s_error_msg = s_error_msg + "Your code contains a generator comprehension which is not allowed.  "
     
-
-            
-            
+        
         else: # otherwise error message re triples and exit
             b_proceed = False
             if s_triple_res == "Contains Triples":
@@ -233,106 +262,105 @@ def syntax_checker(filename, timeout=0):
             else:
                 s_error_msg = "Your file could not be read.  Make sure it is named correctly.  "
 
-
-        print("...Syntax checker completed.")
-        print()
-        print("You may close the syntax checker window to exit.")
-
         return b_proceed, s_error_msg
 
+# Worker Thread to run Autograder
+# Sends finished, resultReadySig, errorOccured, updateWindowSig pyqtSignal(s)
+class Worker(QObject):
+    end = pyqtSignal(object)
+    errorOccurredSig = pyqtSignal(object)
 
-class MyThread(QThread):
-    def __init__(self, autoGrader, filename):
+    def __init__(self, autoGrader, filename, assistant):
         super().__init__()
         self.autoGrader = autoGrader
         self.filename = filename
-        self.passes = []
-        self.error_msgs = []
+        self.assistant = assistant
+    
     def run(self):
-        self.passes, self.error_msgs = self.autoGrader(self.filename)
+        try:
+            result = self.autoGrader(self.filename, self.assistant)
+            self.end.emit(result)
+        except Exception as exc:
+            exception_info = traceback.format_exc()
+            if getattr(sys, "frozen", False):
+                result = [[False], ["<font color=red size = 5>" + "<br><br>line".join(str(exception_info).split(", line")) + "</font>"]]
+                self.end.emit(result)
+            else:
+                self.errorOccured.emit(exception_info)
 
-
-
+class problem(Exception):
+    def __init__(self, exception_info):
+        super().__init__(exception_info)
+        
 # Autograder GUI
 # Inputs window, list of passes/fails, error messages to display, testSets (how many test in each task)
 class MainWindow(QMainWindow):
-    def __init__(self, autoGrader, filename, testSets):
-        super().__init__()
-        self.autoGrader = autoGrader
-        self.filename = filename
-        self.testSets = testSets
-        
-        self.thread = MyThread(self.autoGrader, self.filename)
-        self.thread.finished.connect(self.autograderDone)
-        self.thread.finished.connect(self.thread.quit)
-        self.thread.finished.connect(self.thread.deleteLater)
+    def __init__(self, autoGrader, filename, assistant,testSets):
+        super().__init__()        
+        self.scroll = QScrollArea()
+        self.widget = QWidget()
+        self.vbox = QVBoxLayout()
 
-        QTimer.singleShot(0, self.startAutograder)
+        self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        self.setGeometry(600, 100, 800, 600)
+        self.setWindowTitle('Autograder')
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
-    def startAutograder(self):
+        ## Loading Screen
         widget = QLabel("<b>Autograder is running...<br> Please be patient.</b>")
         font = widget.font()
         font.setPointSize(30)
         widget.setFont(font)
         widget.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
         self.setCentralWidget(widget)
+        self.passes = []
+        self.error_msgs = []
+        self.testSets = testSets
+        self.flag = True
+        self.show()
+        self.startAutoGrader(autoGrader, filename, assistant)
+
+    def startAutoGrader(self, autoGrader, filename, assistant):
+        
+        self.thread = QThread()
+        self.worker = Worker(autoGrader, filename, assistant)
+
+        self.worker.moveToThread(self.thread)
+
+        self.thread.started.connect(self.worker.run)
+        self.worker.end.connect(self.thread.quit)
+        self.worker.end.connect(self.worker.deleteLater)
+        
+        self.thread.finished.connect(self.thread.deleteLater)
+        self.worker.errorOccurredSig.connect(self.handleError)
+        self.worker.end.connect(self.handleResult)
+        self.worker.end.connect(self.updateWindow)
+
         self.thread.start()
         
-    def setupUI(self):
-        self.scroll = QScrollArea()
-        self.widget = QWidget()
-        self.vbox = QVBoxLayout()
-        self.scroll.setWidgetResizable(True)
-        self.scroll.setWidget(self.widget)
-        self.widget.setLayout(self.vbox)
-        self.setCentralWidget(self.scroll)
-        self.setGeometry(600, 100, 800, 600)
-        self.setWindowTitle('Autograder')
-                    
-    def autograderDone(self):
-        self.setupUI()
-        passes = self.thread.passes
-        error_msgs = self.thread.error_msgs
-
-
+    def updateWindow(self):
+        if(sum(self.testSets) != len(self.passes)):
+            self.testSets = []
+        QApplication.restoreOverrideCursor()
         num_passed = 0
         error_count = 0
 
+        self.trimFailed()
 
-        #Trimming " Failed: " from error messages and rewriting them manually to seperate lines
-        i=0
-
-        while i < len(error_msgs):
-                error_msgs[i]=error_msgs[i].replace(" Failed: ", "")
-                
-                i+=1
         seperateSets = False
         if len(self.testSets) >=1:
                 seperateSets = True
         index=0
-        j=1
+        taskNum=1
         if seperateSets:
-                test = QHBoxLayout()
-                text = QLabel()
-                text.setText("<font color=black size=7><b>Task 1:<br>")
-                test.setAlignment(Qt.AlignmentFlag.AlignBottom)
-                text.setAlignment(Qt.AlignmentFlag.AlignBottom)
-                text.setFixedSize(100,32)
-                test.addWidget(text)
-                self.vbox.addLayout(test)
-        for i_test_num in range(len(passes)):
-            if seperateSets and index<self.testSets[j-1]:
+            self.addHeader(taskNum)
+        for i_test_num in range(len(self.passes)):
+            if seperateSets and index<self.testSets[taskNum-1]:
                     index+=1
             elif seperateSets:
-                    test = QHBoxLayout()
-                    text = QLabel()
-                    text.setText("<font color=black size=7><b>Task " + str(j+1)+ ":<br>")
-                    test.addWidget(text)
-                    test.setAlignment(Qt.AlignmentFlag.AlignBottom)
-                    text.setAlignment(Qt.AlignmentFlag.AlignBottom)
-                    text.setFixedSize(100,32)
-                    self.vbox.addLayout(test)
-                    j+=1
+                    taskNum+=1
+                    self.addHeader(taskNum)             
                     index=1
 
             test = QHBoxLayout()
@@ -341,18 +369,18 @@ class MainWindow(QMainWindow):
             text = QLabel("Test" + str(i_test_num+1))
             text.setWordWrap(True)
             text.setMargin(5)
-            if len(passes) == 1:
-                image.setText("<img src='redX.png' width='32' height='32'>")
-                text.setText(error_msgs[error_count])
+            if len(self.passes) == 1:
+                image.setText("")
+                text.setText(self.error_msgs[error_count])
             else:
 
-                if passes[i_test_num]:
+                if self.passes[i_test_num]:
                     image.setText("<img src='check.png' width='32' height='32'>")
                     text.setText("<font size=5>Test " + str(i_test_num+1) +" Passed!</font>")
                     num_passed += 1
                 else:
                     image.setText("<img src='redX.png' width='32' height='32'>")
-                    text.setText("<font color=black size=5>Test " + str(i_test_num+1) + " Failed: <br></font>" + error_msgs[error_count])
+                    text.setText("<font color=black size=5>Test " + str(i_test_num+1) + " Failed: <br></font>" + self.error_msgs[error_count])
                     
                     error_count += 1
             test.addWidget(image)
@@ -360,10 +388,32 @@ class MainWindow(QMainWindow):
             self.vbox.addLayout(test)
 
 
+        self.summaryScreen(num_passed)
+        
+        self.vbox.addStretch()
+        self.widget.setLayout(self.vbox)
 
+        #Scroll Area Properties
+        self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        self.scroll.setWidgetResizable(True)
+        self.scroll.setWidget(self.widget)
 
+        self.setCentralWidget(self.scroll)
+        self.show()
+
+        return
+
+    def trimFailed(self):
+        i=0
+        while i < len(self.error_msgs):
+            #print("errors", self.error_msgs)
+            self.error_msgs[i] = self.error_msgs[i].replace(" Failed: ", "")                
+            i+=1
+
+    def summaryScreen(self, num_passed):
         # Summary at top
-        if(len(passes) > 1):
+        if(len(self.passes) > 1):
             summary = QHBoxLayout()
             image = QLabel("")
             
@@ -371,10 +421,10 @@ class MainWindow(QMainWindow):
             object = QLabel("Summary of Tests")
             object.setWordWrap(True)
             object.setAlignment(Qt.AlignmentFlag.AlignCenter)
-            if(len(passes) == num_passed):
+            if(len(self.passes) == num_passed):
                 object.setText("<font color=green>CONGRATULATIONS YOU PASSED ALL TESTS!!!</font>")
             else:
-                object.setText("<font color=red>You passed " + str(num_passed) + "/" + str(len(passes)) + " tests")
+                object.setText("<font color=red>You passed " + str(num_passed) + "/" + str(len(self.passes)) + " tests")
             image.setGeometry(QRect(object.x(), object.y(), object.width()-100, object.height()))
             font = QFont(object.font().family(), pointSize=24, weight=105)
             font.setBold(True)
@@ -383,11 +433,42 @@ class MainWindow(QMainWindow):
             summary.addWidget(object)
             self.vbox.insertLayout(0, summary)
 
-        #self.show()
+    def addHeader(self, taskNum):
+        test = QHBoxLayout()
+        text = QLabel()
+        text.setText("<font color=black size=7><b>Task " + str(taskNum)+ ":<br>")
+        test.addWidget(text)
+        test.setAlignment(Qt.AlignmentFlag.AlignBottom)
+        text.setAlignment(Qt.AlignmentFlag.AlignBottom)
+        text.setFixedSize(120,32)
+        self.vbox.addLayout(test)
+
+    # Dynamically resizes text wrapping as window is resized
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        for i in range(self.vbox.count()):
+              widget = self.vbox.itemAt(i).widget()
+              if isinstance(widget, QLabel):
+                    widget.setMaximumWidth(self.scroll.viewport().width()-20)
+
         
-def displayWindow(autoGrader, filename, testSets = []):
+    def handleResult(self, result):
+        print("RESULT", result)
+        self.passes = result[0]
+        self.error_msgs = result[1]
+        self.flag = False
+        
+    def handleError(self, exception_info):
+        QApplication.restoreOverrideCursor()
+        self.close()
+        raise problem(str(exception_info))
+            
+    def exitClicked(self):
+        self.dialog.close()
+
+        
+def displayWindow(autoGrader, filename, assistant, testSets = []):
     app = QApplication(sys.argv)
-    print(filename)
-    window = MainWindow(autoGrader, filename, testSets)
+    window = MainWindow(autoGrader, filename, assistant, testSets)
     window.show()
     app.exec()

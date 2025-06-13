@@ -24,7 +24,12 @@ def autoGrader(student_submission):
     error_msgs = []
     print("Autograder starting...")
 
-    dir_path = os.path.dirname(os.path.realpath(__file__))
+
+    if getattr(sys, "frozen", False):
+        dir_path = os.path.dirname(sys.executable)
+    else:
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+
     specific = importlib.util.spec_from_file_location("autograder_assistant", os.path.join(dir_path, "autograder_assistant.py"))
     assistant = importlib.util.module_from_spec(specific)
     specific.loader.exec_module(assistant)
@@ -224,17 +229,26 @@ def compare_dicts(dict1, dict2):
 
 ## End Dave Utilities
 
-def testing(queue):
-    passes, error_msgs,assistant = autoGrader("lab_17_student_submission.py")
-    ret = queue.get()
-    ret["result"] = passes
-    queue.put(ret)
-    return
+def loadAssistant():
+    if getattr(sys, "frozen", False):
+        dir_path = os.path.dirname(sys.executable)
+    else:
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+    specific = importlib.util.spec_from_file_location("autograder_assistant", os.path.join(dir_path, "autograder_assistant.py"))
+    assistant = importlib.util.module_from_spec(specific)
+    specific.loader.exec_module(assistant)
+    return assistant
+
+def testing():
+    assistant = loadAssistant()
+    passes, error_msgs,assistant = autoGrader("lab_06_student_submission.py", assistant)
+    return passes
 
 def main():
-    testSets = [4, 3]
-    passes, error_msgs,assistant = autoGrader("lab_17_student_submission.py")
-    assistant.displayWindow(passes, error_msgs, testSets)
+    assistant = loadAssistant()
+    testSets = [4, 2, 6, 3, 5, 2]
+    assistant.displayWindow(autoGrader, "lab_06_student_submission.py", assistant, testSets)
+
 if __name__ == "__main__":
     main()
 
