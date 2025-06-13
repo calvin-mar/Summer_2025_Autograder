@@ -8,7 +8,7 @@ import importlib.util
 from multiprocessing import shared_memory as shm
 
 
-def autoGrader(sm, assistant):
+def autoGrader(student_submission, assistant):
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
         l_data.shm.close()
@@ -21,6 +21,15 @@ def autoGrader(sm, assistant):
     l_data = shm.ShareableList([50,10,15], name="l_data")
     i_test_num = 1
     print("Autograder starting...")
+    if getattr(sys, "frozen", False):
+        dir_path = os.path.dirname(sys.executable)
+    else:
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+
+    name = student_submission[:-3]
+    specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, student_submission))
+    sm = importlib.util.module_from_spec(specific_student)
+
 
     TIMEOUT = 30 
     b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), TIMEOUT)
@@ -160,9 +169,6 @@ def loadAssistant():
     assistant = importlib.util.module_from_spec(specific)
     specific.loader.exec_module(assistant)
 
-    name = student_submission[:-3]
-    specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, student_submission))
-    sm = importlib.util.module_from_spec(specific_student)
     return assistant
 
 def testing():
@@ -172,7 +178,7 @@ def testing():
 
 def main():
     assistant = loadAssistant()
-    assistant.displayWindow(autoGrader, "lab_02_student_submission.py", assistant, testSets)
+    assistant.displayWindow(autoGrader, "lab_02_student_submission.py", assistant)
 
 if __name__ == "__main__":
     main()
