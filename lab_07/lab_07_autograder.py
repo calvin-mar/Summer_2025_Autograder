@@ -7,7 +7,7 @@ import os
 import importlib.util
 from multiprocessing import shared_memory as shm
 
-def autoGrader(sm, assistant):
+def autoGrader(student_submission, assistant):
     #Making sure shared memory file does not already exist
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
