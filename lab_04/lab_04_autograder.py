@@ -6,7 +6,7 @@ import re
 import os
 import importlib.util
 
-def autoGrader(sm, assistant):
+def autoGrader(student_submission, assistant):
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
         l_data.shm.close()
@@ -313,12 +313,12 @@ def loadAssistant():
 
 def testing():
     assistant = loadAssistant()
-    passes, error_msgs,assistant = autoGrader("lab_02_student_submission.py", assistant)
+    passes, error_msgs,assistant = autoGrader("lab_04_student_submission.py", assistant)
     return passes
 
 def main():
     assistant = loadAssistant()
-    assistant.displayWindow(autoGrader, "lab_02_student_submission.py", assistant)
+    assistant.displayWindow(autoGrader, "lab_04_student_submission.py", assistant)
 
 if __name__ == "__main__":
     main()
