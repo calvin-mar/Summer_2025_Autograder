@@ -1,6 +1,7 @@
 This Repository contains files in the form:
 
 Solutions
+
 Zip Files (Executables)
  - Empty Student Submission
  - executable_autograder
@@ -8,6 +9,7 @@ Zip Files (Executables)
  - Check
  - redX
  - Necessary testing files
+
 Zip Files (Source Codes)
  - Empty Student Submission
  - autograder_source
@@ -15,6 +17,7 @@ Zip Files (Source Codes)
  - Check
  - redX
  - Necessary testing files
+
 Lab Folders (each containing the following)
  - lab_**_autograder
  - autograder_assistant
@@ -23,6 +26,7 @@ Lab Folders (each containing the following)
  - test_all_submissions
  - Necessary testing files
  - *Required: Folder for each student*
+
 
 1. Each student may be given a copy of the appropriate zip file for the relevant lab. The executables are directly created from the source code as found in the mirroring zip file. All code is runnable directly from idle.
    
