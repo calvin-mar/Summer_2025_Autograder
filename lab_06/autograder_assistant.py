@@ -8,12 +8,14 @@ import threading
 import os
 from multiprocessing import shared_memory as shm
 import importlib.util
+import time
 
 # Graphics/PyQt imports
-from PyQt6.QtCore import QSize, Qt, QRect
+from PyQt6.QtCore import QSize, Qt, QRect, pyqtSignal, QThread, QTimer
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import QFont
 from PyQt6.QtGui import QColor, QPalette
+from PyQt6 import QtGui, QtCore, QtWidgets
 
 try:
     import __builtin__
@@ -69,7 +71,10 @@ def testFunction(function, parameter_list=(), input_list=[]):
     global l_data
     l_data = input_list
     result =["Error"]
-    #print(l_data)
+    #print(l_data)        
+    p = MyThread(function,parameter_list, result)
+    p.finished.connect(self.thread.quit)
+    p.finished.connect(self.thread.deleteLater)
     p = threading.Thread(target=wrapper, args=(function,parameter_list, result), daemon=True)
     p.start()
     p.join(3)
@@ -235,18 +240,60 @@ def syntax_checker(filename, timeout=0):
 
         return b_proceed, s_error_msg
 
+
+class MyThread(QThread):
+    def __init__(self, autoGrader, filename):
+        super().__init__()
+        self.autoGrader = autoGrader
+        self.filename = filename
+        self.passes = []
+        self.error_msgs = []
+    def run(self):
+        self.passes, self.error_msgs = self.autoGrader(self.filename)
+
+
+
 # Autograder GUI
 # Inputs window, list of passes/fails, error messages to display, testSets (how many test in each task)
 class MainWindow(QMainWindow):
-    def __init__(self, passes, error_msgs, testSets):
+    def __init__(self, autoGrader, filename, testSets):
         super().__init__()
+        self.autoGrader = autoGrader
+        self.filename = filename
+        self.testSets = testSets
+        
+        self.thread = MyThread(self.autoGrader, self.filename)
+        self.thread.finished.connect(self.autograderDone)
+        self.thread.finished.connect(self.thread.quit)
+        self.thread.finished.connect(self.thread.deleteLater)
 
+        QTimer.singleShot(0, self.startAutograder)
+
+    def startAutograder(self):
+        widget = QLabel("<b>Autograder is running...<br> Please be patient.</b>")
+        font = widget.font()
+        font.setPointSize(30)
+        widget.setFont(font)
+        widget.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
+        self.setCentralWidget(widget)
+        self.thread.start()
+        
+    def setupUI(self):
         self.scroll = QScrollArea()
         self.widget = QWidget()
         self.vbox = QVBoxLayout()
+        self.scroll.setWidgetResizable(True)
+        self.scroll.setWidget(self.widget)
+        self.widget.setLayout(self.vbox)
+        self.setCentralWidget(self.scroll)
+        self.setGeometry(600, 100, 800, 600)
+        self.setWindowTitle('Autograder')
+                    
+    def autograderDone(self):
+        self.setupUI()
+        passes = self.thread.passes
+        error_msgs = self.thread.error_msgs
 
-        self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
 
         num_passed = 0
         error_count = 0
@@ -260,7 +307,7 @@ class MainWindow(QMainWindow):
                 
                 i+=1
         seperateSets = False
-        if len(testSets) >=1:
+        if len(self.testSets) >=1:
                 seperateSets = True
         index=0
         j=1
@@ -274,11 +321,9 @@ class MainWindow(QMainWindow):
                 test.addWidget(text)
                 self.vbox.addLayout(test)
         for i_test_num in range(len(passes)):
-            if seperateSets and index<testSets[j-1]:
-                    print("true ", index)
+            if seperateSets and index<self.testSets[j-1]:
                     index+=1
             elif seperateSets:
-                    print("false")
                     test = QHBoxLayout()
                     text = QLabel()
                     text.setText("<font color=black size=7><b>Task " + str(j+1)+ ":<br>")
@@ -338,35 +383,11 @@ class MainWindow(QMainWindow):
             summary.addWidget(object)
             self.vbox.insertLayout(0, summary)
 
-        self.vbox.addStretch()
-        self.widget.setLayout(self.vbox)
-
-        #Scroll Area Properties
-        self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        self.scroll.setWidgetResizable(True)
-        self.scroll.setWidget(self.widget)
-
-        self.setCentralWidget(self.scroll)
-
-        self.setGeometry(600, 100, 800, 600)
-        self.setWindowTitle('Autograder')
-        self.show()
-
-        return
-    
-    def exit_clicked(self):
-        self.dialog.close()
-    # Dynamically resizes text wrapping as window is resized
-    def resizeEvent(self, event):
-        super().resizeEvent(event)
-        for i in range(self.vbox.count()):
-              widget = self.vbox.itemAt(i).widget()
-              if isinstance(widget, QLabel):
-                    widget.setMaximumWidth(self.scroll.viewport().width()-20)
+        #self.show()
         
-def displayWindow(passses, error_msgs, testSets = []):
+def displayWindow(autoGrader, filename, testSets = []):
     app = QApplication(sys.argv)
-    window = MainWindow(passses, error_msgs, testSets)
+    print(filename)
+    window = MainWindow(autoGrader, filename, testSets)
     window.show()
     app.exec()
