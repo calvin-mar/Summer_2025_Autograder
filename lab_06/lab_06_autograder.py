@@ -488,19 +488,16 @@ def loadAssistant():
     assistant = importlib.util.module_from_spec(specific)
     specific.loader.exec_module(assistant)
 
-    name = student_submission[:-3]
-    specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, student_submission))
-    sm = importlib.util.module_from_spec(specific_student)
     return assistant
 
 def testing():
     assistant = loadAssistant()
-    passes, error_msgs,assistant = autoGrader("lab_02_student_submission.py", assistant)
+    passes, error_msgs,assistant = autoGrader("lab_06_student_submission.py", assistant)
     return passes
 
 def main():
     assistant = loadAssistant()
-    assistant.displayWindow(autoGrader, "lab_02_student_submission.py", assistant, testSets)
+    assistant.displayWindow(autoGrader, "lab_06_student_submission.py", assistant)
 
 if __name__ == "__main__":
     main()
