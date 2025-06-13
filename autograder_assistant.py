@@ -5,6 +5,7 @@ import ast
 import astor
 import re
 import threading
+import trace
 import os
 from multiprocessing import shared_memory as shm
 import importlib.util
@@ -48,6 +49,40 @@ def input(*args, **kwargs):
     l_data.shm.close()
     return i_data
 
+class thread_with_trace(threading.Thread):
+  """
+  This code provides a version of threading that allows for the threads to be killed.
+  It attaches a trace to the thread which monitors a variable in order to kill a function.
+  """
+  def __init__(self, *args, **keywords):
+    threading.Thread.__init__(self, *args, **keywords)
+    self.killed = False
+
+  def start(self):
+    self.__run_backup = self.run
+    self.run = self.__run      
+    threading.Thread.start(self)
+
+  def __run(self):
+    sys.settrace(self.globaltrace)
+    self.__run_backup()
+    self.run = self.__run_backup
+
+  def globaltrace(self, frame, event, arg):
+    if event == 'call':
+      return self.localtrace
+    else:
+      return None
+
+  def localtrace(self, frame, event, arg):
+    if self.killed:
+      if event == 'line':
+        raise SystemExit()
+    return self.localtrace
+
+  def kill(self):
+    self.killed = True
+    
 # Input: Function to run (student functions), paramaters for function, var result to return result
 # Outputs: result (error or output if passes)
 def wrapper(function, parameter_list, result):
@@ -71,11 +106,12 @@ def testFunction(function, parameter_list=(), input_list=[]):
     l_data = input_list
     result =["Error"]
     #print(l_data)
-    p = threading.Thread(target=wrapper, args=(function,parameter_list, result), daemon=True)
+    p = thread_with_trace(target=wrapper, args=(function,parameter_list, result), daemon=True)
     p.start()
     p.join(3)
     output = []
     if p.is_alive():
+        p.kill()
         output.append(" Failed: Function " + str(function.__name__) + "() caused an error. The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!")
         output.append(True)
     elif result[0] == "Error":
@@ -219,9 +255,7 @@ def syntax_checker(filename, timeout=0):
                 b_proceed = False
                 s_error_msg = s_error_msg + "Your code contains a generator comprehension which is not allowed.  "
     
-
-            
-            
+        
         else: # otherwise error message re triples and exit
             b_proceed = False
             if s_triple_res == "Contains Triples":
@@ -288,10 +322,10 @@ class MainWindow(QMainWindow):
         self.flag = True
         self.show()
         self.startAutoGrader(autoGrader, filename, assistant)
-        
-
 
     def updateWindow(self):
+        if(sum(self.testSets) != len(self.passes)):
+            self.testSets = []
         QApplication.restoreOverrideCursor()
         num_passed = 0
         error_count = 0
@@ -356,9 +390,6 @@ class MainWindow(QMainWindow):
             test.addWidget(image)
             test.addWidget(text)
             self.vbox.addLayout(test)
-
-
-
 
         # Summary at top
         if(len(self.passes) > 1):
@@ -433,15 +464,6 @@ class MainWindow(QMainWindow):
         
 def displayWindow(autoGrader, filename, assistant, testSets = []):
     app = QApplication(sys.argv)
-    '''
-    loading = LoadingWindow(autoGrader, filename, assistant)
-    loading.show()
-    passes = loading.passes
-    error_msgs = loading.error_msgs
-    loading.finish()
-    '''
-    #app.exec()
-    #window = MainWindow(autoGrader, filename, assistant,testSets)
     window = MainWindow(autoGrader, filename, assistant, testSets)
     window.show()
     app.exec()
