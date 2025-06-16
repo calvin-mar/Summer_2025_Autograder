@@ -7,7 +7,7 @@ import shutil
 import importlib.util
 
 # Graphics/PyQt imports
-from PyQt6.QtCore import QSize, Qt
+from PyQt6.QtCore import QSize, Qt, QObject, QThread, pyqtSignal
 from PyQt6.QtWidgets import *
 
 ## This section contains to function to block and enable print
@@ -39,49 +39,28 @@ def disperse_documents():
 
     # Do the Copying
     for file in files:
-        if(file != "test_all_submissions.py" and len(re.findall("lab_\d\d_student_submission", file)) != 1):
+        if(file != "test_all_submissions.py"):
             for directory in dirs:
                 if(directory != "__pycache__"):
                     shutil.copy(file, directory)
 
-def test_submission(directory_name):
-    # This function tests each individual submission
-    # Given the directory name, it runs the autograder inside and returns the result
-    # This requires each autograder to be refactored to include a 
-    files = os.listdir(directory_name)
+class Worker(QObject):
+    end = pyqtSignal(object)
+    errorOccurredSig = pyqtSignal(object)
 
-    # Find the autograder amongst the files 
-    for file in files:
-        if( len(re.findall("lab_\d\d_autograder", file)) == 1):
-            cwd = os.getcwd()
-            path_to_autograder = os.path.join(cwd,directory_name,file)
-            sys.path.append(os.path.join(cwd,directory_name))
-            autograder_file = file[:-3]
-            specific = importlib.util.spec_from_file_location(autograder_file, path_to_autograder)
-            autograder = importlib.util.module_from_spec(specific)
-            specific.loader.exec_module(autograder)
-            # Add Timer and Exceptions
-            student_result = autograder.testing()
-
-            return student_result
-    return False
-
-class MainWindow(QMainWindow):
-    def __init__(self):
-        ## Prepare Window
+    def __init__(self, cwd):
         super().__init__()
+        self.cwd = cwd
+        self.names = []
+        self.results = []
 
-        self.scroll = QScrollArea()
-        self.widget = QWidget()
-        self.vbox = QVBoxLayout()
-
-        self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-
-        ## Run through all files and folders
-        ## In each folder, that is not pycache, run the autograder inside it
-        cwd = os.getcwd()
-        for name in os.listdir(cwd):
+    def run(self):
+        self.navigate_submissions()
+        output = [self.names, self.results]
+        self.end.emit(output)
+        
+    def navigate_submissions(self):
+        for name in os.listdir(self.cwd):
             if(not os.path.isfile(name) and name != "__pycache__"):
                 testCase = QHBoxLayout()
                 image = QLabel("")
@@ -90,37 +69,125 @@ class MainWindow(QMainWindow):
                 text.setWordWrap(True)
                 text.setMargin(5)
                 
-                blockPrint()
+                #blockPrint()
                 try:
-                    results = test_submission(name)
+                    student_result = self.test_submission(name)
                 except:
-                    results = ["Bad"]
+                    student_result = ["Bad"]
                     
-                enablePrint()
+                #enablePrint()
+                self.names.append(name)
+                self.results.append(student_result)
 
-                ## This section process the individual's result and adds the appropriate message to the display
-                num_passed = 0
-                failed_list = []
-                for index in range(len(results)):
-                    if results[index] == True:
-                        num_passed +=1
-                    else:
-                        failed_list.append(str(index+1))
-                if(num_passed == len(results)):
-                    image.setText("<img src='check.png' width='52' height='52'>")
-                    text.setText("<font size=6><b>" + str(name) + " passed all tests!</b></font>")
+    def test_submission(self,directory_name):
+        # This function tests each individual submission
+        # Given the directory name, it runs the autograder inside and returns the result
+        # This requires each autograder to be refactored to include a 
+        files = os.listdir(directory_name)
+
+        # Find the autograder amongst the files 
+        for file in files:
+            if( len(re.findall("lab_\d\d_autograder", file)) == 1):
+                cwd = os.getcwd()
+                path_to_autograder = os.path.join(cwd,directory_name,file)
+                sys.path.append(os.path.join(cwd,directory_name))
+                autograder_file = file[:-3]
+                specific = importlib.util.spec_from_file_location(autograder_file, path_to_autograder)
+                autograder = importlib.util.module_from_spec(specific)
+                specific.loader.exec_module(autograder)
+                # Add Timer and Exceptions
+                student_result = autograder.testing()
+
+                return student_result
+        return False
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        ## Prepare Window
+        super().__init__()
+        self.names = []
+        self.results = []
+
+        self.scroll = QScrollArea()
+        self.widget = QWidget()
+        self.vbox = QVBoxLayout()
+
+        self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        self.setGeometry(600, 100, 800, 600)
+        self.setWindowTitle('Test All Submissions')
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+
+        ## Loading Screen
+        widget = QLabel("<b>Autograders are running...<br> Please be patient.</b>")
+        font = widget.font()
+        font.setPointSize(30)
+        widget.setFont(font)
+        widget.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
+        self.setCentralWidget(widget)
+        ## Run through all files and folders
+        ## In each folder, that is not pycache, run the autograder inside it
+        self.show()
+        self.beginTesting()
+
+
+    def beginTesting(self):
+        cwd = os.getcwd()
+        self.thread = QThread()
+        self.worker = Worker(cwd)
+
+        self.worker.moveToThread(self.thread)
+
+        self.thread.started.connect(self.worker.run)
+        self.worker.end.connect(self.thread.quit)
+        self.worker.end.connect(self.worker.deleteLater)
+
+        self.worker.end.connect(self.handleResults)
+        self.worker.end.connect(self.updateWindow)
+
+        self.thread.start()
+
+    def updateWindow(self):
+        print("NAMES: ", self.names)
+        print("RESULTS: ", self.results)
+        QApplication.restoreOverrideCursor()
+        self.setCentralWidget(self.widget)
+        
+        ## This section process the individual's result and adds the appropriate message to the display
+        student_num = 0
+        for name in self.names:
+            
+            testCase = QHBoxLayout()
+            test = QHBoxLayout()
+            image = QLabel("Image here")
+            image.setFixedSize(52,52)
+            text = QLabel("Student Test")
+            text.setWordWrap(True)
+            text.setMargin(5)
+
+            num_passed = 0
+            failed_list = []
+            for index in range(len(self.results[student_num])):
+                if self.results[student_num][index] == True:
+                    num_passed +=1
                 else:
-                    image.setText("<img src='redX.png' width='52' height='52'>")
-                    if(results[0] == "Bad"):
-                        text.setText("<font size=6><b>" + str(name) + " The autograder has crashed, the most likely issue is a syntax error in the student submission.</b></font>")
-                    elif(len(results) > 1):
-                        text.setText("<font size=6><b>" + str(name) + " passed " + str(num_passed) + " tests. They need to complete test(s) " + ", ".join(failed_list) + ".</b></font>")
-                    else:
-                        text.setText("<font size=6><b>" + str(name) + " did not pass all tests. There may be a global infinite loop, syntax error, or other file problem.</b></font>")
-                        
-                testCase.addWidget(image)
-                testCase.addWidget(text)
-                self.vbox.addLayout(testCase)
+                    failed_list.append(str(index+1))
+            if(num_passed == len(self.results[student_num])):
+                image.setText("<img src='check.png' width='52' height='52'>")
+                text.setText("<font size=6><b>" + str(name) + " passed all tests!</b></font>")
+            else:
+                image.setText("<img src='redX.png' width='52' height='52'>")
+                if(self.results[student_num][0] == "Bad"):
+                    text.setText("<font size=6><b>" + str(name) + " The autograder has crashed, the most likely issue is a syntax error in the student submission.</b></font>")
+                elif(len(self.results[student_num]) > 1):
+                    text.setText("<font size=6><b>" + str(name) + " passed " + str(num_passed) + " tests. They need to complete test(s) " + ", ".join(failed_list) + ".</b></font>")
+                else:
+                    text.setText("<font size=6><b>" + str(name) + " did not pass all tests. There may be a global infinite loop, syntax error, or other file problem.</b></font>")
+                
+            testCase.addWidget(image)
+            testCase.addWidget(text)
+            self.vbox.addLayout(testCase)
+            student_num += 1
         
         self.vbox.addStretch()
         self.widget.setLayout(self.vbox)
@@ -138,7 +205,9 @@ class MainWindow(QMainWindow):
         self.show()
         
         return 
-
+    def handleResults(self,output):
+        self.names = output[0]
+        self.results = output[1]
     ## Allows for Scrollable Text
     def resizeEvent(self, event):
         super().resizeEvent(event)
