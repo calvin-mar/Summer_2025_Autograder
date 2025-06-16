@@ -453,7 +453,6 @@ class MainWindow(QMainWindow):
 
         
     def handleResult(self, result):
-        print("RESULT", result)
         self.passes = result[0]
         self.error_msgs = result[1]
         self.flag = False

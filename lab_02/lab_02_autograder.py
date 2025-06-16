@@ -173,7 +173,7 @@ def loadAssistant():
 
 def testing():
     assistant = loadAssistant()
-    passes, error_msgs,assistant = autoGrader("lab_02_student_submission.py", assistant)
+    passes, error_msgs = autoGrader("lab_02_student_submission.py", assistant)
     return passes
 
 def main():
