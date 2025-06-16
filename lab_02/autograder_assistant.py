@@ -282,11 +282,17 @@ class Worker(QObject):
             self.end.emit(result)
         except Exception as exc:
             exception_info = traceback.format_exc()
+<<<<<<< HEAD
+            result = [[False], ["<font color=red size = 5>" + "<br><br>line".join(str(exception_info).split(", line")) + "</font>"]]
+            self.end.emit(result)
+
+=======
             if getattr(sys, "frozen", False):
                 result = [[False], ["<font color=red size = 5>" + "<br><br>line".join(str(exception_info).split(", line")) + "</font>"]]
                 self.end.emit(result)
             else:
                 self.errorOccured.emit(exception_info)
+>>>>>>> 11ec91ff3ac21947e5f9a275ab6f691b2394c785
 
 class problem(Exception):
     def __init__(self, exception_info):
@@ -371,7 +377,7 @@ class MainWindow(QMainWindow):
             text.setMargin(5)
             if len(self.passes) == 1:
                 image.setText("")
-                text.setText(self.error_msgs[error_count])
+                text.setText("<font size=5><b>"+self.error_msgs[error_count]+"</b></font>")
             else:
 
                 if self.passes[i_test_num]:

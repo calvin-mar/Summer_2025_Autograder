@@ -46,7 +46,6 @@ def autoGrader(student_submission, assistant):
 
         try:
             result = assistant.testFunction(sm.double_a_number, (3,))
-            print('youtashdliahsdoavuhsbljh',result)
             if(result[1]):
                 result[0] = result[0] + " The parameter was 3. </font>"
                 error_msgs.append(result[0])
@@ -196,13 +195,31 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function rectangle_area() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
+    # Test 9: Task 4: Test rectangle_area() function with length and width 5 and 3
+        
+        try:
+            result = assistant.testFunction(sm.rectangle_area, (4,14))
+            if(result[1]):
+                result[0] = result[0] + " The parameters were 4, 14. </font>"
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == 56):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: rectangle_area() should return 56 with length 4 and width 14, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function rectangle_area() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
         ######################
 
-        # Test 9: Task 5: Test km_to_miles() function with 10 km which equals 6.2 miles
+        # Test 10: Task 5: Test km_to_miles() function with 10 km which equals 6.2 miles
         try:
             result = assistant.testFunction(sm.km_to_miles, (10,))
             if(result[1]):
-                result[0] = result[0] + " The parameters were 5, 3. </font>"
+                result[0] = result[0] + " The parameter was 10. </font>"
                 error_msgs.append(result[0])
                 passes.append(False)
             else:
@@ -215,11 +232,28 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function km_to_miles() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
+        # Test 11: Task 5: Test km_to_miles() function with 10 km which equals 6.2 miles
+        try:
+            result = assistant.testFunction(sm.km_to_miles, (42.2,))
+            if(result[1]):
+                result[0] = result[0] + " The parameter was 42.2. </font>"
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == 26.164000000000005):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: km_to_miles() should return 26.26.164000000000005 with 42.2 km as argument, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function km_to_miles() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
         ######################
 
 
 
-        # Test 10: Task 6: Test is_leap_year() function with 2111 (not a leap year)
+        # Test 12: Task 6: Test is_leap_year() function with 2111 (not a leap year)
         
         try:
             result = assistant.testFunction(sm.is_leap_year, (2111,))
@@ -237,7 +271,7 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function is_leap_year() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
-        # Test 11: Task 6: Test is_leap_year() function with 1604 (is a leap year)
+        # Test 13: Task 6: Test is_leap_year() function with 1604 (is a leap year)
         try:
             result = assistant.testFunction(sm.is_leap_year, (1604,))
             if(result[1]):
@@ -254,7 +288,7 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function is_leap_year() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
-        # Test 12: Task 6: Test is_leap_year() function with 1900 (not a leap year)
+        # Test 14: Task 6: Test is_leap_year() function with 1900 (not a leap year)
         
         try:
             result = assistant.testFunction(sm.is_leap_year, (1900,))
@@ -272,7 +306,7 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function is_leap_year() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
-        # Test 13: Task 6: Test is_leap_year() function with 2000 (is a leap year)
+        # Test 15: Task 6: Test is_leap_year() function with 2000 (is a leap year)
         try:
             result = assistant.testFunction(sm.is_leap_year, (2000,))
             if(result[1]):
@@ -318,7 +352,8 @@ def testing():
 
 def main():
     assistant = loadAssistant()
-    assistant.displayWindow(autoGrader, "lab_04_student_submission.py", assistant)
+    testSets = [1, 4, 2, 2, 2, 4]
+    assistant.displayWindow(autoGrader, "lab_04_student_submission.py", assistant, testSets)
 
 if __name__ == "__main__":
     main()
