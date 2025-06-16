@@ -1,3 +1,6 @@
 */*[[:space:]]-executable filter=lfs diff=lfs merge=lfs -text
 *[[:space:]]-executable filter=lfs diff=lfs merge=lfs -text
+<<<<<<< HEAD
+=======
 lab_17_autograder filter=lfs diff=lfs merge=lfs -text
+>>>>>>> 49a11712bf04e4605173f6384974b1ac28de508c

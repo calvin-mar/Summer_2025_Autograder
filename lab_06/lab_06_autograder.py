@@ -502,7 +502,8 @@ def testing():
 
 def main():
     assistant = loadAssistant()
-    assistant.displayWindow(autoGrader, "lab_06_student_submission.py", assistant)
+    testSets = [4,2,6,3,7]
+    assistant.displayWindow(autoGrader, "lab_06_student_submission.py", assistant, testSets)
 
 if __name__ == "__main__":
     freeze_support()
