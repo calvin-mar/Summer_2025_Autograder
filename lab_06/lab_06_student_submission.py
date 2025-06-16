@@ -6,7 +6,7 @@ def biggest_number():
     counter = 0
     biggest = num
 
-    while counter < 10:
+    while counter < 9:
         num = int(input("enter a number: "))
         counter = counter + 1
         if num > biggest:

@@ -19,7 +19,7 @@ def disperse_documents():
 
     # Do the Copying
     for file in files:
-        if(file != "disperse_documents.py" and file != "test_all_submissions.py"):
+        if(file != "disperse_documents.py" and file != "test_all_submissions.py"and file != "README.md"):
             for directory in dirs:
                 if(directory != "__pycache__" and directory != "lab_01" and directory != "lab_03" and directory != "lab_19") and directory != "lab_20":
                     shutil.copy(file, directory)
