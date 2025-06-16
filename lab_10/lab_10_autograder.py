@@ -54,7 +54,7 @@ def autoGrader(student_submission, assistant):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append(" Failed: List l_first does not contain the correct values of \"A\", \"B\", \"C\", and \"D\" or it does not have length exactly 4. </font>")
+            error_msgs.append(" Failed: List l_first does not contain the correct values of \"A\", \"B\", \"C\", and \"D\" or it does not have length exactly 4 or it does not exist. </font>")
 
         
         i_test_num = i_test_num + 1
@@ -71,7 +71,7 @@ def autoGrader(student_submission, assistant):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append(" Failed: List l_last does not contain the correct values of \"K\", \"L\", and \"M\" or it does not have length exactly 3. </font>")
+            error_msgs.append(" Failed: List l_last does not contain the correct values of \"K\", \"L\", and \"M\" or it does not have length exactly 3 or it does not exist. </font>")
 
         
         i_test_num = i_test_num + 1
@@ -88,7 +88,7 @@ def autoGrader(student_submission, assistant):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append(" Failed: List l_last does not contain the correct values of \"F\", \"G\", and \"H\" or it does not have length exactly 3. </font>")
+            error_msgs.append(" Failed: List l_last does not contain the correct values of \"F\", \"G\", and \"H\" or it does not have length exactly 3 or it does not exist. </font>")
 
         
         i_test_num = i_test_num + 1
@@ -98,6 +98,11 @@ def autoGrader(student_submission, assistant):
         
         
         try:
+            assert sm.l_copy_nums[0] == 0
+            assert sm.l_copy_nums[1] == 10
+            assert sm.l_copy_nums[2] == 20
+            assert sm.l_copy_nums[3] == 30
+            assert sm.l_copy_nums[4] == 40
             sm.l_copy_nums[0] = 5
             sm.l_copy_nums[1] = 15
             sm.l_copy_nums[2] = 25
@@ -119,7 +124,7 @@ def autoGrader(student_submission, assistant):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append(" Failed: List l_copy_nums is not a correct copy of l_nums because overwriting a value in l_copy_nums overwrites a value in l_nums or the length of l_copy_nums is not correct. </font>")
+            error_msgs.append(" Failed: List l_copy_nums is not a correct copy of l_nums because overwriting a value in l_copy_nums overwrites a value in l_nums or the length of l_copy_nums is not correct or it does not exist. </font>")
         ########################################################################
         # End of tests
         ########################################################################
@@ -128,7 +133,7 @@ def autoGrader(student_submission, assistant):
     print()
     print("You may close the Autograder window to exit.")
     
-    return passes, error_msgs, assistant
+    return passes, error_msgs
 
 def loadAssistant():
     if getattr(sys, "frozen", False):
@@ -144,12 +149,12 @@ def loadAssistant():
 
 def testing():
     assistant = loadAssistant()
-    passes, error_msgs,assistant = autoGrader("lab_02_student_submission.py", assistant)
+    passes, error_msgs = autoGrader("lab_10_student_submission.py", assistant)
     return passes
 
 def main():
     assistant = loadAssistant()
-    assistant.displayWindow(autoGrader, "lab_02_student_submission.py", assistant)
+    assistant.displayWindow(autoGrader, "lab_10_student_submission.py", assistant)
 
 if __name__ == "__main__":
     main()
