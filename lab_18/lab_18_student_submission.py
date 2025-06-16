@@ -5,6 +5,8 @@ if __name__ != "__main__":
 
     
 def get_data():
+    #while True:
+        #x=1
     # Get all candy data
     input_file = open("candy_data.txt", "r")
     l_candy_data = input_file.readlines()
@@ -34,6 +36,8 @@ def get_data():
 
 
 def get_avg_sat_fat(l2d_candy):
+    #while True:
+        #x=1
 
     i_num_items = 0
     f_total_sat_fat = 0
@@ -47,7 +51,8 @@ def get_avg_sat_fat(l2d_candy):
 
 
 def add_allergy_info(l2d_candy):
-
+    #while True:
+        #x=1
     l2d_allergy = []
 
     # add the two columns
@@ -90,6 +95,8 @@ def add_allergy_info(l2d_candy):
     return l2d_allergy
 
 def write_safe_candies(l2d_allergy):
+    #while True:
+        #x=1
 
     output_file = open("safe.csv", "w")
     for row in range(len(l2d_allergy)):
