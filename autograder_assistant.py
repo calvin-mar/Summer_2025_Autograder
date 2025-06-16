@@ -97,7 +97,7 @@ def wrapper(function, parameter_list, result):
             else:
                 result[0] = "Error"
         except:
-            result[0]
+            result[0] = "Error"
 
 # Tests for infinite loops, errors
 # Inputs: function to test, paramater list to pass, input list for input statements
