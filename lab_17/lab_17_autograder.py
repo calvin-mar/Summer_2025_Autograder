@@ -12,7 +12,7 @@ from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import *
 #from layout_colorwidget import Color
 
-def autoGrader(student_submission):
+def autoGrader(student_submission, assistant):
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
         l_data.shm.close()
@@ -30,9 +30,6 @@ def autoGrader(student_submission):
     else:
         dir_path = os.path.dirname(os.path.realpath(__file__))
 
-    specific = importlib.util.spec_from_file_location("autograder_assistant", os.path.join(dir_path, "autograder_assistant.py"))
-    assistant = importlib.util.module_from_spec(specific)
-    specific.loader.exec_module(assistant)
 
     name = student_submission[:-3]
     specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, student_submission))
@@ -241,13 +238,13 @@ def loadAssistant():
 
 def testing():
     assistant = loadAssistant()
-    passes, error_msgs,assistant = autoGrader("lab_06_student_submission.py", assistant)
+    passes, error_msgs,assistant = autoGrader("lab_17_student_submission.py", assistant)
     return passes
 
 def main():
     assistant = loadAssistant()
     testSets = [4, 2, 6, 3, 5, 2]
-    assistant.displayWindow(autoGrader, "lab_06_student_submission.py", assistant, testSets)
+    assistant.displayWindow(autoGrader, "lab_17_student_submission.py", assistant, testSets)
 
 if __name__ == "__main__":
     main()
