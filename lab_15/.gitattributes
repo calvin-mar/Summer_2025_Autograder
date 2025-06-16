@@ -1,1 +1,2 @@
 */*[[:space:]]-executable filter=lfs diff=lfs merge=lfs -text
+lab_15_autograder filter=lfs diff=lfs merge=lfs -text
