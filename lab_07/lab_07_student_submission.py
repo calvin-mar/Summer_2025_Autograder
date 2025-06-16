@@ -13,7 +13,7 @@ def get_total():
 
 # squares instead of doubling
 def double_it(num):
-    num = num * 2 + 1
+    num = num * 2
     return num
 
 # loop broken

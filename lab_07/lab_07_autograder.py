@@ -118,11 +118,32 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function get_total() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         l_data.shm.close()
-        l_data.shm.unlink()  
+        l_data.shm.unlink()
+
+        # Test 5: Task 2: Test get_total() function
+
+        l_data = shm.ShareableList([-1], name="l_data")
+        try:
+            result = assistant.testFunction(sm.get_total)
+            if(result[1]):
+                result[0] = result[0] + " The input was -1. </font>"
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == 0):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: get_total() should return 0 when the user enters -1, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function get_total() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        l_data.shm.close()
+        l_data.shm.unlink()
 
         ###
 
-        # Test 5: Task 3: Test calc_avg() function
+        # Test 6: Task 3: Test calc_avg() function
 
 
         l_data = shm.ShareableList([5, 6, 2, -1], name="l_data")
@@ -144,10 +165,33 @@ def autoGrader(student_submission, assistant):
         l_data.shm.close()
         l_data.shm.unlink()
 
+         # Test 7: Task 3: Test calc_avg() function
+
+
+        l_data = shm.ShareableList([4, -5, 8, 9, -1], name="l_data")
+        try:
+            result = assistant.testFunction(sm.calc_avg)
+            if(result[1]):
+                result[0] = result[0] + " The inputs were 4, -5, 8, 9, -1. </font>"
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == 4):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: calc_avg() should return 4when the user enters 4, -5, 8, 9, -1, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function calc_avg() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        l_data.shm.close()
+        l_data.shm.unlink()
+
+
         ###
 
         
-        # Test 6: Task 4: Test get_sum() function 
+        # Test 8: Task 4: Test get_sum() function 
 
 
         l_data = shm.ShareableList([5, 6, 2, -1, 8], name="l_data")
@@ -169,11 +213,32 @@ def autoGrader(student_submission, assistant):
         l_data.shm.close()
         l_data.shm.unlink()
 
+        # Test 9: Task 4: Test get_sum() function 
+
+
+        l_data = shm.ShareableList([4, 6, 3, 8, 2, 1, 13, 22], name="l_data")
+        try:
+            result = assistant.testFunction(sm.get_sum, (8,))
+            if(result[1]):
+                result[0] = result[0] + " The parameter given was 8 and the inputs were 4, 6, 3, 8, 2, 1, 13, 22. </font>"
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == 59):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: get_sum() should return 59 when the user calls it with argument 8 and then enters 4, 6, 3, 8, 2, 1, 13, 22, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function get_sum() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        l_data.shm.close()
+        l_data.shm.unlink()
 
         ###
 
-        
-        # Test 7: Task 5: Test find_smallest() function 
+     
+        # Test 10: Task 5: Test find_smallest() function, when smallest is in the 4th position
 
 
         l_data = shm.ShareableList([100, 50, 60, 40, 70], name="l_data")
@@ -196,11 +261,54 @@ def autoGrader(student_submission, assistant):
         l_data.shm.close()
         l_data.shm.unlink()
 
+        # Test 11: Task 5: Test find_smallest() function, when smallest is in the 1st position
+
+        l_data = shm.ShareableList([-100, -30, 20, 40, -10, -45], name="l_data")
+        try:
+            result = assistant.testFunction(sm.find_smallest, (6,))
+            if(result[1]):
+                result[0] = result[0] + " The parameter given was 6 and the inputs were -100, -30, 20, 40, -10, -45. </font>"
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == -100):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: find_smallest() should return 40 when the user calls it with argument 6 and then enters -100, -30, 20, 40, -10, -45, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function find_smallest() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
+        l_data.shm.close()
+        l_data.shm.unlink()
+
+        # Test 12: Task 5: Test find_smallest() function, when smallest is in the last position
+
+
+        l_data = shm.ShareableList([999, 459, 289, 439, 109], name="l_data")
+        try:
+            result = assistant.testFunction(sm.find_smallest, (5,))
+            if(result[1]):
+                result[0] = result[0] + " The parameter given was 5 and the inputs were 999, 459, 289, 439, 109. </font>"
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == 109):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: find_smallest() should return 40 when the user calls it with argument 5 and then enters 999, 459, 289, 439, 109, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function find_smallest() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
+        l_data.shm.close()
+        l_data.shm.unlink()
 
         ###
 
-        
-        # Test 8: Task 6: Test count_num_fives() function 
+        # Test 13: Task 6: Test count_num_fives() function 
 
 
         l_data = shm.ShareableList([100, 5, 60, 5, 70, 1, 6, 5, 4, 77], name="l_data")
@@ -222,15 +330,10 @@ def autoGrader(student_submission, assistant):
         l_data.shm.close()
         l_data.shm.unlink()
 
-
-        
-
-
-
         ###
 
         
-        # Test 9: Task 7: Test convert_euros_to_dollars() function 
+        # Test 14: Task 7: Test convert_euros_to_dollars() function 
 
         l_data = shm.ShareableList([2.5], name="l_data")
         try:
@@ -240,11 +343,11 @@ def autoGrader(student_submission, assistant):
                 error_msgs.append(result[0])
                 passes.append(False)
             else:
-                                if(result[0] == 2.5*.89):
-                                        passes.append(True)
-                                else:
-                                        passes.append(False)
-                                        error_msgs.append(" Failed: convert_dollars_to_euros() should return 2.225 when the user enters 2.5 but it returns " + str(result[0]) + ".</font>")
+                if(result[0] == 2.5*.89):
+                        passes.append(True)
+                else:
+                        passes.append(False)
+                        error_msgs.append(" Failed: convert_dollars_to_euros() should return 2.225 when the user enters 2.5 but it returns " + str(result[0]) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function convert_dollars_to_euros() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -255,7 +358,7 @@ def autoGrader(student_submission, assistant):
         ###
 
         
-        # Test 10: Task 8: Test is_even() function with even number argument
+        # Test 15: Task 8: Test is_even() function with even number argument
 
         try:
             result = assistant.testFunction(sm.is_even, (22,))
@@ -275,7 +378,7 @@ def autoGrader(student_submission, assistant):
 
         ###
 
-        # Test 11: Task 8: Test is_even() function with odd number argument
+        # Test 16: Task 8: Test is_even() function with odd number argument
 
 
         try:
@@ -296,7 +399,7 @@ def autoGrader(student_submission, assistant):
 
         ###
 
-        # Test 12: Task 9: Test count_evens() function with args of smaller, larger
+        # Test 17: Task 9: Test count_evens() function with args of smaller, larger
 
 
         try:
@@ -315,7 +418,7 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function count_evens() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
-        # Test 13: Task 9: Test count_evens() function with args of larger, smaller
+        # Test 18: Task 9: Test count_evens() function with args of larger, smaller
 
 
 
@@ -335,7 +438,7 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function count_evens() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
-        # Test 14: Task 10: Test temp_monitor() function with arg 60.5 which returns the wrong value until the function is fixed
+        # Test 19: Task 10: Test temp_monitor() function with arg 60.5 which returns the wrong value until the function is fixed
 
 
 
@@ -375,12 +478,13 @@ def loadAssistant():
 
 def testing():
     assistant = loadAssistant()
-    passes, error_msgs,assistant = autoGrader("lab_02_student_submission.py", assistant)
+    passes, error_msgs,assistant = autoGrader("lab_07_student_submission.py", assistant)
     return passes
 
 def main():
     assistant = loadAssistant()
-    assistant.displayWindow(autoGrader, "lab_02_student_submission.py", assistant)
+    testSets = [3,2,2,2,3,1,1,1,1,3]
+    assistant.displayWindow(autoGrader, "lab_07_student_submission.py", assistant, testSets)
 
 if __name__ == "__main__":
     main()
