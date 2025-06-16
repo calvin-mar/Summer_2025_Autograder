@@ -49,13 +49,8 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: List l_cities is not empty or does not exist. </font>")
 
-        
-
-
         # Test 2: 
-        
-        
-        
+
         try:
             assert len(sm.l_miles) == 4
             assert sm.l_miles[0] == 3.1
@@ -67,13 +62,8 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: List l_miles does not contain precisely 3.1, 6.2, 13.1, 26.2 in that order or else it also contains additional values.</font>")
 
-        
-
-
         # Test 3: 
-        
-        
-        
+
         try:
             assert sm.f_third == 26.2
             passes.append(True)
@@ -81,13 +71,8 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Variable f_third doesn't hold the value 26.2. </font>")
 
-        
-
-
         # Test 4: 
-        
-        
-        
+
         try:
             assert len(sm.l_states) == 4
             assert sm.l_states[0] == "MA"
@@ -99,13 +84,8 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: List l_states does not contain precisely \"MA\", \"IN\", \"TN\", and \"WV\" in that order or else it also contains additional values. </font>")
 
-        
-
-
         # Test 5: 
-        
-        
-        
+ 
         try:
             assert sm.s_state == "IN"
             passes.append(True)
@@ -113,13 +93,8 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Variable s_state doesn't hold the value \"IN\". </font>")
 
-        
-
-
         # Test 6: 
-        
-        
-        
+
         try:
             assert len(sm.l_countries) == 5
             assert sm.l_countries[0] == "US"
@@ -132,13 +107,8 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: List l_countries does not contain precisely \"US\", \"Japan\", \"Brazil\", \"Mexico\", \"Canada\" in that order or else it also contains additional values. </font>")
 
-        
-
-
         # Test 7: 
-        
-        
-        
+
         try:
             assert len(sm.l_cars) == 6
             assert sm.l_cars[0] == "Ferrari"
@@ -152,13 +122,8 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: List l_cars does not contain precisely \"Ferrari\", \"Sonata\", \"Bug\", \"Rio\", \"Corolla\", \"Maserati\" in that order or else it also contains additional values. </font>")
 
-        
-
-
         # Test 8: 
-        
-        
-        
+
         try:
             assert len(sm.l_names) == 8
             assert sm.l_names[0] == "Suzanne"
@@ -174,13 +139,8 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: List l_names does not contain the correct number of items or the correct items. </font>")
 
-        
-
-
         # Test 9: 
-        
-        
-        
+ 
         try:
             assert len(sm.l_names2) == 8
             assert sm.l_names2[0] == "Suzanne"
@@ -196,13 +156,8 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: List l_names does not contain the correct number of items or the correct items. </font>")
 
-        
-
-
         # Test 10: 
-        
-        
-        
+
         try:
             assert len(sm.l_names2) == 8
             passes.append(True)
@@ -210,13 +165,8 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: The value of i_num_names is not correct. </font>")
 
-        
-
-
         # Test 11: 
-        
-        
-        
+
         try:
             assert sm.b_camry_present == False
             assert sm.b_sonata_present == True
@@ -225,13 +175,8 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: b_camry_present and/or b_sonata_present is incorrect. </font>")
 
-        
-
-
         # Test 12: 
-        
-        
-        
+
         try:
             assert sm.i_suzy_location == -1
             assert sm.i_dave_location == 4
@@ -240,13 +185,8 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: i_suzy_location and/or i_dave_location is incorrect. </font>")
 
-        
-
-
         # Test 13: 
-        
-        
-        
+
         try:
             assert len(sm.l_grades) == 4
             assert sm.l_grades[0] == 102
@@ -258,13 +198,8 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: List l_grades does not contain precisely the values returned by the function call all increased by 2. </font>")
 
-        
-
-
         # Test 14: 
-        
-        
-        
+   
         try:
             assert len(sm.l_grades2) == 4
             assert sm.l_grades2[0] == 32
@@ -276,13 +211,8 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: List l_grades2 is not sorted from low to high or contains the wrong number of grades (should be 4). </font>")
 
-        
-
-
         # Test 15: 
-        
-        
-        
+       
         try:
             assert len(sm.l_grades3) == 4
             assert sm.l_grades3[0] == 100
@@ -294,13 +224,8 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: List l_grades3 is not sorted from high to low or contains the wrong number of grades (should be 4). </font>")
 
-        
-
-
         # Test 16: 
-        
-        
-        
+      
         try:
             assert sm.i_biggest == 100
             passes.append(True)
@@ -308,12 +233,7 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: i_biggest is not the biggest value in the list l_grades. </font>")
 
-        
-
-
         # Test 17: 
-        
-        
         
         try:
             assert sm.i_smallest == 32
@@ -331,7 +251,7 @@ def autoGrader(student_submission, assistant):
     print()
     print("You may close the Autograder window to exit.")
     
-    return passes, error_msgs, assistant
+    return passes, error_msgs
 
 def loadAssistant():
     if getattr(sys, "frozen", False):
@@ -347,12 +267,12 @@ def loadAssistant():
 
 def testing():
     assistant = loadAssistant()
-    passes, error_msgs,assistant = autoGrader("lab_02_student_submission.py", assistant)
+    passes, error_msgs = autoGrader("lab_09_student_submission.py", assistant)
     return passes
 
 def main():
     assistant = loadAssistant()
-    assistant.displayWindow(autoGrader, "lab_02_student_submission.py", assistant)
+    assistant.displayWindow(autoGrader, "lab_09_student_submission.py", assistant)
 
 if __name__ == "__main__":
     main()
