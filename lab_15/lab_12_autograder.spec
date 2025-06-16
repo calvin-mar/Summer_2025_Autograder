@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['lab_15_autograder.py'],
+    ['../lab_12/lab_12_autograder.py'],
     pathex=[],
     binaries=[],
     datas=[('autograder_assistant.py', '.')],
@@ -22,7 +22,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='lab_15_autograder',
+    name='lab_12_autograder',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
