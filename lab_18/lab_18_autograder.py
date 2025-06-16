@@ -14,7 +14,7 @@ from PyQt6.QtWidgets import *
 #from layout_colorwidget import Color
 
 
-def autoGrader(student_submission):
+def autoGrader(student_submission, assistant):
 
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
@@ -31,11 +31,7 @@ def autoGrader(student_submission):
         dir_path = os.path.dirname(sys.executable)
     else:
         dir_path = os.path.dirname(os.path.realpath(__file__))
-
-    specific = importlib.util.spec_from_file_location("autograder_assistant", os.path.join(dir_path, "autograder_assistant.py"))
-    assistant = importlib.util.module_from_spec(specific)
-    specific.loader.exec_module(assistant)
-
+        
     name = student_submission[:-3]
     specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, student_submission))
     sm = importlib.util.module_from_spec(specific_student)
@@ -127,7 +123,7 @@ def autoGrader(student_submission):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: get_avg_sat_fat() should return roughly 5.5606060606060606, but it returns \"" + str(result) + "\".</font>")
+                    error_msgs.append(" Failed: get_avg_sat_fat() should return roughly 5.5606060606060606, but it returns \"" + str(result[0]) + "\".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function get_avg_sat_fat() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -262,13 +258,13 @@ def loadAssistant():
 
 def testing():
     assistant = loadAssistant()
-    passes, error_msgs,assistant = autoGrader("lab_06_student_submission.py", assistant)
+    passes, error_msgs,assistant = autoGrader("lab_18_student_submission.py", assistant)
     return passes
 
 def main():
     assistant = loadAssistant()
     testSets = [4, 2, 6, 3, 5, 2]
-    assistant.displayWindow(autoGrader, "lab_06_student_submission.py", assistant, testSets)
+    assistant.displayWindow(autoGrader, "lab_18_student_submission.py", assistant, testSets)
 
 if __name__ == "__main__":
     main()
