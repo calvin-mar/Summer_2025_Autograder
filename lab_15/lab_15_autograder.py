@@ -80,7 +80,7 @@ def autoGrader(student_submission, assistant):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: count_item_records(\"student\", [\"John\", \"student\", \"student_id_123\", \"Dave\", \"faculty\", \"faculty_id_151\", \"Suzy\", \"student\", \"student_id_563\"]) should return 2, but it returns " + str(result) + ".</font>")
+                    error_msgs.append(" Failed: count_item_records(\"student\", [\"John\", \"student\", \"student_id_123\", \"Dave\", \"faculty\", \"faculty_id_151\", \"Suzy\", \"student\", \"student_id_563\"]) should return 2, but it returns " + str(result[0]) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function count_item_records() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -96,7 +96,7 @@ def autoGrader(student_submission, assistant):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: count_item_records(\"student\", [\"John Harney\", \"faculty\", \"faculty_id_123\", \"John Doe\", \"faculty\", \"faculty_id_151\", \"Bruce Johnson\", \"faculty\", \"faculty_id_563\", \"John Ac\", \"staff\", \"staff_id_15632\", \"Ilike Badjokes\", \"faculty\", \"faculty_id_542151\", \"Ima Plumber\", \"staff\", \"staff_id_5653\"]) should return 2, but it returns " + str(result) + ".</font>")
+                    error_msgs.append(" Failed: count_item_records(\"student\", [\"John Harney\", \"faculty\", \"faculty_id_123\", \"John Doe\", \"faculty\", \"faculty_id_151\", \"Bruce Johnson\", \"faculty\", \"faculty_id_563\", \"John Ac\", \"staff\", \"staff_id_15632\", \"Ilike Badjokes\", \"faculty\", \"faculty_id_542151\", \"Ima Plumber\", \"staff\", \"staff_id_5653\"]) should return 2, but it returns " + str(result[0]) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function count_item_records() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -113,7 +113,7 @@ def autoGrader(student_submission, assistant):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: count_csv_records(\"faculty\", [\"John Harney,faculty,faculty_id_123\", \"John Doe,faculty,faculty_id_151\", \"Bruce Johnson,faculty,faculty_id_563\", \"John Ac,staff,staff_id_15632\", \"Ilike Badjokes,faculty,faculty_id_542151\", \"Ima Plumber\", \"staff\", \"staff_id_5653\"]) should return 4, but it returns " + str(result) + ".</font>")
+                    error_msgs.append(" Failed: count_csv_records(\"faculty\", [\"John Harney,faculty,faculty_id_123\", \"John Doe,faculty,faculty_id_151\", \"Bruce Johnson,faculty,faculty_id_563\", \"John Ac,staff,staff_id_15632\", \"Ilike Badjokes,faculty,faculty_id_542151\", \"Ima Plumber\", \"staff\", \"staff_id_5653\"]) should return 4, but it returns " + str(result[0]) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function count_csv_records() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
