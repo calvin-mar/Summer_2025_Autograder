@@ -13,7 +13,7 @@ from PyQt6.QtWidgets import *
 #from layout_colorwidget import Color
 
 
-def autoGrader(student_submission, assistant):
+def autoGrader(student_submission, assistant, window):
 
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
@@ -56,7 +56,7 @@ def autoGrader(student_submission, assistant):
         # Test 1: Task 1: Test my_len() function
 
         try:
-            result = assistant.testFunction(sm.my_len, ("",))
+            result = window.testFunction(sm.my_len, ("",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was an empty string: \"\". </font>"
                 error_msgs.append(result[0])
@@ -67,14 +67,15 @@ def autoGrader(student_submission, assistant):
                 else:
                     passes.append(False)
                     error_msgs.append(" Failed: my_len() should return 0 with argument \"\", but it returns " + str(result[0]) + ".</font>")
-        except:
+        except Exception as exc:
+            print(exc)
             passes.append(False)
             error_msgs.append(" Failed: Function my_len() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
         # Test 2: Task 1: Test my_len() function
 
         try:
-            result = assistant.testFunction(sm.my_len, ("1",))
+            result = window.testFunction(sm.my_len, ("1",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"1\". </font>"
                 error_msgs.append(result[0])
@@ -92,7 +93,7 @@ def autoGrader(student_submission, assistant):
         # Test 3: Task 1: Test my_len() function
 
         try:
-            result = assistant.testFunction(sm.my_len, ("ab",))
+            result = window.testFunction(sm.my_len, ("ab",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"ab\". </font>"
                 error_msgs.append(result[0])
@@ -111,7 +112,7 @@ def autoGrader(student_submission, assistant):
      # Test 4: Task 1: Test my_len() function
 
         try:
-            result = assistant.testFunction(sm.my_len, ("12345678",))
+            result = window.testFunction(sm.my_len, ("12345678",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"12345678\". </font>"
                 error_msgs.append(result[0])
@@ -131,7 +132,7 @@ def autoGrader(student_submission, assistant):
         # Test 5: Task 2: Test my_strip() function
 
         try:
-            result = assistant.testFunction(sm.my_strip, ("abc",))
+            result = window.testFunction(sm.my_strip, ("abc",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"abc\". </font>"
                 error_msgs.append(result[0])
@@ -149,7 +150,7 @@ def autoGrader(student_submission, assistant):
         # Test 6: Task 2: Test my_strip() function
 
         try:
-            result = assistant.testFunction(sm.my_strip, ("  d  ",))
+            result = window.testFunction(sm.my_strip, ("  d  ",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"space space d space space\". </font>"
                 error_msgs.append(result[0])
@@ -167,7 +168,7 @@ def autoGrader(student_submission, assistant):
         # Test 7: Task 2: Test my_strip() function
 
         try:
-            result = assistant.testFunction(sm.my_strip, ("\t\n abc",))
+            result = window.testFunction(sm.my_strip, ("\t\n abc",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"tab new_line space abc\". </font>"
                 error_msgs.append(result[0])
@@ -185,7 +186,7 @@ def autoGrader(student_submission, assistant):
         # Test 8: Task 2: Test my_strip() function
 
         try:
-            result = assistant.testFunction(sm.my_strip, ("abc\t\t\t\n ",))
+            result = window.testFunction(sm.my_strip, ("abc\t\t\t\n ",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"abc tab tab tab new_line space\". </font>"
                 error_msgs.append(result[0])
@@ -203,7 +204,7 @@ def autoGrader(student_submission, assistant):
         # Test 9: Task 2: Test my_strip() function
 
         try:
-            result = assistant.testFunction(sm.my_strip, ("\n\n\n\t   x    \n\n\t",))
+            result = window.testFunction(sm.my_strip, ("\n\n\n\t   x    \n\n\t",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"new_line new_line new_line tab space space space x space space space space new_line new_line tab\". </font>"
                 error_msgs.append(result[0])
@@ -221,7 +222,7 @@ def autoGrader(student_submission, assistant):
        # Test 10: Task 2: Test my_strip() function
 
         try:
-            result = assistant.testFunction(sm.my_strip, ("  abc  def  ",))
+            result = window.testFunction(sm.my_strip, ("  abc  def  ",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"space space abc space space def space space\". </font>"
                 error_msgs.append(result[0])
@@ -239,7 +240,7 @@ def autoGrader(student_submission, assistant):
         # Test 11: Task 2: Test my_strip() function
 
         try:
-            result = assistant.testFunction(sm.my_strip, ("  abc \n\t def  ",))
+            result = window.testFunction(sm.my_strip, ("  abc \n\t def  ",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"space space abc space space def space space\". </font>"
                 error_msgs.append(result[0])
@@ -257,7 +258,7 @@ def autoGrader(student_submission, assistant):
         # Test 12: Task 2: Test my_strip() function
 
         try:
-            result = assistant.testFunction(sm.my_strip, ("abc\t\n def",))
+            result = window.testFunction(sm.my_strip, ("abc\t\n def",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"abc tab new_line space def\". </font>"
                 error_msgs.append(result[0])
@@ -275,7 +276,7 @@ def autoGrader(student_submission, assistant):
         # Test 13: Task 2: Test my_strip() function
 
         try:
-            result = assistant.testFunction(sm.my_strip, (" \t\n \t\n ",))
+            result = window.testFunction(sm.my_strip, (" \t\n \t\n ",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"space tab new_line space tab new_line space\". </font>"
                 error_msgs.append(result[0])
@@ -293,7 +294,7 @@ def autoGrader(student_submission, assistant):
         # Test 14: Task 2: Test my_strip() function
 
         try:
-            result = assistant.testFunction(sm.my_strip, ("\n\n\n\n",))
+            result = window.testFunction(sm.my_strip, ("\n\n\n\n",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"new_line new_line new_line new_line\". </font>"
                 error_msgs.append(result[0])
@@ -311,7 +312,7 @@ def autoGrader(student_submission, assistant):
         # Test 15: Task 2: Test my_strip() function
 
         try:
-            result = assistant.testFunction(sm.my_strip, ("\t\t\t",))
+            result = window.testFunction(sm.my_strip, ("\t\t\t",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"tab tab tab\". </font>"
                 error_msgs.append(result[0])
@@ -329,7 +330,7 @@ def autoGrader(student_submission, assistant):
         # Test 16: Task 2: Test my_strip() function
 
         try:
-            result = assistant.testFunction(sm.my_strip, ("     ",))
+            result = window.testFunction(sm.my_strip, ("     ",))
             if(result[1]):
                 result[0] = result[0] + " The parameter was \"space space space space space\". </font>"
                 error_msgs.append(result[0])
@@ -349,7 +350,7 @@ def autoGrader(student_submission, assistant):
         # Test 17: Task 3: Test my_in() function
 
         try:
-            result = assistant.testFunction(sm.my_in, ("abc", "abcdefg"))
+            result = window.testFunction(sm.my_in, ("abc", "abcdefg"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "abc", "abcdefg". </font>'
                 error_msgs.append(result[0])
@@ -367,7 +368,7 @@ def autoGrader(student_submission, assistant):
         # Test 18: Task 3: Test my_in() function
 
         try:
-            result = assistant.testFunction(sm.my_in, ("cdefg", "abcdefg"))
+            result = window.testFunction(sm.my_in, ("cdefg", "abcdefg"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "cdefg", "abcdefg". </font>'
                 error_msgs.append(result[0])
@@ -385,7 +386,7 @@ def autoGrader(student_submission, assistant):
         # Test 19: Task 3: Test my_in() function
 
         try:
-            result = assistant.testFunction(sm.my_in, ("ef", "abcdefg"))
+            result = window.testFunction(sm.my_in, ("ef", "abcdefg"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "ef", "abcdefg". </font>'
                 error_msgs.append(result[0])
@@ -403,7 +404,7 @@ def autoGrader(student_submission, assistant):
         # Test 20: Task 3: Test my_in() function
 
         try:
-            result = assistant.testFunction(sm.my_in, ("ce", "abcdefg"))
+            result = window.testFunction(sm.my_in, ("ce", "abcdefg"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "ce", "abcdefg". </font>'
                 error_msgs.append(result[0])
@@ -421,7 +422,7 @@ def autoGrader(student_submission, assistant):
         # Test 21: Task 3: Test my_in() function
 
         try:
-            result = assistant.testFunction(sm.my_in, ("xab", "abcdefg"))
+            result = window.testFunction(sm.my_in, ("xab", "abcdefg"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "xab", "abcdefg". </font>'
                 error_msgs.append(result[0])
@@ -439,7 +440,7 @@ def autoGrader(student_submission, assistant):
         # Test 22: Task 3: Test my_in() function
 
         try:
-            result = assistant.testFunction(sm.my_in, ("fgh", "abcdefg"))
+            result = window.testFunction(sm.my_in, ("fgh", "abcdefg"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "fgh", "abcdefg". </font>'
                 error_msgs.append(result[0])
@@ -457,7 +458,7 @@ def autoGrader(student_submission, assistant):
         # Test 23: Task 3: Test my_in() function
 
         try:
-            result = assistant.testFunction(sm.my_in, ("x", "abcdefg"))
+            result = window.testFunction(sm.my_in, ("x", "abcdefg"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "x", "abcdefg". </font>'
                 error_msgs.append(result[0])
@@ -475,7 +476,7 @@ def autoGrader(student_submission, assistant):
         # Test 24: Task 3: Test my_in() function
 
         try:
-            result = assistant.testFunction(sm.my_in, ("abcdefgx", "abcdefg"))
+            result = window.testFunction(sm.my_in, ("abcdefgx", "abcdefg"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "abcdefgx", "abcdefg". </font>'
                 error_msgs.append(result[0])
@@ -495,7 +496,7 @@ def autoGrader(student_submission, assistant):
         # Test 25: Task 4: Test my_find() function
 
         try:
-            result = assistant.testFunction(sm.my_find, ("abc", "abcdefghi"))
+            result = window.testFunction(sm.my_find, ("abc", "abcdefghi"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "abc", "abcdefghi". </font>'
                 error_msgs.append(result[0])
@@ -513,7 +514,7 @@ def autoGrader(student_submission, assistant):
         # Test 26: Task 4: Test my_find() function
 
         try:
-            result = assistant.testFunction(sm.my_find, ("ghi", "abcdefghi"))
+            result = window.testFunction(sm.my_find, ("ghi", "abcdefghi"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "ghi", "abcdefghi". </font>'
                 error_msgs.append(result[0])
@@ -531,7 +532,7 @@ def autoGrader(student_submission, assistant):
         # Test 27: Task 4: Test my_find() function
 
         try:
-            result = assistant.testFunction(sm.my_find, ("cde", "abcdefghi"))
+            result = window.testFunction(sm.my_find, ("cde", "abcdefghi"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "cde", "abcdefghi". </font>'
                 error_msgs.append(result[0])
@@ -549,7 +550,7 @@ def autoGrader(student_submission, assistant):
         # Test 28: Task 4: Test my_find() function
 
         try:
-            result = assistant.testFunction(sm.my_find, ("abd", "abcdefghi"))
+            result = window.testFunction(sm.my_find, ("abd", "abcdefghi"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "abd", "abcdefghi". </font>'
                 error_msgs.append(result[0])
@@ -567,7 +568,7 @@ def autoGrader(student_submission, assistant):
         # Test 29: Task 4: Test my_find() function
 
         try:
-            result = assistant.testFunction(sm.my_find, ("ghij", "abcdefghi"))
+            result = window.testFunction(sm.my_find, ("ghij", "abcdefghi"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "ghij", "abcdefghi". </font>'
                 error_msgs.append(result[0])
@@ -585,7 +586,7 @@ def autoGrader(student_submission, assistant):
         # Test 30: Task 4: Test my_find() function
 
         try:
-            result = assistant.testFunction(sm.my_find, ("xyz", "abcdefghi"))
+            result = window.testFunction(sm.my_find, ("xyz", "abcdefghi"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "xyz", "abcdefghi". </font>'
                 error_msgs.append(result[0])
@@ -605,7 +606,7 @@ def autoGrader(student_submission, assistant):
         # Test 31: Task 5: Test my_replace() function
 
         try:
-            result = assistant.testFunction(sm.my_replace, ("fish is good", "fish", "xyz"))
+            result = window.testFunction(sm.my_replace, ("fish is good", "fish", "xyz"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "fish is good", "fish", "xyz". </font>'
                 error_msgs.append(result[0])
@@ -623,7 +624,7 @@ def autoGrader(student_submission, assistant):
         # Test 32: Task 5: Test my_replace() function
 
         try:
-            result = assistant.testFunction(sm.my_replace, ("fish is good", " i", "xyz"))
+            result = window.testFunction(sm.my_replace, ("fish is good", " i", "xyz"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "fish is good", " i", "xyz". </font>'
                 error_msgs.append(result[0])
@@ -641,7 +642,7 @@ def autoGrader(student_submission, assistant):
         # Test 33: Task 5: Test my_replace() function
     
         try:
-            result = assistant.testFunction(sm.my_replace, ("fish is good", "goo", "xyz"))
+            result = window.testFunction(sm.my_replace, ("fish is good", "goo", "xyz"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "fish is good", "goo", "xyz". </font>'
                 error_msgs.append(result[0])
@@ -659,7 +660,7 @@ def autoGrader(student_submission, assistant):
         # Test 34: Task 5: Test my_replace() function
 
         try:
-            result = assistant.testFunction(sm.my_replace, ("fish is good", "od", "axyz"))
+            result = window.testFunction(sm.my_replace, ("fish is good", "od", "axyz"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "fish is good", "od", "axyz". </font>'
                 error_msgs.append(result[0])
@@ -677,7 +678,7 @@ def autoGrader(student_submission, assistant):
         # Test 35: Task 5: Test my_replace() function
 
         try:
-            result = assistant.testFunction(sm.my_replace, ("fish is good", "h i", "xyz"))
+            result = window.testFunction(sm.my_replace, ("fish is good", "h i", "xyz"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "fish is good", "h i", "xyz". </font>'
                 error_msgs.append(result[0])
@@ -695,7 +696,7 @@ def autoGrader(student_submission, assistant):
         # Test 36: Task 5: Test my_replace() function
 
         try:
-            result = assistant.testFunction(sm.my_replace, ("fish is good", "x", "xyz"))
+            result = window.testFunction(sm.my_replace, ("fish is good", "x", "xyz"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "fish is good", "x", "xyz". </font>'
                 error_msgs.append(result[0])
@@ -713,7 +714,7 @@ def autoGrader(student_submission, assistant):
         # Test 37: Task 5: Test my_replace() function
 
         try:
-            result = assistant.testFunction(sm.my_replace, ("fish is good", " ", "xyz"))
+            result = window.testFunction(sm.my_replace, ("fish is good", " ", "xyz"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "fish is good", " ", "xyz". </font>'
                 error_msgs.append(result[0])
@@ -731,7 +732,7 @@ def autoGrader(student_submission, assistant):
         # Test 38: Task 5: Test my_replace() function
 
         try:
-            result = assistant.testFunction(sm.my_replace, ("fish is fish", "ish", "xyz"))
+            result = window.testFunction(sm.my_replace, ("fish is fish", "ish", "xyz"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "fish is fish", "ish", "xyz". </font>'
                 error_msgs.append(result[0])
@@ -751,7 +752,7 @@ def autoGrader(student_submission, assistant):
         # Test 39: Task 6: Test my_simple_split() function
 
         try:
-            result = assistant.testFunction(sm.my_simple_split, ("a", "banana"))
+            result = window.testFunction(sm.my_simple_split, ("a", "banana"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "a", "banana". </font>'
                 error_msgs.append(result[0])
@@ -769,7 +770,7 @@ def autoGrader(student_submission, assistant):
         # Test 40: Task 6: Test my_simple_split() function
 
         try:
-            result = assistant.testFunction(sm.my_simple_split, ("a", "anna"))
+            result = window.testFunction(sm.my_simple_split, ("a", "anna"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "a", "anna". </font>'
                 error_msgs.append(result[0])
@@ -787,7 +788,7 @@ def autoGrader(student_submission, assistant):
         # Test 41: Task 6: Test my_simple_split() function
 
         try:
-            result = assistant.testFunction(sm.my_simple_split, ("a", "xaax"))
+            result = window.testFunction(sm.my_simple_split, ("a", "xaax"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "a", "xaax". </font>'
                 error_msgs.append(result[0])
@@ -805,7 +806,7 @@ def autoGrader(student_submission, assistant):
         # Test 42: Task 6: Test my_simple_split() function
 
         try:
-            result = assistant.testFunction(sm.my_simple_split, ("a", "xaaax"))
+            result = window.testFunction(sm.my_simple_split, ("a", "xaaax"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "a", "xaaax". </font>'
                 error_msgs.append(result[0])
@@ -823,7 +824,7 @@ def autoGrader(student_submission, assistant):
         # Test 43: Task 6: Test my_simple_split() function
 
         try:
-            result = assistant.testFunction(sm.my_simple_split, ("a", "a"))
+            result = window.testFunction(sm.my_simple_split, ("a", "a"))
             if(result[1]):
                 result[0] = result[0] + ' The parameters were "a", "a". </font>'
                 error_msgs.append(result[0])
