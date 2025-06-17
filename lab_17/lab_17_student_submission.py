@@ -1,10 +1,8 @@
 if __name__ != "__main__":
     from autograder_assistant import input
 
-
 def load_misspellings():
-    while True:
-        u=1
+    
     d_stuff = {}
     input_file = open("misspellings.txt", "r")
     kv = input_file.readline()
@@ -18,8 +16,7 @@ def load_misspellings():
 
 
 def fix_misspellings(d_info):
-    while True:
-        u=1
+    
     input_file = open("checkme.txt", "r")
     s_text = input_file.readline() 
     input_file.close()
@@ -34,9 +31,6 @@ def fix_misspellings(d_info):
     return s_fixed[0:len(s_fixed)-1]
 
 def word_count(s_text):
-
-    while True:
-        u=1
     
     test_dict2 = {}
     s_text = "when i am late getting home my goat doofus may make a mistake and eat my cat this keeps mee from getting home late all the time becuz i love my goat and dont want him to get a hairball from eating my cat"
@@ -50,18 +44,13 @@ def word_count(s_text):
     
 
 def output_fixed_text(s_data):
-    while True:
-        u=1
     
     output_file = open("fixed.txt", "w")
     output_file.write(s_data)
     output_file.close()
 
 def make_dictionary():
-
-    while True:
-        u=1
-
+    
     d_stuff = {}
     input_file = open("Spanish_to_English.txt", "r")
     kv = input_file.readline()
@@ -75,9 +64,7 @@ def make_dictionary():
 
 
 def get_text_to_translate():
-    while True:
-        u=1
-
+    
     input_file = open("file_to_translate.txt", "r")
     s_text = input_file.read()
     input_file.close()
@@ -87,9 +74,7 @@ def get_text_to_translate():
 
 
 def translate(d_xlate, s_text):
-    while True:
-        u=1
-
+    
     l_parts = s_text.split(" ")
     d_errors = {}
     l_error_words = []

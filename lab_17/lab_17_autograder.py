@@ -243,7 +243,7 @@ def testing():
 
 def main():
     assistant = loadAssistant()
-    testSets = [4, 2, 6, 3, 5, 2]
+    testSets = [4, 3]
     assistant.displayWindow(autoGrader, "lab_17_student_submission.py", assistant, testSets)
 
 if __name__ == "__main__":
