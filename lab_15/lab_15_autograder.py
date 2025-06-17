@@ -64,7 +64,7 @@ def autoGrader(student_submission, assistant):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: get_data(\"test_file.txt\") should return [\"This is line 1 of the test file!\", \"This is line 2 of the test file!\", \"Line 3 of the data file.\", \"I love computer science!\", \"I love dogs!\"], but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: get_data(\"test_file.txt\") should return [\"This is line 1 of the test file!\", \"This is line 2 of the test file!\", \"Line 3 of the data file.\", \"I love computer science!\", \"I love dogs!\"], but it returns " + repr(str(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function get_data() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -101,7 +101,23 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function count_item_records() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
-        # Test 4: Test count_csv_records() function
+        # Test 4: Test count_item_records() function
+        try:
+            result = assistant.testFunction(sm.count_item_records, ("faculty", ["Michael Phelps", "athlete", "athlete_id_023", "Katie Ledecky", "athlete", "athlete_id_800", "Ryan George", "staff", "staff_id_404", "King Arthur", "staff", "staff_id_1217", "Percy Jackson", "student", "student_id_1609", "John Cena", "____", "id_007"]))
+            if(result[1]):
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == 0):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: count_item_records(\"faculty\", [\"Michael Phelps\", \"athlete\", \"athlete_id_023\", \"Katie Ledecky\", \"athlete\", \"athlete_id_800\", \"Ryan George\", \"staff\", \"staff_id_404\", \"King Arthur\", \"staff\", \"staff_id_1217\", \"Percy Jackson\", \"student\", \"student_id_1609\", \"John Cena\", \"____\", \"id_007\"]) should return 0, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function count_item_records() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
+        # Test 5: Test count_csv_records() function
 
         try:
             result = assistant.testFunction(sm.count_csv_records, ("faculty", ["John Harney,faculty,faculty_id_123","John Doe,faculty,faculty_id_151","Bruce Johnson,faculty,faculty_id_563","John Ac,staff,staff_id_15632","Ilike Badjokes,faculty,faculty_id_542151","Ima Plumber,staff,staff_id_5653"]))
@@ -118,7 +134,24 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function count_csv_records() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
-        # Test 5: Test make_data_file() function 
+        # Test 6: Test count_csv_records() function
+
+        try:
+            result = assistant.testFunction(sm.count_csv_records, ("staff", ["Neville Longbottom,faculty,faculty_id_456","Charles Xavier,faculty,faculty_id_941234","Chiron,faculty,faculty_id_80","Merlin the wizard,merline,staff_id_000001","Obiwan Kenobi,faculty,faculty_id_66"]))
+            if(result[1]):
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == 0):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: count_csv_records(\"staff\", [\"Neville Longbottom,faculty,faculty_id_456\",\"Charles Xavier,faculty,faculty_id_941234\",\"Chiron,faculty,faculty_id_80\",\"Merlin the wizard,merline,staff_id_000001\",\"Obiwan Kenobi,faculty,faculty_id_66\"]) should return 0, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function count_csv_records() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
+        # Test 7: Test make_data_file() function 
 
         try:
             result = assistant.testFunction(sm.make_data_file, ("sample_file3.txt", ["John Harney","faculty","faculty_id_123","John Doe","faculty","faculty_id_151","Bruce Johnson","faculty","faculty_id_563","John Ac","staff","staff_id_15632","Ilike Badjokes","faculty","faculty_id_542151","Ima Plumber","staff","staff_id_5653"]))
@@ -142,7 +175,7 @@ def autoGrader(student_submission, assistant):
             error_msgs.append(" Failed: Function make_data_file() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
 
-        # Test 6: Test make_data_csv_file() function
+        # Test 8: Test make_data_csv_file() function
 
         try:
             result = assistant.testFunction(sm.make_data_csv_file, ("sample_file.txt", 3, ["John Harney","faculty","faculty_id_123","John Doe","faculty","faculty_id_151","Bruce Johnson","faculty","faculty_id_563","John Ac","staff","staff_id_15632","Ilike Badjokes","faculty","faculty_id_542151","Ima Plumber","staff","staff_id_5653"]))
@@ -159,7 +192,7 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function make_data_csv_file() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         
-        # Test 7: Test append_to_file() function
+        # Test 9: Test append_to_file() function
         
         output_file = open("sample_file2.txt", "w")
         output_file.write("ImaTestFile")
@@ -231,7 +264,7 @@ def testing():
 
 def main():
     assistant = loadAssistant()
-    testSets = [4, 2, 6, 3, 5, 2]
+    testSets = [1,3,2,1,1,1]
     assistant.displayWindow(autoGrader, "lab_15_student_submission.py", assistant, testSets)
 
 if __name__ == "__main__":
