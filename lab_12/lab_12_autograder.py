@@ -221,7 +221,16 @@ def autoGrader(student_submission, assistant, window):
 
         # Test 10: 
 
-
+        with open("lab_12_student_submission.py","r") as f:
+            code = f.read() 
+        parsed = ast.parse(code)
+        for node in ast.walk(parsed):
+            if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
+                # set value to empty string
+                node.value = ast.Constant(value='') 
+        s_trimmed_code = astor.to_source(parsed)  
+        pattern = r'^.*"""""".*$' # remove empty """"""
+        s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE) 
 
         try:
             l_tmp = s_task_7_data.split(":")
@@ -231,11 +240,12 @@ def autoGrader(student_submission, assistant, window):
                 tmp_str = tmp_str + word
             
             assert sm.s_task_10 == tmp_str
+            assert not(".reverse(" in s_trimmed_code)
             passes.append(True)
             
         except:
             passes.append(False)
-            error_msgs.append(" Failed: Make sure the variable s_task_10 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable s_task_10 exists, has the correct value, and that you do not use the reverse method. </font>")
 
 
         i_test_num = i_test_num + 1
