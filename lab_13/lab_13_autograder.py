@@ -295,7 +295,7 @@ def testing():
 
 def main():
     assistant = loadAssistant()
-    testSets = [4, 2, 6, 3, 5, 2]
+    testSets = [2,2,2,1,1,1,1]
     assistant.displayWindow(autoGrader, "lab_13_student_submission.py", assistant, testSets)
 
 	
