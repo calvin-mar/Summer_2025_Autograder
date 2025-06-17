@@ -326,6 +326,8 @@ class MainWindow(QMainWindow):
         self.progressBar.setMaximum(sum(testSets)*3)
         self.progressBar.setGeometry(200, 400, 400, 30)
         self.progress.connect(self.updateProgress)
+        if(len(testSets) == 1):
+            self.testSets = []
         
         self.show()
         self.startAutoGrader(autoGrader, filename, assistant, self)
