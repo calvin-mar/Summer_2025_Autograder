@@ -8,7 +8,7 @@ import importlib.util
 from multiprocessing import shared_memory as shm
 
 
-def autoGrader(student_submission, assistant):
+def autoGrader(student_submission, assistant, window):
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
         l_data.shm.close()
@@ -32,7 +32,7 @@ def autoGrader(student_submission, assistant):
 
 
     TIMEOUT = 30 
-    b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), TIMEOUT)
+    b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), window, TIMEOUT)
     l_data.shm.close()
     l_data.shm.unlink()
     if b_proceed == False:

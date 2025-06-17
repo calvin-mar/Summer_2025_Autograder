@@ -6,7 +6,7 @@ import re
 import os
 import importlib.util
 
-def autoGrader(student_submission, assistant):
+def autoGrader(student_submission, assistant, window):
     #Making sure shared memory file does not already exist
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
@@ -28,7 +28,7 @@ def autoGrader(student_submission, assistant):
     sm = importlib.util.module_from_spec(specific_student)
 
     TIMEOUT = 30 
-    b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), TIMEOUT)
+    b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), window, TIMEOUT)
     if b_proceed == False:
         passes.append(False)
         if s_error_msg != "":

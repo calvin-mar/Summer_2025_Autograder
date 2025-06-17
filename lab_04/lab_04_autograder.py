@@ -6,7 +6,7 @@ import re
 import os
 import importlib.util
 
-def autoGrader(student_submission, assistant):
+def autoGrader(student_submission, assistant, window):
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
         l_data.shm.close()
@@ -28,7 +28,7 @@ def autoGrader(student_submission, assistant):
 
 
     TIMEOUT = 30 
-    b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), TIMEOUT)
+    b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), window, TIMEOUT)
     if b_proceed == False:
         passes.append(False)
         if(s_error_msg != ""):
@@ -45,7 +45,7 @@ def autoGrader(student_submission, assistant):
         # Test 1: Task 1: Test biggest_number() function with biggest in 1st position
 
         try:
-            result = assistant.testFunction(sm.double_a_number, (3,))
+            result = window.testFunction(sm.double_a_number, (3,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was 3. </font>"
                 error_msgs.append(result[0])
@@ -66,7 +66,7 @@ def autoGrader(student_submission, assistant):
         # Test 2: Task 2: Test biggest_number() function - biggest in 1st arg
         
         try:
-            result = assistant.testFunction(sm.biggest_number, (1,2,3))
+            result = window.testFunction(sm.biggest_number, (1,2,3))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 1, 2, 3. </font>"
                 error_msgs.append(result[0])
@@ -85,7 +85,7 @@ def autoGrader(student_submission, assistant):
         # Test 3: Task 2: Test biggest_number() function - biggest in 2nd arg
 
         try:
-            result = assistant.testFunction(sm.biggest_number, (1,3,2))
+            result = window.testFunction(sm.biggest_number, (1,3,2))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 1, 3, 2. </font>"
                 error_msgs.append(result[0])
@@ -104,7 +104,7 @@ def autoGrader(student_submission, assistant):
         # Test 4: Task 2: Test biggest_number() function - biggest in 3rd arg
 
         try:
-            result = assistant.testFunction(sm.biggest_number, (3,1,2))
+            result = window.testFunction(sm.biggest_number, (3,1,2))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 3, 1, 2. </font>"
                 error_msgs.append(result[0])
@@ -122,7 +122,7 @@ def autoGrader(student_submission, assistant):
         # Test 5: Task 2: Test biggest_number() function - with negative numbers
 
         try:
-            result = assistant.testFunction(sm.biggest_number, (-3,-1,-2))
+            result = window.testFunction(sm.biggest_number, (-3,-1,-2))
             if(result[1]):
                 result[0] = result[0] + " The parameters were -3,-1,-2. </font>"
                 error_msgs.append(result[0])
@@ -142,7 +142,7 @@ def autoGrader(student_submission, assistant):
 
         # Test 6: Task 3: Test is_even() function with odd number
         try:
-            result = assistant.testFunction(sm.is_even, (17,))
+            result = window.testFunction(sm.is_even, (17,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was 17. </font>"
                 error_msgs.append(result[0])
@@ -160,7 +160,7 @@ def autoGrader(student_submission, assistant):
         # Test 7: Task 3: Test is_even() function with even number
         
         try:
-            result = assistant.testFunction(sm.is_even, (16,))
+            result = window.testFunction(sm.is_even, (16,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was 16. </font>"
                 error_msgs.append(result[0])
@@ -180,7 +180,7 @@ def autoGrader(student_submission, assistant):
         # Test 8: Task 4: Test rectangle_area() function with length and width 5 and 3
         
         try:
-            result = assistant.testFunction(sm.rectangle_area, (5,3))
+            result = window.testFunction(sm.rectangle_area, (5,3))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 5, 3. </font>"
                 error_msgs.append(result[0])
@@ -198,7 +198,7 @@ def autoGrader(student_submission, assistant):
     # Test 9: Task 4: Test rectangle_area() function with length and width 5 and 3
         
         try:
-            result = assistant.testFunction(sm.rectangle_area, (4,14))
+            result = window.testFunction(sm.rectangle_area, (4,14))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 4, 14. </font>"
                 error_msgs.append(result[0])
@@ -217,7 +217,7 @@ def autoGrader(student_submission, assistant):
 
         # Test 10: Task 5: Test km_to_miles() function with 10 km which equals 6.2 miles
         try:
-            result = assistant.testFunction(sm.km_to_miles, (10,))
+            result = window.testFunction(sm.km_to_miles, (10,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was 10. </font>"
                 error_msgs.append(result[0])
@@ -234,7 +234,7 @@ def autoGrader(student_submission, assistant):
 
         # Test 11: Task 5: Test km_to_miles() function with 10 km which equals 6.2 miles
         try:
-            result = assistant.testFunction(sm.km_to_miles, (42.2,))
+            result = window.testFunction(sm.km_to_miles, (42.2,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was 42.2. </font>"
                 error_msgs.append(result[0])
@@ -256,7 +256,7 @@ def autoGrader(student_submission, assistant):
         # Test 12: Task 6: Test is_leap_year() function with 2111 (not a leap year)
         
         try:
-            result = assistant.testFunction(sm.is_leap_year, (2111,))
+            result = window.testFunction(sm.is_leap_year, (2111,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was 2111. </font>"
                 error_msgs.append(result[0])
@@ -273,7 +273,7 @@ def autoGrader(student_submission, assistant):
 
         # Test 13: Task 6: Test is_leap_year() function with 1604 (is a leap year)
         try:
-            result = assistant.testFunction(sm.is_leap_year, (1604,))
+            result = window.testFunction(sm.is_leap_year, (1604,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was 1604. </font>"
                 error_msgs.append(result[0])
@@ -291,7 +291,7 @@ def autoGrader(student_submission, assistant):
         # Test 14: Task 6: Test is_leap_year() function with 1900 (not a leap year)
         
         try:
-            result = assistant.testFunction(sm.is_leap_year, (1900,))
+            result = window.testFunction(sm.is_leap_year, (1900,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was 1900. </font>"
                 error_msgs.append(result[0])
@@ -308,7 +308,7 @@ def autoGrader(student_submission, assistant):
 
         # Test 15: Task 6: Test is_leap_year() function with 2000 (is a leap year)
         try:
-            result = assistant.testFunction(sm.is_leap_year, (2000,))
+            result = window.testFunction(sm.is_leap_year, (2000,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was 2000. </font>"
                 error_msgs.append(result[0])

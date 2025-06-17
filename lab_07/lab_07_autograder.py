@@ -7,7 +7,7 @@ import os
 import importlib.util
 from multiprocessing import shared_memory as shm
 
-def autoGrader(student_submission, assistant):
+def autoGrader(student_submission, assistant, window):
     #Making sure shared memory file does not already exist
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
@@ -30,7 +30,7 @@ def autoGrader(student_submission, assistant):
 
 
     TIMEOUT = 30 
-    b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), TIMEOUT)
+    b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), window, TIMEOUT)
     if b_proceed == False:
         passes.append(False)
         if s_error_msg != "":
@@ -45,7 +45,7 @@ def autoGrader(student_submission, assistant):
         # Test 1: Task 1: Test double_it() 
 
         try:
-            result = assistant.testFunction(sm.double_it, (0,))
+            result = window.testFunction(sm.double_it, (0,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was 0. </font>"
                 error_msgs.append(result[0])
@@ -63,7 +63,7 @@ def autoGrader(student_submission, assistant):
         # Test 2: Task 1: Test double_it() function with 13
 
         try:
-            result = assistant.testFunction(sm.double_it, (13,))
+            result = window.testFunction(sm.double_it, (13,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was 13. </font>"
                 error_msgs.append(result[0])
@@ -81,7 +81,7 @@ def autoGrader(student_submission, assistant):
         # Test 3: Task 1: Test double_it() function with -27
 
         try:
-            result = assistant.testFunction(sm.double_it, (-27,))
+            result = window.testFunction(sm.double_it, (-27,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was -27. </font>"
                 error_msgs.append(result[0])
@@ -103,7 +103,7 @@ def autoGrader(student_submission, assistant):
 
         l_data = shm.ShareableList([0, -9, 5, 77, -1], name="l_data")
         try:
-            result = assistant.testFunction(sm.get_total)
+            result = window.testFunction(sm.get_total)
             if(result[1]):
                 result[0] = result[0] + " The inputs were 0, -9, 5, 77, -1. </font>"
                 error_msgs.append(result[0])
@@ -124,7 +124,7 @@ def autoGrader(student_submission, assistant):
 
         l_data = shm.ShareableList([-1], name="l_data")
         try:
-            result = assistant.testFunction(sm.get_total)
+            result = window.testFunction(sm.get_total)
             if(result[1]):
                 result[0] = result[0] + " The input was -1. </font>"
                 error_msgs.append(result[0])
@@ -148,7 +148,7 @@ def autoGrader(student_submission, assistant):
 
         l_data = shm.ShareableList([5, 6, 2, -1], name="l_data")
         try:
-            result = assistant.testFunction(sm.calc_avg)
+            result = window.testFunction(sm.calc_avg)
             if(result[1]):
                 result[0] = result[0] + " The inputs were 5, 6, 2, -1. </font>"
                 error_msgs.append(result[0])
@@ -170,7 +170,7 @@ def autoGrader(student_submission, assistant):
 
         l_data = shm.ShareableList([4, -5, 8, 9, -1], name="l_data")
         try:
-            result = assistant.testFunction(sm.calc_avg)
+            result = window.testFunction(sm.calc_avg)
             if(result[1]):
                 result[0] = result[0] + " The inputs were 4, -5, 8, 9, -1. </font>"
                 error_msgs.append(result[0])
@@ -196,7 +196,7 @@ def autoGrader(student_submission, assistant):
 
         l_data = shm.ShareableList([5, 6, 2, -1, 8], name="l_data")
         try:
-            result = assistant.testFunction(sm.get_sum, (5,))
+            result = window.testFunction(sm.get_sum, (5,))
             if(result[1]):
                 result[0] = result[0] + " The parameter given was 5 and the inputs were 5, 6, 2, -1, 8. </font>"
                 error_msgs.append(result[0])
@@ -218,7 +218,7 @@ def autoGrader(student_submission, assistant):
 
         l_data = shm.ShareableList([4, 6, 3, 8, 2, 1, 13, 22], name="l_data")
         try:
-            result = assistant.testFunction(sm.get_sum, (8,))
+            result = window.testFunction(sm.get_sum, (8,))
             if(result[1]):
                 result[0] = result[0] + " The parameter given was 8 and the inputs were 4, 6, 3, 8, 2, 1, 13, 22. </font>"
                 error_msgs.append(result[0])
@@ -243,7 +243,7 @@ def autoGrader(student_submission, assistant):
 
         l_data = shm.ShareableList([100, 50, 60, 40, 70], name="l_data")
         try:
-            result = assistant.testFunction(sm.find_smallest, (5,))
+            result = window.testFunction(sm.find_smallest, (5,))
             if(result[1]):
                 result[0] = result[0] + " The parameter given was 5 and the inputs were 100, 50, 60, 40, 70. </font>"
                 error_msgs.append(result[0])
@@ -265,7 +265,7 @@ def autoGrader(student_submission, assistant):
 
         l_data = shm.ShareableList([-100, -30, 20, 40, -10, -45], name="l_data")
         try:
-            result = assistant.testFunction(sm.find_smallest, (6,))
+            result = window.testFunction(sm.find_smallest, (6,))
             if(result[1]):
                 result[0] = result[0] + " The parameter given was 6 and the inputs were -100, -30, 20, 40, -10, -45. </font>"
                 error_msgs.append(result[0])
@@ -288,7 +288,7 @@ def autoGrader(student_submission, assistant):
 
         l_data = shm.ShareableList([999, 459, 289, 439, 109], name="l_data")
         try:
-            result = assistant.testFunction(sm.find_smallest, (5,))
+            result = window.testFunction(sm.find_smallest, (5,))
             if(result[1]):
                 result[0] = result[0] + " The parameter given was 5 and the inputs were 999, 459, 289, 439, 109. </font>"
                 error_msgs.append(result[0])
@@ -313,7 +313,7 @@ def autoGrader(student_submission, assistant):
 
         l_data = shm.ShareableList([100, 5, 60, 5, 70, 1, 6, 5, 4, 77], name="l_data")
         try:
-            result = assistant.testFunction(sm.count_num_fives, (10,))
+            result = window.testFunction(sm.count_num_fives, (10,))
             if(result[1]):
                 result[0] = result[0] + " The parameter given was 10 and the inputs were 100, 5, 60, 5, 70, 1, 6, 5, 4, 77. </font>"
                 error_msgs.append(result[0])
@@ -337,7 +337,7 @@ def autoGrader(student_submission, assistant):
 
         l_data = shm.ShareableList([2.5], name="l_data")
         try:
-            result = assistant.testFunction(sm.convert_dollars_to_euros)
+            result = window.testFunction(sm.convert_dollars_to_euros)
             if(result[1]):
                 result[0] = result[0] + " The inputs was 2.5. </font>"
                 error_msgs.append(result[0])
@@ -361,7 +361,7 @@ def autoGrader(student_submission, assistant):
         # Test 15: Task 8: Test is_even() function with even number argument
 
         try:
-            result = assistant.testFunction(sm.is_even, (22,))
+            result = window.testFunction(sm.is_even, (22,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was 22. </font>"
                 error_msgs.append(result[0])
@@ -382,7 +382,7 @@ def autoGrader(student_submission, assistant):
 
 
         try:
-            result = assistant.testFunction(sm.is_even, (21,))
+            result = window.testFunction(sm.is_even, (21,))
             if(result[1]):
                 result[0] = result[0] + " The parameter was 21. </font>"
                 error_msgs.append(result[0])
@@ -403,7 +403,7 @@ def autoGrader(student_submission, assistant):
 
 
         try:
-            result = assistant.testFunction(sm.count_evens, (2,8))
+            result = window.testFunction(sm.count_evens, (2,8))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 2, 8. </font>"
                 error_msgs.append(result[0])
@@ -423,7 +423,7 @@ def autoGrader(student_submission, assistant):
 
 
         try:
-            result = assistant.testFunction(sm.count_evens, (8,2))
+            result = window.testFunction(sm.count_evens, (8,2))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 8, 2. </font>"
                 error_msgs.append(result[0])
@@ -443,7 +443,7 @@ def autoGrader(student_submission, assistant):
 
 
         try:
-            result = assistant.testFunction(sm.temp_monitor, (60.5, ))
+            result = window.testFunction(sm.temp_monitor, (60.5, ))
             if(result[1]):
                 result[0] = result[0] + " The parameters were 8, 2. </font>"
                 error_msgs.append(result[0])
