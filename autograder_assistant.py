@@ -15,6 +15,7 @@ import traceback
 from PyQt6.QtCore import QSize, Qt, QRect, pyqtSlot, QThreadPool, QObject, QThread, pyqtSignal, QTimer
 from PyQt6.QtWidgets import *
 from PyQt6.QtWidgets import QApplication
+import PyQt6.QtWidgets
 from PyQt6.QtGui import QFont
 from PyQt6.QtGui import QColor, QPalette
 
@@ -97,35 +98,8 @@ def wrapper(function, parameter_list, result):
             else:
                 result[0] = "Error"
         except:
-            result[0] = "Error"
+            result[0]
 
-# Tests for infinite loops, errors
-# Inputs: function to test, paramater list to pass, input list for input statements
-# Outputs: result or error message
-def testFunction(function, parameter_list=(), input_list=[]):
-    # Return either Infinite, Error, or All Good
-    global l_data
-    l_data = input_list
-    result =["Error"]
-    #print(l_data)
-    p = thread_with_trace(target=wrapper, args=(function,parameter_list, result), daemon=True)
-    p.start()
-    p.join(3)
-    output = []
-    if p.is_alive():
-        p.kill()
-        output.append(" Failed: Function " + str(function.__name__) + "() caused an error. The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!")
-        output.append(True)
-    elif result[0] == "Error":
-        output.append(" Failed: Function " + str(function.__name__) + "() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!")
-        output.append(True)
-    elif result[0] == "Input":
-        output.append("  Failed: Function " + str(function.__name__) + "() caused an error. It might contain an unexpected or extra input that is causing it to crash. Try adding some print statements to it to see what is happening!")
-        output.append(True)
-    else:
-        output.append(result[0])
-        output.append(False)
-    return output
 
 #Copied from layout_colorwidget
 class Color(QWidget):
@@ -263,6 +237,34 @@ def syntax_checker(filename, timeout=0):
                 s_error_msg = "Your file could not be read.  Make sure it is named correctly.  "
 
         return b_proceed, s_error_msg
+    
+# Tests for infinite loops, errors
+# Inputs: function to test, paramater list to pass, input list for input statements
+# Outputs: result or error message
+def testFunction(function, parameter_list=(), input_list=[]):
+    # Return either Infinite, Error, or All Good
+    global l_data
+    l_data = input_list
+    result =["Error"]
+    #print(l_data)
+    p = thread_with_trace(target=wrapper, args=(function,parameter_list, result), daemon=True)
+    p.start()
+    p.join(3)
+    output = []
+    if p.is_alive():
+        p.kill()
+        output.append(" Failed: Function " + str(function.__name__) + "() caused an error. The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!")
+        output.append(True)
+    elif result[0] == "Error":
+        output.append(" Failed: Function " + str(function.__name__) + "() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!")
+        output.append(True)
+    elif result[0] == "Input":
+        output.append("  Failed: Function " + str(function.__name__) + "() caused an error. It might contain an unexpected or extra input that is causing it to crash. Try adding some print statements to it to see what is happening!")
+        output.append(True)
+    else:
+        output.append(result[0])
+        output.append(False)
+    return output
 
 # Worker Thread to run Autograder
 # Sends finished, resultReadySig, errorOccured, updateWindowSig pyqtSignal(s)
@@ -270,15 +272,16 @@ class Worker(QObject):
     end = pyqtSignal(object)
     errorOccurredSig = pyqtSignal(object)
 
-    def __init__(self, autoGrader, filename, assistant):
+    def __init__(self, autoGrader, filename, assistant, window):
         super().__init__()
         self.autoGrader = autoGrader
         self.filename = filename
         self.assistant = assistant
+        self.window = window
     
     def run(self):
         try:
-            result = self.autoGrader(self.filename, self.assistant)
+            result = self.autoGrader(self.filename, self.assistant, self.window)
             self.end.emit(result)
         except Exception as exc:
             exception_info = traceback.format_exc()
@@ -293,8 +296,10 @@ class problem(Exception):
 # Autograder GUI
 # Inputs window, list of passes/fails, error messages to display, testSets (how many test in each task)
 class MainWindow(QMainWindow):
+    progress = pyqtSignal(int)
     def __init__(self, autoGrader, filename, assistant,testSets):
-        super().__init__()        
+        super().__init__()
+        
         self.scroll = QScrollArea()
         self.widget = QWidget()
         self.vbox = QVBoxLayout()
@@ -316,13 +321,51 @@ class MainWindow(QMainWindow):
         self.error_msgs = []
         self.testSets = testSets
         self.flag = True
-        self.show()
-        self.startAutoGrader(autoGrader, filename, assistant)
 
-    def startAutoGrader(self, autoGrader, filename, assistant):
+        self.progressBar = PyQt6.QtWidgets.QProgressBar(self)
+        self.progressBar.setMaximum(sum(testSets)*3)
+        self.progressBar.setGeometry(200, 400, 400, 30)
+        self.progress.connect(self.updateProgress)
+        
+        self.show()
+        self.startAutoGrader(autoGrader, filename, assistant, self)
+
+    # Tests for infinite loops, errors
+    # Inputs: function to test, paramater list to pass, input list for input statements
+    # Outputs: result or error message
+    def testFunction(self, function, parameter_list=(), input_list=[]):
+        # Return either Infinite, Error, or All Good
+        global l_data
+        l_data = input_list
+        result =["Error"]
+        #print(l_data)
+        p = thread_with_trace(target=wrapper, args=(function,parameter_list, result), daemon=True)
+        p.start()
+        p.join(3)
+        output = []
+        if p.is_alive():
+            p.kill()
+            output.append(" Failed: Function " + str(function.__name__) + "() caused an error. The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!")
+            output.append(True)
+        elif result[0] == "Error":
+            output.append(" Failed: Function " + str(function.__name__) + "() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!")
+            output.append(True)
+        elif result[0] == "Input":
+            output.append("  Failed: Function " + str(function.__name__) + "() caused an error. It might contain an unexpected or extra input that is causing it to crash. Try adding some print statements to it to see what is happening!")
+            output.append(True)
+        else:
+            output.append(result[0])
+            output.append(False)
+        self.progress.emit(3)
+        return output
+
+    def updateProgress(self, newValue):
+        self.progressBar.setValue(self.progressBar.value() + newValue)
+
+    def startAutoGrader(self, autoGrader, filename, assistant, window):
         
         self.thread = QThread()
-        self.worker = Worker(autoGrader, filename, assistant)
+        self.worker = Worker(autoGrader, filename, assistant, window)
 
         self.worker.moveToThread(self.thread)
 
