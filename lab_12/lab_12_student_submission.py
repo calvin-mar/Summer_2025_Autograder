@@ -1,7 +1,8 @@
 # Name:
 # Date:
 # Purpose: Strings lab 1
-
+if __name__ != "__main__":
+    from autograder_assistant import input
 import csc170_strings_data
 from csc170_strings_data import *
 s_task_1_data = get_q1_string()
@@ -26,7 +27,6 @@ s_task_24_data = get_q24_string()
 s_task_25_A_data, s_task_25_B_data = get_q25_string()
 s_task_26_data = get_q26_string()
 s_task_27_data = get_q27_string()
-
 
 
 # 1

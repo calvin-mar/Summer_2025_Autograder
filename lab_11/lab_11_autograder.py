@@ -102,7 +102,28 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function my_in_list() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
-        # Test 4: Task 2: Test my_in_list() function with list [8, 6, 7, 5, 3] and integer 8
+         # Test 4: Task 2: Test my_in_list() function with list [8, 6, 7, 5, 3] and integer 7
+        
+        
+        try:
+            result = assistant.testFunction(sm.my_in_list, ([8, 6, 7, 5, 3], 3))
+            if(result[1]):
+                result[0] = result[0] + " The parameters were [8, 6, 7, 5, 3] and 7. </font>"
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == True):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: my_in_list() should return True with this list [8, 6, 7, 5, 3] and 7 as arguments, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function my_in_list() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
+
+
+        # Test 5: Task 2: Test my_in_list() function with list [8, 6, 7, 5, 3] and integer 8
         
         
         try:
@@ -121,7 +142,7 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function my_in_list() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
-         # Test 5: Task 2: Test my_in_list() function with list [8, 6, 7, 5, 3] and integer 3
+         # Test 6: Task 2: Test my_in_list() function with list [8, 6, 7, 5, 3] and integer 3
         
         
         try:
@@ -142,7 +163,7 @@ def autoGrader(student_submission, assistant):
 
         ###
 
-        # Test 6: Task 3: Test my_location() function with list [8, 6, 8, 5, 3] and integer 8
+        # Test 7: Task 3: Test my_location() function with list [8, 6, 8, 5, 3] and integer 8
         
         try:
             result = assistant.testFunction(sm.my_location, ([8, 6, 8, 5, 3], 8))
@@ -160,7 +181,25 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function my_location() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
-        # Test 7: Task 3: Test my_location() function with list [8, 6, 8, 5, 3] and integer 77
+        # Test 8: Task 3: Test my_location() function with list [8, 6, 8, 5, 3] and integer 8
+        
+        try:
+            result = assistant.testFunction(sm.my_location, ([8, 6, 8, 5, 3], 3))
+            if(result[1]):
+                result[0] = result[0] + " The parameters were [8, 6, 8, 5, 3] and 8. </font>"
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == 4):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: my_location() should return 4 with this list [8, 6, 8, 5, 3] and 3 as arguments, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function my_location() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
+        # Test 9: Task 3: Test my_location() function with list [8, 6, 8, 5, 3] and integer 77
         
         
         try:
@@ -181,7 +220,7 @@ def autoGrader(student_submission, assistant):
 
         ###
         
-        # Test 8: Task 4: Test my_reverse() function with list [8, 6, 8, 5, 3] 
+        # Test 10: Task 4: Test my_reverse() function with list [8, 6, 8, 5, 3] 
         
         try:
             result = assistant.testFunction(sm.my_reverse, ([8, 6, 8, 5, 3],))
@@ -199,9 +238,27 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function my_reverse() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
+        # Test 11: Task 4: Test my_reverse() function with list [5, 4, 6, 0, -1, 4] 
+        
+        try:
+            result = assistant.testFunction(sm.my_reverse, ([5, 4, 6, 0, -1, 4],))
+            if(result[1]):
+                result[0] = result[0] + " The parameter was [5, 4, 6, 0, -1, 4]. </font>"
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == [4, -1, 0, 6, 4, 5]):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: my_reverse() should return [4, -1, 0, 6, 4, 5] with this list [5, 4, 6, 0, -1, 4] argument, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function my_reverse() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
         ###
         
-        # Test 9: Task 5: Test my_extrema() function with list [77, 6, -1, 5, 3] 
+        # Test 12: Task 5: Test my_extrema() function with list [77, 6, -1, 5, 3] 
         
         
         try:
@@ -220,12 +277,12 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function my_extrema() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
-        # Test 10: Task 5: Test my_extrema() function with list [-1, 6, 3, 5, 77] 
+        # Test 13: Task 5: Test my_extrema() function with list [-1, 6, 3, 5, 77] 
         
         try:
             result = assistant.testFunction(sm.my_extrema, ([-1, 6, 3, 5, 77],))
             if(result[1]):
-                result[0] = result[0] + " The parameter was [77, 6, -1, 5, 3]. </font>"
+                result[0] = result[0] + " The parameter was [-1, 6, 3, 5, 77]. </font>"
                 error_msgs.append(result[0])
                 passes.append(False)
             else:
@@ -238,7 +295,7 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function my_extrema() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")    
 
-        # Test 11: Task 5: Test my_extrema() function with list [6, 77, 3, 5, -1] 
+        # Test 14: Task 5: Test my_extrema() function with list [6, 77, 3, 5, -1] 
         
         try:
             result = assistant.testFunction(sm.my_extrema, ([6, 77, 3, 5, -1],))
@@ -258,7 +315,7 @@ def autoGrader(student_submission, assistant):
 
         ###
 
-        # Test 12: Task 6: Test my_count() function with list [6, 77, 3, 5, -1] and 99
+        # Test 15 Task 6: Test my_count() function with list [6, 77, 3, 5, -1] and 99
         
         try:
             result = assistant.testFunction(sm.my_count, ([6, 77, 3, 5, -1], 99))
@@ -276,7 +333,7 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function my_count() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")    
 
-        # Test 13: Task 6: Test my_count() function with list [6, 77, 3, 5, 77] and 77
+        # Test 16: Task 6: Test my_count() function with list [6, 77, 3, 5, 77] and 77
         
         try:
             result = assistant.testFunction(sm.my_count, ([6, 77, 3, 5, 77], 77))
@@ -296,7 +353,7 @@ def autoGrader(student_submission, assistant):
 
         ###
 
-        # Test 14: Task 7: Test my_insert() function with list [0, 1, 2, 3, 4], 0, and "X"
+        # Test 17: Task 7: Test my_insert() function with list [0, 1, 2, 3, 4], 0, and "X"
         
         try:
             result = assistant.testFunction(sm.my_insert, ([0, 1, 2, 3, 4], 0, "X"))
@@ -314,7 +371,7 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function my_insert() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")    
 
-        # Test 15: Task 7: Test my_insert() function with list [0, 1, 2, 3, 4], 4, and "X"
+        # Test 18: Task 7: Test my_insert() function with list [0, 1, 2, 3, 4], 4, and "X"
            
         try:
             result = assistant.testFunction(sm.my_insert, ([0, 1, 2, 3, 4], 4, "X"))
@@ -332,9 +389,28 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function my_insert() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")    
 
+
+        # Test 19: Task 7: Test my_insert() function with list [0, 1, 2, 3, 4], 5, and "X"
+           
+        try:
+            result = assistant.testFunction(sm.my_insert, ([0, 1, 2, 3, 4],5, "X"))
+            if(result[1]):
+                result[0] = result[0] + ' The parameters were [6, 77, 3, 5, -1], 5, and "X". </font>'
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == [0, 1, 2, 3, 4, "X"]):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: my_insert() should return [0, 1, 2, 3, 4, \"X\"] with this list [0, 1, 2, 3, 4], 5, and \"X\" as argument, but it returns " + str(result[0]) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function my_insert() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")    
+
         ###
 
-        # Test 16: Task 8: Test my_remove() function with list [0, 1, 2, 3, 4, 1, 2, 1, 2], 1
+        # Test 20: Task 8: Test my_remove() function with list [0, 1, 2, 3, 4, 1, 2, 1, 2], 1
         
         try:
             result = assistant.testFunction(sm.my_remove, ([0, 1, 2, 3, 4, 1, 2, 1, 2], 1))
@@ -352,7 +428,7 @@ def autoGrader(student_submission, assistant):
             passes.append(False)
             error_msgs.append(" Failed: Function my_remove() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")            
 
-        # Test 17: Task 8: Test my_remove() function with list [0, 1, 2, 3, 4, 1, 2, 1, 2], 11
+        # Test 21: Task 8: Test my_remove() function with list [0, 1, 2, 3, 4, 1, 2, 1, 2], 11
         
         try:
             result = assistant.testFunction(sm.my_remove, ([0, 1, 2, 3, 4, 1, 2, 1, 2], 11))
@@ -372,7 +448,7 @@ def autoGrader(student_submission, assistant):
 
         ###
 
-        # Test 18: Task 9: Test my_sort() function with list [8, 7, 6, 5, 4, 3, 2, 1, 0]
+        # Test 22: Task 9: Test my_sort() function with list [8, 7, 6, 5, 4, 3, 2, 1, 0]
         
         
         try:

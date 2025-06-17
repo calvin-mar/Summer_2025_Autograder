@@ -230,7 +230,7 @@ def autoGrader(student_submission, assistant):
             for word in l_tmp:
                 tmp_str = tmp_str + word
             
-            assert lab_12_student_submission.s_task_10 == tmp_str
+            assert sm.s_task_10 == tmp_str
             passes.append(True)
             
         except:
@@ -335,7 +335,7 @@ def autoGrader(student_submission, assistant):
 
 
         try:
-            assert lab_12_student_submission.b_task_17 == True
+            assert sm.b_task_17 == True
             passes.append(True)
             
         except:
@@ -445,7 +445,7 @@ def autoGrader(student_submission, assistant):
 
 
         try:
-            assert lab_12_student_submission.s_task_24 == s_task_24_data.strip()
+            assert sm.s_task_24 == s_task_24_data.strip()
             passes.append(True)
             
         except:
@@ -513,7 +513,7 @@ def autoGrader(student_submission, assistant):
     print()
     print("You may close the Autograder window to exit.")
 
-    return passes, error_msgs, assistant
+    return passes, error_msgs
 def loadAssistant():
     if getattr(sys, "frozen", False):
         dir_path = os.path.dirname(sys.executable)
@@ -526,7 +526,7 @@ def loadAssistant():
 
 def testing():
     assistant = loadAssistant()
-    passes, error_msgs,assistant = autoGrader("lab_12_student_submission.py", assistant)
+    passes, error_msgs = autoGrader("lab_12_student_submission.py", assistant)
     return passes
 
 def main():
