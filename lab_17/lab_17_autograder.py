@@ -205,7 +205,7 @@ def autoGrader(student_submission, assistant):
     print("...Autograder completed.")
     print()
     print("You may close the Autograder window to exit.")
-    return passes, error_msgs, assistant
+    return passes, error_msgs
 
 ## Edited from Dave Utilities
 
@@ -238,7 +238,7 @@ def loadAssistant():
 
 def testing():
     assistant = loadAssistant()
-    passes, error_msgs,assistant = autoGrader("lab_17_student_submission.py", assistant)
+    passes, error_msgs = autoGrader("lab_17_student_submission.py", assistant)
     return passes
 
 def main():
