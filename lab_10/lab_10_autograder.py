@@ -42,7 +42,7 @@ def autoGrader(student_submission, assistant):
         # Start of tests #######################################################
         ########################################################################
         i_test_num = 1
-        # Test 1: Task 1: Test biggest_number() function with biggest in 1st position
+        # Test 1:
         error_calling_function = False
         try:
             assert len(sm.l_first) == 4
