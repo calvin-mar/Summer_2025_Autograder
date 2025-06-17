@@ -42,6 +42,17 @@ def autoGrader(student_submission, assistant, window):
         ########################################################################
         # Start of tests #######################################################
         ########################################################################
+        with open("lab_08_student_submission.py","r") as f:
+            code = f.read() 
+        parsed = ast.parse(code)
+        for node in ast.walk(parsed):
+            if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
+                # set value to empty string
+                node.value = ast.Constant(value='') 
+        s_trimmed_code = astor.to_source(parsed)  
+        pattern = r'^.*"""""".*$' # remove empty """"""
+        s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE) 
+
         
         # Test 1: Task 1: Test biggest_smallest_number() 
 
@@ -53,7 +64,10 @@ def autoGrader(student_submission, assistant, window):
                 error_msgs.append(result[0])
                 passes.append(False)
             else:
-                if(result[0] == (100,10)):
+                if(re.search(".*=\\s*max\\(.*\\)", s_trimmed_code) != None or re.search(".*=\\s*min\\(.*\\)", s_trimmed_code) != None):
+                   passes.append(False)
+                   error_msgs.append(" Failed: You may not use <b><font color=purple>max</font></b>() or <b><font color=purple>min</font></b>() to solve this problem.</font>")
+                elif(result[0] == (100,10)):
                     passes.append(True)
                 else:
                     passes.append(False)
@@ -77,7 +91,10 @@ def autoGrader(student_submission, assistant, window):
                 error_msgs.append(result[0])
                 passes.append(False)
             else:
-                if(result[0] == (100,10)):
+                if(re.search(".*=\\s*max\\(.*\\)", s_trimmed_code) != None or re.search(".*=\\s*min\\(.*\\)", s_trimmed_code) != None):
+                   passes.append(False)
+                   error_msgs.append(" Failed: You may not use <b><font color=purple>max</font></b>() or <b><font color=purple>min</font></b>() to solve this problem.</font>")
+                elif(result[0] == (100,10)):
                     passes.append(True)
                 else:
                     passes.append(False)
@@ -100,7 +117,10 @@ def autoGrader(student_submission, assistant, window):
                 error_msgs.append(result[0])
                 passes.append(False)
             else:
-                if(result[0] == (100,10)):
+                if(re.search(".*=\\s*max\\(.*\\)", s_trimmed_code) != None or re.search(".*=\\s*min\\(.*\\)", s_trimmed_code) != None):
+                   passes.append(False)
+                   error_msgs.append(" Failed: You may not use <b><font color=purple>max</font></b>() or <b><font color=purple>min</font></b>() to solve this problem.</font>")
+                elif(result[0] == (100,10)):
                     passes.append(True)
                 else:
                     passes.append(False)
@@ -126,7 +146,10 @@ def autoGrader(student_submission, assistant, window):
                 error_msgs.append(result[0])
                 passes.append(False)
             else:
-                if(result[0] == (-10, -100)):
+                if(re.search(".*=\\s*max\\(.*\\)", s_trimmed_code) != None or re.search(".*=\\s*min\\(.*\\)", s_trimmed_code) != None):
+                   passes.append(False)
+                   error_msgs.append(" Failed: You may not use <b><font color=purple>max</font></b>() or <b><font color=purple>min</font></b>() to solve this problem.</font>")
+                elif(result[0] == (-10, -100)):
                     passes.append(True)
                 else:
                     passes.append(False)
