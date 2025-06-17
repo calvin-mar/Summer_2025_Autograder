@@ -6,6 +6,7 @@ import re
 import os
 import importlib.util
 from multiprocessing import shared_memory as shm
+import multiprocessing
 
 
 def autoGrader(student_submission, assistant, window):
@@ -178,8 +179,10 @@ def testing():
     return passes
 
 def main():
+    
     assistant = loadAssistant()
     assistant.displayWindow(autoGrader, "lab_02_student_submission.py", assistant)
 
 if __name__ == "__main__":
+    multiprocessing.freeze_support()
     main()

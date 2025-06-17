@@ -6,6 +6,7 @@ import astor
 import re
 import os
 from multiprocessing import shared_memory as shm
+from multiprocessing import freeze_support
 import importlib.util
 
 # Graphics/PyQt imports
@@ -301,4 +302,5 @@ def main():
 	
 
 if __name__ == "__main__":
+    freeze_support()
     main()

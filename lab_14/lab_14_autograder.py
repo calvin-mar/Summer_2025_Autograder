@@ -6,6 +6,7 @@ import re
 import importlib.util
 import os
 from multiprocessing import shared_memory as shm
+from multiprocessing import freeze_support
 
 # Graphics/PyQt imports
 from PyQt6.QtCore import QSize, Qt
@@ -869,5 +870,6 @@ def main():
     assistant.displayWindow(autoGrader, "lab_14_student_submission.py", assistant, testSets)
 
 if __name__ == "__main__":
+    freeze_support()
     main()
 

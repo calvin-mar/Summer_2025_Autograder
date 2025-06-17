@@ -356,4 +356,5 @@ def main():
     assistant.displayWindow(autoGrader, "lab_04_student_submission.py", assistant, testSets)
 
 if __name__ == "__main__":
+    multiprocessing.freeze_support()
     main()

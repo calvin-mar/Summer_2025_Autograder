@@ -8,6 +8,7 @@ import threading
 import trace
 import os
 from multiprocessing import shared_memory as shm
+import multiprocessing
 import importlib.util
 import traceback
 

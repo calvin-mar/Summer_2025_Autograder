@@ -6,6 +6,7 @@ import re
 import os
 import importlib.util
 from multiprocessing import shared_memory as shm
+from multiprocessing import freeze_support
 
 def autoGrader(student_submission, assistant, window):
     #Making sure shared memory file does not already exist
@@ -487,4 +488,5 @@ def main():
     assistant.displayWindow(autoGrader, "lab_07_student_submission.py", assistant, testSets)
 
 if __name__ == "__main__":
+    freeze_support()
     main()
