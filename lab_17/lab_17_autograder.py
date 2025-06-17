@@ -12,7 +12,7 @@ from PyQt6.QtCore import QSize, Qt
 from PyQt6.QtWidgets import *
 #from layout_colorwidget import Color
 
-def autoGrader(student_submission, assistant):
+def autoGrader(student_submission, assistant, window):
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
         l_data.shm.close()
@@ -36,7 +36,7 @@ def autoGrader(student_submission, assistant):
     sm = importlib.util.module_from_spec(specific_student)
 
     TIMEOUT = 30 
-    b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), TIMEOUT)
+    b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), window, TIMEOUT)
     if b_proceed == False:
         passes.append(False)
         if s_error_msg != "":
@@ -56,7 +56,7 @@ def autoGrader(student_submission, assistant):
         # Test 1: Task 1: Test load_misspellings() function
         test_dict = {"doofis":"doofus", "gote":"goat", "miztake":"mistake", "l8":"late", "kat":"cat"}
         try:
-            result = assistant.testFunction(sm.load_misspellings)
+            result = window.testFunction(sm.load_misspellings)
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -75,7 +75,7 @@ def autoGrader(student_submission, assistant):
         test_dict = {"doofis":"doofus", "gote":"goat", "miztake":"mistake", "l8":"late", "kat":"cat"}
 
         try:
-            result = assistant.testFunction(sm.fix_misspellings, (test_dict,))
+            result = window.testFunction(sm.fix_misspellings, (test_dict,))
             if(result[1]):
                 result[0] = result[0] + " The testing dictionary was 'doofis':'doofus', 'gote':'goat', 'miztake':'mistake', 'l8':'late', 'kat':'cat'. </font>"
                 error_msgs.append(result[0])
@@ -103,7 +103,7 @@ def autoGrader(student_submission, assistant):
             else:
                 test_dict2[word] = 1
         try:  
-            result = assistant.testFunction(sm.word_count, (s_text,))
+            result = window.testFunction(sm.word_count, (s_text,))
             if(result[1]):
                 result[0] = result[0] + " The text was 'when i am late getting home my goat doofus may make a mistake and eat my cat this keeps mee from getting home late all the time becuz i love my goat and dont want him to get a hairball from eating my cat'"
                 error_msgs.append(result[0])
@@ -121,7 +121,7 @@ def autoGrader(student_submission, assistant):
         # Test 4: Task 1: Test output_fixed_text() function
 
         try:
-            result = assistant.testFunction(sm.output_fixed_text, (s_text,))
+            result = window.testFunction(sm.output_fixed_text, (s_text,))
             if(result[1]):
                 result[0] = result[0] + " The text was 'when i am late getting home my goat doofus may make a mistake and eat my cat this keeps mee from getting home late all the time becuz i love my goat and dont want him to get a hairball from eating my cat'"
                 error_msgs.append(result[0])
@@ -147,7 +147,7 @@ def autoGrader(student_submission, assistant):
 
         spanish_dict = {"amigo":"friend", "hola":"hello", "mi":"my", "donde":"where", "esta":"is", "diablo":"devil", "bano":"bathroom"}        
         try:
-            result = assistant.testFunction(sm.make_dictionary)
+            result = window.testFunction(sm.make_dictionary)
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -163,7 +163,7 @@ def autoGrader(student_submission, assistant):
 
         # Test 6: Task 2: Test get_text_to_translate() function
         try:
-            result = assistant.testFunction(sm.get_text_to_translate)
+            result = window.testFunction(sm.get_text_to_translate)
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -181,7 +181,7 @@ def autoGrader(student_submission, assistant):
         s_translate_me = "hola mi amigo donde esta la salle de de bano"
 
         try:
-            result = assistant.testFunction(sm.translate, (spanish_dict, s_translate_me))
+            result = window.testFunction(sm.translate, (spanish_dict, s_translate_me))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)

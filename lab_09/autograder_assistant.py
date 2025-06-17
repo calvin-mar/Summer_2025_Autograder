@@ -114,7 +114,7 @@ class Color(QWidget):
 
 #Inputs filename, looks for banned syntax
 #Outputs b_proceed and s_error_msg
-def syntax_checker(filename, timeout=0):
+def syntax_checker(filename, window, timeout=0):
         if getattr(sys, "frozen", False):
             dir_path = os.path.dirname(sys.executable)
         else:
@@ -122,7 +122,7 @@ def syntax_checker(filename, timeout=0):
         name = filename[:-3]
         specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, filename))
         sm = importlib.util.module_from_spec(specific_student)
-        output = testFunction(specific_student.loader.exec_module, (sm,))
+        output = window.testFunction(specific_student.loader.exec_module, (sm,))
         if(output[1]):
             if("infinite" in output[0]):
                 return False, "There is a problem with your code, you may have an infinite loop outside of a function. Check that all loops have a ending condition."
@@ -238,34 +238,6 @@ def syntax_checker(filename, timeout=0):
 
         return b_proceed, s_error_msg
     
-# Tests for infinite loops, errors
-# Inputs: function to test, paramater list to pass, input list for input statements
-# Outputs: result or error message
-def testFunction(function, parameter_list=(), input_list=[]):
-    # Return either Infinite, Error, or All Good
-    global l_data
-    l_data = input_list
-    result =["Error"]
-    #print(l_data)
-    p = thread_with_trace(target=wrapper, args=(function,parameter_list, result), daemon=True)
-    p.start()
-    p.join(3)
-    output = []
-    if p.is_alive():
-        p.kill()
-        output.append(" Failed: Function " + str(function.__name__) + "() caused an error. The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!")
-        output.append(True)
-    elif result[0] == "Error":
-        output.append(" Failed: Function " + str(function.__name__) + "() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!")
-        output.append(True)
-    elif result[0] == "Input":
-        output.append("  Failed: Function " + str(function.__name__) + "() caused an error. It might contain an unexpected or extra input that is causing it to crash. Try adding some print statements to it to see what is happening!")
-        output.append(True)
-    else:
-        output.append(result[0])
-        output.append(False)
-    return output
-
 # Worker Thread to run Autograder
 # Sends finished, resultReadySig, errorOccured, updateWindowSig pyqtSignal(s)
 class Worker(QObject):
@@ -323,7 +295,7 @@ class MainWindow(QMainWindow):
         self.flag = True
 
         self.progressBar = PyQt6.QtWidgets.QProgressBar(self)
-        self.progressBar.setMaximum(sum(testSets)*3)
+        self.progressBar.setMaximum((sum(testSets)+1)*3)
         self.progressBar.setGeometry(200, 400, 400, 30)
         self.progress.connect(self.updateProgress)
         if(len(testSets) == 1):

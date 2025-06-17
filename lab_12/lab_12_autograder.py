@@ -15,7 +15,7 @@ import csc170_strings_data
 from csc170_strings_data import *
 
 
-def autoGrader(student_submission, assistant):
+def autoGrader(student_submission, assistant, window):
 
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
@@ -38,7 +38,7 @@ def autoGrader(student_submission, assistant):
     sm = importlib.util.module_from_spec(specific_student)
 
     TIMEOUT = 30 
-    b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), TIMEOUT)
+    b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), window, TIMEOUT)
     if b_proceed == False:
         passes.append(False)
         if s_error_msg != "":
@@ -531,7 +531,7 @@ def testing():
 
 def main():
     assistant = loadAssistant()
-    testSets = [4, 2, 6, 3, 5, 2]
+    testSets = []
     assistant.displayWindow(autoGrader, "lab_12_student_submission.py", assistant, testSets)
 	
 if __name__ == "__main__":

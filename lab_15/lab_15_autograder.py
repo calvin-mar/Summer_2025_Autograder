@@ -14,7 +14,7 @@ from PyQt6.QtWidgets import *
 #from layout_colorwidget import Color
 
 
-def autoGrader(student_submission, assistant):
+def autoGrader(student_submission, assistant, window):
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
         l_data.shm.close()
@@ -37,7 +37,7 @@ def autoGrader(student_submission, assistant):
     sm = importlib.util.module_from_spec(specific_student)
 
     TIMEOUT = 30 
-    b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), TIMEOUT)
+    b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), window, TIMEOUT)
     if b_proceed == False:
         passes.append(False)
         if s_error_msg != "":
@@ -54,7 +54,7 @@ def autoGrader(student_submission, assistant):
         # Test 1: Test get_data() function with test_file.txt file
 
         try:
-            result = assistant.testFunction(sm.get_data, ("test_file.txt",))
+            result = window.testFunction(sm.get_data, ("test_file.txt",))
             if(result[1]):
                 result[0] = result[0] + ' The file was "test_file.txt". </font>'
                 error_msgs.append(result[0])
@@ -71,7 +71,7 @@ def autoGrader(student_submission, assistant):
 
         # Test 2: Test count_item_records() function
         try:
-            result = assistant.testFunction(sm.count_item_records, ("student",["John", "student", "student_id_123", "Dave", "faculty", "faculty_id_151", "Suzy", "student", "student_id_563"]))
+            result = window.testFunction(sm.count_item_records, ("student",["John", "student", "student_id_123", "Dave", "faculty", "faculty_id_151", "Suzy", "student", "student_id_563"]))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -87,7 +87,7 @@ def autoGrader(student_submission, assistant):
 
         # Test 3: Test count_item_records() function
         try:
-            result = assistant.testFunction(sm.count_item_records, ("faculty", ["John Harney", "faculty", "faculty_id_123", "John Doe", "faculty", "faculty_id_151", "Bruce Johnson", "faculty", "faculty_id_563", "John Ac", "staff", "staff_id_15632", "Ilike Badjokes", "faculty", "faculty_id_542151", "Ima Plumber", "staff", "staff_id_5653"]))
+            result = window.testFunction(sm.count_item_records, ("faculty", ["John Harney", "faculty", "faculty_id_123", "John Doe", "faculty", "faculty_id_151", "Bruce Johnson", "faculty", "faculty_id_563", "John Ac", "staff", "staff_id_15632", "Ilike Badjokes", "faculty", "faculty_id_542151", "Ima Plumber", "staff", "staff_id_5653"]))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -103,7 +103,7 @@ def autoGrader(student_submission, assistant):
 
         # Test 4: Test count_item_records() function
         try:
-            result = assistant.testFunction(sm.count_item_records, ("faculty", ["Michael Phelps", "athlete", "athlete_id_023", "Katie Ledecky", "athlete", "athlete_id_800", "Ryan George", "staff", "staff_id_404", "King Arthur", "staff", "staff_id_1217", "Percy Jackson", "student", "student_id_1609", "John Cena", "____", "id_007"]))
+            result = window.testFunction(sm.count_item_records, ("faculty", ["Michael Phelps", "athlete", "athlete_id_023", "Katie Ledecky", "athlete", "athlete_id_800", "Ryan George", "staff", "staff_id_404", "King Arthur", "staff", "staff_id_1217", "Percy Jackson", "student", "student_id_1609", "John Cena", "____", "id_007"]))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -120,7 +120,7 @@ def autoGrader(student_submission, assistant):
         # Test 5: Test count_csv_records() function
 
         try:
-            result = assistant.testFunction(sm.count_csv_records, ("faculty", ["John Harney,faculty,faculty_id_123","John Doe,faculty,faculty_id_151","Bruce Johnson,faculty,faculty_id_563","John Ac,staff,staff_id_15632","Ilike Badjokes,faculty,faculty_id_542151","Ima Plumber,staff,staff_id_5653"]))
+            result = window.testFunction(sm.count_csv_records, ("faculty", ["John Harney,faculty,faculty_id_123","John Doe,faculty,faculty_id_151","Bruce Johnson,faculty,faculty_id_563","John Ac,staff,staff_id_15632","Ilike Badjokes,faculty,faculty_id_542151","Ima Plumber,staff,staff_id_5653"]))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -137,7 +137,7 @@ def autoGrader(student_submission, assistant):
         # Test 6: Test count_csv_records() function
 
         try:
-            result = assistant.testFunction(sm.count_csv_records, ("staff", ["Neville Longbottom,faculty,faculty_id_456","Charles Xavier,faculty,faculty_id_941234","Chiron,faculty,faculty_id_80","Merlin the wizard,merline,staff_id_000001","Obiwan Kenobi,faculty,faculty_id_66"]))
+            result = window.testFunction(sm.count_csv_records, ("staff", ["Neville Longbottom,faculty,faculty_id_456","Charles Xavier,faculty,faculty_id_941234","Chiron,faculty,faculty_id_80","Merlin the wizard,merline,staff_id_000001","Obiwan Kenobi,faculty,faculty_id_66"]))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -154,7 +154,7 @@ def autoGrader(student_submission, assistant):
         # Test 7: Test make_data_file() function 
 
         try:
-            result = assistant.testFunction(sm.make_data_file, ("sample_file3.txt", ["John Harney","faculty","faculty_id_123","John Doe","faculty","faculty_id_151","Bruce Johnson","faculty","faculty_id_563","John Ac","staff","staff_id_15632","Ilike Badjokes","faculty","faculty_id_542151","Ima Plumber","staff","staff_id_5653"]))
+            result = window.testFunction(sm.make_data_file, ("sample_file3.txt", ["John Harney","faculty","faculty_id_123","John Doe","faculty","faculty_id_151","Bruce Johnson","faculty","faculty_id_563","John Ac","staff","staff_id_15632","Ilike Badjokes","faculty","faculty_id_542151","Ima Plumber","staff","staff_id_5653"]))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -178,7 +178,7 @@ def autoGrader(student_submission, assistant):
         # Test 8: Test make_data_csv_file() function
 
         try:
-            result = assistant.testFunction(sm.make_data_csv_file, ("sample_file.txt", 3, ["John Harney","faculty","faculty_id_123","John Doe","faculty","faculty_id_151","Bruce Johnson","faculty","faculty_id_563","John Ac","staff","staff_id_15632","Ilike Badjokes","faculty","faculty_id_542151","Ima Plumber","staff","staff_id_5653"]))
+            result = window.testFunction(sm.make_data_csv_file, ("sample_file.txt", 3, ["John Harney","faculty","faculty_id_123","John Doe","faculty","faculty_id_151","Bruce Johnson","faculty","faculty_id_563","John Ac","staff","staff_id_15632","Ilike Badjokes","faculty","faculty_id_542151","Ima Plumber","staff","staff_id_5653"]))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -198,7 +198,7 @@ def autoGrader(student_submission, assistant):
         output_file.write("ImaTestFile")
         output_file.close()
         try:
-            result = assistant.testFunction(sm.append_to_file, ("sample_file2.txt", ["ABC", "DEF", "GHI", "JKL", "MNO", "PQR", "STU", "VWX", "YZ"]))
+            result = window.testFunction(sm.append_to_file, ("sample_file2.txt", ["ABC", "DEF", "GHI", "JKL", "MNO", "PQR", "STU", "VWX", "YZ"]))
         except:
             result = "Error"
         if(result == "Infinite"):
