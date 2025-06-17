@@ -50,6 +50,18 @@ def autoGrader(student_submission, assistant, window):
         ########################################################################
         # Start of tests #######################################################
         ########################################################################
+        with open("lab_06_student_submission.py","r") as f:
+            code = f.read() 
+        parsed = ast.parse(code)
+        for node in ast.walk(parsed):
+            if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
+                # set value to empty string
+                node.value = ast.Constant(value='') 
+        s_trimmed_code = astor.to_source(parsed)  
+        pattern = r'^.*"""""".*$' # remove empty """"""
+        s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE) 
+    
+
 
         # Test 1: Task 1: Test biggest_number() function with biggest in 1st position
         l_data = shm.ShareableList([100, 80, 30, 90, 20, 10, 50, 40, 70, 60], name="l_data")
@@ -60,7 +72,10 @@ def autoGrader(student_submission, assistant, window):
                 error_msgs.append(result[0])
                 passes.append(False)
             else:
-                if(result[0] == 100):
+                if(re.search(".*=\\s*max\\(.*\\)", s_trimmed_code) != None):
+                   passes.append(False)
+                   error_msgs.append(" Failed: You may not use <b><font color=purple>max</font></b>() to solve this problem.</font>")
+                elif(result[0] == 100):
                     passes.append(True)
                 else:
                     passes.append(False)
@@ -81,12 +96,16 @@ def autoGrader(student_submission, assistant, window):
                 error_msgs.append(result[0])
                 passes.append(False)
             else:
-                if(result[0] == 100):
+                if(re.search(".*=\\s*max\\(.*\\)", s_trimmed_code) != None):
+                   passes.append(False)
+                   error_msgs.append(" Failed: You may not use <b><font color=purple>max</font></b>() to solve this problem.</font>")
+                elif(result[0] == 100):
                     passes.append(True)
                 else:
                     passes.append(False)
                     error_msgs.append(" Failed: biggest_number() should return 100 when the user enters 50, 20, 80, 40, 10, 70, 90, 60, 30, 100, but it returns " + str(result[0]) + ".</font>")
-        except:
+        except Exception as exc:
+            print(exc)
             passes.append(False)
             error_msgs.append(" Failed: Function biggest_number() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
         l_data.shm.close()
@@ -102,7 +121,10 @@ def autoGrader(student_submission, assistant, window):
                 error_msgs.append(result[0])
                 passes.append(False)
             else:
-                if(result[0] == 100):
+                if(re.search(".*=\\s*max\\(.*\\)", s_trimmed_code) != None):
+                   passes.append(False)
+                   error_msgs.append(" Failed: You may not use <b><font color=purple>max</font></b>() to solve this problem.</font>")
+                elif(result[0] == 100):
                     passes.append(True)
                 else:
                     passes.append(False)
@@ -123,7 +145,10 @@ def autoGrader(student_submission, assistant, window):
                 error_msgs.append(result[0])
                 passes.append(False)
             else:
-                if(result[0] == -10):
+                if(re.search(".*=\\s*max\\(.*\\)", s_trimmed_code) != None):
+                    passes.append(False)
+                    error_msgs.append(" Failed: You may not use <b><font color=purple>max</font></b>() to solve this problem.</font>")
+                elif(result[0] == -10):
                     passes.append(True)
                 else:
                     passes.append(False)
