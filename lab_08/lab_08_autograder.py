@@ -209,7 +209,7 @@ def autoGrader(student_submission, assistant):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: fib_num() should return 0 when the argument is 1, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: fib_num() should return 1 when the argument is 2, but it returns " + str(result[0]) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function fib_num() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
