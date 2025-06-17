@@ -5,7 +5,6 @@ if __name__ != "__main__":
     from autograder_assistant import input
 import csc170_strings_data
 from csc170_strings_data import *
-
 s_task_1_data = get_q1_string()
 s_task_2_data = get_q2_string()
 s_task_3_A_data, s_task_3_B_data = get_q3_string()

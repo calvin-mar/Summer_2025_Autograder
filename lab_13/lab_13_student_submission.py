@@ -123,9 +123,6 @@ def get_acid(s_triplet):
             acid = "G"
             
     return acid
-            
-    
-
 
 def main():
     print()
