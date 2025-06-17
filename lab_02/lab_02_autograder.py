@@ -9,6 +9,7 @@ from multiprocessing import shared_memory as shm
 
 
 def autoGrader(student_submission, assistant, window):
+    print(window)
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
         l_data.shm.close()
@@ -173,7 +174,7 @@ def loadAssistant():
 
 def testing():
     assistant = loadAssistant()
-    passes, error_msgs = autoGrader("lab_02_student_submission.py", assistant)
+    passes, error_msgs = autoGrader("lab_02_student_submission.py", assistant, assistant)
     return passes
 
 def main():

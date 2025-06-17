@@ -516,7 +516,7 @@ def loadAssistant():
 
 def testing():
     assistant = loadAssistant()
-    passes, error_msgs,assistant = autoGrader("lab_05_student_submission.py", assistant)
+    passes, error_msgs,assistant = autoGrader("lab_05_student_submission.py", assistant, assistant)
     return passes
 
 def main():
