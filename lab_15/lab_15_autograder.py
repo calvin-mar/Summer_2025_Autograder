@@ -221,7 +221,7 @@ def autoGrader(student_submission, assistant):
     print("...Autograder completed.")
     print()
     print("You may close the Autograder window to exit.")
-    return passes, error_msgs, assistant
+    return passes, error_msgs
 # Copied from lab_15_diff
 def diff(s_file_name, s_file_name2):
     NO_DIFFS = 0
@@ -259,7 +259,7 @@ def loadAssistant():
 
 def testing():
     assistant = loadAssistant()
-    passes, error_msgs,assistant = autoGrader("lab_15_student_submission.py", assistant)
+    passes, error_msgs = autoGrader("lab_15_student_submission.py", assistant)
     return passes
 
 def main():
