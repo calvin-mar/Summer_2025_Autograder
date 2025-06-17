@@ -13,7 +13,6 @@ l_miles = [3.1, 6.2, 13.1, 26.2]
 
 # 3
 f_third = l_miles[3]
-input("")
 # 4
 l_states = ["KY", "IN", "TN", "WV"]
 l_states[0] = "MA"

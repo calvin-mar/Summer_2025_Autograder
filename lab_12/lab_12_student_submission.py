@@ -28,7 +28,6 @@ s_task_25_A_data, s_task_25_B_data = get_q25_string()
 s_task_26_data = get_q26_string()
 s_task_27_data = get_q27_string()
 
-
 # 1
 i_task_1 = len(s_task_1_data)
 
@@ -51,6 +50,7 @@ else:
     b_task_5 = False
 
 # 6
+print(s_task_6_data)
 if "sally" not in s_task_6_data:
     b_task_6 = True
 else:

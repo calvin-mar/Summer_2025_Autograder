@@ -1,3 +1,6 @@
+# Name:
+# Date:
+# Purpose: Lists lab 2
 
 import csc170_lists_data
 
@@ -18,7 +21,7 @@ print(l_mid)
 l_nums = csc170_lists_data.get_q4_list()
 l_copy_nums = []
 for item in l_nums:
-    l_copy_nums.append(item-1)
+    l_copy_nums.append(item)
 print(l_copy_nums)
 
 
