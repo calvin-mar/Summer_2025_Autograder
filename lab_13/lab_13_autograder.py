@@ -64,7 +64,7 @@ def autoGrader(student_submission, assistant):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: read_data(\"shark.txt\") should return AAACCCGGGTTTACTTAGCGA, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: read_data(\"shark.txt\") should return AAACCCGGGTTTACTTAGCGA, but it returns " + repr(str(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function read_data() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -82,7 +82,7 @@ def autoGrader(student_submission, assistant):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: read_data(\"elephant.txt\") should return ACGACGTTTAAACCR, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: read_data(\"elephant.txt\") should return ACGACGTTTAAACCR, but it returns " + repr(str(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function read_data() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -189,7 +189,7 @@ def autoGrader(student_submission, assistant):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: complement() with strand \"AAACCCGGGTTTACT\" should return \"TTTGGGCCCAAATGA\", but it returns " + str(result) + ".</font>")
+                    error_msgs.append(" Failed: complement() with strand \"AAACCCGGGTTTACT\" should return \"TTTGGGCCCAAATGA\", but it returns " + str(result[0]) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function complement() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -209,7 +209,7 @@ def autoGrader(student_submission, assistant):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: get_triplets() with strand \"ACGCGTGTATACAAATTT\" should return [\"ACG\", \"CGT\", \"GTA\", \"TAC\", \"AAA\", \"TTT\"], but it returns " + str(result) + ".</font>")
+                    error_msgs.append(" Failed: get_triplets() with strand \"ACGCGTGTATACAAATTT\" should return [\"ACG\", \"CGT\", \"GTA\", \"TAC\", \"AAA\", \"TTT\"], but it returns " + str(result[0]) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function get_triplets() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -229,7 +229,7 @@ def autoGrader(student_submission, assistant):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: get_amino_acids() with argument [\"ACG\", \"CGT\", \"GTA\", \"TAC\", \"AAA\", \"TTT\"] should return \"TRVYKF\", but it returns " + str(result) + ".</font>")
+                    error_msgs.append(" Failed: get_amino_acids() with argument [\"ACG\", \"CGT\", \"GTA\", \"TAC\", \"AAA\", \"TTT\"] should return \"TRVYKF\", but it returns " + str(result[0]) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function get_amino_acids() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -276,7 +276,7 @@ def autoGrader(student_submission, assistant):
     print()
     print("You may close the Autograder window to exit.")
 
-    return passes, error_msgs, assistant
+    return passes, error_msgs
 
 def loadAssistant():
     if getattr(sys, "frozen", False):
@@ -290,7 +290,7 @@ def loadAssistant():
 
 def testing():
     assistant = loadAssistant()
-    passes, error_msgs,assistant = autoGrader("lab_13_student_submission.py", assistant)
+    passes, error_msgs = autoGrader("lab_13_student_submission.py", assistant)
     return passes
 
 def main():
