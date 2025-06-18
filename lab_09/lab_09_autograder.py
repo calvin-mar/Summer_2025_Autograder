@@ -265,9 +265,12 @@ def loadAssistant():
 
     return assistant
 
+def getTestsNum():
+    return 17
+
 def testing():
     assistant = loadAssistant()
-    passes, error_msgs = autoGrader("lab_09_student_submission.py", assistant, assistant)
+    passes, error_msgs = autoGrader("lab_09_student_submission.py", assistant, window)
     return passes
 
 def main():

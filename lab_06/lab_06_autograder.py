@@ -520,9 +520,12 @@ def loadAssistant():
 
     return assistant
 
-def testing():
+def getTestsNum():
+    return 22
+
+def testing(window):
     assistant = loadAssistant()
-    passes, error_msgs = autoGrader("lab_06_student_submission.py", assistant, assistant)
+    passes, error_msgs = autoGrader("lab_06_student_submission.py", assistant, window)
     return passes
 
 def main():
