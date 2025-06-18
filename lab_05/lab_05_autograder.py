@@ -513,10 +513,11 @@ def loadAssistant():
     specific.loader.exec_module(assistant)
 
     return assistant
-
-def testing():
+def getTestsNum():
+    return 25
+def testing(window):
     assistant = loadAssistant()
-    passes, error_msgs,assistant = autoGrader("lab_05_student_submission.py", assistant, assistant)
+    passes, error_msgs,assistant = autoGrader("lab_05_student_submission.py", assistant, window)
     return passes
 
 def main():

@@ -8,7 +8,6 @@ import threading
 import trace
 import os
 from multiprocessing import shared_memory as shm
-import multiprocessing
 import importlib.util
 import traceback
 
@@ -254,33 +253,6 @@ def syntax_checker(filename, window, timeout=0):
                 s_error_msg = "Your file could not be read.  Make sure it is named correctly.  "
 
         return b_proceed, s_error_msg
-# Tests for infinite loops, errors
-# Inputs: function to test, paramater list to pass, input list for input statements
-# Outputs: result or error message
-def testFunction(function, parameter_list=(), input_list=[]):
-    # Return either Infinite, Error, or All Good
-    global l_data
-    l_data = input_list
-    result =["Error"]
-    #print(l_data)
-    p = thread_with_trace(target=wrapper, args=(function,parameter_list, result), daemon=True)
-    p.start()
-    p.join(3)
-    output = []
-    if p.is_alive():
-        p.kill()
-        output.append(" Failed: Function " + str(function.__name__) + "() caused an error. The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!")
-        output.append(True)
-    elif result[0] == "Error":
-        output.append(" Failed: Function " + str(function.__name__) + "() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!")
-        output.append(True)
-    elif result[0] == "Input":
-        output.append("  Failed: Function " + str(function.__name__) + "() caused an error. It might contain an unexpected or extra input that is causing it to crash. Try adding some print statements to it to see what is happening!")
-        output.append(True)
-    else:
-        output.append(result[0])
-        output.append(False)
-    return output
     
 # Worker Thread to run Autograder
 # Sends finished, resultReadySig, errorOccured, updateWindowSig pyqtSignal(s)

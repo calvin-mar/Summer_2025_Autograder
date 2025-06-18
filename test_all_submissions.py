@@ -5,10 +5,12 @@ import re
 import subprocess
 import shutil
 import importlib.util
+import threading
 
 # Graphics/PyQt imports
 from PyQt6.QtCore import QSize, Qt, QObject, QThread, pyqtSignal
 from PyQt6.QtWidgets import *
+import PyQt6.QtWidgets
 
 ## This section contains to function to block and enable print
 ## The purpose of this is to avoid flooding the shell with
@@ -47,19 +49,21 @@ def disperse_documents():
 class Worker(QObject):
     end = pyqtSignal(object)
     errorOccurredSig = pyqtSignal(object)
+    testNum = pyqtSignal(int)
 
-    def __init__(self, cwd):
+    def __init__(self, cwd, window):
         super().__init__()
         self.cwd = cwd
+        self.window = window
         self.names = []
         self.results = []
 
     def run(self):
-        self.navigate_submissions()
+        self.navigate_submissions(self.window)
         output = [self.names, self.results]
         self.end.emit(output)
         
-    def navigate_submissions(self):
+    def navigate_submissions(self, window):
         for name in os.listdir(self.cwd):
             if(not os.path.isfile(name) and name != "__pycache__"):
                 testCase = QHBoxLayout()
@@ -71,15 +75,15 @@ class Worker(QObject):
                 
                 #blockPrint()
                 try:
-                    student_result = self.test_submission(name)
-                except:
+                    student_result = self.test_submission(name, window)
+                except Exception as exc:
                     student_result = ["Bad"]
                     
                 #enablePrint()
                 self.names.append(name)
                 self.results.append(student_result)
 
-    def test_submission(self,directory_name):
+    def test_submission(self,directory_name, window):
         # This function tests each individual submission
         # Given the directory name, it runs the autograder inside and returns the result
         # This requires each autograder to be refactored to include a 
@@ -95,18 +99,74 @@ class Worker(QObject):
                 specific = importlib.util.spec_from_file_location(autograder_file, path_to_autograder)
                 autograder = importlib.util.module_from_spec(specific)
                 specific.loader.exec_module(autograder)
-                # Add Timer and Exceptions
-                student_result = autograder.testing()
+
+                test_num = autograder.getTestsNum()
+                self.testNum.emit(test_num)
+                student_result = autograder.testing(window)
 
                 return student_result
-        return False
+        return [False]
+    
+class thread_with_trace(threading.Thread):
+  """
+  This code provides a version of threading that allows for the threads to be killed.
+  It attaches a trace to the thread which monitors a variable in order to kill a function.
+  """
+  def __init__(self, *args, **keywords):
+    threading.Thread.__init__(self, *args, **keywords)
+    self.killed = False
+
+  def start(self):
+    self.__run_backup = self.run
+    self.run = self.__run      
+    threading.Thread.start(self)
+
+  def __run(self):
+    sys.settrace(self.globaltrace)
+    self.__run_backup()
+    self.run = self.__run_backup
+
+  def globaltrace(self, frame, event, arg):
+    if event == 'call':
+      return self.localtrace
+    else:
+      return None
+
+  def localtrace(self, frame, event, arg):
+    if self.killed:
+      if event == 'line':
+        raise SystemExit()
+    return self.localtrace
+
+  def kill(self):
+    self.killed = True
+    
+# Input: Function to run (student functions), paramaters for function, var result to return result
+# Outputs: result (error or output if passes)
+def wrapper(function, parameter_list, result):
+    try:
+        result[0] = function(*parameter_list)
+    except Exception as e:
+        try:
+            if(e.message == "InputException"):
+                result[0] = "Input"
+            else:
+                result[0] = "Error"
+        except:
+            result[0]
 
 class MainWindow(QMainWindow):
+    progress = pyqtSignal(int)
     def __init__(self):
         ## Prepare Window
         super().__init__()
         self.names = []
         self.results = []
+        self.cwd = os.getcwd()
+        self.studentCount = -1
+        for name in os.listdir(self.cwd):
+            if(not os.path.isfile(name)):
+                self.studentCount += 1
 
         self.scroll = QScrollArea()
         self.widget = QWidget()
@@ -125,6 +185,11 @@ class MainWindow(QMainWindow):
         widget.setFont(font)
         widget.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
         self.setCentralWidget(widget)
+
+        self.progressBar = PyQt6.QtWidgets.QProgressBar(self)
+        self.progressBar.setGeometry(200, 400, 400, 30)
+        self.progress.connect(self.updateProgress)
+
         ## Run through all files and folders
         ## In each folder, that is not pycache, run the autograder inside it
         self.show()
@@ -132,24 +197,24 @@ class MainWindow(QMainWindow):
 
 
     def beginTesting(self):
-        cwd = os.getcwd()
         self.thread = QThread()
-        self.worker = Worker(cwd)
+        self.worker = Worker(self.cwd, self)
 
         self.worker.moveToThread(self.thread)
 
         self.thread.started.connect(self.worker.run)
         self.worker.end.connect(self.thread.quit)
         self.worker.end.connect(self.worker.deleteLater)
-
+        
+        self.worker.testNum.connect(self.setMaximumBar)
         self.worker.end.connect(self.handleResults)
         self.worker.end.connect(self.updateWindow)
 
         self.thread.start()
 
     def updateWindow(self):
-        print("NAMES: ", self.names)
-        print("RESULTS: ", self.results)
+        #print("NAMES: ", self.names)
+        #print("RESULTS: ", self.results)
         QApplication.restoreOverrideCursor()
         self.setCentralWidget(self.widget)
         
@@ -204,7 +269,43 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('All Submissions')
         self.show()
         
-        return 
+        return
+
+    # Tests for infinite loops, errors
+    # Inputs: function to test, paramater list to pass, input list for input statements
+    # Outputs: result or error message
+    def testFunction(self,function, parameter_list=(), input_list=[]):
+        # Return either Infinite, Error, or All Good
+        global l_data
+        l_data = input_list
+        result =["Error"]
+        #print(l_data)
+        p = thread_with_trace(target=wrapper, args=(function,parameter_list, result), daemon=True)
+        p.start()
+        p.join(3)
+        output = []
+        if p.is_alive():
+            p.kill()
+            output.append(" Failed: Function " + str(function.__name__) + "() caused an error. The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!")
+            output.append(True)
+        elif result[0] == "Error":
+            output.append(" Failed: Function " + str(function.__name__) + "() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!")
+            output.append(True)
+        elif result[0] == "Input":
+            output.append("  Failed: Function " + str(function.__name__) + "() caused an error. It might contain an unexpected or extra input that is causing it to crash. Try adding some print statements to it to see what is happening!")
+            output.append(True)
+        else:
+            output.append(result[0])
+            output.append(False)
+        self.progress.emit(3)
+        return output
+
+    def updateProgress(self, newValue):
+        self.progressBar.setValue(self.progressBar.value() + newValue)
+
+    def setMaximumBar(self, testNum):
+        self.progressBar.setMaximum(self.studentCount * testNum * 3)
+
     def handleResults(self,output):
         self.names = output[0]
         self.results = output[1]
