@@ -6,7 +6,6 @@ import re
 import importlib.util
 import os
 from multiprocessing import shared_memory as shm
-from multiprocessing import freeze_support
 
 # Graphics/PyQt imports
 from PyQt6.QtCore import QSize, Qt
@@ -859,9 +858,12 @@ def loadAssistant():
     specific.loader.exec_module(assistant)
     return assistant
 
-def testing():
+def getTestsNum():
+    return 43
+
+def testing(window):
     assistant = loadAssistant()
-    passes, error_msgs,assistant = autoGrader("lab_14_student_submission.py", assistant, assistant)
+    passes, error_msgs,assistant = autoGrader("lab_14_student_submission.py", assistant, window)
     return passes
 
 def main():
@@ -870,6 +872,5 @@ def main():
     assistant.displayWindow(autoGrader, "lab_14_student_submission.py", assistant, testSets)
 
 if __name__ == "__main__":
-    freeze_support()
     main()
 
