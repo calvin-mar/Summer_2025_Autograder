@@ -28,12 +28,16 @@ Issues that may occur:
   --hidden-import MODULE
 
   Stderr: /Library/Developer/CommandLineTools/usr/bin/python3: No module named PyInstaller  
+  
   Make sure:
   pip install pyinstaller
+  
   Try:
     python3 -m PyInstaller --version
+  
   Or:
     Find location of pyinstaller with “which pyinstaller”
     Add to PATH variable
+  
   Or if using homebrew (MAC):
     Brew install pyinstaller
