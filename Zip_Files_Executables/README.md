@@ -20,7 +20,7 @@ To create the executables, place "createExecutables.py" in the folder that conta
 - lab_4
   - ...
 
-createExecutables is has 3 distinct functions for windows, linux, and mac. You can edit the parameters for each seperately.
+createExecutables has 3 distinct functions for windows, linux, and mac. You can edit the parameters for each seperately.
 
 if you would like to manually compile a file:
 python -m PyInstaller --add-data "autograder_assistant.py:." --hidden-import autograder_assistant --hidden-import trace --hidden-import multiprocessing --hidden-import PyQt6.QtWidgets --onefile --noupx --noconsole --distpath . --clean lab_xx_autograder.py
