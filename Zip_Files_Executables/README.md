@@ -8,20 +8,17 @@ To create the executables, place "createExecutables.py" in the folder that conta
 
 Labs 
 
--> createExecutables.py
+- createExecutables.py
+- autograder_assistant.py
+- lab_02
+  - lab_02_autograder.py
+  -  autograder_assistant.py
+  -   lab_02_student_submission.py
+- lab_03
+  - ...
 
--> autograder_assistant.py
-
--> lab_02
-  -> lab_02_autograder.py
-  -> autograder_assistant.py
-  -> lab_02_student_submission.py
-
--> lab_03
-  -> ...
-
--> lab_4
-  -> ...
+- lab_4
+  - ...
 
 createExecutables is has 3 distinct functions for windows, linux, and mac. You can edit the parameters for each seperately.
 
