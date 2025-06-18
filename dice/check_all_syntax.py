@@ -113,8 +113,6 @@ def syntax_checker(filename, window, timeout=0):
             s_trimmed_code = astor.to_source(parsed)
             pattern = r'^.*"""""".*$' # remove empty """"""
             s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE)
-            if("if __name__ != \"__main__\":" not in s_trimmed_code and "from autograder_assistant import input" not in s_trimmed_code):
-                return False, "The header structure has been deleted. Please ensure that the following line is in the submission:<br><br> <font color=orange>if</font> __name__ != <font color=green>\"__main__\"</font>:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=orange>from</font> autograder_assistant <font color=orange>import</font> <font color=purple>input</font>"
         except Exception as exc:
             return False, "Your file could not be read.  Make sure it is named correctly.  "
         if getattr(sys, "frozen", False):

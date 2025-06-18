@@ -8,7 +8,7 @@ def disperse_documents():
     ## This script will not copy over itself.
 
     excludedDirs = ["__pycache__", "lab_01", "lab_03", "lab_19", "lab_20", "mastermind", ".git", "fish", "dice","Zip_Files_Executables", "Zip_Files_Sources", "Solutions"]
-    excludedFiles = ["createExe.py", "disperse_documents.py", "README.md"]
+    excludedFiles = ["createExe.py", "disperse_documents.py", "README.md", "autograder_template.py"]
     
     # Organize Files and Directories
     cwd = os.getcwd()
