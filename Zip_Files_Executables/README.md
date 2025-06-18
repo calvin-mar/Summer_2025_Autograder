@@ -7,14 +7,19 @@ pip3 install opencv-python-headless
 To create the executables, place "createExecutables.py" in the folder that contains all the lab folders,along with autograder_assistant:
 
 Labs 
+
 -> createExecutables.py
+
 -> autograder_assistant.py
+
 -> lab_02
   -> lab_02_autograder.py
   -> autograder_assistant.py
   -> lab_02_student_submission.py
+
 -> lab_03
   -> ...
+
 -> lab_4
   -> ...
 
