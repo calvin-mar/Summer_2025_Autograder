@@ -43,7 +43,7 @@ def autoGrader(student_submission, assistant, window):
         ########################################################################
         # Start of tests #######################################################
         ########################################################################
-        with open("lab_08_student_submission.py","r") as f:
+        with open(os.path.join(dir_path, student_submission),"r") as f:
             code = f.read() 
         parsed = ast.parse(code)
         for node in ast.walk(parsed):

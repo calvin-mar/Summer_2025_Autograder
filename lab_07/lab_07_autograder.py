@@ -446,7 +446,7 @@ def autoGrader(student_submission, assistant, window):
         try:
             result = window.testFunction(sm.temp_monitor, (60.5, ))
             if(result[1]):
-                result[0] = result[0] + " The parameters were 8, 2. </font>"
+                result[0] = result[0] + " The parameter was 60.5. </font>"
                 error_msgs.append(result[0])
                 passes.append(False)
             else:

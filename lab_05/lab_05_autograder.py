@@ -6,6 +6,7 @@ import re
 import os
 import importlib.util
 from multiprocessing import shared_memory as shm
+import multiprocessing
 
 def autoGrader(student_submission, assistant, window):
     try:
