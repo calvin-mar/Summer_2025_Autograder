@@ -26,6 +26,7 @@ Lab Folders (each containing the following)
  - test_all_submissions
  - Necessary testing files
  - *Required: Folder for each student*
+   
 disperse_documents (file)
 compile_executables (file)
 README.md (file)
