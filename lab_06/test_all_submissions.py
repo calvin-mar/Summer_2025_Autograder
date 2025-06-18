@@ -91,7 +91,7 @@ class Worker(QObject):
 
         # Find the autograder amongst the files 
         for file in files:
-            if( len(re.findall("lab_\d\d_autograder", file)) == 1):
+            if( len(re.findall("lab_\d\d_autograder.py", file)) == 1):
                 cwd = os.getcwd()
                 path_to_autograder = os.path.join(cwd,directory_name,file)
                 sys.path.append(os.path.join(cwd,directory_name))
