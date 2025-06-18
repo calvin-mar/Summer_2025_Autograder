@@ -1,8 +1,8 @@
 This Repository contains files in the form:
 
-Solutions
+-Solutions
 
-Zip Files (Executables)
+-Zip Files (Executables)
  - Empty Student Submission
  - executable_autograder
  - autograder_assistant
@@ -10,7 +10,7 @@ Zip Files (Executables)
  - redX
  - Necessary testing files
 
-Zip Files (Source Codes)
+-Zip Files (Source Codes)
  - Empty Student Submission
  - autograder_source
  - Autograder_assistant
@@ -18,7 +18,7 @@ Zip Files (Source Codes)
  - redX
  - Necessary testing files
 
-Lab Folders (each containing the following)
+-Lab Folders (each containing the following)
  - lab_**_autograder
  - autograder_assistant
  - Check.png
@@ -27,14 +27,14 @@ Lab Folders (each containing the following)
  - Necessary testing files
  - *Required: Folder for each student. Currently contains examples: student_name1 and student_name2*
 
-autograder_assistant.py (file)  
-autograder_template.py (file) 
-check_all_syntax.py (file)  
-compile_executables.py (file)  
-createExe.py (file)  
-disperse_documents.py (file)  
-README.md (file)  
-test_all_submissions.py (file)  
+-autograder_assistant.py (file)  
+-autograder_template.py (file) 
+-check_all_syntax.py (file)  
+-compile_executables.py (file)  
+-createExe.py (file)  
+-disperse_documents.py (file)  
+-README.md (file)  
+-test_all_submissions.py (file)  
 
 
 1. Each student may be given a copy of the appropriate zip file for the relevant lab. The executables are directly created from the source code as found in the mirroring zip file. All code is runnable directly from idle.
