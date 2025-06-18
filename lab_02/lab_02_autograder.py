@@ -10,7 +10,6 @@ import multiprocessing
 
 
 def autoGrader(student_submission, assistant, window):
-    print(window)
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
         l_data.shm.close()
