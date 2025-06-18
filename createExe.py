@@ -96,6 +96,13 @@ def windowsFunction():
         print("Exit Code:", result.returncode)    
 
 def macFunction():
+    pyinstaller_path = shutil.which("pyinstaller")
+
+    if pyinstaller_path is None:
+        print("Error: PyInstaller not found in PATH.")
+        print("Please ensure it is installed via `pipx install pyinstaller` or available in your environment.")
+        sys.exit(1)
+
     cwd = os.getcwd()
     files = []
     dirs = []
@@ -114,10 +121,19 @@ def macFunction():
                 assistant = folder + "/" + "autograder_assistant.py:."
                 exeName = folder + "_Mac_Autograder"
                 specFile = exeName + ".spec"
-                result = subprocess.run(["python3","-m","PyInstaller",autograder, "--add-data", assistant, "--hidden-import",
-                                         "autograder_assistant.py", "--hidden-import","trace", "--hidden-import", "multiprocessing",
-                                         "--hidden-import", "PyQt6.QtWidgets", "--onefile", "--noupx", "--noconsole", "--distpath", folder,
-                                        "--clean", "-n", exeName], capture_output=True, text=True)
+
+                result = subprocess.run([
+                    pyinstaller_path, autograder,
+                    "--add-data", assistant,
+                    "--hidden-import", "autograder_assistant.py",
+                    "--hidden-import", "trace",
+                    "--hidden-import", "multiprocessing",
+                    "--hidden-import", "PyQt6.QtWidgets",
+                    "--onefile", "--noupx", "--noconsole",
+                    "--distpath", folder,
+                    "--clean", "-n", exeName
+                ], capture_output=True, text=True)
+
                 if result.returncode == 0:
                     print(exeName, "has been created! Cleaning up excess files...")
                 else:
