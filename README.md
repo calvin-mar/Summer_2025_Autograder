@@ -26,7 +26,9 @@ Lab Folders (each containing the following)
  - test_all_submissions
  - Necessary testing files
  - *Required: Folder for each student*
-
+disperse_documents (file)
+compile_executables (file)
+README.md (file)
 
 1. Each student may be given a copy of the appropriate zip file for the relevant lab. The executables are directly created from the source code as found in the mirroring zip file. All code is runnable directly from idle.
    
