@@ -299,12 +299,16 @@ class MainWindow(QMainWindow):
         QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
         ## Loading Screen
-        widget = QLabel("<b>Autograder is running...<br> Please be patient.</b>")
+        widget = QWidget()
+        layout = QVBoxLayout()
+        message = QLabel("<b>Autograder is running...<br> Please be patient.</b>")
         font = widget.font()
         font.setPointSize(30)
-        widget.setFont(font)
-        widget.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
-        self.setCentralWidget(widget)
+        message.setFont(font)
+        message.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
+
+        layout.addWidget(message)
+        
         self.passes = []
         self.error_msgs = []
         self.testSets = testSets
@@ -314,6 +318,11 @@ class MainWindow(QMainWindow):
         self.progressBar.setMaximum((sum(testSets)+1)*3)
         self.progressBar.setGeometry(200, 400, 400, 30)
         self.progress.connect(self.updateProgress)
+
+        layout.addWidget(self.progressBar)
+        self.setCentralWidget(widget)
+
+        
         if(len(testSets) == 1):
             self.testSets = []
         
@@ -351,6 +360,7 @@ class MainWindow(QMainWindow):
 
     def updateProgress(self, newValue):
         self.progressBar.setValue(self.progressBar.value() + newValue)
+        QApplication.processEvents()
 
     def startAutoGrader(self, autoGrader, filename, assistant, window):
         
@@ -371,6 +381,7 @@ class MainWindow(QMainWindow):
         self.thread.start()
         
     def updateWindow(self):
+        self.setCentralWidget(QWidget())
         if(sum(self.testSets) != len(self.passes)):
             self.testSets = []
         QApplication.restoreOverrideCursor()
