@@ -7,6 +7,8 @@ def disperse_documents():
     ## This script will copy overall files in the top level folder into all subfolders
     ## This script will not copy over itself.
 
+    excludedDirs = ["__pycache__", "lab_01", "lab_03", "lab_19", "lab_20", "mastermind", ".git", "fish", "dice", "Zip_Files_Sources", "Solutions"]
+    
     # Organize Files and Directories
     cwd = os.getcwd()
     files = []
@@ -21,10 +23,7 @@ def disperse_documents():
     for file in files:
         if(file != "disperse_documents.py" and file != "test_all_submissions.py" and file != "README.md"):
             for directory in dirs:
-                if(directory != "__pycache__" and directory != "lab_01" and directory != "lab_03" \
-                   and directory != "lab_19") and directory != "lab_20" and directory != "mastermind" \
-                   and directory != ".git" and directory != "fish" and directory != "dice" and directory != "Zip_Files_Sources" \
-                   and directory != "Solutions":
+                if (directory not in excludedDirs):
                     shutil.copy(file, directory)
 
 disperse_documents()
