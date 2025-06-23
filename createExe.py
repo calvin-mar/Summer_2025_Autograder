@@ -50,6 +50,7 @@ def linuxFunction():
         print("Exit Code:", result.returncode)    
 
 def windowsFunction():
+
     cwd = os.getcwd()
     files = []
     dirs = []
@@ -68,7 +69,7 @@ def windowsFunction():
                 assistant = folder + "/" + "autograder_assistant.py:."
                 exeName = folder + "_Windows_Autograder"
                 specFile = exeName + ".spec"
-                result = subprocess.run(["python3","-m","PyInstaller",autograder, "--add-data", assistant, "--hidden-import",
+                result = subprocess.run(["python","-m","PyInstaller",autograder, "--add-data", assistant, "--hidden-import",
                                          "autograder_assistant.py", "--hidden-import","trace", "--hidden-import", "multiprocessing",
                                          "--hidden-import", "PyQt6.QtWidgets", "--onefile", "--noupx", "--noconsole", "--distpath", folder,
                                         "--clean", "-n", exeName], capture_output=True, text=True)
@@ -80,20 +81,16 @@ def windowsFunction():
                     print("Stdout:", result.stdout)
                     print("Stderr:", result.stderr)
                     print("Exit Code:", result.returncode)                    
-                result = subprocess.run(["rm",specFile], capture_output=True, text=True)
-                if result.returncode != 0:
+                try:
+                    os.remove(specFile)
+                except OSError as error:
                     print("An error may have occurred")
-                    print("Stdout:", result.stdout)
-                    print("Stderr:", result.stderr)
-                    print("Exit Code:", result.returncode)    
-    result = subprocess.run(["rm","-r","build"], capture_output=True, text=True)
-    if result.returncode == 0:
-        print("Success! All executables are ready for use.")
-    else:
+                    print(error)
+    try:
+        result = shutil.rmtree("build")
+    except OSError as error:
         print("An error may have occurred")
-        print("Stdout:", result.stdout)
-        print("Stderr:", result.stderr)
-        print("Exit Code:", result.returncode)    
+        print(error)
 
 def macFunction():
     pyinstaller_path = shutil.which("pyinstaller")
