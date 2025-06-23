@@ -6,17 +6,14 @@ import subprocess
 def testExe(pyinstaller_path):
     with open("testCompile.py", "w") as f:
       f.write("print('hello world')")
-    if pyinstaller_path[0] == None:
-        try:
-            result = subprocess.run([
-            *pyinstaller_path, "testCompile.py",
-            "--onefile", "--noupx", "--noconsole",
-            "--clean"
-            ], capture_output=True, text=True)
-        except:
-            return False
-    else:
-        return True
+    try:
+        result = subprocess.run([
+        *pyinstaller_path, "testCompile.py",
+        "--onefile", "--noupx", "--noconsole",
+        "--clean"
+        ], capture_output=True, text=True)
+    except:
+        return False
     if result.returncode == 0:
         return True
     else:
@@ -26,7 +23,9 @@ def createExecutables(osName, assistantEnd):
 
         
     pyinstaller_path = [shutil.which("pyinstaller"),]
-    if pyinstaller_path != None:
+    if pyinstaller_path == None:
+        exePasses = False
+    else:
         exePasses = testExe(pyinstaller_path)
     if exePasses == False:
         pyinstaller_path = ["pyinstaller",]
