@@ -73,6 +73,7 @@ def main():
         print("Starting on Windows...")
         pyinstaller_path = [shutil.which("pyinstaller"),]
         if pyinstaller_path[0] == None:
+            print("Failed to find the path to PyInstaller dynamically, you may have to manually change pyinstaller_path between using pyinstaller, python -m, or python3 -m")
             pyinstaller_path = ["python" ,"-m","PyInstaller"]
         osName = "Windows"
         assistantEnd = "autograder_assistant.py;."
@@ -93,6 +94,7 @@ def main():
         
         pyinstaller_path = [shutil.which("pyinstaller"),]
         if pyinstaller_path[0] == None:
+            print("Failed to find the path to PyInstaller dynamically, you may have to manually change pyinstaller_path between using pyinstaller, python -m, or python3 -m")
             pyinstaller_path = ["python3" ,"-m","PyInstaller"]
         osName = "Mac"
         assistantEnd = "autograder_assistant.py:."
