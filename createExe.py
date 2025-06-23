@@ -40,7 +40,6 @@ def createExecutables(pyinstaller_path, osName, assistantEnd):
                     "--hidden-import", "PyQt6.QtWidgets",
                     "--hidden-import", "csc170_lists_data",
                     "--onefile", "--noupx", "--noconsole",
-                    "--debug", "imports",
                     "--distpath", folder,
                     "--clean", "-n", exeName
                 ], capture_output=True, text=True)
