@@ -8,17 +8,9 @@ def testExe(pyinstaller_path):
       f.write("print('hello world')")
     if pyinstaller_path[0] == None:
         result = subprocess.run([
-            *pyinstaller_path, autograder,
-            "--add-data", assistant,
-            "--hidden-import", "autograder_assistant",
-            "--hidden-import", "astor",
-            "--hidden-import", "trace",
-            "--hidden-import", "multiprocessing",
-            "--hidden-import", "PyQt6.QtWidgets",
-            "--hidden-import", "csc170_lists_data",
+            *pyinstaller_path, "testCompile.py",
             "--onefile", "--noupx", "--noconsole",
-            "--distpath", folder,
-            "--clean", "-n", exeName
+            "--clean"
         ], capture_output=True, text=True)
     else:
         return True
