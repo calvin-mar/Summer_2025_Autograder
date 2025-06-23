@@ -1,0 +1,7 @@
+amigo:friend
+hola:hello
+mi:my
+donde:where
+esta:is
+diablo:devil
+bano:bathroom
