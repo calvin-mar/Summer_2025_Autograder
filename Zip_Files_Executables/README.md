@@ -1,16 +1,20 @@
-Installation:
+<h1>Executables:</h1>
 
+<h2>Installation: </h2>
 <b>Windows:</b>
 pip install pyinstaller
-
+<br /> <br />
 <b>Linux:</b>
 pip install pyinstaller
-
-<b>Mac:</b>
-pip3 install pyinstaller
+<br /> <br />
+<b>Mac:</b> <br />
+pip3 install pyinstaller<br />
 pip3 install opencv-python-headless
 
-To create the executables, place "createExecutables.py" in the folder that contains all the lab folders,along with autograder_assistant:
+<br /> <br />
+Confirm that it works with <b>pyinstaller --version</b>
+
+To create the executables, place "createExecutables.py" in the folder that contains all the lab folders, along with autograder_assistant:
 
 /Labs/ 
 
@@ -23,12 +27,12 @@ To create the executables, place "createExecutables.py" in the folder that conta
 - lab_03
   - ...
 
-- lab_4
+- lab_04
   - ...
 
 createExecutables has 3 distinct functions for windows, linux, and mac. You can edit the parameters for each seperately.
 
-if you would like to manually compile a file:
+To manually compile:
 python -m PyInstaller --add-data "autograder_assistant.py:." --hidden-import autograder_assistant --hidden-import trace --hidden-import multiprocessing --hidden-import PyQt6.QtWidgets --onefile --noupx --noconsole --distpath . --clean lab_xx_autograder.py
 
 Issues that may occur:
