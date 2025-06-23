@@ -482,21 +482,20 @@ class MainWindow(QMainWindow):
         if(len(self.passes) > 1):
             summary = QHBoxLayout()
             image = QLabel("")
-            
             image.setFixedSize(52,52)
-            object = QLabel("Summary of Tests")
-            object.setWordWrap(True)
-            object.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            summaryText = QLabel("Summary of Tests")
+            summaryText.setWordWrap(True)
+            summaryText.setAlignment(Qt.AlignmentFlag.AlignCenter)
             if(len(self.passes) == num_passed):
-                object.setText("<font color=green>CONGRATULATIONS YOU PASSED ALL TESTS!!!</font>")
+                summaryText.setText("<font color=green>CONGRATULATIONS YOU PASSED ALL TESTS!!!</font>")
             else:
-                object.setText("<font color=red>You passed " + str(num_passed) + "/" + str(len(self.passes)) + " tests")
-            image.setGeometry(QRect(object.x(), object.y(), object.width()-100, object.height()))
-            font = QFont(object.font().family(), pointSize=24, weight=105)
+                summaryText.setText("<font color=red>You passed " + str(num_passed) + "/" + str(len(self.passes)) + " tests")
+            image.setGeometry(QRect(summaryText.x(), summaryText.y(), summaryText.width()-100, summaryText.height()))
+            font = QFont(summaryText.font().family(), pointSize=24, weight=105)
             font.setBold(True)
-            object.setFont(font)
+            summaryText.setFont(font)
             summary.addWidget(image)
-            summary.addWidget(object)
+            summary.addWidget(summaryText)
             self.vbox.insertLayout(0, summary)
 
     def addHeader(self, taskNum):
