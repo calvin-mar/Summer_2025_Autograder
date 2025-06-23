@@ -27,12 +27,14 @@ def createExecutables(pyinstaller_path, osName, assistantEnd):
                 autograder = folder + "/" + name
                 exeName = folder + "_"+ osName + "_Autograder"
                 specFile = exeName + ".spec"
+                appName = folder + "/" + exeName + ".app"
                 assistant = folder + "/" + assistantEnd
                                     
                 result = subprocess.run([
                     *pyinstaller_path, autograder,
                     "--add-data", assistant,
-                    "--hidden-import", "autograder_assistant.py",
+                    "--hidden-import", "autograder_assistant",
+                    "--hidden-import", "astor",
                     "--hidden-import", "trace",
                     "--hidden-import", "multiprocessing",
                     "--hidden-import", "PyQt6.QtWidgets",
@@ -41,6 +43,7 @@ def createExecutables(pyinstaller_path, osName, assistantEnd):
                     "--distpath", folder,
                     "--clean", "-n", exeName
                 ], capture_output=True, text=True)
+                
                 if result.returncode == 0:
                     print(exeName, "has been created!")
                 else:
@@ -53,7 +56,14 @@ def createExecutables(pyinstaller_path, osName, assistantEnd):
                     print("An error may have occurred")
                     print("Stdout:", result.stdout)
                     print("Stderr:", result.stderr)
-                    print("Exit Code:", result.returncode)    
+                    print("Exit Code:", result.returncode)
+                if sys.platform == "darwin":
+                    result = subprocess.run(["rm", "-r",appName], capture_output=True, text=True)
+                    if result.returncode != 0:
+                        print("An error may have occurred")
+                        print("Stdout:", result.stdout)
+                        print("Stderr:", result.stderr)
+                        print("Exit Code:", result.returncode)
     result = subprocess.run(["rm","-r","build"], capture_output=True, text=True)
     if result.returncode == 0:
         print("Success! All executables are ready for use.")
@@ -71,10 +81,8 @@ def main():
     # Organize Files and Directories
     if sys.platform == "win32":
         print("Starting on Windows...")
-        pyinstaller_path = [shutil.which("pyinstaller"),]
-        if pyinstaller_path[0] == None:
-            print("Failed to find the path to PyInstaller dynamically, you may have to manually change pyinstaller_path between using pyinstaller, python -m, or python3 -m")
-            pyinstaller_path = ["python" ,"-m","PyInstaller"]
+        
+        pyinstaller_path = ["python" ,"-m","PyInstaller"]
         osName = "Windows"
         assistantEnd = "autograder_assistant.py;."
 
@@ -93,9 +101,12 @@ def main():
         print("Starting on Mac...")
         
         pyinstaller_path = [shutil.which("pyinstaller"),]
+        python_path = shutil.which("python3")
+        if python_path == None:
+            print("Python path not found")
+            python_path = "python3"
         if pyinstaller_path[0] == None:
-            print("Failed to find the path to PyInstaller dynamically, you may have to manually change pyinstaller_path between using pyinstaller, python -m, or python3 -m")
-            pyinstaller_path = ["python3" ,"-m","PyInstaller"]
+            pyinstaller_path = [python_path ,"-m","PyInstaller"]
         osName = "Mac"
         assistantEnd = "autograder_assistant.py:."
 
