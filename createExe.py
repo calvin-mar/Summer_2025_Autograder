@@ -71,8 +71,9 @@ def main():
     # Organize Files and Directories
     if sys.platform == "win32":
         print("Starting on Windows...")
-        
-        pyinstaller_path = ["python" ,"-m","PyInstaller"]
+        pyinstaller_path = [shutil.which("pyinstaller"),]
+        if pyinstaller_path[0] == None:
+            pyinstaller_path = ["python" ,"-m","PyInstaller"]
         osName = "Windows"
         assistantEnd = "autograder_assistant.py;."
 
@@ -90,7 +91,9 @@ def main():
     elif sys.platform == "darwin":
         print("Starting on Mac...")
         
-        pyinstaller_path = ["python3" ,"-m","PyInstaller"]
+        pyinstaller_path = [shutil.which("pyinstaller"),]
+        if pyinstaller_path[0] == None:
+            pyinstaller_path = ["python3" ,"-m","PyInstaller"]
         osName = "Mac"
         assistantEnd = "autograder_assistant.py:."
 
