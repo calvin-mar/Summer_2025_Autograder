@@ -1,46 +1,55 @@
-This Repository contains files in the form:
+<h1>Executables:</h1>
 
--Solutions
+<h2>Installation: </h2>
+<b>Windows:</b>
+pip install pyinstaller
+<br /> <br />
+<b>Linux:</b>
+pip install pyinstaller
+<br /> <br />
+<b>Mac:</b> <br />
+pip3 install pyinstaller<br />
+pip3 install opencv-python-headless
 
--Zip Files (Executables)
- - Empty Student Submission
- - executable_autograder
- - autograder_assistant
- - Check
- - redX
- - Necessary testing files
+<br /> <br />
+Confirm that it works with <b>pyinstaller --version</b>
 
--Zip Files (Source Codes)
- - Empty Student Submission
- - autograder_source
- - Autograder_assistant
- - Check
- - redX
- - Necessary testing files
+To create the executables, place "createExecutables.py" in the folder that contains all the lab folders, along with autograder_assistant:
 
--Lab Folders (each containing the following)
- - lab_**_autograder
- - autograder_assistant
- - Check.png
- - redX.png
- - test_all_submissions
- - Necessary testing files
- - *Required: Folder for each student. Currently contains examples: student_name1 and student_name2*
+/Labs/ 
 
--autograder_assistant.py (file)  
--autograder_template.py (file) 
--check_all_syntax.py (file)  
--compile_executables.py (file)  
--createExe.py (file)  
--disperse_documents.py (file)  
--README.md (file)  
--test_all_submissions.py (file)  
+- createExecutables.py
+- autograder_assistant.py
+- lab_02
+  - lab_02_autograder.py
+  -  autograder_assistant.py
+  -   lab_02_student_submission.py
+- lab_03
+  - ...
 
+- lab_04
+  - ...
 
-1. Each student may be given a copy of the appropriate zip file for the relevant lab. The executables are directly created from the source code as found in the mirroring zip file. All code is runnable directly from idle.
-   
-2. Create a folder in each lab folder for each student in the format firstname_lastname. When downloading student_submissions, download each student into the appropriate folder.
+createExecutables has 3 distinct functions for windows, linux, and mac. You can edit the parameters for each seperately.
 
-3. When grading all submissions, run test_all_submissions from idle. The program will disperse all necessary documents to all student folders.
+To manually compile:
+python -m PyInstaller --add-data "autograder_assistant.py:." --hidden-import autograder_assistant --hidden-import trace --hidden-import multiprocessing --hidden-import PyQt6.QtWidgets --onefile --noupx --noconsole --distpath . --clean lab_xx_autograder.py
 
-4. Several labs do not have autograders. The autograder has been replaced in these folders with check_all_syntax, which merely checks for banned syntax.
+Issues that may occur:
+  Pyinstaller throwing a MoudleNotFound error:
+  --hidden-import MODULE
+
+  Stderr: /Library/Developer/CommandLineTools/usr/bin/python3: No module named PyInstaller  
+  
+  Make sure:
+  pip install pyinstaller
+  
+  Try:
+    python3 -m PyInstaller --version
+  
+  Or:
+    Find location of pyinstaller with “which pyinstaller”
+    Add to PATH variable
+  
+  Or if using homebrew (MAC):
+    Brew install pyinstaller

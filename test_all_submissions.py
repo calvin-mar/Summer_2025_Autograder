@@ -41,7 +41,7 @@ def disperse_documents():
 
     # Do the Copying
     for file in files:
-        if(file != "test_all_submissions.py" and len(re.findall("lab_\\d\\d_student_submission", file)) != 1):
+        if(file != "test_all_submissions.py" and len(re.findall("lab_\d\d_student_submission", file)) != 1):
             for directory in dirs:
                 if(directory != "__pycache__"):
                     shutil.copy(file, directory)
@@ -91,7 +91,7 @@ class Worker(QObject):
 
         # Find the autograder amongst the files 
         for file in files:
-            if( len(re.findall("lab_\\d\\d_autograder.py", file)) == 1):
+            if( len(re.findall("lab_\d\d_autograder.py", file)) == 1):
                 cwd = os.getcwd()
                 path_to_autograder = os.path.join(cwd,directory_name,file)
                 sys.path.append(os.path.join(cwd,directory_name))
@@ -179,21 +179,16 @@ class MainWindow(QMainWindow):
         QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
         ## Loading Screen
-        
-        widget = QWidget()
-        layout = QVBoxLayout()
-        message = QLabel("<b>Autograders are running...<br> Please be patient.</b>")
+        widget = QLabel("<b>Autograders are running...<br> Please be patient.</b>")
         font = widget.font()
         font.setPointSize(30)
-        message.setFont(font)
-        message.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
-        layout.addWidget(message)
+        widget.setFont(font)
+        widget.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
+        self.setCentralWidget(widget)
+
         self.progressBar = PyQt6.QtWidgets.QProgressBar(self)
         self.progressBar.setGeometry(200, 400, 400, 30)
         self.progress.connect(self.updateProgress)
-        layout.addWidget(self.progressBar)
-        widget.setLayout(layout)
-        self.setCentralWidget(widget)
 
         ## Run through all files and folders
         ## In each folder, that is not pycache, run the autograder inside it
