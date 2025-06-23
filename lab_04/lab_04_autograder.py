@@ -5,6 +5,7 @@ import astor
 import re
 import os
 import importlib.util
+import multiprocessing
 
 def autoGrader(student_submission, assistant, window):
     try:
