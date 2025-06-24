@@ -4,34 +4,29 @@ import shutil
 import subprocess
 
 def testExe(pyinstaller_path):
+    b_success = False
     with open("testCompile.py", "w") as f:
       f.write("print('hello world')")
-    if pyinstaller_path[0] == None:
+    
+    try:
         result = subprocess.run([
-            *pyinstaller_path, autograder,
-            "--add-data", assistant,
-            "--hidden-import", "autograder_assistant",
-            "--hidden-import", "astor",
-            "--hidden-import", "trace",
-            "--hidden-import", "multiprocessing",
-            "--hidden-import", "PyQt6.QtWidgets",
-            "--hidden-import", "csc170_lists_data",
-            "--onefile", "--noupx", "--noconsole",
-            "--distpath", folder,
-            "--clean", "-n", exeName
+        *pyinstaller_path, "testCompile.py"
         ], capture_output=True, text=True)
-    else:
-        return True
-    if result.returncode == 0:
-        return True
-    else:
-        return False
+        
+        if result.returncode == 0:
+            b_success = True
+    except:
+        pass
+    
+    return b_success
 
-def createExecutables(osName, assistantEnd):
+def createExecutables(osName, addDataEnd):
 
         
     pyinstaller_path = [shutil.which("pyinstaller"),]
-    if pyinstaller_path != None:
+    if pyinstaller_path == None:
+        exePasses = False
+    else:
         exePasses = testExe(pyinstaller_path)
     if exePasses == False:
         pyinstaller_path = ["pyinstaller",]
@@ -42,6 +37,7 @@ def createExecutables(osName, assistantEnd):
     if exePasses == False:
         pyinstaller_path = ["python3", "-m", "PyInstaller"]
         exePasses = testExe(pyinstaller_path)
+    print(exePasses, pyinstaller_path)
     cwd = os.getcwd()
     files = []
     dirs = []
@@ -61,20 +57,28 @@ def createExecutables(osName, assistantEnd):
                 exeName = folder + "_"+ osName + "_Autograder"
                 specFile = exeName + ".spec"
                 appName = folder + "/" + exeName + ".app"
-                assistant = folder + "/" + assistantEnd
+                assistant = folder + "/" + folder + "_assistant.py" + addDataEnd
+                assistantImport = folder + "_assistant"
+                check = folder + "/check.png" + addDataEnd
+                redX = folder + "/redX.png" + addDataEnd
                                     
                 result = subprocess.run([
                     *pyinstaller_path, autograder,
                     "--add-data", assistant,
-                    "--hidden-import", "autograder_assistant",
+                    "--add-data", check,
+                    "--add-data", redX,
+                    "--hidden-import", assistantImport,
                     "--hidden-import", "astor",
                     "--hidden-import", "trace",
                     "--hidden-import", "multiprocessing",
                     "--hidden-import", "PyQt6.QtWidgets",
                     "--hidden-import", "csc170_lists_data",
-                    "--onefile", "--noupx", "--noconsole",
+                    "--hidden-import", "input_override",
+                    "--onefile",
+                    "--noupx", "--noconsole",
                     "--distpath", folder,
-                    "--clean", "-n", exeName
+                    "--clean", "-n", exeName,
+                    #"--debug", "all"
                 ], capture_output=True, text=True)
                 
                 if result.returncode == 0:
@@ -83,32 +87,14 @@ def createExecutables(osName, assistantEnd):
                     print("An error may have occurred")
                     print("Stdout:", result.stdout)
                     print("Stderr:", result.stderr)
-                    print("Exit Code:", result.returncode)
-                if sys.platform != "win32":
-                    result = subprocess.run(["rm",specFile], capture_output=True, text=True)
-                    if result.returncode != 0:
-                        print("An error may have occurred")
-                        print("Stdout:", result.stdout)
-                        print("Stderr:", result.stderr)
-                        print("Exit Code:", result.returncode)
-                    if sys.platform == "darwin":
-                        result = subprocess.run(["rm", "-r",appName], capture_output=True, text=True)
-                        if result.returncode != 0:
-                            print("An error may have occurred")
-                            print("Stdout:", result.stdout)
-                            print("Stderr:", result.stderr)
-                            print("Exit Code:", result.returncode)
-                else:
-                    os.remove(specFile)
-    if sys.platform != "win32":
-        result = subprocess.run(["rm","-r","build"], capture_output=True, text=True)
-    if result.returncode == 0:
+                    sys.exit(result.returncode)
+                os.remove(specFile)
+    try:
+        shutil.rmtree("build")
         print("Success! All executables are ready for use.")
-    else:
-        print("An error may have occurred")
-        print("Stdout:", result.stdout)
-        print("Stderr:", result.stderr)
-        print("Exit Code:", result.returncode)   
+    except:
+        print("An error may have occurred while attempting to delete 'build'")
+        sys.exit(1)
 
 def main():
     ## Place this document into a top level folder
@@ -120,25 +106,25 @@ def main():
         print("Starting on Windows...")
         
         osName = "Windows"
-        assistantEnd = "autograder_assistant.py;."
+        addDataEnd = ";."
 
-        createExecutables(osName, assistantEnd)
+        createExecutables(osName, addDataEnd)
     elif sys.platform.startswith("linux"): 
         print("Starting on Linux...")
         
         osName = "Linux"
-        assistantEnd = "autograder_assistant.py:."
+        addDataEnd = ":."
 
         
-        createExecutables(osName, assistantEnd)
+        createExecutables(osName, addDataEnd)
     elif sys.platform == "darwin":
         print("Starting on Mac...")
         
         osName = "Mac"
-        assistantEnd = "autograder_assistant.py:."
+        addDataEnd = ":."
 
 
-        createExecutables(osName, assistantEnd)
+        createExecutables(osName, addDataEnd)
     else:
         print(f"Unsupported OS: {sys.platform}")
 
