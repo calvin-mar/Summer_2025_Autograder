@@ -77,7 +77,8 @@ def createExecutables(osName, addDataEnd):
                     "--onefile",
                     "--noupx", "--noconsole",
                     "--distpath", folder,
-                    "--clean", "-n", exeName,
+                    "--clean", "-n",
+                    exeName,
                     #"--debug", "all"
                 ], capture_output=True, text=True)
                 
@@ -89,6 +90,16 @@ def createExecutables(osName, addDataEnd):
                     print("Stderr:", result.stderr)
                     sys.exit(result.returncode)
                 os.remove(specFile)
+                shutil.rmtree(appName)
+                #result = subprocess.run(("rm", appName), capture_output=True, text=True)
+                '''if result.returncode == 0:
+                    print(exeName, "has been created!")
+                else:
+                    print("An error may have occurred")
+                    print("Stdout:", result.stdout)
+                    print("Stderr:", result.stderr)
+                    sys.exit(result.returncode)'''
+    
     try:
         shutil.rmtree("build")
         print("Success! All executables are ready for use.")
