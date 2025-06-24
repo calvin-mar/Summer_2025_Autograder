@@ -1,3 +1,5 @@
+from multiprocessing import shared_memory as shm
+
 try:
     import __builtin__
 except ImportError:

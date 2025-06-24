@@ -1,7 +1,8 @@
 # Name:
 # Date:
 # Purpose: Lists lab 2
-
+if __name__ != "__main__":
+    from input_override import input
 import csc170_lists_data
 
 # 1
