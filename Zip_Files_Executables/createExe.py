@@ -4,20 +4,21 @@ import shutil
 import subprocess
 
 def testExe(pyinstaller_path):
+    b_success = False
     with open("testCompile.py", "w") as f:
       f.write("print('hello world')")
+    
     try:
         result = subprocess.run([
-        *pyinstaller_path, "testCompile.py",
-        "--onefile", "--noupx", "--noconsole",
-        "--clean"
+        *pyinstaller_path, "testCompile.py"
         ], capture_output=True, text=True)
+        
+        if result.returncode == 0:
+            b_success = True
     except:
-        return False
-    if result.returncode == 0:
-        return True
-    else:
-        return False
+        pass
+    
+    return b_success
 
 def createExecutables(osName, addDataEnd):
 
@@ -71,9 +72,11 @@ def createExecutables(osName, addDataEnd):
                     "--hidden-import", "multiprocessing",
                     "--hidden-import", "PyQt6.QtWidgets",
                     "--hidden-import", "csc170_lists_data",
-                    "--onefile", "--noupx", "--noconsole",
+                    "--onefile",
+                    "--noupx", "--noconsole",
                     "--distpath", folder,
-                    "--clean", "-n", exeName
+                    "--clean", "-n", exeName,
+                    #"--debug", "all"
                 ], capture_output=True, text=True)
                 
                 if result.returncode == 0:
@@ -82,7 +85,7 @@ def createExecutables(osName, addDataEnd):
                     print("An error may have occurred")
                     print("Stdout:", result.stdout)
                     print("Stderr:", result.stderr)
-                    print("Exit Code:", result.returncode)
+                    sys.exit(result.returncode)
                 if sys.platform != "win32":
                     result = subprocess.run(["rm",specFile], capture_output=True, text=True)
                     if result.returncode != 0:
@@ -107,7 +110,7 @@ def createExecutables(osName, addDataEnd):
         print("An error may have occurred")
         print("Stdout:", result.stdout)
         print("Stderr:", result.stderr)
-        print("Exit Code:", result.returncode)   
+        sys.exit(result.returncode)
 
 def main():
     ## Place this document into a top level folder
