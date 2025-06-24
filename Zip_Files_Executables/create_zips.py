@@ -22,10 +22,11 @@ def create_zips():
     files = []
     dirs = []
     for name in os.listdir(cwd):
-        if(os.path.isfile(name) and len(re.findall("testCompile", name)) == 1):
-            os.remove(os.path.join(cwd, name))
-        else:
+        if(os.path.isfile(name)):
             if(len(re.findall("testCompile", name)) == 1):
+                os.remove(os.path.join(cwd, name))
+        else:
+            if(len(re.findall("testCompile", name)) == 1 or name == "build" or name == "dist"):
                 shutil.rmtree(os.path.join(cwd, name))
             else:
                 dirs.append(name)
