@@ -37,7 +37,11 @@ def create_zips():
         # Remove executable from original
         for file in os.listdir(directory):
             if(tag in file):
+<<<<<<< HEAD
                 if sys.platform == "darwin":
+=======
+                if os.platform == "darwin":
+>>>>>>> 60cbafb80df5bbc5bd9c98985f08b733926e7317
                     subprocess.run = ("rm", "-r", os.path.join(cwd, directory, file))
                 else:
                     os.remove(os.path.join(cwd, directory, file))
