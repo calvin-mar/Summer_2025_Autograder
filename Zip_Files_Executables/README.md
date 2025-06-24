@@ -23,7 +23,7 @@ To create the executables, place "createExecutables.py" in the folder that conta
 - lab_04
   - ...
 
-To manually compile:
+<h3>To manually compile:</h3><br />
 python -m PyInstaller --add-data "autograder_assistant.py:." --hidden-import autograder_assistant --hidden-import trace --hidden-import multiprocessing --hidden-import PyQt6.QtWidgets --onefile --noupx --noconsole --distpath . --clean lab_xx_autograder.py
 
 <h2>Issues that may occur:</h2>
