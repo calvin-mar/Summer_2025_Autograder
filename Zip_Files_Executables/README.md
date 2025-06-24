@@ -14,9 +14,11 @@ To create the executables, place "createExecutables.py" in the folder that conta
 
 - createExecutables.py
 - lab_02
-  - lab_02_autograder.py
-  -  autograder_assistant.py
+  - Autograder.py
+  -  lab_02_assistant.py
   -   lab_02_student_submission.py
+  -   check.png
+  -   redX.png
 - lab_03
   - ...
 
