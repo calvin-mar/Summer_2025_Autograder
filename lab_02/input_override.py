@@ -4,7 +4,7 @@ try:
     import __builtin__
 except ImportError:
     import builtins as __builtin__
-
+from multiprocessing import shared_memory as shm
 # Override Python's built in input() function so we can get test data fed into
 # a program without having to use the command line to redirect input.
 class InputException(Exception):
