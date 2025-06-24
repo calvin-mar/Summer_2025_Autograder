@@ -512,19 +512,9 @@ def autoGrader(student_submission, window):
 
     return passes, error_msgs
 
-def loadAssistant():
-    if getattr(sys, "frozen", False):
-        dir_path = os.path.dirname(sys.executable)
-    else:
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-    specific = importlib.util.spec_from_file_location("autograder_assistant", os.path.join(dir_path, "autograder_assistant.py"))
-    assistant = importlib.util.module_from_spec(specific)
-    specific.loader.exec_module(assistant)
-    return assistant
-
 def getTestSets():
     return [2, 4, 3, 2, 5, 2, 3, 2, 1]
 
 def testing(window):
-    passes, error_msgs,assistant = autoGrader("lab_11_student_submission.py", window)
+    passes, error_msgs = autoGrader("lab_11_student_submission.py", window)
     return passes

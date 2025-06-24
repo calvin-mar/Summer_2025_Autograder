@@ -853,6 +853,5 @@ def getTestSets():
     return [4, 12, 8, 6, 8, 5]
 
 def testing(window):
-    assistant = loadAssistant()
     passes, error_msgs = autoGrader("lab_14_student_submission.py", window)
     return passes
