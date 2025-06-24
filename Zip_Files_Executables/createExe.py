@@ -3,12 +3,40 @@ import sys
 import shutil
 import subprocess
 
-def createExecutables(pyinstaller_path, osName, assistantEnd):
-    if pyinstaller_path is None:
-        print("Error: PyInstaller not found in PATH.")
-        print("Please ensure the installation path exists in your PATH variable. 'which pyinstaller', 'echo $PATH'. You can also try running createExe from the terminal.")
-        sys.exit(1)
+def testExe(pyinstaller_path):
+    with open("testCompile.py", "w") as f:
+      f.write("print('hello world')")
+    try:
+        result = subprocess.run([
+        *pyinstaller_path, "testCompile.py",
+        "--onefile", "--noupx", "--noconsole",
+        "--clean"
+        ], capture_output=True, text=True)
+    except:
+        return False
+    if result.returncode == 0:
+        return True
+    else:
+        return False
+
+def createExecutables(osName, addDataEnd):
+
         
+    pyinstaller_path = [shutil.which("pyinstaller"),]
+    if pyinstaller_path == None:
+        exePasses = False
+    else:
+        exePasses = testExe(pyinstaller_path)
+    if exePasses == False:
+        pyinstaller_path = ["pyinstaller",]
+        exePasses = testExe(pyinstaller_path)
+    if exePasses == False:
+        pyinstaller_path = ["python", "-m", "PyInstaller"]
+        exePasses = testExe(pyinstaller_path)
+    if exePasses == False:
+        pyinstaller_path = ["python3", "-m", "PyInstaller"]
+        exePasses = testExe(pyinstaller_path)
+    print(exePasses, pyinstaller_path)
     cwd = os.getcwd()
     files = []
     dirs = []
@@ -28,11 +56,15 @@ def createExecutables(pyinstaller_path, osName, assistantEnd):
                 exeName = folder + "_"+ osName + "_Autograder"
                 specFile = exeName + ".spec"
                 appName = folder + "/" + exeName + ".app"
-                assistant = folder + "/" + assistantEnd
+                assistant = folder + "/" + "autograder_assistant.py" + addDataEnd
+                check = folder + "/check.png" + addDataEnd
+                redX = folder + "/redX.png" + addDataEnd
                                     
                 result = subprocess.run([
                     *pyinstaller_path, autograder,
                     "--add-data", assistant,
+                    "--add-data", check,
+                    "--add-data", redX,
                     "--hidden-import", "autograder_assistant",
                     "--hidden-import", "astor",
                     "--hidden-import", "trace",
@@ -51,21 +83,24 @@ def createExecutables(pyinstaller_path, osName, assistantEnd):
                     print("Stdout:", result.stdout)
                     print("Stderr:", result.stderr)
                     print("Exit Code:", result.returncode)
-                    sys.exit(result.returncode)
-                result = subprocess.run(["rm",specFile], capture_output=True, text=True)
-                if result.returncode != 0:
-                    print("An error may have occurred")
-                    print("Stdout:", result.stdout)
-                    print("Stderr:", result.stderr)
-                    print("Exit Code:", result.returncode)
-                if sys.platform == "darwin":
-                    result = subprocess.run(["rm", "-r",appName], capture_output=True, text=True)
+                if sys.platform != "win32":
+                    result = subprocess.run(["rm",specFile], capture_output=True, text=True)
                     if result.returncode != 0:
                         print("An error may have occurred")
                         print("Stdout:", result.stdout)
                         print("Stderr:", result.stderr)
                         print("Exit Code:", result.returncode)
-    result = subprocess.run(["rm","-r","build"], capture_output=True, text=True)
+                    if sys.platform == "darwin":
+                        result = subprocess.run(["rm", "-r",appName], capture_output=True, text=True)
+                        if result.returncode != 0:
+                            print("An error may have occurred")
+                            print("Stdout:", result.stdout)
+                            print("Stderr:", result.stderr)
+                            print("Exit Code:", result.returncode)
+                else:
+                    os.remove(specFile)
+    if sys.platform != "win32":
+        result = subprocess.run(["rm","-r","build"], capture_output=True, text=True)
     if result.returncode == 0:
         print("Success! All executables are ready for use.")
     else:
@@ -83,44 +118,26 @@ def main():
     if sys.platform == "win32":
         print("Starting on Windows...")
         
-        pyinstaller_path = ["python" ,"-m","PyInstaller"]
         osName = "Windows"
-        assistantEnd = "autograder_assistant.py;."
+        addDataEnd = ";."
 
-        createExecutables(pyinstaller_path, osName, assistantEnd)
+        createExecutables(osName, addDataEnd)
     elif sys.platform.startswith("linux"): 
         print("Starting on Linux...")
         
-        pyinstaller_path = [shutil.which("pyinstaller"),]
-        print(pyinstaller_path)
-        python_path = shutil.which("python")
-        print(python_path)
-        if python_path == None:
-            print("Python path not found")
-            python_path = "python"
-        if pyinstaller_path[0] == None:
-            pyinstaller_path = [python_path ,"-m","PyInstaller"]
-        
         osName = "Linux"
-        assistantEnd = "autograder_assistant.py:."
+        addDataEnd = ":."
 
         
-        createExecutables(pyinstaller_path, osName, assistantEnd)
+        createExecutables(osName, addDataEnd)
     elif sys.platform == "darwin":
         print("Starting on Mac...")
         
-        pyinstaller_path = [shutil.which("pyinstaller"),]
-        python_path = shutil.which("python3")
-        if python_path == None:
-            print("Python path not found")
-            python_path = "python3"
-        if pyinstaller_path[0] == None:
-            pyinstaller_path = [python_path ,"-m","PyInstaller"]
         osName = "Mac"
-        assistantEnd = "autograder_assistant.py:."
+        addDataEnd = ":."
 
 
-        createExecutables(pyinstaller_path, osName, assistantEnd)
+        createExecutables(osName, addDataEnd)
     else:
         print(f"Unsupported OS: {sys.platform}")
 
