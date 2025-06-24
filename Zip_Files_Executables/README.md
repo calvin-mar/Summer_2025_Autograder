@@ -1,46 +1,39 @@
-This Repository contains files in the form:
+<h1>Executables:</h1>
 
--Solutions
+createExe.py automatically detects what OS your system is on and attempts to compile the executables through 4 different commands (to minimize chances of failure) depending on the locaiton of the pyinstaller package.
 
--Zip Files (Executables)
- - Empty Student Submission
- - executable_autograder
- - autograder_assistant
- - Check
- - redX
- - Necessary testing files
+<h2>Installation: </h2>
 
--Zip Files (Source Codes)
- - Empty Student Submission
- - autograder_source
- - Autograder_assistant
- - Check
- - redX
- - Necessary testing files
+pip install -r requirements.txt
+<b>or</b>
+pip3 install -r requirements.txt
 
--Lab Folders (each containing the following)
- - lab_**_autograder
- - autograder_assistant
- - Check.png
- - redX.png
- - test_all_submissions
- - Necessary testing files
- - *Required: Folder for each student. Currently contains examples: student_name1 and student_name2*
+To create the executables, place "createExecutables.py" in the folder that contains all the lab folders:
 
--autograder_assistant.py (file)  
--autograder_template.py (file) 
--check_all_syntax.py (file)  
--compile_executables.py (file)  
--createExe.py (file)  
--disperse_documents.py (file)  
--README.md (file)  
--test_all_submissions.py (file)  
+/Labs/ 
 
+- createExecutables.py
+- autograder_assistant.py
+- lab_02
+  - lab_02_autograder.py
+  -  autograder_assistant.py
+  -   lab_02_student_submission.py
+- lab_03
+  - ...
 
-1. Each student may be given a copy of the appropriate zip file for the relevant lab. The executables are directly created from the source code as found in the mirroring zip file. All code is runnable directly from idle.
-   
-2. Create a folder in each lab folder for each student in the format firstname_lastname. When downloading student_submissions, download each student into the appropriate folder.
+- lab_04
+  - ...
 
-3. When grading all submissions, run test_all_submissions from idle. The program will disperse all necessary documents to all student folders.
+To manually compile:
+python -m PyInstaller --add-data "autograder_assistant.py:." --hidden-import autograder_assistant --hidden-import trace --hidden-import multiprocessing --hidden-import PyQt6.QtWidgets --onefile --noupx --noconsole --distpath . --clean lab_xx_autograder.py
 
-4. Several labs do not have autograders. The autograder has been replaced in these folders with check_all_syntax, which merely checks for banned syntax.
+<h2>Issues that may occur:</h2>
+  Pyinstaller throwing a MoudleNotFound error:
+  --hidden-import MODULE
+
+  Stderr: /Library/Developer/CommandLineTools/usr/bin/python3: No module named PyInstaller  
+  
+  Make sure:
+  pip install pyinstaller
+  <br /> <br />
+  Find location of pyinstaller with “which pyinstaller” then add to PATH variable
