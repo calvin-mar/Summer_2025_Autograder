@@ -480,16 +480,18 @@ def displayWindow(autoGrader, filename, testSets = []):
 
 def main():
     if getattr(sys, "frozen", False):
-        dir_path = os.path.dirname(sys.executable)
+        try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+            dir_path = sys._MEIPASS
+        except Exception as e:
+            dir_path = os.path.abspath(".")
     else:
         dir_path = os.path.dirname(os.path.realpath(__file__))
 
     for name in os.listdir(dir_path):
-        #print(name, re.findall("lab_\\d\\d_assistant", name), re.findall("lab_\\d\\d_student_submission", name))
-        if(len(re.findall("lab_\\d\\d_assistant", name)) == 1):
+        if(re.match("lab_\\d\\d_assistant.py", name)):
             assistantName = name
-        elif(len(re.findall("lab_\\d\\d_student_submission", name)) == 1):
-            filename = name
+            filename = assistantName[:6] + "_student_submission.py"
 
     specific = importlib.util.spec_from_file_location(assistantName[:-3], os.path.join(dir_path, assistantName))
     assistant = importlib.util.module_from_spec(specific)
