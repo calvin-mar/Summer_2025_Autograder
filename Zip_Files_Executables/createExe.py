@@ -29,6 +29,8 @@ def create_zips():
             dirs.append(name)
 
     for directory in dirs:
+        if directory == "Mac_Zips" or directory == "Linux_Zips" or directory == "Windows_Zips";
+        continue
         print("Starting for " + directory)
         # Copy Directory
         copyName = str(directory + appendage)
