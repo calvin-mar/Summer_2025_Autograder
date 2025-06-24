@@ -31,6 +31,8 @@ class InputException(Exception):
         super().__init__(message)
         self.message = message
 
+
+
 def input(*args, **kwargs):    
     try:
         l_data = shm.ShareableList(sequence=None,name="l_data")
@@ -86,11 +88,9 @@ class thread_with_trace(threading.Thread):
   def kill(self):
     self.killed = True
     
+# Input: Function to run (student functions), paramaters for function, var result to return result
+# Outputs: result (error or output if passes)
 def wrapper(function, parameter_list, result):
-    '''
-    Input: Function to run (student functions), paramaters for function, var result to return result
-    Outputs: result (error or output if passes)
-    '''
     try:
         result[0] = function(*parameter_list)
     except Exception as e:
@@ -114,67 +114,60 @@ class Color(QWidget):
         self.setPalette(palette)
 #endCopy
 
-
+#Inputs filename, looks for banned syntax
+#Outputs b_proceed and s_error_msg
 def syntax_checker(filename, window, timeout=0):
-    '''
-    Inputs filename, looks for banned syntax
-    Outputs b_proceed and s_error_msg
-    '''
-    try:
-        with open(filename,"r") as f:
-            code = f.read()
-    except Exception as exc:
-        return False, "Your file could not be read.  Make sure it is named correctly.  "
-    parsed = ast.parse(code)
-    for node in ast.walk(parsed):
-        if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
-            # set value to empty string
-            node.value = ast.Constant(value='')
-    s_trimmed_code = astor.to_source(parsed)  
-    pattern = r'^.*"""""".*$' # remove empty """"""
-    s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE)
+        try:
+            with open(filename,"r") as f:
+                code = f.read() 
+            parsed = ast.parse(code)
+            for node in ast.walk(parsed):
+                if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
+                    # set value to empty string
+                    node.value = ast.Constant(value='') 
+            s_trimmed_code = astor.to_source(parsed)  
+            pattern = r'^.*"""""".*$' # remove empty """"""
+            s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE)
 
-    # Added checker to ensure the header is not removed and would crash test_all_submissions
-    if("if __name__ != \"__main__\":" not in s_trimmed_code and "from autograder_assistant import input" not in s_trimmed_code):
-        return False, "The header structure has been deleted. Please ensure that the following line is in the submission:<br><br> <font color=orange>if</font> __name__ != <font color=green>\"__main__\"</font>:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=orange>from</font> autograder_assistant <font color=orange>import</font> <font color=purple>input</font>"
-
-
-    # Dynamically import student file and test for global Scope infinite loop
-    if getattr(sys, "frozen", False):
-        dir_path = os.path.dirname(sys.executable)
-    else:
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-    name = filename[:-3]
-    specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, filename))
-    sm = importlib.util.module_from_spec(specific_student)
-    output = window.testFunction(specific_student.loader.exec_module, (sm,))
-    if(output[1]):
-        if("infinite" in output[0]):
-            return False, "There is a problem with your code, you may have an infinite loop outside of a function. Check that all loops have a ending condition."
-        elif("input" in output[0]):
-            return False, "There is a problem with your code, you may have unexpected or extra input statements outside of a function. Run your code and check how many inputs are called."
-
-    # Check for triple quote and triple apostrophes
-    s_triple_res = ""#check_for_triples()
-    try:
-        input_file = open(filename, "r")
-        s_text = input_file.read()
-        if "'''" in s_text or '"""' in s_text:
-            s_triple_res = "Contains Triples"
+            if("if __name__ != \"__main__\":" not in s_trimmed_code and "from autograder_assistant import input" not in s_trimmed_code):
+                return False, "The header structure has been deleted. Please ensure that the following line is in the submission:<br><br> <font color=orange>if</font> __name__ != <font color=green>\"__main__\"</font>:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=orange>from</font> autograder_assistant <font color=orange>import</font> <font color=purple>input</font>"
+        except:
+            return False, "Your file could not be read.  Make sure it is named correctly.  "
+        if getattr(sys, "frozen", False):
+            dir_path = os.path.dirname(sys.executable)
         else:
-            s_triple_res = "No Triples"
-        input_file.close()
-    except:
-        s_triple_res = "Error Reading File"
-    
-    # if no triples, remove comments and continue
-    s_error_msg = ""
-    if s_triple_res == "No Triples":
-        b_proceed = True
-        # remove comments
+            dir_path = os.path.dirname(os.path.realpath(__file__))
+        name = filename[:-3]
+        specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, filename))
+        sm = importlib.util.module_from_spec(specific_student)
+        output = window.testFunction(specific_student.loader.exec_module, (sm,))
+        if(output[1]):
+            if("infinite" in output[0]):
+                return False, "There is a problem with your code, you may have an infinite loop outside of a function. Check that all loops have a ending condition."
+            elif("input" in output[0]):
+                return False, "There is a problem with your code, you may have unexpected or extra input statements outside of a function. Run your code and check how many inputs are called."
+
+        # Check for triple quote and triple apostrophes
+        s_triple_res = ""#check_for_triples()
+        try:
+            input_file = open(filename, "r")
+            s_text = input_file.read()
+            if "'''" in s_text or '"""' in s_text:
+                s_triple_res = "Contains Triples"
+            else:
+                s_triple_res = "No Triples"
+            input_file.close()
+        except:
+            s_triple_res = "Error Reading File"
+        
+        # if no triples, remove comments and continue
+        s_error_msg = ""
+        if s_triple_res == "No Triples":
+            b_proceed = True
+            # remove comments
 
 
-        # https://stackoverflow.com/questions/1769332/script-to-remove-python-comments-docstrings
+            # https://stackoverflow.com/questions/1769332/script-to-remove-python-comments-docstrings
 ##            with open(filename,"r") as f:
 ##                code = f.read() 
 ##            parsed = ast.parse(code)
@@ -186,90 +179,113 @@ def syntax_checker(filename, window, timeout=0):
 ##            pattern = r'^.*"""""".*$' # remove empty """"""
 ##            s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE) 
 
-        
-        # look for syntax that is not allowed
-        if "join(" in s_trimmed_code:
-            b_proceed = False
-            s_error_msg = s_error_msg + "Your code contains <b>join</b>() which is not allowed.  "
-        if "zip(" in s_trimmed_code:
-            b_proceed = False
-            s_error_msg = s_error_msg + "Your code contains <b>zip</b>() which is not allowed.  "
-        if "exit(" in s_trimmed_code:
-            b_proceed = False
-            s_error_msg = s_error_msg + "Your code contains <b><font color=purple>exit</font></b>() which is not allowed.  "
-        if "quit(" in s_trimmed_code:
-            b_proceed = False
-            s_error_msg = s_error_msg + "Your code contains <b><font color=purple>quit</font></b>() which is not allowed.  "
-        if "break" in s_trimmed_code:
-            b_proceed = False
-            s_error_msg = s_error_msg + "Your code contains <b><font color=orange>break</font></b> which is not allowed.  "
-        if "continue" in s_trimmed_code:
-            b_proceed = False
-            s_error_msg = s_error_msg + "Your code contains <b><font color=orange>continue</font></b> which is not allowed.  "
-        if "random.choice(" in s_trimmed_code:
-            b_proceed = False
-            s_error_msg = s_error_msg + "Your code contains <b><font color=orange>random.choice</font></b> which is not allowed.  "
-
-        # look for print(f or print(F
-        if re.search("print\\s*\\(\\s*[fF]\\s*[\'\"]+", s_trimmed_code) != None:
-            b_proceed = False
-            s_error_msg = s_error_msg + "Your code contains formatted print statement(s) like print(f... or print(F... which are not allowed.  "
-
-
-        # look for naked return
-        if re.search(".*\\s+return\\s*\\n", s_trimmed_code) != None or re.search(".*\\s+return(\\s*\\\\s*)*\\n", s_trimmed_code) != None:
-            b_proceed = False
-            s_error_msg = s_error_msg + "Your code contains a 'naked return' which is not allowed.  A naked return is a return that is not followed by a variable or literal.  "
-
-        # look for with open(
-        if re.search("with\\s+open\\s*\\(", s_trimmed_code) != None:
-            b_proceed = False
-            s_error_msg = s_error_msg + "Your code uses a <b><font color=orange>with</font> <font color=purple>open</font></b> statement which is not allowed.  "
-        
-        
-        # look for _ as a variable name
-        if re.search(".*\\s+_\\s+=.*", s_trimmed_code) != None:
-            b_proceed = False
-            s_error_msg = s_error_msg + "Your code contains a variable named _ which is not allowed.  "
-        
-        # look for comprehensions
-        if re.search("=\\s*\\[+\\s*\\w+\\s+for\\s+", s_trimmed_code) != None:
-            b_proceed = False
-            s_error_msg = s_error_msg + "Your code contains a list comprehension which is not allowed.  "
             
-        elif re.search("=\\s*\\[+.*for\\s+", s_trimmed_code) != None:
-            b_proceed = False
-            s_error_msg = s_error_msg + "Your code contains a list comprehension which is not allowed.  "
+            # look for syntax that is not allowed
+            if "join(" in s_trimmed_code:
+                b_proceed = False
+                s_error_msg = s_error_msg + "Your code contains <b>join</b>() which is not allowed.  "
+            if "zip(" in s_trimmed_code:
+                b_proceed = False
+                s_error_msg = s_error_msg + "Your code contains <b>zip</b>() which is not allowed.  "
+            if "exit(" in s_trimmed_code:
+                b_proceed = False
+                s_error_msg = s_error_msg + "Your code contains <b><font color=purple>exit</font></b>() which is not allowed.  "
+            if "quit(" in s_trimmed_code:
+                b_proceed = False
+                s_error_msg = s_error_msg + "Your code contains <b><font color=purple>quit</font></b>() which is not allowed.  "
+            if "break" in s_trimmed_code:
+                b_proceed = False
+                s_error_msg = s_error_msg + "Your code contains <b><font color=orange>break</font></b> which is not allowed.  "
+            if "continue" in s_trimmed_code:
+                b_proceed = False
+                s_error_msg = s_error_msg + "Your code contains <b><font color=orange>continue</font></b> which is not allowed.  "
+            if "random.choice(" in s_trimmed_code:
+                b_proceed = False
+                s_error_msg = s_error_msg + "Your code contains <b><font color=orange>random.choice</font></b> which is not allowed.  "
+
+            # look for print(f or print(F
+            if re.search("print\\s*\\(\\s*[fF]\\s*[\'\"]+", s_trimmed_code) != None:
+                b_proceed = False
+                s_error_msg = s_error_msg + "Your code contains formatted print statement(s) like print(f... or print(F... which are not allowed.  "
+
+
+            # look for naked return
+            if re.search(".*\\s+return\\s*\\n", s_trimmed_code) != None or re.search(".*\\s+return(\\s*\\\\s*)*\\n", s_trimmed_code) != None:
+                b_proceed = False
+                s_error_msg = s_error_msg + "Your code contains a 'naked return' which is not allowed.  A naked return is a return that is not followed by a variable or literal.  "
+
+            # look for with open(
+            if re.search("with\\s+open\\s*\\(", s_trimmed_code) != None:
+                b_proceed = False
+                s_error_msg = s_error_msg + "Your code uses a <b><font color=orange>with</font> <font color=purple>open</font></b> statement which is not allowed.  "
             
-        if re.search("=\\s*\\{\\s*.*:\\s*.+\\s+for\\s+", s_trimmed_code) != None: 
-            b_proceed = False
-            s_error_msg = s_error_msg + "Your code contains a dictionary comprehension which is not allowed.  "
-      
-        if re.search("=\\s*\\{+\\s*\\w+\\s+for\\s+", s_trimmed_code) != None:
-            b_proceed = False
-            s_error_msg = s_error_msg + "Your code contains a set comprehension which is not allowed.  "
+            
+            # look for _ as a variable name
+            if re.search(".*\\s+_\\s+=.*", s_trimmed_code) != None:
+                b_proceed = False
+                s_error_msg = s_error_msg + "Your code contains a variable named _ which is not allowed.  "
+            
+            # look for comprehensions
+            if re.search("=\\s*\\[+\\s*\\w+\\s+for\\s+", s_trimmed_code) != None:
+                b_proceed = False
+                s_error_msg = s_error_msg + "Your code contains a list comprehension which is not allowed.  "
+                
+            elif re.search("=\\s*\\[+.*for\\s+", s_trimmed_code) != None:
+                b_proceed = False
+                s_error_msg = s_error_msg + "Your code contains a list comprehension which is not allowed.  "
+                
+            if re.search("=\\s*\\{\\s*.*:\\s*.+\\s+for\\s+", s_trimmed_code) != None: 
+                b_proceed = False
+                s_error_msg = s_error_msg + "Your code contains a dictionary comprehension which is not allowed.  "
+          
+            if re.search("=\\s*\\{+\\s*\\w+\\s+for\\s+", s_trimmed_code) != None:
+                b_proceed = False
+                s_error_msg = s_error_msg + "Your code contains a set comprehension which is not allowed.  "
+            
+            if re.search("=\\s*\\(+\\s*\\w+\\s+for\\s+", s_trimmed_code) != None:
+                b_proceed = False
+                s_error_msg = s_error_msg + "Your code contains a generator comprehension which is not allowed.  "
+    
         
-        if re.search("=\\s*\\(+\\s*\\w+\\s+for\\s+", s_trimmed_code) != None:
+        else: # otherwise error message re triples and exit
             b_proceed = False
-            s_error_msg = s_error_msg + "Your code contains a generator comprehension which is not allowed.  "
+            if s_triple_res == "Contains Triples":
+                s_error_msg = "Your code contains either triple quotes \"\"\" or triple apostrophes ''' which are not allowed."
+            else:
+                s_error_msg = "Your file could not be read.  Make sure it is named correctly.  "
 
+        return b_proceed, s_error_msg
+# Tests for infinite loops, errors
+# Inputs: function to test, paramater list to pass, input list for input statements
+# Outputs: result or error message
+def testFunction(function, parameter_list=(), input_list=[]):
+    # Return either Infinite, Error, or All Good
+    global l_data
+    l_data = input_list
+    result =["Error"]
+    #print(l_data)
+    p = thread_with_trace(target=wrapper, args=(function,parameter_list, result), daemon=True)
+    p.start()
+    p.join(3)
+    output = []
+    if p.is_alive():
+        p.kill()
+        output.append(" Failed: Function " + str(function.__name__) + "() caused an error. The function might contain an infinite loop or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!")
+        output.append(True)
+    elif result[0] == "Error":
+        output.append(" Failed: Function " + str(function.__name__) + "() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!")
+        output.append(True)
+    elif result[0] == "Input":
+        output.append("  Failed: Function " + str(function.__name__) + "() caused an error. It might contain an unexpected or extra input that is causing it to crash. Try adding some print statements to it to see what is happening!")
+        output.append(True)
+    else:
+        output.append(result[0])
+        output.append(False)
+    return output
     
-    else: # otherwise error message re triples and exit
-        b_proceed = False
-        if s_triple_res == "Contains Triples":
-            s_error_msg = "Your code contains either triple quotes \"\"\" or triple apostrophes ''' which are not allowed."
-        else:
-            s_error_msg = "Your file could not be read.  Make sure it is named correctly.  "
-
-    return b_proceed, s_error_msg
-    
+# Worker Thread to run Autograder
+# Sends finished, resultReadySig, errorOccured, updateWindowSig pyqtSignal(s)
 class Worker(QObject):
-    '''
-    Worker Thread to run Autograder
-    requires autoGrader module, filename of student_submission, assistant module, and window reference
-        
-    Sends errorOccured,and end pyqtSignals
-    '''
     end = pyqtSignal(object)
     errorOccurredSig = pyqtSignal(object)
 
@@ -281,9 +297,6 @@ class Worker(QObject):
         self.window = window
     
     def run(self):
-        '''
-        This function runs the autograder and catches high level errors in the autograder to return
-        '''
         try:
             result = self.autoGrader(self.filename, self.assistant, self.window)
             self.end.emit(result)
@@ -291,14 +304,15 @@ class Worker(QObject):
             exception_info = traceback.format_exc()
             result = [[False], ["<font color=red size = 5>" + "<br><br>line".join(str(exception_info).split(", line")) + "</font>"]]
             self.end.emit(result)
+
+
+class problem(Exception):
+    def __init__(self, exception_info):
+        super().__init__(exception_info)
         
 # Autograder GUI
 # Inputs window, list of passes/fails, error messages to display, testSets (how many test in each task)
 class MainWindow(QMainWindow):
-    '''
-    Autograder GUI
-    Inputs window, list of passes/fails, error messages to display, testSets (how many test in each task)
-    '''
     progress = pyqtSignal(int)
     def __init__(self, autoGrader, filename, assistant,testSets):
         super().__init__()
@@ -314,14 +328,12 @@ class MainWindow(QMainWindow):
         QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
         ## Loading Screen
-        widget = QWidget()
-        layout = QVBoxLayout()
-        message = QLabel("<b>Autograder is running...<br> Please be patient.</b>")
+        widget = QLabel("<b>Autograder is running...<br> Please be patient.</b>")
         font = widget.font()
         font.setPointSize(30)
-        message.setFont(font)
-        message.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
-        layout.addWidget(message)
+        widget.setFont(font)
+        widget.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
+        self.setCentralWidget(widget)
         self.passes = []
         self.error_msgs = []
         self.testSets = testSets
@@ -331,9 +343,6 @@ class MainWindow(QMainWindow):
         self.progressBar.setMaximum((sum(testSets)+1)*3)
         self.progressBar.setGeometry(200, 400, 400, 30)
         self.progress.connect(self.updateProgress)
-        layout.addWidget(self.progressBar)
-        widget.setLayout(layout)
-        self.setCentralWidget(widget)
         if(len(testSets) == 1):
             self.testSets = []
         
@@ -344,11 +353,6 @@ class MainWindow(QMainWindow):
     # Inputs: function to test, paramater list to pass, input list for input statements
     # Outputs: result or error message
     def testFunction(self, function, parameter_list=(), input_list=[]):
-        '''
-        Tests for infinite loops, errors
-        Inputs: function to test, paramater list to pass, input list for input statements
-        Outputs: result or error message 
-        '''
         # Return either Infinite, Error, or All Good
         global l_data
         l_data = input_list
@@ -375,15 +379,10 @@ class MainWindow(QMainWindow):
         return output
 
     def updateProgress(self, newValue):
-        '''
-        Handle progress signal
-        '''
         self.progressBar.setValue(self.progressBar.value() + newValue)
 
     def startAutoGrader(self, autoGrader, filename, assistant, window):
-        '''
-        Start Autograder thread and worker
-        '''
+        
         self.thread = QThread()
         self.worker = Worker(autoGrader, filename, assistant, window)
 
@@ -399,11 +398,16 @@ class MainWindow(QMainWindow):
         self.worker.end.connect(self.updateWindow)
 
         self.thread.start()
-        
+    def resource_path(self, relative_path):
+        #Gets absolute path for check.png/redX.png
+        try:
+            base_path = sys._MEIPASS
+        except:
+            base_path = os.path.abspath(".")
+
+        return os.path.join(base_path, relative_path)
+
     def updateWindow(self):
-        '''
-        After thread has run, update window with results
-        '''
         if(sum(self.testSets) != len(self.passes)):
             self.testSets = []
         QApplication.restoreOverrideCursor()
@@ -437,13 +441,14 @@ class MainWindow(QMainWindow):
                 image.setText("")
                 text.setText("<font size=5><b>"+self.error_msgs[error_count]+"</b></font>")
             else:
-
+                check = self.resource_path("check.png")
+                redX = self.resource_path("redX.png")
                 if self.passes[i_test_num]:
-                    image.setText("<img src='check.png' width='32' height='32'>")
+                    image.setText(f"<img src='{check}' width='32' height='32'>")
                     text.setText("<font size=5>Test " + str(i_test_num+1) +" Passed!</font>")
                     num_passed += 1
                 else:
-                    image.setText("<img src='redX.png' width='32' height='32'>")
+                    image.setText(f"<img src='{redX}' width='32' height='32'>")
                     text.setText("<font color=black size=5>Test " + str(i_test_num+1) + " Failed: <br></font>" + self.error_msgs[error_count])
                     
                     error_count += 1
@@ -476,9 +481,7 @@ class MainWindow(QMainWindow):
             i+=1
 
     def summaryScreen(self, num_passed):
-        '''
-        Display summary message at the top of the window
-        '''
+        # Summary at top
         if(len(self.passes) > 1):
             summary = QHBoxLayout()
             image = QLabel("")
@@ -517,7 +520,7 @@ class MainWindow(QMainWindow):
               if isinstance(widget, QLabel):
                     widget.setMaximumWidth(self.scroll.viewport().width()-20)
 
-    # The following function handle the signals being sent
+        
     def handleResult(self, result):
         self.passes = result[0]
         self.error_msgs = result[1]

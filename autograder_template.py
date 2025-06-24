@@ -1,3 +1,26 @@
+## This autograder is non-functioning. This is a template to demonstrate how to construct an autograder module for a new lab.
+## This template is divided into 5 functions
+## Function 1: autoGrader
+## This function is called from the autograder assistant in order to run the specific tests for a given lab
+## To create the autograder copy the portion between "Start of Test" and "End of Test".
+## Provide the function to be tested, parameters and inputs as necessary, and the correct result
+
+## Function 2: loadAssistant
+## This function is called in order to load the assistant so that it's function may be used by the autograder
+## In particular it calls the main displayWindow function and the syntax checker
+
+## Function 3: getTestsNum
+## This function only returns the number of tests to test_all_submissions in order to accurately measure the progress bar
+
+## Function 4: testing
+## This function is called by test_all_submissions in order to return only the results and not run the window
+
+## Function 5: main
+## This function is called when the file is run directly from idle. This calls the displayWindow from the assistant.
+## The loading window is displayed while the autograder runs and the results are afterwards displayed
+
+
+# The following are the required imports
 # Python imports
 import sys
 import ast
@@ -69,13 +92,13 @@ def autoGrader(student_submission, assistant, window):
         ########################################################################
 
 
-        # Test n: Task k: Test function() with inputs = x* and parameters = y*
+        ############ Start of Test n: Task k: Test function() with inputs = x* and parameters = y*    ##################
 
         # Initialize the shareableList so that the input statements have access to all necessary inputs
         l_data = shm.ShareableList([x*], name="l_data")
         try:
             # Run the testFunction from the autograder_assistant or test_all_submissions.
-            # This catches most errors and will test for an infinite loop
+            # This function catches most errors and will test for an infinite loop
             # The result returned will be of the form [output, boolean]
             # The output is the regular output from the function and the boolean indicates if the function contained an error
 
@@ -109,7 +132,8 @@ def autoGrader(student_submission, assistant, window):
         # This is necessary because the length and size of inputs may change between tests
         l_data.shm.close()
         l_data.shm.unlink()
-
+        
+        ###################################### End of Test ##############################################
 
         # Tests may be added as necessary by copying the above code and replacing variables
         

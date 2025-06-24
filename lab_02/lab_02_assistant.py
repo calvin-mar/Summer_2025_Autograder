@@ -9,7 +9,7 @@ from multiprocessing import shared_memory as shm
 import multiprocessing
 
 
-def autoGrader(student_submission, assistant, window):
+def autoGrader(student_submission, window):
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
         l_data.shm.close()
@@ -32,8 +32,8 @@ def autoGrader(student_submission, assistant, window):
     sm = importlib.util.module_from_spec(specific_student)
 
 
-    TIMEOUT = 30 
-    b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), window, TIMEOUT)
+
+    b_proceed, s_error_msg = window.syntax_checker(os.path.join(dir_path, student_submission))
     l_data.shm.close()
     l_data.shm.unlink()
     if b_proceed == False:
@@ -81,7 +81,7 @@ def autoGrader(student_submission, assistant, window):
             try:
                 error_msgs.append(" Distance Conversions Failed:  " + str(sm.f_miles) + " miles should equal " + str((sm.f_miles / 3.1) * 5) + " kilometers but your code has it equal " + str(sm.f_distance_km) + " kilometers.  Make sure your variables are named correctly if your value is correct.</font>")
             except:
-                error_msgs.append(" Distance Conversions Failed:  variables are not named correctly or have incorrect values.</font>")
+                error_msgs.append(" Distance Conversions Failed: variables are not named correctly or have incorrect values.</font>")
                 
 
         
@@ -160,30 +160,12 @@ def autoGrader(student_submission, assistant, window):
     
     return passes, error_msgs
 
-def loadAssistant():
-    if getattr(sys, "frozen", False):
-        dir_path = os.path.dirname(sys.executable)
-    else:
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-
-    specific = importlib.util.spec_from_file_location("autograder_assistant", os.path.join(dir_path, "autograder_assistant.py"))
-    assistant = importlib.util.module_from_spec(specific)
-    specific.loader.exec_module(assistant)
-
-    return assistant
-
-def getTestsNum():
-    return 4
+def getTestSets():
+    return [4]
 
 def testing(window):
-    assistant = loadAssistant()
-    passes, error_msgs = autoGrader("lab_02_student_submission.py", assistant, window)
+    passes, error_msgs = autoGrader("lab_02_student_submission.py", window)
     return passes
-
-def main():
-    
-    assistant = loadAssistant()
-    assistant.displayWindow(autoGrader, "lab_02_student_submission.py", assistant)
 
 if __name__ == "__main__":
     multiprocessing.freeze_support()
