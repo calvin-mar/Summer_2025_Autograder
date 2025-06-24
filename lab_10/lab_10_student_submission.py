@@ -1,7 +1,8 @@
 # Name:
 # Date:
 # Purpose: Lists lab 2
-
+if __name__!="_main_":
+    from autograder_assistant import input
 import csc170_lists_data
 
 # 1

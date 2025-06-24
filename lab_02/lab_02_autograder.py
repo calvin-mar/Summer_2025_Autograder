@@ -81,7 +81,7 @@ def autoGrader(student_submission, assistant, window):
             try:
                 error_msgs.append(" Distance Conversions Failed:  " + str(sm.f_miles) + " miles should equal " + str((sm.f_miles / 3.1) * 5) + " kilometers but your code has it equal " + str(sm.f_distance_km) + " kilometers.  Make sure your variables are named correctly if your value is correct.</font>")
             except:
-                error_msgs.append(" Distance Conversions Failed: variables are not named correctly or have incorrect values.</font>")
+                error_msgs.append(" Distance Conversions Failed:  variables are not named correctly or have incorrect values.</font>")
                 
 
         
