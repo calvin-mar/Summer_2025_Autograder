@@ -1,6 +1,6 @@
 <h1>Executables:</h1>
 
-createExe.py automatically detects what OS your system is on and attempts to compile the executables through 4 different commands (to minimize chances of failure) depending on the locaiton of the pyinstaller package.
+createExe.py automatically detects what OS your system is on and attempts to compile the executables through 4 different commands (to minimize chances of failure) depending on the location of the pyinstaller package.
 
 <h2>Installation: </h2>
 
