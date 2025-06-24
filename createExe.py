@@ -19,7 +19,7 @@ def testExe(pyinstaller_path):
     else:
         return False
 
-def createExecutables(osName, assistantEnd):
+def createExecutables(osName, addDataEnd):
 
         
     pyinstaller_path = [shutil.which("pyinstaller"),]
@@ -56,11 +56,15 @@ def createExecutables(osName, assistantEnd):
                 exeName = folder + "_"+ osName + "_Autograder"
                 specFile = exeName + ".spec"
                 appName = folder + "/" + exeName + ".app"
-                assistant = folder + "/" + assistantEnd
+                assistant = folder + "/" + "autograder_assistant.py" + addDataEnd
+                check = folder + "/check.png" + addDataEnd
+                redX = folder + "/redX.png" + addDataEnd
                                     
                 result = subprocess.run([
                     *pyinstaller_path, autograder,
                     "--add-data", assistant,
+                    "--add-data", check,
+                    "--add-data", redX,
                     "--hidden-import", "autograder_assistant",
                     "--hidden-import", "astor",
                     "--hidden-import", "trace",
@@ -115,25 +119,25 @@ def main():
         print("Starting on Windows...")
         
         osName = "Windows"
-        assistantEnd = "autograder_assistant.py;."
+        addDataEnd = ";."
 
-        createExecutables(osName, assistantEnd)
+        createExecutables(osName, addDataEnd)
     elif sys.platform.startswith("linux"): 
         print("Starting on Linux...")
         
         osName = "Linux"
-        assistantEnd = "autograder_assistant.py:."
+        addDataEnd = ":."
 
         
-        createExecutables(osName, assistantEnd)
+        createExecutables(osName, addDataEnd)
     elif sys.platform == "darwin":
         print("Starting on Mac...")
         
         osName = "Mac"
-        assistantEnd = "autograder_assistant.py:."
+        addDataEnd = ":."
 
 
-        createExecutables(osName, assistantEnd)
+        createExecutables(osName, addDataEnd)
     else:
         print(f"Unsupported OS: {sys.platform}")
 
