@@ -7,7 +7,7 @@ import os
 import importlib.util
 import multiprocessing
 
-def autoGrader(student_submission, assistant, window):
+def autoGrader(student_submission, window):
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
         l_data.shm.close()
@@ -27,9 +27,7 @@ def autoGrader(student_submission, assistant, window):
     specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, student_submission))
     sm = importlib.util.module_from_spec(specific_student)
 
-
-    TIMEOUT = 30 
-    b_proceed, s_error_msg = assistant.syntax_checker(os.path.join(dir_path, student_submission), window, TIMEOUT)
+    b_proceed, s_error_msg = window.syntax_checker(os.path.join(dir_path, student_submission))
     if b_proceed == False:
         passes.append(False)
         if(s_error_msg != ""):
@@ -332,33 +330,12 @@ def autoGrader(student_submission, assistant, window):
     print()
     print("You may close the Autograder window to exit.")
 
-    return passes, error_msgs, assistant
+    return passes, error_msgs
 
-def loadAssistant():
-    if getattr(sys, "frozen", False):
-        dir_path = os.path.dirname(sys.executable)
-    else:
-        dir_path = os.path.dirname(os.path.realpath(__file__))
 
-    specific = importlib.util.spec_from_file_location("autograder_assistant", os.path.join(dir_path, "autograder_assistant.py"))
-    assistant = importlib.util.module_from_spec(specific)
-    specific.loader.exec_module(assistant)
-
-    return assistant
-
-def getTestsNum():
-    return 15
+def getTestSets():
+    return [1, 4, 2, 2, 2, 4]
 
 def testing(window):
-    assistant = loadAssistant()
-    passes, error_msgs,assistant = autoGrader("lab_04_student_submission.py", assistant, window)
+    passes, error_msgs,assistant = autoGrader("lab_04_student_submission.py", window)
     return passes
-
-def main():
-    assistant = loadAssistant()
-    testSets = [1, 4, 2, 2, 2, 4]
-    assistant.displayWindow(autoGrader, "lab_04_student_submission.py", assistant, testSets)
-
-if __name__ == "__main__":
-    multiprocessing.freeze_support()
-    main()
