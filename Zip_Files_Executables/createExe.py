@@ -46,7 +46,7 @@ def create_zips():
 
         # Remove Autograder from copy
         for file in os.listdir(copyName):
-            if(len(re.findall("lab_\\d\\d_assistant.py", file)) == 1 or file="autograder.py"):
+            if(len(re.findall("lab_\\d\\d_assistant.py", file)) == 1 or file=="autograder.py"):
                 os.remove(os.path.join(cwd, copyName, file))
 
         # Create Zip File from copy
