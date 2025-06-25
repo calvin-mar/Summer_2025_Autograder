@@ -124,21 +124,26 @@ class MainWindow(QMainWindow):
         QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
         ## Loading Screen
-        widget = QLabel("<b>Autograder is running...<br> Please be patient.</b>")
+
+        widget = QWidget()
+        layout = QVBoxLayout()
+        message = QLabel("<b>Autograder is running...<br> Please be patient.</b>")
         font = widget.font()
         font.setPointSize(30)
-        widget.setFont(font)
-        widget.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
+        message.setFont(font)
+        message.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
+        self.progressBar = PyQt6.QtWidgets.QProgressBar(self)
+        self.progressBar.setGeometry(200, 400, 400, 30)
+        self.progress.connect(self.updateProgress)
+        layout.addWidget(self.progressBar)
+        widget.setLayout(layout)
         self.setCentralWidget(widget)
+
         self.passes = []
         self.error_msgs = []
         self.testSets = testSets
         self.flag = True
 
-        self.progressBar = PyQt6.QtWidgets.QProgressBar(self)
-        self.progressBar.setMaximum((sum(testSets)+1)*3)
-        self.progressBar.setGeometry(200, 400, 400, 30)
-        self.progress.connect(self.updateProgress)
         if(len(testSets) == 1):
             self.testSets = []
         
