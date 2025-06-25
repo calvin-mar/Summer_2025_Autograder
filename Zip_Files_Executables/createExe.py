@@ -57,6 +57,8 @@ def create_zips():
                     zipf.write(file_path, os.path.relpath(file_path, start=copyName))
 
         shutil.rmtree(os.path.join(cwd, copyName))
+
+        shutil.move(os.path.join(cwd, copyName + ".zip"), os.path.join(cwd, tag + "_Zips", copyName + ".zip"))
     print("Successfully created all zip files")
 
 def testExe(pyinstaller_path):
@@ -102,7 +104,7 @@ def createExecutables(osName, addDataEnd):
     if exePasses == False:
         pyinstaller_path = ["python3", "-m", "PyInstaller"]
         exePasses = testExe(pyinstaller_path)
-    print(exePasses, pyinstaller_path)
+    print("Pyinstaller Found?", exePasses, "using (or falling back to)", pyinstaller_path)
     cwd = os.getcwd()
     files = []
     dirs = []
