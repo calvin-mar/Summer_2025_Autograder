@@ -40,7 +40,7 @@ def create_zips():
         for file in os.listdir(directory):
             if(tag in file):
                 if sys.platform == "darwin":
-                    subprocess.run = ("rm", "-r", os.path.join(cwd, directory, file))
+                    result = subprocess.run(["rm", os.path.join(cwd, directory, file)])
                 else:
                     os.remove(os.path.join(cwd, directory, file))
 
