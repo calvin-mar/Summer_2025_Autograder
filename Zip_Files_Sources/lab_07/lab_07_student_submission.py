@@ -1,6 +1,6 @@
 if __name__ != "__main__":
     from input_override import input
-
+    
 def get_total():
     total = 0
     val = 1
@@ -49,7 +49,7 @@ def count_num_fives(num):
     num_fives = 0
     while counter < num:
         val = int(input("Enter a number:" ))        
-        if val == 5:
+        if val = 5:
             num_fives = num_fives + 1
         counter = counter + 1
     return num_fives
