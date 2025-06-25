@@ -10,7 +10,7 @@ def create_zips():
     tag = "000000"
     if sys.platform == "win32":
         appendage = "_Windows"
-        tab = "Windows"
+        tag = "Windows"
     elif sys.platform.startswith("linux"):
         appendage = "_Linux"
         tag = "Linux"
@@ -31,7 +31,7 @@ def create_zips():
     for directory in dirs:
         if directory == "Mac_Zips" or directory == "Linux_Zips" or directory == "Windows_Zips":
             continue
-        print("Starting for " + directory)
+        print("Creating ZIP for " + directory)
         # Copy Directory
         copyName = str(directory + appendage)
         shutil.copytree(directory, copyName)
@@ -58,7 +58,7 @@ def create_zips():
 
         shutil.rmtree(os.path.join(cwd, copyName))
 
-        shutil.move(os.path.join(cwd, copyName + ".zip"), os.path.join(cwd, tag + "_Zips", copyName + ".zip"))
+        os.replace(os.path.join(cwd, copyName + ".zip"), os.path.join(cwd, tag + "_Zips", copyName + ".zip"))
     print("Successfully created all zip files")
 
 def testExe(pyinstaller_path):
@@ -104,7 +104,7 @@ def createExecutables(osName, addDataEnd):
     if exePasses == False:
         pyinstaller_path = ["python3", "-m", "PyInstaller"]
         exePasses = testExe(pyinstaller_path)
-    print("Pyinstaller Found?", exePasses, "using (or falling back to)", pyinstaller_path)
+    print("Pyinstaller path found?", exePasses, ";using", pyinstaller_path)
     cwd = os.getcwd()
     files = []
     dirs = []
