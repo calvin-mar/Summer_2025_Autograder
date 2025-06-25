@@ -9,13 +9,13 @@ def create_zips():
     appendage = ""
     tag = "000000"
     if sys.platform == "win32":
-        appendage = " (Windows)"
+        appendage = "_Windows"
         tab = "Windows"
     elif sys.platform.startswith("linux"):
-        appendage = " (Linux)"
+        appendage = "_Linux"
         tag = "Linux"
     elif sys.platform == "darwin":
-        appendage = " (Mac)"
+        appendage = "_Mac"
         tag = "Mac"
 
     
