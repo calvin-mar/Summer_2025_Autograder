@@ -1,40 +1,50 @@
-This Repository contains files in the form:
+This Repository contains files in the form, bolded points are folders:
 
--Solutions
+-  <b>Solutions</b>
+  
+-  <b>Zip Files_Executables</b>
+    - createExe.py
+    - README.md
+    - requirements.txt
+   - <b>Lab_**</b>
+       - Empty Student Submission
+       - executable_autograder
+       - Check
+       - redX
+       - Necessary testing files
+   - <b>Linux_Zips</b>
+       - Contains Zip files for each lab
+   - <b>Mac_Zips</b>
+       - Contains Zip files for each lab
+   - <b>Windows_Zips</b>
+       - Contains Zip files for each lab
 
--Zip Files (Executables)
- - Empty Student Submission
- - executable_autograder
- - autograder_assistant
- - Check
- - redX
- - Necessary testing files
+-  <b>Zip Files_Sources</b>
+    - <b>lab_**</b>  
+       - Empty Student Submission  
+       - lab_assistant  
+       - autograder.py  
+       - Check  
+       - redX  
+       - Necessary testing files
+     - Also contains Zip files for each lab 
 
--Zip Files (Source Codes)
- - Empty Student Submission
- - autograder_source
- - Autograder_assistant
- - Check
- - redX
- - Necessary testing files
+-  <b>Lab Folders (each containing the following)</b>
+   - lab_**_assistant
+   - autograder.py
+   - Check.png
+   - redX.png
+   - test_all_submissions
+   - Necessary testing files
+   - *Required: Folder for each student. Currently contains examples: student_name1 and student_name2*
 
--Lab Folders (each containing the following)
- - lab_**_autograder
- - autograder_assistant
- - Check.png
- - redX.png
- - test_all_submissions
- - Necessary testing files
- - *Required: Folder for each student. Currently contains examples: student_name1 and student_name2*
-
--autograder_assistant.py (file)  
--autograder_template.py (file) 
--check_all_syntax.py (file)  
--compile_executables.py (file)  
--createExe.py (file)  
--disperse_documents.py (file)  
--README.md (file)  
--test_all_submissions.py (file)  
+- autogradert.py (file)  
+- check_all_syntax.py (file)  
+- disperse_documents.py (file)  
+- input_override.py (file)  
+- lab_assistant_template.py (file)  
+- README.md (file)  
+- test_all_submissions.py (file)  
 
 
 1. Each student may be given a copy of the appropriate zip file for the relevant lab. The executables are directly created from the source code as found in the mirroring zip file. All code is runnable directly from idle.
@@ -44,3 +54,7 @@ This Repository contains files in the form:
 3. When grading all submissions, run test_all_submissions from idle. The program will disperse all necessary documents to all student folders.
 
 4. Several labs do not have autograders. The autograder has been replaced in these folders with check_all_syntax, which merely checks for banned syntax.
+
+5. If you wish to recompile the executables add whatever changed files are necessary to the folders in Zip_Files_Executables and run createExe.py. Running createExe.py will create the necessary executables, create a zip file without autograder.py or the lab_assistant, and places all zip files into the appropriate folders for the OS.
+
+6. Further information regarding executables may be found in the README within Zip_Files_Exectuables
