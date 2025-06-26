@@ -326,7 +326,9 @@ class MainWindow(QMainWindow):
     def syntax_checker(self, filename):
         try:
             with open(filename,"r") as f:
-                code = f.read() 
+                code = f.read()
+        except:
+            return False, "Your file could not be read.  Make sure it is named correctly.  "
             parsed = ast.parse(code)
             for node in ast.walk(parsed):
                 if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
@@ -338,8 +340,6 @@ class MainWindow(QMainWindow):
 
             if("if __name__ != \"__main__\":" not in s_trimmed_code and "from input_override import input" not in s_trimmed_code):
                 return False, "The header structure has been deleted. Please ensure that the following line is in the submission:<br><br> <font color=orange>if</font> __name__ != <font color=green>\"__main__\"</font>:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=orange>from</font> input_override <font color=orange>import</font> <font color=purple>input</font>"
-        except:
-            return False, "Your file could not be read.  Make sure it is named correctly.  "
         if getattr(sys, "frozen", False):
             dir_path = os.path.dirname(sys.executable)
         else:
