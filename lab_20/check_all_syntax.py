@@ -105,7 +105,7 @@ def syntax_checker(filename, window, timeout=0):
         try:
             with open(filename,"r") as f:
                 code = f.read()
-                except Exception as exc:
+        except Exception as exc:
             return False, "Your file could not be read.  Make sure it is named correctly.  "
 
         parsed = ast.parse(code)
