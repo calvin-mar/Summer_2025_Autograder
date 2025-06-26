@@ -8,11 +8,11 @@ pip install -r requirements.txt
 <b>or</b>
 pip3 install -r requirements.txt
 
-To create the executables, place "createExecutables.py" in the folder that contains all the lab folders:
+To create the executables, place "createExe.py" in the folder that contains all the lab folders:
 
 /Labs/ 
 
-- createExecutables.py
+- createExe.py
 - lab_02
   - Autograder.py
   -  lab_02_assistant.py
@@ -24,6 +24,8 @@ To create the executables, place "createExecutables.py" in the folder that conta
 
 - lab_04
   - ...
+
+Then run createExe.py from IDLE or from the terminal. You can only run createExe.py on MAC from the terminal.
 
 <h2>To manually compile:</h2>
 <h3>Linux/Mac:</h3>
