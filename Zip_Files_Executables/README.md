@@ -43,4 +43,4 @@ python -m PyInstaller --add-data "lab_xx_assistant.py;." --add-data "check.png" 
   Make sure:
   pip install pyinstaller
   <br /> <br />
-  Find location of pyinstaller with “which pyinstaller” then add to PATH variable
+  Find location of pyinstaller with <b>which pyinstaller</b> or by retrying <b>pip install pyinstaller</b> then add to PATH variable
