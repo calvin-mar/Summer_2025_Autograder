@@ -36,11 +36,11 @@ python -m PyInstaller --add-data "lab_xx_assistant.py;." --add-data "check.png" 
 
 <h2>Issues that may occur:</h2>
   Pyinstaller throwing a MoudleNotFound error:
-  --hidden-import MODULE
-
+  add </b>--hidden-import MODULE</b> to the pyinstaller compilation command.
+<br />
   Stderr: /Library/Developer/CommandLineTools/usr/bin/python3: No module named PyInstaller  
   
   Make sure:
-  pip install pyinstaller
+  <b>pip install pyinstaller</b>
   <br /> <br />
   Find location of pyinstaller with <b>which pyinstaller</b> or by retrying <b>pip install pyinstaller</b> then add to PATH variable
