@@ -135,6 +135,7 @@ class MainWindow(QMainWindow):
         self.progressBar = PyQt6.QtWidgets.QProgressBar(self)
         self.progressBar.setGeometry(200, 400, 400, 30)
         self.progress.connect(self.updateProgress)
+        layout.addWidget(message)
         layout.addWidget(self.progressBar)
         widget.setLayout(layout)
         self.setCentralWidget(widget)
