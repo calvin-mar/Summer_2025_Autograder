@@ -75,14 +75,14 @@ class Worker(QObject):
                 text.setWordWrap(True)
                 text.setMargin(5)
                 
-                #blockPrint()
+                blockPrint()
                 try:
                     student_result = self.test_submission(name, window)
                 except Exception as exc:
                     print(exc)
                     student_result = ["Bad"]
                     
-                #enablePrint()
+                enablePrint()
                 self.names.append(name)
                 self.results.append(student_result)
 

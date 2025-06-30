@@ -23,7 +23,7 @@ def disperse_documents():
     # Do the Copying
     for file in files:
         #if(file not in excludedFiles):
-        if(file == "check_all_syntax.py"):
+        if(file == "test_all_submissions.py"):
             for directory in dirs:
                 if (directory not in excludedDirs):
                     shutil.copy(file, directory)
