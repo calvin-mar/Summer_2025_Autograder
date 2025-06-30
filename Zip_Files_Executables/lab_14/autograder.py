@@ -124,21 +124,26 @@ class MainWindow(QMainWindow):
         QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
         ## Loading Screen
-        widget = QLabel("<b>Autograder is running...<br> Please be patient.</b>")
+
+        widget = QWidget()
+        layout = QVBoxLayout()
+        message = QLabel("<b>Autograder is running...<br> Please be patient.</b>")
         font = widget.font()
         font.setPointSize(30)
-        widget.setFont(font)
-        widget.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
+        message.setFont(font)
+        message.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
+        self.progressBar = PyQt6.QtWidgets.QProgressBar(self)
+        self.progressBar.setGeometry(200, 400, 400, 30)
+        self.progress.connect(self.updateProgress)
+        layout.addWidget(self.progressBar)
+        widget.setLayout(layout)
         self.setCentralWidget(widget)
+
         self.passes = []
         self.error_msgs = []
         self.testSets = testSets
         self.flag = True
 
-        self.progressBar = PyQt6.QtWidgets.QProgressBar(self)
-        self.progressBar.setMaximum((sum(testSets)+1)*3)
-        self.progressBar.setGeometry(200, 400, 400, 30)
-        self.progress.connect(self.updateProgress)
         if(len(testSets) == 1):
             self.testSets = []
         
@@ -480,16 +485,18 @@ def displayWindow(autoGrader, filename, testSets = []):
 
 def main():
     if getattr(sys, "frozen", False):
-        dir_path = os.path.dirname(sys.executable)
+        try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+            dir_path = sys._MEIPASS
+        except Exception as e:
+            dir_path = os.path.abspath(".")
     else:
         dir_path = os.path.dirname(os.path.realpath(__file__))
 
     for name in os.listdir(dir_path):
-        #print(name, re.findall("lab_\\d\\d_assistant", name), re.findall("lab_\\d\\d_student_submission", name))
-        if(len(re.findall("lab_\\d\\d_assistant", name)) == 1):
+        if(re.match("lab_\\d\\d_assistant.py", name)):
             assistantName = name
-        elif(len(re.findall("lab_\\d\\d_student_submission", name)) == 1):
-            filename = name
+            filename = assistantName[:6] + "_student_submission.py"
 
     specific = importlib.util.spec_from_file_location(assistantName[:-3], os.path.join(dir_path, assistantName))
     assistant = importlib.util.module_from_spec(specific)
