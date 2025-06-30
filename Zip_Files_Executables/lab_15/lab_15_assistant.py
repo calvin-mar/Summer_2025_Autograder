@@ -59,7 +59,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: get_data(\"test_file.txt\") should return [\"This is line 1 of the test file!\", \"This is line 2 of the test file!\", \"Line 3 of the data file.\", \"I love computer science!\", \"I love dogs!\"], but it returns " + repr(str(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: get_data(\"test_file.txt\") should return [\"This is line 1 of the test file!\", \"This is line 2 of the test file!\", \"Line 3 of the data file.\", \"I love computer science!\", \"I love dogs!\"], but it returns " + repr(str(window.show_spaces(result[0]))) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function get_data() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -75,7 +75,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: count_item_records(\"student\", [\"John\", \"student\", \"student_id_123\", \"Dave\", \"faculty\", \"faculty_id_151\", \"Suzy\", \"student\", \"student_id_563\"]) should return 2, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: count_item_records(\"student\", [\"John\", \"student\", \"student_id_123\", \"Dave\", \"faculty\", \"faculty_id_151\", \"Suzy\", \"student\", \"student_id_563\"]) should return 2, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function count_item_records() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -91,7 +91,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: count_item_records(\"student\", [\"John Harney\", \"faculty\", \"faculty_id_123\", \"John Doe\", \"faculty\", \"faculty_id_151\", \"Bruce Johnson\", \"faculty\", \"faculty_id_563\", \"John Ac\", \"staff\", \"staff_id_15632\", \"Ilike Badjokes\", \"faculty\", \"faculty_id_542151\", \"Ima Plumber\", \"staff\", \"staff_id_5653\"]) should return 2, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: count_item_records(\"student\", [\"John Harney\", \"faculty\", \"faculty_id_123\", \"John Doe\", \"faculty\", \"faculty_id_151\", \"Bruce Johnson\", \"faculty\", \"faculty_id_563\", \"John Ac\", \"staff\", \"staff_id_15632\", \"Ilike Badjokes\", \"faculty\", \"faculty_id_542151\", \"Ima Plumber\", \"staff\", \"staff_id_5653\"]) should return 2, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function count_item_records() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -107,7 +107,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: count_item_records(\"faculty\", [\"Michael Phelps\", \"athlete\", \"athlete_id_023\", \"Katie Ledecky\", \"athlete\", \"athlete_id_800\", \"Ryan George\", \"staff\", \"staff_id_404\", \"King Arthur\", \"staff\", \"staff_id_1217\", \"Percy Jackson\", \"student\", \"student_id_1609\", \"John Cena\", \"____\", \"id_007\"]) should return 0, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: count_item_records(\"faculty\", [\"Michael Phelps\", \"athlete\", \"athlete_id_023\", \"Katie Ledecky\", \"athlete\", \"athlete_id_800\", \"Ryan George\", \"staff\", \"staff_id_404\", \"King Arthur\", \"staff\", \"staff_id_1217\", \"Percy Jackson\", \"student\", \"student_id_1609\", \"John Cena\", \"____\", \"id_007\"]) should return 0, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function count_item_records() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -124,7 +124,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: count_csv_records(\"faculty\", [\"John Harney,faculty,faculty_id_123\", \"John Doe,faculty,faculty_id_151\", \"Bruce Johnson,faculty,faculty_id_563\", \"John Ac,staff,staff_id_15632\", \"Ilike Badjokes,faculty,faculty_id_542151\", \"Ima Plumber\", \"staff\", \"staff_id_5653\"]) should return 4, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: count_csv_records(\"faculty\", [\"John Harney,faculty,faculty_id_123\", \"John Doe,faculty,faculty_id_151\", \"Bruce Johnson,faculty,faculty_id_563\", \"John Ac,staff,staff_id_15632\", \"Ilike Badjokes,faculty,faculty_id_542151\", \"Ima Plumber\", \"staff\", \"staff_id_5653\"]) should return 4, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function count_csv_records() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -141,7 +141,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: count_csv_records(\"staff\", [\"Neville Longbottom,faculty,faculty_id_456\",\"Charles Xavier,faculty,faculty_id_941234\",\"Chiron,faculty,faculty_id_80\",\"Merlin the wizard,merline,staff_id_000001\",\"Obiwan Kenobi,faculty,faculty_id_66\"]) should return 0, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: count_csv_records(\"staff\", [\"Neville Longbottom,faculty,faculty_id_456\",\"Charles Xavier,faculty,faculty_id_941234\",\"Chiron,faculty,faculty_id_80\",\"Merlin the wizard,merline,staff_id_000001\",\"Obiwan Kenobi,faculty,faculty_id_66\"]) should return 0, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function count_csv_records() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -246,7 +246,6 @@ def getTestSets():
     return [1,3,2,1,1,1]
 
 def testing(window):
-    assistant = loadAssistant()
-    passes, error_msgs = autoGrader("lab_15_student_submission.py", assistant, window)
+    passes, error_msgs = autoGrader("lab_15_student_submission.py", window)
     return passes
 

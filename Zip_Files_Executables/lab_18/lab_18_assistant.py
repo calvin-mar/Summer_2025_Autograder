@@ -116,7 +116,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: get_avg_sat_fat() should return roughly 5.5606060606060606, but it returns \"" + str(result[0]) + "\".</font>")
+                    error_msgs.append(" Failed: get_avg_sat_fat() should return roughly 5.5606060606060606, but it returns \"" + str(window.show_spaces(result[0])) + "\".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function get_avg_sat_fat() caused an error.  The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
