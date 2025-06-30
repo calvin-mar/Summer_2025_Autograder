@@ -127,7 +127,6 @@ def createExecutables(osName, addDataEnd):
                 appName = folder + "/" + exeName + ".app"
                 assistant = folder + "/" + folder + "_assistant.py" + addDataEnd
                 assistantImport = folder + "_assistant"
-                print(assistant, assistantImport)
                 check = folder + "/check.png" + addDataEnd
                 redX = folder + "/redX.png" + addDataEnd
                                     
