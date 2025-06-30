@@ -2,7 +2,7 @@
 # Date:
 # Purpose: Strings lab 1
 if __name__ != "__main__":
-    from autograder_assistant import input
+    from input_override import input
     
 import csc170_strings_data
 from csc170_strings_data import *

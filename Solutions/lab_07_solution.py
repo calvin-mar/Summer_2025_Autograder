@@ -1,5 +1,5 @@
 if __name__ != "__main__":
-    from autograder_assistant import input
+    from input_override import input
 # adds sentinel value of -1
 def get_total():
     total = 0
