@@ -9,6 +9,15 @@ def create_zips():
     appendage = ""
     tag = "000000"
     if sys.platform == "win32":
+<<<<<<< HEAD
+        appendage = " (Windows)"
+        tab = "Windows"
+    elif sys.platform.startswith("linux"):
+        appendage = " (Linux)"
+        tag = "Linux"
+    elif sys.platform == "darwin":
+        appendage = " (Mac)"
+=======
         appendage = "_Windows"
         tag = "Windows"
     elif sys.platform.startswith("linux"):
@@ -16,6 +25,7 @@ def create_zips():
         tag = "Linux"
     elif sys.platform == "darwin":
         appendage = "_Mac"
+>>>>>>> e971ec8bb20612eb932956391a85ad97181fe9f4
         tag = "Mac"
 
     
@@ -29,9 +39,13 @@ def create_zips():
             dirs.append(name)
 
     for directory in dirs:
+<<<<<<< HEAD
+        print("Starting for " + directory)
+=======
         if directory == "Mac_Zips" or directory == "Linux_Zips" or directory == "Windows_Zips":
             continue
         print("Creating ZIP for " + directory)
+>>>>>>> e971ec8bb20612eb932956391a85ad97181fe9f4
         # Copy Directory
         copyName = str(directory + appendage)
         shutil.copytree(directory, copyName)
@@ -40,13 +54,21 @@ def create_zips():
         for file in os.listdir(directory):
             if(tag in file):
                 if sys.platform == "darwin":
+<<<<<<< HEAD
+                    subprocess.run = ("rm", "-r", os.path.join(cwd, directory, file))
+=======
                     result = subprocess.run(["rm", os.path.join(cwd, directory, file)])
+>>>>>>> e971ec8bb20612eb932956391a85ad97181fe9f4
                 else:
                     os.remove(os.path.join(cwd, directory, file))
 
         # Remove Autograder from copy
         for file in os.listdir(copyName):
+<<<<<<< HEAD
+            if(len(re.findall("lab_\\d\\d_assistant.py", file)) == 1):
+=======
             if(len(re.findall("lab_\\d\\d_assistant.py", file)) == 1 or file=="autograder.py"):
+>>>>>>> e971ec8bb20612eb932956391a85ad97181fe9f4
                 os.remove(os.path.join(cwd, copyName, file))
 
         # Create Zip File from copy
@@ -57,8 +79,11 @@ def create_zips():
                     zipf.write(file_path, os.path.relpath(file_path, start=copyName))
 
         shutil.rmtree(os.path.join(cwd, copyName))
+<<<<<<< HEAD
+=======
 
         os.replace(os.path.join(cwd, copyName + ".zip"), os.path.join(cwd, tag + "_Zips", copyName + ".zip"))
+>>>>>>> e971ec8bb20612eb932956391a85ad97181fe9f4
     print("Successfully created all zip files")
 
 def testExe(pyinstaller_path):
@@ -128,6 +153,7 @@ def createExecutables(osName, addDataEnd):
                 appName = folder + "/" + exeName + ".app"
                 assistant = folder + "/" + folder + "_assistant.py" + addDataEnd
                 assistantImport = folder + "_assistant"
+                print(assistant, assistantImport)
                 check = folder + "/check.png" + addDataEnd
                 redX = folder + "/redX.png" + addDataEnd
                                     
