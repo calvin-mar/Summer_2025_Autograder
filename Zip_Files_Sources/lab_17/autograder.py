@@ -135,6 +135,7 @@ class MainWindow(QMainWindow):
         self.progressBar = PyQt6.QtWidgets.QProgressBar(self)
         self.progressBar.setGeometry(200, 400, 400, 30)
         self.progress.connect(self.updateProgress)
+        layout.addWidget(message)
         layout.addWidget(self.progressBar)
         widget.setLayout(layout)
         self.setCentralWidget(widget)
@@ -338,20 +339,22 @@ class MainWindow(QMainWindow):
     def syntax_checker(self, filename):
         try:
             with open(filename,"r") as f:
-                code = f.read() 
-            parsed = ast.parse(code)
-            for node in ast.walk(parsed):
-                if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
-                    # set value to empty string
-                    node.value = ast.Constant(value='') 
-            s_trimmed_code = astor.to_source(parsed)  
-            pattern = r'^.*"""""".*$' # remove empty """"""
-            s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE)
-
-            if("if __name__ != \"__main__\":" not in s_trimmed_code and "from input_override import input" not in s_trimmed_code):
-                return False, "The header structure has been deleted. Please ensure that the following line is in the submission:<br><br> <font color=orange>if</font> __name__ != <font color=green>\"__main__\"</font>:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=orange>from</font> input_override <font color=orange>import</font> <font color=purple>input</font>"
+                code = f.read()
         except:
             return False, "Your file could not be read.  Make sure it is named correctly.  "
+
+        parsed = ast.parse(code)
+        for node in ast.walk(parsed):
+            if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
+                # set value to empty string
+                node.value = ast.Constant(value='') 
+        s_trimmed_code = astor.to_source(parsed)  
+        pattern = r'^.*"""""".*$' # remove empty """"""
+        s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE)
+
+        if("if __name__ != \"__main__\":" not in s_trimmed_code and "from input_override import input" not in s_trimmed_code):
+            return False, "The header structure has been deleted. Please ensure that the following line is in the submission:<br><br> <font color=orange>if</font> __name__ != <font color=green>\"__main__\"</font>:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=orange>from</font> input_override <font color=orange>import</font> <font color=purple>input</font>"
+
         if getattr(sys, "frozen", False):
             dir_path = os.path.dirname(sys.executable)
         else:

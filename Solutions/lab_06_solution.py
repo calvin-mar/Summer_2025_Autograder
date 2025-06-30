@@ -1,5 +1,5 @@
 if __name__ != "__main__":
-    from autograder_assistant import input
+    from input_override import input
 def biggest_number():
     num = int(input("enter a number: "))
     counter = 1

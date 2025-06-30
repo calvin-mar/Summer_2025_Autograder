@@ -105,16 +105,17 @@ def syntax_checker(filename, window, timeout=0):
         try:
             with open(filename,"r") as f:
                 code = f.read()
-            parsed = ast.parse(code)
-            for node in ast.walk(parsed):
-                if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
-                    # set value to empty string
-                    node.value = ast.Constant(value='') 
-            s_trimmed_code = astor.to_source(parsed)
-            pattern = r'^.*"""""".*$' # remove empty """"""
-            s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE)
         except Exception as exc:
             return False, "Your file could not be read.  Make sure it is named correctly.  "
+
+        parsed = ast.parse(code)
+        for node in ast.walk(parsed):
+            if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
+                # set value to empty string
+                node.value = ast.Constant(value='') 
+        s_trimmed_code = astor.to_source(parsed)
+        pattern = r'^.*"""""".*$' # remove empty """"""
+        s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE)
         if getattr(sys, "frozen", False):
             dir_path = os.path.dirname(sys.executable)
         else:
