@@ -123,6 +123,11 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('Autograder')
         QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
+<<<<<<< HEAD
+=======
+        self.testSets = testSets
+
+>>>>>>> c8dca33e1c0431868e82a224398bfc93dc16b0ed
         ## Loading Screen
 
         widget = QWidget()
@@ -134,6 +139,10 @@ class MainWindow(QMainWindow):
         message.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
         self.progressBar = PyQt6.QtWidgets.QProgressBar(self)
         self.progressBar.setGeometry(200, 400, 400, 30)
+<<<<<<< HEAD
+=======
+        self.progressBar.setMaximum(sum(testSets))
+>>>>>>> c8dca33e1c0431868e82a224398bfc93dc16b0ed
         self.progress.connect(self.updateProgress)
         layout.addWidget(message)
         layout.addWidget(self.progressBar)
@@ -142,7 +151,10 @@ class MainWindow(QMainWindow):
 
         self.passes = []
         self.error_msgs = []
+<<<<<<< HEAD
         self.testSets = testSets
+=======
+>>>>>>> c8dca33e1c0431868e82a224398bfc93dc16b0ed
         self.flag = True
 
         if(len(testSets) == 1):

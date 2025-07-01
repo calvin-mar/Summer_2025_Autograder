@@ -123,6 +123,8 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('Autograder')
         QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
+        self.testSets = testSets
+
         ## Loading Screen
 
         widget = QWidget()
@@ -134,6 +136,7 @@ class MainWindow(QMainWindow):
         message.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
         self.progressBar = PyQt6.QtWidgets.QProgressBar(self)
         self.progressBar.setGeometry(200, 400, 400, 30)
+        self.progressBar.setMaximum(sum(testSets))
         self.progress.connect(self.updateProgress)
         layout.addWidget(message)
         layout.addWidget(self.progressBar)
@@ -142,7 +145,6 @@ class MainWindow(QMainWindow):
 
         self.passes = []
         self.error_msgs = []
-        self.testSets = testSets
         self.flag = True
 
         if(len(testSets) == 1):
@@ -362,9 +364,9 @@ class MainWindow(QMainWindow):
           to_return = "".join(to_return)
         else:
           to_return = result
-                 
+       
         return to_return
-      
+     
       except Exception as e:
         print("failed :(", e, result)
         return result

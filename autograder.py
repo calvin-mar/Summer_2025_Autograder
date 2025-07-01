@@ -361,10 +361,9 @@ class MainWindow(QMainWindow):
             i -= 1
           to_return = "".join(to_return)
         else:
-          to_return = result
-                 
+          to_return = result  
         return to_return
-      
+    
       except Exception as e:
         print("failed :(", e, result)
         return result
