@@ -66,7 +66,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_len() should return 0 with argument \"\", but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_len() should return 0 with argument \"\", but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except Exception as exc:
             print(exc)
             passes.append(False)
@@ -85,7 +85,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_len() should return 1 with argument \"1\", but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_len() should return 1 with argument \"1\", but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_len() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -103,7 +103,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_len() should return 2 with argument \"ab\", but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_len() should return 2 with argument \"ab\", but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_len() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -122,7 +122,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_len() should return 8 with argument \"12345678\", but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_len() should return 8 with argument \"12345678\", but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_len() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -142,7 +142,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_strip() should return \"abc\" with argument \"abc\", but it returns " + repr(str(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: my_strip() should return \"abc\" with argument \"abc\", but it returns " + repr(str(window.show_spaces(result[0]))) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_strip() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -160,7 +160,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_strip() should return \"d\" with argument \"space space d space space\", but it returns " + repr(str(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: my_strip() should return \"d\" with argument \"space space d space space\", but it returns " + repr(str(window.show_spaces(result[0]))) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_strip() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -178,7 +178,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_strip() should return \"abc\" with argument \"tab new_line space abc\", but it returns " + repr(str(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: my_strip() should return \"abc\" with argument \"tab new_line space abc\", but it returns " + repr(str(window.show_spaces(result[0]))) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_strip() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -196,7 +196,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_strip() should return \"abc\" with argument \"abc tab tab tab new_line space\", but it returns " + repr(str(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: my_strip() should return \"abc\" with argument \"abc tab tab tab new_line space\", but it returns " + repr(str(window.show_spaces(result[0]))) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_strip() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -214,7 +214,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_strip() should return \"x\" with argument \"new_line new_line new_line tab space space space x space space space space new_line new_line tab\", but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_strip() should return \"x\" with argument \"new_line new_line new_line tab space space space x space space space space new_line new_line tab\", but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_strip() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -232,7 +232,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_strip() should return \"abc  def\" with argument \"space space abc space space def space space\", but it returns " + repr(str(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: my_strip() should return \"abc  def\" with argument \"space space abc space space def space space\", but it returns " + repr(str(window.show_spaces(result[0]))) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_strip() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -250,7 +250,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_strip() should return \"abc \n\t def\" with argument \"space space abc space new_line tab space def space space\", but it returns " + repr(str(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: my_strip() should return \"abc \n\t def\" with argument \"space space abc space new_line tab space def space space\", but it returns " + repr(str(window.show_spaces(result[0]))) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_strip() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -268,7 +268,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_strip() should return \"abc\t\n def\" with argument \"abc tab new_line space def\", but it returns " + repr(str(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: my_strip() should return \"abc\t\n def\" with argument \"abc tab new_line space def\", but it returns " + repr(str(window.show_spaces(result[0]))) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_strip() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -286,7 +286,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_strip() should return \"\" with argument \"space tab new_line space tab new_line space\", but it returns " + repr(str(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: my_strip() should return \"\" with argument \"space tab new_line space tab new_line space\", but it returns " + repr(str(window.show_spaces(result[0]))) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_strip() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -304,7 +304,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_strip() should return \"\" with argument \"new_line new_line new_line new_line\", but it returns " + repr(str(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: my_strip() should return \"\" with argument \"new_line new_line new_line new_line\", but it returns " + repr(str(window.show_spaces(result[0]))) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_strip() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -322,7 +322,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_strip() should return \"\" with argument \"tab tab tab\", but it returns " + repr(str(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: my_strip() should return \"\" with argument \"tab tab tab\", but it returns " + repr(str(window.show_spaces(result[0]))) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_strip() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -340,7 +340,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_strip() should return \"\" with argument \"space space space space space\", but it returns " + repr(str(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: my_strip() should return \"\" with argument \"space space space space space\", but it returns " + repr(str(window.show_spaces(result[0]))) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_strip() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -360,7 +360,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_in() should return True with arguments abc and abcdefg, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_in() should return True with arguments abc and abcdefg, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_in() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -378,7 +378,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_in() should return True with arguments cdefg and abcdefg, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_in() should return True with arguments cdefg and abcdefg, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_in() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -396,7 +396,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_in() should return True with arguments ef and abcdefg, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_in() should return True with arguments ef and abcdefg, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_in() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -414,7 +414,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_in() should return False with arguments ce and abcdefg, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_in() should return False with arguments ce and abcdefg, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_in() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -432,7 +432,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_in() should return False with arguments xab and abcdefg, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_in() should return False with arguments xab and abcdefg, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_in() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -450,7 +450,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_in() should return False with arguments fgh and abcdefg, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_in() should return False with arguments fgh and abcdefg, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_in() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -468,7 +468,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_in() should return False with arguments x and abcdefg, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_in() should return False with arguments x and abcdefg, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_in() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -486,7 +486,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_in() should return False with arguments abcdefgx and abcdefg, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_in() should return False with arguments abcdefgx and abcdefg, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_in() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -506,7 +506,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_find() should return 0 with arguments abc and abcdefghi, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_find() should return 0 with arguments abc and abcdefghi, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_find() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -524,7 +524,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_find() should return 6 with arguments ghi and abcdefghi, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_find() should return 6 with arguments ghi and abcdefghi, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_find() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -542,7 +542,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_find() should return 2 with arguments cde and abcdefghi, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_find() should return 2 with arguments cde and abcdefghi, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_find() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -560,7 +560,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_find() should return -1 with arguments abd and abcdefghi, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_find() should return -1 with arguments abd and abcdefghi, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_find() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -578,7 +578,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_find() should return -1 with arguments ghij and abcdefghi, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_find() should return -1 with arguments ghij and abcdefghi, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_find() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -596,7 +596,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_find() should return -1 with arguments xyz and abcdefghi, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_find() should return -1 with arguments xyz and abcdefghi, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_find() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -616,7 +616,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_replace() should return \"xyz is good\" with arguments \"fish is good\", \"fish\", and \"xyz\", but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_replace() should return \"xyz is good\" with arguments \"fish is good\", \"fish\", and \"xyz\", but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_replace() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -634,7 +634,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_replace() should return \"fishxyzs good\" with arguments \"fish is good\", \" i\", and \"xyz\", but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_replace() should return \"fishxyzs good\" with arguments \"fish is good\", \" i\", and \"xyz\", but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_replace() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -652,7 +652,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_replace() should return \"fish is xyzd\" with arguments \"fish is good\", \"goo\", and \"xyz\", but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_replace() should return \"fish is xyzd\" with arguments \"fish is good\", \"goo\", and \"xyz\", but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_replace() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -670,7 +670,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_replace() should return \"fish is goaxyz\" with arguments \"fish is good\", \"od\", and \"axyz\", but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_replace() should return \"fish is goaxyz\" with arguments \"fish is good\", \"od\", and \"axyz\", but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_replace() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -688,7 +688,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_replace() should return \"fisxyzs good\" with arguments \"fish is good\", \"h i\", and \"xyz\", but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_replace() should return \"fisxyzs good\" with arguments \"fish is good\", \"h i\", and \"xyz\", but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_replace() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -706,7 +706,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_replace() should return \"fish is good\" with arguments \"fish is good\", \"x\", and \"xyz\", but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_replace() should return \"fish is good\" with arguments \"fish is good\", \"x\", and \"xyz\", but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_replace() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -724,7 +724,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_replace() should return \"fishxyzis good\" with arguments \"fish is good\", \" \", and \"xyz\", but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_replace() should return \"fishxyzis good\" with arguments \"fish is good\", \" \", and \"xyz\", but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_replace() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -742,7 +742,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_replace() should return \"fxyz is fish\" with arguments \"fish is fish\", \"ish\", and \"xyz\", but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_replace() should return \"fxyz is fish\" with arguments \"fish is fish\", \"ish\", and \"xyz\", but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_replace() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -762,7 +762,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_simple_split(\"a\", \"banana\") should return the list [\"b\", \"n\", \"n\", \"\"], but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_simple_split(\"a\", \"banana\") should return the list [\"b\", \"n\", \"n\", \"\"], but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_simple_split() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -780,7 +780,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_simple_split(\"a\", \"anna\") should return the list [\"\", \"nn\", \"\"], but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_simple_split(\"a\", \"anna\") should return the list [\"\", \"nn\", \"\"], but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_simple_split() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -798,7 +798,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_simple_split(\"a\", \"xaax\") should return the list [\"x\", \"\", \"x\"], but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_simple_split(\"a\", \"xaax\") should return the list [\"x\", \"\", \"x\"], but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_simple_split() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -816,7 +816,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_simple_split(\"a\", \"xaaax\") should return the list [\"x\", \"\", \"\", \"x\"], but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_simple_split(\"a\", \"xaaax\") should return the list [\"x\", \"\", \"\", \"x\"], but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_simple_split() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -834,7 +834,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_simple_split(\"a\", \"a\") should return the list [\"\", \"\"], but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_simple_split(\"a\", \"a\") should return the list [\"\", \"\"], but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_simple_split() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -853,6 +853,5 @@ def getTestSets():
     return [4, 12, 8, 6, 8, 5]
 
 def testing(window):
-    assistant = loadAssistant()
     passes, error_msgs = autoGrader("lab_14_student_submission.py", window)
     return passes

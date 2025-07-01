@@ -54,7 +54,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: double_a_number() should return 6 when the user enters 3, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: double_a_number() should return 6 when the user enters 3, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function double_a_number() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -75,7 +75,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: biggest_number() should return 3 when the arguments are 1, 2, and 3, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: biggest_number() should return 3 when the arguments are 1, 2, and 3, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function biggest_number() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -94,7 +94,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: biggest_number() should return 3 when the arguments are 1, 3, and 2, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: biggest_number() should return 3 when the arguments are 1, 3, and 2, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function biggest_number() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -113,7 +113,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: biggest_number() should return 3 when the arguments are 3, 1, and 2, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: biggest_number() should return 3 when the arguments are 3, 1, and 2, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function biggest_number() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -131,7 +131,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: biggest_number() should return -1 when the arguments are -3, -1, and -2, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: biggest_number() should return -1 when the arguments are -3, -1, and -2, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function biggest_number() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -151,7 +151,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: is_even() should return False with odd number 17, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: is_even() should return False with odd number 17, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function is_even() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -169,7 +169,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: is_even() should return True with odd number 16, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: is_even() should return True with odd number 16, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function is_even() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -189,7 +189,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: rectangle_area() should return 15 with length 5 and width 3, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: rectangle_area() should return 15 with length 5 and width 3, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function rectangle_area() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -207,7 +207,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: rectangle_area() should return 56 with length 4 and width 14, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: rectangle_area() should return 56 with length 4 and width 14, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function rectangle_area() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -226,7 +226,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: km_to_miles() should return 6.2 with 10 km as argument, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: km_to_miles() should return 6.2 with 10 km as argument, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function km_to_miles() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -243,7 +243,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: km_to_miles() should return 26.26.164000000000005 with 42.2 km as argument, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: km_to_miles() should return 26.26.164000000000005 with 42.2 km as argument, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function km_to_miles() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -265,7 +265,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: is_leap_year() should return False with argument 2111, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: is_leap_year() should return False with argument 2111, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function is_leap_year() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -282,7 +282,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: is_leap_year() should return True with argument 1604, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: is_leap_year() should return True with argument 1604, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function is_leap_year() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -300,7 +300,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: is_leap_year() should return False with argument 1900, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: is_leap_year() should return False with argument 1900, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function is_leap_year() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -317,7 +317,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: is_leap_year() should return True with argument 2000, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: is_leap_year() should return True with argument 2000, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function is_leap_year() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")

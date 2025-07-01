@@ -57,7 +57,6 @@ def create_zips():
                     zipf.write(file_path, os.path.relpath(file_path, start=copyName))
 
         shutil.rmtree(os.path.join(cwd, copyName))
-
         os.replace(os.path.join(cwd, copyName + ".zip"), os.path.join(cwd, tag + "_Zips", copyName + ".zip"))
     print("Successfully created all zip files")
 

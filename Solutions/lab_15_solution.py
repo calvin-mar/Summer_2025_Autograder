@@ -1,5 +1,5 @@
 if __name__ != "__main__":
-    from autograder_assistant import input
+    from input_override import input
 
 def get_data(s_file_name):
     input_file = open(s_file_name, "r")

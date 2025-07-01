@@ -57,7 +57,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_len() should return 0 with an empty list argument, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_len() should return 0 with an empty list argument, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_len() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -76,7 +76,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_len() should return 5 with this list [8, 6, 7, 5, 3] as an argument, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_len() should return 5 with this list [8, 6, 7, 5, 3] as an argument, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_len() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -97,7 +97,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_in_list() should return False with this list [8, 6, 7, 5, 3] and 0 as arguments, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_in_list() should return False with this list [8, 6, 7, 5, 3] and 0 as arguments, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_in_list() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -116,7 +116,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_in_list() should return True with this list [8, 6, 7, 5, 3] and 7 as arguments, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_in_list() should return True with this list [8, 6, 7, 5, 3] and 7 as arguments, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_in_list() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -137,7 +137,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_in_list() should return True with this list [8, 6, 7, 5, 3] and 8 as arguments, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_in_list() should return True with this list [8, 6, 7, 5, 3] and 8 as arguments, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_in_list() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -156,7 +156,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_in_list() should return True with this list [8, 6, 7, 5, 3] and 3 as arguments, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_in_list() should return True with this list [8, 6, 7, 5, 3] and 3 as arguments, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_in_list() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -176,7 +176,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_location() should return 0 with this list [8, 6, 8, 5, 3] and 8 as arguments, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_location() should return 0 with this list [8, 6, 8, 5, 3] and 8 as arguments, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_location() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -194,7 +194,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_location() should return 4 with this list [8, 6, 8, 5, 3] and 3 as arguments, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_location() should return 4 with this list [8, 6, 8, 5, 3] and 3 as arguments, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_location() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -213,7 +213,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_location() should return -1 with this list [8, 6, 8, 5, 3] and 77 as arguments, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_location() should return -1 with this list [8, 6, 8, 5, 3] and 77 as arguments, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_location() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -233,7 +233,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_reverse() should return [3, 5, 8, 6, 8] with this list [8, 6, 8, 5, 3] argument, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_reverse() should return [3, 5, 8, 6, 8] with this list [8, 6, 8, 5, 3] argument, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_reverse() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -251,7 +251,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_reverse() should return [4, -1, 0, 6, 4, 5] with this list [5, 4, 6, 0, -1, 4] argument, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_reverse() should return [4, -1, 0, 6, 4, 5] with this list [5, 4, 6, 0, -1, 4] argument, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_reverse() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -272,7 +272,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_extrema() should return -1 and 77 with this list [77, 6, -1, 5, 3] argument, but it returns " + str(result[0][0]) + " and " + str(result[0][1]) + ".</font>")
+                    error_msgs.append(" Failed: my_extrema() should return -1 and 77 with this list [77, 6, -1, 5, 3] argument, but it returns " + str(window.show_spaces(result[0][0])) + " and " + str(window.show_spaces(result[0][1])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_extrema() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -290,7 +290,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_extrema() should return 0 and 77 with this list [0, 6, 3, 5, 77] argument, but it returns " + str(result[0][0]) + " and " + str(result[0][1]) + ".</font>")
+                    error_msgs.append(" Failed: my_extrema() should return 0 and 77 with this list [0, 6, 3, 5, 77] argument, but it returns " + str(window.show_spaces(result[0][0])) + " and " + str(window.show_spaces(result[0][1])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_extrema() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")    
@@ -308,7 +308,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_extrema() should return -1 and 77 with this list [6, 77, 3, 5, -1] argument, but it returns " + str(result[0][0]) + " and " + str(result[0][1]) + ".</font>")
+                    error_msgs.append(" Failed: my_extrema() should return -1 and 77 with this list [6, 77, 3, 5, -1] argument, but it returns " + str(window.show_spaces(result[0][0])) + " and " + str(window.show_spaces(result[0][1])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_extrema() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")    
@@ -325,7 +325,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_extrema() should return 1 and 99 with this list [2, 1, 3, 5, 99] argument, but it returns " + str(result[0][0]) + " and " + str(result[0][1]) + ".</font>")
+                    error_msgs.append(" Failed: my_extrema() should return 1 and 99 with this list [2, 1, 3, 5, 99] argument, but it returns " + str(window.show_spaces(result[0][0])) + " and " + str(window.show_spaces(result[0][1])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_extrema() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")    
@@ -342,7 +342,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_extrema() should return -3 and -77 with this list [-9, -6, -3, -5, -77] argument, but it returns " + str(result[0][0]) + " and " + str(result[0][1]) + ".</font>")
+                    error_msgs.append(" Failed: my_extrema() should return -3 and -77 with this list [-9, -6, -3, -5, -77] argument, but it returns " + str(window.show_spaces(result[0][0])) + " and " + str(window.show_spaces(result[0][1])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_extrema() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")    
@@ -362,7 +362,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_count() should return 0 with this list [6, 77, 3, 5, -1] and 99 as argument, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_count() should return 0 with this list [6, 77, 3, 5, -1] and 99 as argument, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_count() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")    
@@ -380,7 +380,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_count() should return 2 with this list [6, 77, 3, 5, 77] and 77 as argument, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_count() should return 2 with this list [6, 77, 3, 5, 77] and 77 as argument, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_count() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")    
@@ -400,7 +400,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_insert() should return [\"X\", 0, 1, 2, 3, 4] with this list [0, 1, 2, 3, 4], 0, and \"X\" as argument, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_insert() should return [\"X\", 0, 1, 2, 3, 4] with this list [0, 1, 2, 3, 4], 0, and \"X\" as argument, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_insert() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")    
@@ -418,7 +418,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_insert() should return [0, 1, 2, 3, \"X\", 4] with this list [0, 1, 2, 3, 4], 4, and \"X\" as argument, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_insert() should return [0, 1, 2, 3, \"X\", 4] with this list [0, 1, 2, 3, 4], 4, and \"X\" as argument, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_insert() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")    
@@ -437,7 +437,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_insert() should return [0, 1, 2, 3, 4, \"X\"] with this list [0, 1, 2, 3, 4], 5, and \"X\" as argument, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_insert() should return [0, 1, 2, 3, 4, \"X\"] with this list [0, 1, 2, 3, 4], 5, and \"X\" as argument, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_insert() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")    
@@ -457,7 +457,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_remove() should return [0, 2, 3, 4, 2, 2] with this list [0, 1, 2, 3, 4, 1, 2, 1, 2] and 1, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_remove() should return [0, 2, 3, 4, 2, 2] with this list [0, 1, 2, 3, 4, 1, 2, 1, 2] and 1, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_remove() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")            
@@ -475,7 +475,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_remove() should return [0, 1, 2, 3, 4, 1, 2, 1, 2] with this list [0, 1, 2, 3, 4, 1, 2, 1, 2] and 11, but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_remove() should return [0, 1, 2, 3, 4, 1, 2, 1, 2] with this list [0, 1, 2, 3, 4, 1, 2, 1, 2] and 11, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_remove() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")            
@@ -496,7 +496,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: my_sort() should return [0, 1, 2, 3, 4, 5, 6, 7, 8] with this list [8, 7, 6, 5, 4, 3, 2, 1, 0], but it returns " + str(result[0]) + ".</font>")
+                    error_msgs.append(" Failed: my_sort() should return [0, 1, 2, 3, 4, 5, 6, 7, 8] with this list [8, 7, 6, 5, 4, 3, 2, 1, 0], but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function my_remove() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")            

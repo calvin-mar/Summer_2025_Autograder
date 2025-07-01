@@ -1,5 +1,5 @@
 if __name__ != "__main__":
-    from autograder_assistant import input
+    from input_override import input
 
 def my_len(s_text):
     i_num_char = 0
