@@ -344,27 +344,32 @@ class MainWindow(QMainWindow):
       The purpose of this is to remove the frustration that occurs when results appear to be correct
       but is off by only a space or a tab causing some invisible differences.
       '''
-      if(type(result) == str):
-        to_return = list(result)
-        i=0
-        while(i < len(result) and to_return[i] in " \t"):
-          if(to_return[i] == " "):
-            to_return[i] = '\u2423'
-          else:
-            to_return[i] = "\\t"
-          i += 1
-        i = -1
-        while(i < len(result) and to_return[i] in " \t"):
-          if(to_return[i] == " "):
-            to_return[i] = '\u2423'
-          else:
-            to_return[i] = "\\t"
-          i -= 1
-        to_return = "".join(to_return)
-      else:
-        to_return = result
+      try:
+        if(type(result) == str):
+          to_return = list(result)
+          i=0
+          while(i < len(result) and to_return[i] in " \t"):
+            if(to_return[i] == " "):
+              to_return[i] = '\u2423'
+            else:
+              to_return[i] = "\\t"
+            i += 1
+          i = -1
+          while(i < len(result) and to_return[i] in " \t"):
+            if(to_return[i] == " "):
+              to_return[i] = '\u2423'
+            else:
+              to_return[i] = "\\t"
+            i -= 1
+          to_return = "".join(to_return)
+        else:
+          to_return = result
+          
         
       return to_return
+    except:
+      print("show_spaces failed")
+      return result
       
         
     def syntax_checker(self, filename):
