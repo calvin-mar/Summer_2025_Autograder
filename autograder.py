@@ -123,8 +123,6 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('Autograder')
         QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
-        self.testSets = testSets
-
         ## Loading Screen
 
         widget = QWidget()
@@ -136,7 +134,6 @@ class MainWindow(QMainWindow):
         message.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
         self.progressBar = PyQt6.QtWidgets.QProgressBar(self)
         self.progressBar.setGeometry(200, 400, 400, 30)
-        self.progressBar.setMaximum(sum(testSets))
         self.progress.connect(self.updateProgress)
         layout.addWidget(message)
         layout.addWidget(self.progressBar)
@@ -145,6 +142,7 @@ class MainWindow(QMainWindow):
 
         self.passes = []
         self.error_msgs = []
+        self.testSets = testSets
         self.flag = True
 
         if(len(testSets) == 1):
@@ -344,28 +342,33 @@ class MainWindow(QMainWindow):
       The purpose of this is to remove the frustration that occurs when results appear to be correct
       but is off by only a space or a tab causing some invisible differences.
       '''
-      if(type(result) == str):
-        to_return = list(result)
-        i=0
-        while(i < len(result) and to_return[i] in " \t"):
-          if(to_return[i] == " "):
-            to_return[i] = '\u2423'
-          else:
-            to_return[i] = "\\t"
-          i += 1
-        i = -1
-        while(i < len(result) and to_return[i] in " \t"):
-          if(to_return[i] == " "):
-            to_return[i] = '\u2423'
-          else:
-            to_return[i] = "\\t"
-          i -= 1
-        to_return = "".join(to_return)
-      else:
-        to_return = result
-        
-      return to_return
+      try:
+        if(type(result) == str):
+          to_return = list(result)
+          i=0
+          while(i < len(result) and to_return[i] in " \t"):
+            if(to_return[i] == " "):
+              to_return[i] = '\u2423'
+            else:
+              to_return[i] = "\\t"
+            i += 1
+          i = -1
+          while(i < len(result) and to_return[i] in " \t"):
+            if(to_return[i] == " "):
+              to_return[i] = '\u2423'
+            else:
+              to_return[i] = "\\t"
+            i -= 1
+          to_return = "".join(to_return)
+        else:
+          to_return = result
+                 
+        return to_return
       
+      except Exception as e:
+        print("failed :(", e, result)
+        return result
+
         
     def syntax_checker(self, filename):
         try:
