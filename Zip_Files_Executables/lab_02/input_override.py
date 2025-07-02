@@ -1,4 +1,5 @@
 from multiprocessing import shared_memory as shm
+import sys
 
 try:
     import __builtin__
@@ -26,9 +27,12 @@ def input(*args, **kwargs):
     # Set last input in list of inputs to None
     l_data[-1] = None
     
-    print("\n====================\nYour input statement:", args[0])
-    print("The value entered by the autograder:", str(i_data), "\n====================\n")
+    sys.stdout.write(f"\n====================\nYour input statement: {args[0]} \n")
+    sys.stdout.write(f"The value entered by the autograder: {str(i_data) }\n====================\n\n")
     
     l_data.shm.close()
     
     return i_data
+
+def print(*args, **kwargs):
+    pass

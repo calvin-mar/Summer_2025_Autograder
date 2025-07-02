@@ -385,8 +385,8 @@ class MainWindow(QMainWindow):
         pattern = r'^.*"""""".*$' # remove empty """"""
         s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE)
 
-        if("if __name__ != \"__main__\":" not in s_trimmed_code and "from input_override import input" not in s_trimmed_code):
-            return False, "The header structure has been deleted. Please ensure that the following line is in the submission:<br><br> <font color=orange>if</font> __name__ != <font color=green>\"__main__\"</font>:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=orange>from</font> input_override <font color=orange>import</font> <font color=purple>input</font>"
+        if("if __name__ != \"__main__\":" not in s_trimmed_code and "from input_override import input, print" not in s_trimmed_code):
+            return False, "The header structure has been deleted. Please ensure that the following line is in the submission:<br><br> <font color=orange>if</font> __name__ != <font color=green>\"__main__\"</font>:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=orange>from</font> input_override <font color=orange>import</font> <font color=purple>input</font>, <font color=purple>print</font>"
 
         if getattr(sys, "frozen", False):
             dir_path = os.path.dirname(sys.executable)

@@ -123,8 +123,6 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('Autograder')
         QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
-        self.testSets = testSets
-
         ## Loading Screen
 
         widget = QWidget()
@@ -136,7 +134,6 @@ class MainWindow(QMainWindow):
         message.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
         self.progressBar = PyQt6.QtWidgets.QProgressBar(self)
         self.progressBar.setGeometry(200, 400, 400, 30)
-        self.progressBar.setMaximum(sum(testSets))
         self.progress.connect(self.updateProgress)
         layout.addWidget(message)
         layout.addWidget(self.progressBar)
@@ -145,6 +142,7 @@ class MainWindow(QMainWindow):
 
         self.passes = []
         self.error_msgs = []
+        self.testSets = testSets
         self.flag = True
 
         if(len(testSets) == 1):
@@ -363,9 +361,9 @@ class MainWindow(QMainWindow):
             i -= 1
           to_return = "".join(to_return)
         else:
-          to_return = result 
+          to_return = result  
         return to_return
-   
+    
       except Exception as e:
         print("failed :(", e, result)
         return result
@@ -387,8 +385,8 @@ class MainWindow(QMainWindow):
         pattern = r'^.*"""""".*$' # remove empty """"""
         s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE)
 
-        if("if __name__ != \"__main__\":" not in s_trimmed_code and "from input_override import input" not in s_trimmed_code):
-            return False, "The header structure has been deleted. Please ensure that the following line is in the submission:<br><br> <font color=orange>if</font> __name__ != <font color=green>\"__main__\"</font>:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=orange>from</font> input_override <font color=orange>import</font> <font color=purple>input</font>"
+        if("if __name__ != \"__main__\":" not in s_trimmed_code and "from input_override import input, print" not in s_trimmed_code):
+            return False, "The header structure has been deleted. Please ensure that the following line is in the submission:<br><br> <font color=orange>if</font> __name__ != <font color=green>\"__main__\"</font>:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=orange>from</font> input_override <font color=orange>import</font> <font color=purple>input</font>, <font color=purple>print</font>"
 
         if getattr(sys, "frozen", False):
             dir_path = os.path.dirname(sys.executable)
