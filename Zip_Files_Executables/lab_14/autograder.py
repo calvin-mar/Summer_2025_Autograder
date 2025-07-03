@@ -160,7 +160,7 @@ class MainWindow(QMainWindow):
         l_data = input_list
         result =["Error"]
         #print(l_data)
-        p = thread_with_trace(target=wrapper, args=(function,parameter_list, result), daemon=True)
+        p = thread_with_trace(target=wrapper, args=(function,parameter_list, result))
         p.start()
         p.join(3)
         output = []
