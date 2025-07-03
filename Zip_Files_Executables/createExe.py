@@ -68,7 +68,8 @@ def testExe(pyinstaller_path):
     b_success = False
     with open("testCompile.py", "w") as f:
       f.write("print('hello world')")
-    
+     
+
     try:
         result = subprocess.run([
         *pyinstaller_path, "testCompile.py"
@@ -78,8 +79,9 @@ def testExe(pyinstaller_path):
             b_success = True
     except:
         pass
-
+    
     cwd = os.getcwd()
+
     for name in os.listdir(cwd):
         if(os.path.isfile(name)):
             if(len(re.findall("testCompile", name)) == 1):
@@ -91,7 +93,16 @@ def testExe(pyinstaller_path):
     return b_success
 
 def createExecutables(osName, addDataEnd):
-
+    
+    cwd = os.getcwd()
+    for name in os.listdir(cwd):
+        if(os.path.isfile(name)):
+            if(len(re.findall("testCompile", name)) == 1):
+                os.remove(os.path.join(cwd, name))
+        else:
+            if(len(re.findall("testCompile", name)) == 1 or name == "build" or name == "dist"):
+                shutil.rmtree(os.path.join(cwd, name))
+                
         
     pyinstaller_path = [shutil.which("pyinstaller"),]
     if pyinstaller_path == None:
