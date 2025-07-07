@@ -47,8 +47,5 @@ python -m PyInstaller --add-data "lab_xx_assistant.py;." --add-data "check.png;.
 <br />
  No module named PyInstaller  
   
-  Make sure that PyInstaller is installed by using <b>pip install pyinstaller</b>.
-  Add location of installation to the PATH variable.
-  <b>pip install pyinstaller</b>
-  <br /> <br />
-  Find location of pyinstaller with <b>which pyinstaller</b> or by retrying <b>pip install pyinstaller</b> then add to PATH variable
+  1. Make sure that PyInstaller is installed by using <b>pip install pyinstaller</b>. <br />
+  2. Add location of installation to the PATH variable.
