@@ -38,7 +38,7 @@ This Repository contains files in the form, bolded points are folders:
    - Necessary testing files
    - *Required: Folder for each student. Currently contains examples: student_name1 and student_name2*
 
-- autogradert.py (file)  
+- autograder.py (file)  
 - check_all_syntax.py (file)  
 - disperse_documents.py (file)  
 - input_override.py (file)  
