@@ -1,1 +1,8 @@
+Executables may take 10-15 seconds longer to start on their first time running.
+
+To run executables on mac: https://support.apple.com/en-us/102445#openanyway
+Note: You need adminstrator access to run executables downloaded from the internet. This means that they do not work on library-loaned macs.
+
+To run executables on Windows: When you attempt to launch the app. You need to click "more info" then click "run anyway" on the popup.
+
 
