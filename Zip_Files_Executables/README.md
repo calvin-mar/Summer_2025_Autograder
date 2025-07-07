@@ -3,9 +3,9 @@
 createExe.py automatically detects what OS your system is on and attempts to compile the executables through 4 different commands (to minimize chances of failure) depending on the location of the pyinstaller package.
 
 
-<i> Note that throughout the documentation some substitions might be necessary depending on OS:
-<b>python3</b>: <b>python</b>
-<b>pip</b>: <b>pip3</b> </i>
+<i> Note that throughout the documentation some substitions might be necessary depending on OS: <br />
+<b>python3</b>: <b>python</b> <br />
+<b>pip</b>: <b>pip3</b> </i> <br />
 
 <h2>Installation: </h2>
 
