@@ -2,13 +2,18 @@
 
 createExe.py automatically detects what OS your system is on and attempts to compile the executables through 4 different commands (to minimize chances of failure) depending on the location of the pyinstaller package.
 
-<i> Note: Running executables downloaded from the internet on Mac requires adminstrator access so it can not work on library-loaned macs. </i>
+
+<i> Note that throughout the documentation some substitions might be necessary depending on OS:
+<b>python3</b>: <b>python</b>
+<b>pip</b>: <b>pip3</b> </i>
 
 <h2>Installation: </h2>
 
-pip install -r requirements.txt
-<b>or</b>
-pip3 install -r requirements.txt
+1. Install Python https://www.python.org/downloads/
+
+2. Install requirements.txt from the github repository.
+
+3. Run in the terminal: <i> python3 -m pip install -r requirements.txt</i>
 
 To create the executables, place "createExe.py" in the folder that contains all the lab folders:
 
@@ -36,15 +41,14 @@ python3 -m PyInstaller --add-data "lab_xx_assistant.py:." --add-data "check.png:
 <h3>Windows:</h3>
 python -m PyInstaller --add-data "lab_xx_assistant.py;." --add-data "check.png;." --add-data "redX.png;."  --hidden-import lab_xx_assistant.py:. --hidden-import trace --hidden-import multiprocessing --hidden-import PyQt6.QtWidgets --onefile --noupx --noconsole --distpath . --clean autograder.py
 
-You may need to replace python with python3 or vice versa.
-
 <h2>Issues that may occur:</h2>
   Pyinstaller throwing a MoudleNotFound error:
   add </b>--hidden-import MODULE</b> to the pyinstaller compilation command.
 <br />
-  Stderr: /Library/Developer/CommandLineTools/usr/bin/python3: No module named PyInstaller  
+ No module named PyInstaller  
   
-  Make sure:
+  Make sure that PyInstaller is installed by using <b>pip install pyinstaller</b>.
+  Add location of installation to the PATH variable.
   <b>pip install pyinstaller</b>
   <br /> <br />
   Find location of pyinstaller with <b>which pyinstaller</b> or by retrying <b>pip install pyinstaller</b> then add to PATH variable
