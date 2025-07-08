@@ -66,18 +66,18 @@ def wrapper(function, parameter_list, result):
             else:
                 result[0] = "Error"
         except:
-            result[0]
+            result[0] = "Error"
 
 
 #Copied from layout_colorwidget
-class Color(QWidget):
+"""class Color(QWidget):
     def __init__(self, color):
         super().__init__()
         self.setAutoFillBackground(True)
 
         palette = self.palette()
         palette.setColor(QPalette.ColorRole.Window, QColor(color))
-        self.setPalette(palette)
+        self.setPalette(palette)"""
 #endCopy
     
 # Worker Thread to run Autograder
@@ -199,7 +199,7 @@ class MainWindow(QMainWindow):
         self.worker.end.connect(self.updateWindow)
 
         self.thread.start()
-    def resource_path(self, relative_path):
+    def resourcePath(self, relative_path):
         #Gets absolute path for check.png/redX.png
         try:
             base_path = sys._MEIPASS
@@ -209,6 +209,9 @@ class MainWindow(QMainWindow):
         return os.path.join(base_path, relative_path)
 
     def updateWindow(self):
+      # Vbox layout
+      # Each "Test" line and image are HBox items layed out in the Vbox
+      # Summary screen is its own HBox layout inside the Vbox
         if(sum(self.testSets) != len(self.passes)):
           print("ERROR: self.testSets does not equal self.passes... ignoring task seperation")
           self.testSets = []
@@ -243,8 +246,8 @@ class MainWindow(QMainWindow):
                 image.setText("")
                 text.setText("<font size=5><b>"+self.error_msgs[error_count]+"</b></font>")
             else:
-                check = self.resource_path("check.png")
-                redX = self.resource_path("redX.png")
+                check = self.resourcePath("check.png")
+                redX = self.resourcePath("redX.png")
                 if self.passes[i_test_num]:
                     image.setText(f"<img src='{check}' width='32' height='32'>")
                     text.setText("<font size=5>Test " + str(i_test_num+1) +" Passed!</font>")
