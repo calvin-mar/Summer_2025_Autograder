@@ -1,24 +1,57 @@
+## This is an autoGrader developed for the Centre CSC170 class by Calvin Mar and Adam Ibrahim
+##
+## The autoGrader requires two other files to run. There must exist a json file of the form lab_xx_testFile.json.
+## The json file contains the necessary information to run all tests.
+## The autoGrader also requires the student submission of the format lab_xx_student_submission.py
+## If these files do not exist, the autoGrader will not function as expected.
+##
+## This document contains many functions and classes. The following are the most important to understand its function.
+## - class Worker and function wrapper: These are necessary for running a function in a thread, receving output from it, and catching errors
+## - class thread_with_trace: This class is necessary to allow threads to be killed after a set time, which prevents lag
+## - function autoGrader: This function runs all tests on the student submission and returns the results.
+##                        It also handles interpreting the information from the json file
+## - class MainWindow: This class initializes the window to display the results to the student.
+##                     It runs most other functions and contains several methods that are used for testing.
+##                     The init also handles loading the json file data
+##                     The window has two phases, the loading screen and the the display of results.
+##                     The two phases are handled in __init__ and updateWindow respectively
+## - method syntax_checker: This is a method of MainWindow. It handles checking for banned syntax and global infinite loops
+##                          It also checks for potentially malicious student code such as "import os" or "eval"
+## - function displayWindow: This function simply sets up and runs the MainWindow
+## - main: This function handles finding the necessary student submission and json file, as source code or as an executable
+##         It also runs displayWindow.
+##
+## Limitations of the json file autoGrader and future work
+## - When comparing the results using a seperate function. The function must a) accept the student result as the first paramter and b) return True or False
+## - The json file must be strictly formatted to work properly. See template.json for more information.
+## - Does not currently handle global input statements for global variables
+## - It would be relatively easy to create GUI to create JSON files for the autograder. (Check out ast.literal_eval(str))
+                     
+
 # Python imports
 import sys
-import math
 import ast
 import astor
 import re
+import datetime
+import random
 import threading
 import trace
 import os
+import json
 from multiprocessing import shared_memory as shm
 import multiprocessing
 import importlib.util
 import traceback
+from PIL import Image, ImageSequence
 
 # Graphics/PyQt imports
-from PyQt6.QtCore import QSize, Qt, QRect, pyqtSlot, QThreadPool, QObject, QThread, pyqtSignal, QTimer
+from PyQt6.QtCore import QSize, Qt, QRect, pyqtSlot, QThreadPool, QObject, QThread, pyqtSignal, QTimer, QRectF, QPointF
 from PyQt6.QtWidgets import *
-from PyQt6.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication, QGraphicsProxyWidget, QGraphicsScene, QGraphicsView
 import PyQt6.QtWidgets
-from PyQt6.QtGui import QFont
-from PyQt6.QtGui import QColor, QPalette
+from PyQt6.QtGui import QFont, QMovie
+from PyQt6.QtGui import QColor, QPalette, QPainter
 
 class thread_with_trace(threading.Thread):
   """
@@ -66,40 +99,221 @@ def wrapper(function, parameter_list, result):
             else:
                 result[0] = "Error"
         except:
-            result[0] = "Error"
+            result[0]
 
 
 #Copied from layout_colorwidget
-"""class Color(QWidget):
+class Color(QWidget):
     def __init__(self, color):
         super().__init__()
         self.setAutoFillBackground(True)
 
         palette = self.palette()
         palette.setColor(QPalette.ColorRole.Window, QColor(color))
-        self.setPalette(palette)"""
+        self.setPalette(palette)
 #endCopy
     
 # Worker Thread to run Autograder
 # Sends finished, resultReadySig, errorOccured, updateWindowSig pyqtSignal(s)
+
 class Worker(QObject):
+    '''
+    This Worker takes a string filename, a dictionary testInfo, and an object window
+    The pyqtSignals are initialized within the Worker to sent when the target is run
+    This also has some expection catching for syntax errors in the student submission
+    '''
     end = pyqtSignal(object)
     errorOccurredSig = pyqtSignal(object)
 
-    def __init__(self, autoGrader, filename, window):
+    def __init__(self, filename, testInfo, window):
         super().__init__()
-        self.autoGrader = autoGrader
         self.filename = filename
         self.window = window
+        self.testInfo = testInfo
     
     def run(self):
         try:
-            result = self.autoGrader(self.filename, self.window)
+            result = autoGrader(self.filename, self.testInfo, self.window)
             self.end.emit(result)
         except Exception as exc:
             exception_info = traceback.format_exc()
             result = [[False], ["<font color=red size = 5>" + "<br><br>line".join(str(exception_info).split(", line")) + "</font>"]]
             self.end.emit(result)
+
+def autoGrader(student_submission, testInfo, window):
+    '''
+    inputs:
+     - student_submission = String of the name of the student_submission file
+     - testInfo = dictionary containg all of the data held in the json file
+     - window = instance of MainWindow that is active, to call certain methods from
+
+     outputs:
+     - passes = a boolean list where passes[i] corresponds to whether test i was passed (True) or not (False)
+     - error_msgs = a list of strings, with length equal the quantity of False in passes.
+                    Each string corresponds to the message to display to the student
+
+
+    This function loops through each test from testInfo running each function from the student submission with the necessary parameters and returns the aggregation of results.
+    '''
+    #sys.stdout = open(os.devnull, 'w')
+    passes = []
+    error_msgs = []
+    
+    print("Autograder starting...")
+
+    if getattr(sys, "frozen", False):
+        dir_path = os.path.dirname(sys.executable)
+    else:
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+
+
+    ## This section loads each necessary additional testing file that the autograder needs
+    ## Consider for example math.isclose(), the autograder requires math to loaded and saved so that is may later run the .isclose() method
+    moduleNames = testInfo["modules"]
+    modules = {}
+
+    for module in moduleNames:
+      if((module + ".py") in os.listdir()):
+            loaded_module = importlib.util.spec_from_file_location(module, os.path.join(dir_path, (module + ".py")))
+            function_file = importlib.util.module_from_spec(loaded_module)
+            loaded_module.loader.exec_module(function_file)
+            modules[module] = function_file
+      else:
+            m = __import__(module)
+            modules[module] = m
+
+    ## Double check that the ShareableList doesn't exist
+    try:
+        l_data = shm.ShareableList(sequence=None, name="l_data")
+        l_data.shm.close()
+        l_data.shm.unlink()
+    except:
+        pass
+
+
+    # Load the student_submission
+    name = student_submission[:-3]
+    specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, student_submission))
+    sm = importlib.util.module_from_spec(specific_student)
+
+    # Run the syntax_checker
+    b_proceed, s_error_msg = window.syntax_checker(os.path.join(dir_path, student_submission))
+
+    # If the syntax checker finds a problem, do not run the tests
+    if b_proceed == False:
+        passes.append(False)
+        if(s_error_msg != ""):
+            error_msgs.append(s_error_msg)
+        else:
+            error_msgs.append("There is a problem with your file")
+    else:
+        specific_student.loader.exec_module(sm)
+
+        ## Run for each test
+        for i in range(len(testInfo)-2):
+            testIndex = str(i)
+            isFunction = ("functionName" in testInfo[testIndex].keys())
+
+            ## Determine how the function should be tested
+            if("special" in testInfo[testIndex].keys()):
+                specialTest = getattr(modules[testInfo[testIndex]["special"]["functionLocation"]], testInfo[testIndex]["special"]["functionName"])
+
+            ## If it is a function, process the data as such, with potential inputs, and parameters
+            if(isFunction):
+              ## Prepare the information for the function and inputs/parameters
+              function = getattr(sm, testInfo[testIndex]["functionName"])
+              if("inputs" in testInfo[testIndex].keys()):
+                inputs = testInfo[testIndex]["inputs"]
+              else:
+                inputs = []
+              if("parameters" in testInfo[testIndex].keys()):
+                parameters = tuple(testInfo[testIndex]["parameters"])
+              else:
+                parameters = ""
+
+              ## Special catch for the Shareable List to ensure it does not exist
+              try:
+                l_data = shm.ShareableList(sequence=None, name="l_data")
+                l_data.shm.close()
+                l_data.shm.unlink()
+              except:
+                pass
+
+              ## Initialize Shareable List for inputs
+              l_data = shm.ShareableList(inputs, name = "l_data")
+
+              ## This try/except catches high level errors in the function, such as the function not being defined
+              try:
+
+                ## Test function with or without parmaeters
+                if(parameters != ""):
+                  results = window.testFunction(function, parameters)
+                else:
+                  results = window.testFunction(function)
+
+                ## This displays other errors that testFunction may catch
+                if(results[1]):
+                    if(len(inputs) > 0):
+                      results[0] = results[0] + " The inputs were " + str(inputs)
+                    if(len(parameters) > 0):
+                      results[0] = results[0] + " The paramters were " + str(parameters)
+
+                    error_msgs.append(results[0])
+                    passes.append(False)
+                ## Handles the result displays if no errors occur
+                else:
+                    ## Pass if testing against a value
+                    if("output" in testInfo[testIndex].keys() and results[0] == testInfo[testIndex]["output"]):
+                        passes.append(True)
+                    ## Pass if testing with a function
+                    elif("special" in testInfo[testIndex].keys() and specialTest(results[0], *testInfo[testIndex]["special"]["parameters"])):
+                        passes.append(True)
+                    ## Display incorrect result
+                    else:
+                        passes.append(False)
+                        if("output" in testInfo[testIndex].keys()):
+                          msg = " Failed: "+str(testInfo[testIndex]["functionName"])+"() should return "+str(testInfo[testIndex]["output"])
+                        else:
+                          msg = " Failed: "+str(testInfo[testIndex]["functionName"])+"() returns the incorrect result"
+                          
+                        if(len(inputs) > 0):
+                          msg = msg + " when the inputs are " + str(inputs).replace("[","").replace("]","")
+                        if(len(inputs) > 0 and len(parameters) > 0):
+                          msg = msg + " and "
+                        if(len(parameters) > 0):
+                          msg = msg + " when the parameters are "+ str(parameters).replace("(","").replace(")","")
+
+                        if("output" in testInfo[testIndex].keys()):
+                          msg = msg + " but"
+                        msg = msg + " it returns " + str(window.show_spaces(results[0])) + ".</font>"
+                        error_msgs.append(msg)
+                          
+              except Exception as exc:
+                passes.append(False)
+                error_msgs.append(" Failed: Function "+str(testInfo[testIndex]["functionName"])+"() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+              l_data.shm.close()
+              l_data.shm.unlink()
+              
+            ## Handles the testing if the it is against a global variable
+            else:
+              if("expectedValue" in testInfo[testIndex].keys() and getattr(sm, testInfo[testIndex]["globalVariable"]) == testInfo[testIndex]["expectedValue"]):
+                passes.append(True)
+              elif("special" in testInfo[testIndex].keys() and specialTest(getattr(sm, testInfo[testIndex]["globalVariable"]), *testInfo[testIndex]["special"]["parameters"])):
+                passes.append(True)
+              else:
+                passes.append(False)
+                if("expectedValue" in testInfo[testIndex].keys()):
+                  error_msgs.append(" Failed: "+str(testInfo[testIndex]["globalVariable"])+" should be "+str(testInfo[testIndex]["expectedValue"])+" but it is " + str(window.show_spaces(getattr(sm, testInfo[testIndex]["globalVariable"]))) + ".</font>")
+                else:
+                  error_msgs.append(" Failed: "+str(testInfo[testIndex]["globalVariable"])+" is not the correct value but it is " + str(window.show_spaces(getattr(sm, testInfo[testIndex]["globalVariable"]))) + ". It is being compared against " + str(window.show_spaces(testInfo[testIndex]["special"]["parameters"])) + ".</font>")
+
+            
+    print("...Autograder completed.")
+    print()
+    print("You may close the Autograder window to exit.")
+    
+    return passes, error_msgs
+ 
 
 
 class problem(Exception):
@@ -110,7 +324,7 @@ class problem(Exception):
 # Inputs window, list of passes/fails, error messages to display, testSets (how many test in each task)
 class MainWindow(QMainWindow):
     progress = pyqtSignal(int)
-    def __init__(self, autoGrader, filename,testSets):
+    def __init__(self, filename,testFile):
         super().__init__()
         
         self.scroll = QScrollArea()
@@ -123,6 +337,11 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('Autograder')
         QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
+        ## Load tests
+        with open(testFile, 'r') as file:
+            self.testInfo = json.load(file)
+        self.testSets = self.testInfo["testSets"]            
+        
         ## Loading Screen
 
         widget = QWidget()
@@ -134,6 +353,7 @@ class MainWindow(QMainWindow):
         message.setAlignment(Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter)
         self.progressBar = PyQt6.QtWidgets.QProgressBar(self)
         self.progressBar.setGeometry(200, 400, 400, 30)
+        self.progressBar.setMaximum(sum(self.testSets))
         self.progress.connect(self.updateProgress)
         layout.addWidget(message)
         layout.addWidget(self.progressBar)
@@ -142,14 +362,14 @@ class MainWindow(QMainWindow):
 
         self.passes = []
         self.error_msgs = []
-        self.testSets = testSets
+        
         self.flag = True
 
-        if(len(testSets) == 1):
+        if(len(self.testSets) == 1):
             self.testSets = []
         
         self.show()
-        self.startAutoGrader(autoGrader, filename, self)
+        self.startAutoGrader(filename, self.testInfo, self)
 
     # Tests for infinite loops, errors
     # Inputs: function to test, paramater list to pass, input list for input statements
@@ -159,7 +379,8 @@ class MainWindow(QMainWindow):
         global l_data
         l_data = input_list
         result =["Error"]
-        p = thread_with_trace(target=wrapper, args=(function,parameter_list, result))
+        #print(l_data)
+        p = thread_with_trace(target=wrapper, args=(function,parameter_list, result), daemon=True)
         p.start()
         p.join(4)
         output = []
@@ -180,12 +401,16 @@ class MainWindow(QMainWindow):
         return output
 
     def updateProgress(self, newValue):
+        ## Connect to progress bar to move it aloong
         self.progressBar.setValue(self.progressBar.value() + newValue)
 
-    def startAutoGrader(self, autoGrader, filename, window):
+    def startAutoGrader(self, filename, testInfo, window):
+        ## Connect necessary functions to signals from the Worker
+        ## Pass the necessary paramters to the Worker
+        ## Run the Worker
         
         self.thread = QThread()
-        self.worker = Worker(autoGrader, filename, window)
+        self.worker = Worker(filename, testInfo, window)
 
         self.worker.moveToThread(self.thread)
 
@@ -199,7 +424,7 @@ class MainWindow(QMainWindow):
         self.worker.end.connect(self.updateWindow)
 
         self.thread.start()
-    def resourcePath(self, relative_path):
+    def resource_path(self, relative_path):
         #Gets absolute path for check.png/redX.png
         try:
             base_path = sys._MEIPASS
@@ -209,13 +434,20 @@ class MainWindow(QMainWindow):
         return os.path.join(base_path, relative_path)
 
     def updateWindow(self):
-      # Vbox layout
-      # Each "Test" line and image are HBox items layed out in the Vbox
-      # Summary screen is its own HBox layout inside the Vbox
+        '''
+        Once the autoGrader has finished, this method updates the window to display the results
+        '''
+
+        ## Error catching to ensure that testSets are correct
+        ## Also ensure that "Task 1" Does not display for global error messages
         if(sum(self.testSets) != len(self.passes)):
-          print("ERROR: self.testSets does not equal self.passes... ignoring task seperation")
-          self.testSets = []
+            self.testSets = []
+
+        ## Reset the cursor to normal
         QApplication.restoreOverrideCursor()
+
+
+        ## Initialize variables
         num_passed = 0
         error_count = 0
 
@@ -228,6 +460,7 @@ class MainWindow(QMainWindow):
         taskNum=1
         if seperateSets:
             self.addHeader(taskNum)
+        ## Display information for all tests
         for i_test_num in range(len(self.passes)):
             if seperateSets and index<self.testSets[taskNum-1]:
                     index+=1
@@ -246,8 +479,8 @@ class MainWindow(QMainWindow):
                 image.setText("")
                 text.setText("<font size=5><b>"+self.error_msgs[error_count]+"</b></font>")
             else:
-                check = self.resourcePath("check.png")
-                redX = self.resourcePath("redX.png")
+                check = self.resource_path("check.png")
+                redX = self.resource_path("redX.png")
                 if self.passes[i_test_num]:
                     image.setText(f"<img src='{check}' width='32' height='32'>")
                     text.setText("<font size=5>Test " + str(i_test_num+1) +" Passed!</font>")
@@ -261,7 +494,6 @@ class MainWindow(QMainWindow):
             test.addWidget(text)
             self.vbox.addLayout(test)
 
-
         self.summaryScreen(num_passed)
         
         self.vbox.addStretch()
@@ -272,17 +504,17 @@ class MainWindow(QMainWindow):
         self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
         self.scroll.setWidgetResizable(True)
         self.scroll.setWidget(self.widget)
-
+              
         self.setCentralWidget(self.scroll)
-        self.show()
 
+        self.show()
         return
 
     def trimFailed(self):
         i=0
         while i < len(self.error_msgs):
             #print("errors", self.error_msgs)
-            self.error_msgs[i] = self.error_msgs[i].replace("\\s*Failed:\\s*", " ")                
+            self.error_msgs[i] = self.error_msgs[i].replace(" Failed: ", "")                
             i+=1
 
     def summaryScreen(self, num_passed):
@@ -308,6 +540,7 @@ class MainWindow(QMainWindow):
             self.vbox.insertLayout(0, summary)
 
     def addHeader(self, taskNum):
+        ## Display Header, as needed
         test = QHBoxLayout()
         text = QLabel()
         text.setText("<font color=black size=7><b>Task " + str(taskNum)+ ":<br>")
@@ -345,34 +578,34 @@ class MainWindow(QMainWindow):
       The purpose of this is to remove the frustration that occurs when results appear to be correct
       but is off by only a space or a tab causing some invisible differences.
       '''
-      try:
-        if(type(result) == str):
-          to_return = list(result)
-          i=0
-          while(i < len(result) and to_return[i] in " \t"):
-            if(to_return[i] == " "):
-              to_return[i] = '\u2423'
-            else:
-              to_return[i] = "\\t"
-            i += 1
-          i = -1
-          while(i < len(result) and to_return[i] in " \t"):
-            if(to_return[i] == " "):
-              to_return[i] = '\u2423'
-            else:
-              to_return[i] = "\\t"
-            i -= 1
-          to_return = "".join(to_return)
-        else:
-          to_return = result  
-        return to_return
-    
-      except Exception as e:
-        print("failed :(", e, result)
-        return result
-
+      if(type(result) == str):
+        to_return = list(result)
+        i=0
+        while(i < len(result) and to_return[i] in " \t"):
+          if(to_return[i] == " "):
+            to_return[i] = '\u2423'
+          else:
+            to_return[i] = "\\t"
+          i += 1
+        i = -1
+        while(i < len(result) and to_return[i] in " \t"):
+          if(to_return[i] == " "):
+            to_return[i] = '\u2423'
+          else:
+            to_return[i] = "\\t"
+          i -= 1
+        to_return = "".join(to_return)
+      else:
+        to_return = result
+        
+      return to_return
+      
         
     def syntax_checker(self, filename):
+      '''
+      syntax_checker received the string file name for the student submission and checks for banned and potentially dangerous code.
+      It also checks that the header structure for the student submission exists and so that the autoGrader may run
+      '''
         try:
             with open(filename,"r") as f:
                 code = f.read()
@@ -387,10 +620,10 @@ class MainWindow(QMainWindow):
         s_trimmed_code = astor.to_source(parsed)  
         pattern = r'^.*"""""".*$' # remove empty """"""
         s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE)
-
-        if("if __name__ != \"__main__\":" not in s_trimmed_code and "from input_override import input, print" not in s_trimmed_code):
+        
+        if("if __name__ != \"__main__\":" not in s_trimmed_code and "from input_override import input" not in s_trimmed_code):
             return False, "The header structure has been deleted. Please ensure that the following line is in the submission:<br><br> <font color=orange>if</font> __name__ != <font color=green>\"__main__\"</font>:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=orange>from</font> input_override <font color=orange>import</font> <font color=purple>input</font>, <font color=purple>print</font>"
-
+        
         if getattr(sys, "frozen", False):
             dir_path = os.path.dirname(sys.executable)
         else:
@@ -422,23 +655,6 @@ class MainWindow(QMainWindow):
         s_error_msg = ""
         if s_triple_res == "No Triples":
             b_proceed = True
-            # remove comments
-
-
-            # https://stackoverflow.com/questions/1769332/script-to-remove-python-comments-docstrings
-##            with open(filename,"r") as f:
-##                code = f.read() 
-##            parsed = ast.parse(code)
-##            for node in ast.walk(parsed):
-##                if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
-##                    # set value to empty string
-##                    node.value = ast.Constant(value='') 
-##            s_trimmed_code = astor.to_source(parsed)  
-##            pattern = r'^.*"""""".*$' # remove empty """"""
-##            s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE) 
-
-            
-            # look for syntax that is not allowed
             if "join(" in s_trimmed_code:
                 b_proceed = False
                 s_error_msg = s_error_msg + "Your code contains <b>join</b>() which is not allowed.  "
@@ -515,14 +731,19 @@ class MainWindow(QMainWindow):
         return b_proceed, s_error_msg
 
 
-        
-def displayWindow(autoGrader, filename, testSets = []):
+def displayWindow(filename, testFile):
+    '''
+    Create an instance of MainWindow
+    '''
     app = QApplication(sys.argv)
-    window = MainWindow(autoGrader, filename, testSets)
+    window = MainWindow(filename, testFile)
     window.show()
     app.exec()
 
 def main():
+    '''
+    Get necessary filenames for student submission and json file, run displayWindow
+    '''
     if getattr(sys, "frozen", False):
         try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
@@ -533,20 +754,11 @@ def main():
         dir_path = os.path.dirname(os.path.realpath(__file__))
 
     for name in os.listdir(dir_path):
-        if(re.match("lab_\\d\\d_assistant.py", name)):
-            assistantName = name
-            filename = assistantName[:6] + "_student_submission.py"
-                
-    try:
-      specific = importlib.util.spec_from_file_location(assistantName[:-3], os.path.join(dir_path, assistantName))
-      assistant = importlib.util.module_from_spec(specific)
-      specific.loader.exec_module(assistant)
-    except:
-          print("FATAL ERROR: Could not load or find lab assistant. Make sure the autograder is in the correct folder")
-          sys.exit(1)
+        if(re.match("lab_\\d\\d_student_submission.py", name)):
+            filename = name
+            testFile = filename[:6] + "_testFile.json"
 
-
-    displayWindow(assistant.autoGrader, filename, assistant.getTestSets())
+    displayWindow(filename, os.path.join(dir_path, testFile))
 
 if __name__ == "__main__":
     multiprocessing.freeze_support()
