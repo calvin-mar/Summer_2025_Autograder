@@ -1,3 +1,7 @@
+## This file contains the test_all_submissions file for the json_autograder
+## It assumes the autograder is names autograder.py, not json_
+## It is still in beta testing and ought to be update with the regular version
+
 # Python imports
 import os
 import sys
@@ -6,6 +10,7 @@ import subprocess
 import astor
 import ast
 import shutil
+import json
 import importlib.util
 import threading
 
@@ -51,21 +56,21 @@ def disperse_documents():
 class Worker(QObject):
     end = pyqtSignal(object)
     errorOccurredSig = pyqtSignal(object)
-    testNum = pyqtSignal(int)
 
-    def __init__(self, cwd, window):
+    def __init__(self, cwd, testInfo, window):
         super().__init__()
         self.cwd = cwd
+        self.testInfo = testInfo
         self.window = window
         self.names = []
         self.results = []
 
     def run(self):
-        self.navigate_submissions(self.window)
+        self.navigate_submissions(self.window, self.testInfo)
         output = [self.names, self.results]
         self.end.emit(output)
         
-    def navigate_submissions(self, window):
+    def navigate_submissions(self, window, testInfo):
         for name in os.listdir(self.cwd):
             if(not os.path.isfile(name) and name != "__pycache__"):
                 testCase = QHBoxLayout()
@@ -77,18 +82,19 @@ class Worker(QObject):
                 
                 blockPrint()
                 try:
-                    student_result = self.test_submission(name, window)
+                    student_result = self.test_submission(name, window, testInfo)
                 except Exception as exc:
                     print(exc)
-                    student_result = [["Bad"], "Bad"]
+                    student_result = ["Bad"]
                     
                 enablePrint()
                 self.names.append(name)
+                
                 if("WARNING" in student_result[1]):
                     student_result[0].append("WARNING")
                 self.results.append(student_result[0])
 
-    def test_submission(self,directory_name, window):
+    def test_submission(self,directory_name, window, testInfo):
         # This function tests each individual submission
         # Given the directory name, it runs the autograder inside and returns the result
         # This requires each autograder to be refactored to include a 
@@ -96,17 +102,19 @@ class Worker(QObject):
 
         # Find the autograder amongst the files 
         for file in files:
-            if( len(re.findall("lab_\\d\\d_assistant.py", file)) == 1):
+            if(len(re.findall("autograder.py", file)) == 1):
                 cwd = os.getcwd()
                 path_to_autograder = os.path.join(cwd,directory_name,file)
                 sys.path.append(os.path.join(cwd,directory_name))
                 autograder_file = file[:-3]
                 specific = importlib.util.spec_from_file_location(autograder_file, path_to_autograder)
-                assistant = importlib.util.module_from_spec(specific)
-                specific.loader.exec_module(assistant)
-                test_num = sum(assistant.getTestSets())
-                self.testNum.emit(test_num)
-                student_result = assistant.testing(window)
+                autograder = importlib.util.module_from_spec(specific)
+                specific.loader.exec_module(autograder)
+                second_file = ""
+                for new_file in files:
+                    if(re.match("lab_\\d\\d_student_submission.py", new_file)):
+                        second_file = new_file
+                student_result = autograder.autoGrader(second_file, testInfo, window)
                 return student_result
         return [False]
     
@@ -156,14 +164,9 @@ def wrapper(function, parameter_list, result):
             else:
                 result[0] = "Error"
         except:
-            result[0] = "Error"
+            result[0]
 
 class MainWindow(QMainWindow):
-    # VBox layout
-    # Similar to AutoGrader Main Window
-    # But displays one QHLayout per student, instead of per test.
-    # Changes to AutoGrader Main Window methods should be implemented here as well
-
     progress = pyqtSignal(int)
     def __init__(self):
         ## Prepare Window
@@ -173,6 +176,8 @@ class MainWindow(QMainWindow):
         self.cwd = os.getcwd()
         self.studentCount = -1
         for name in os.listdir(self.cwd):
+            if(re.match("lab_\\d\\d_testFile.json", name)):
+                testFile = name
             if(not os.path.isfile(name)):
                 self.studentCount += 1
 
@@ -206,20 +211,25 @@ class MainWindow(QMainWindow):
         ## Run through all files and folders
         ## In each folder, that is not pycache, run the autograder inside it
         self.show()
+        
+        with open(testFile, 'r') as file:
+            self.testInfo = json.load(file)
+        self.testSets = self.testInfo["testSets"]            
+        self.progressBar.setMaximum(self.studentCount * sum(self.testSets) * 3)
+        
         self.beginTesting()
 
 
     def beginTesting(self):
         self.thread = QThread()
-        self.worker = Worker(self.cwd, self)
+        self.worker = Worker(self.cwd, self.testInfo, self)
 
         self.worker.moveToThread(self.thread)
 
         self.thread.started.connect(self.worker.run)
         self.worker.end.connect(self.thread.quit)
         self.worker.end.connect(self.worker.deleteLater)
-        
-        self.worker.testNum.connect(self.setMaximumBar)
+
         self.worker.end.connect(self.handleResults)
         self.worker.end.connect(self.updateWindow)
 
@@ -245,7 +255,6 @@ class MainWindow(QMainWindow):
 
             num_passed = 0
             failed_list = []
-
             for index in range(len(self.results[student_num])):
                 if self.results[student_num][index] == True:
                     num_passed +=1
@@ -257,7 +266,7 @@ class MainWindow(QMainWindow):
             else:
                 image.setText("<img src='redX.png' width='52' height='52'>")
                 if(self.results[student_num][-1] == "WARNING"):
-                    text.setText("<font size=8 color=red><b>WARNING: </b></font> <font size=6><b>" + str(name) + "'s submission may contain malicious code.</b></font>")
+                    text.setText("<font size=8 color=red><b>WARNING: </b></font> <b>This student's submission may contain malicious code.</b>")
                 elif(self.results[student_num][0] == "Bad"):
                     text.setText("<font size=6><b>" + str(name) + " The autograder has crashed, the most likely issue is a syntax error in the student submission.</b></font>")
                 elif(len(self.results[student_num]) > 1):
@@ -298,7 +307,7 @@ class MainWindow(QMainWindow):
         #print(l_data)
         p = thread_with_trace(target=wrapper, args=(function,parameter_list, result), daemon=True)
         p.start()
-        p.join(4)
+        p.join(3)
         output = []
         if p.is_alive():
             p.kill()
@@ -318,13 +327,11 @@ class MainWindow(QMainWindow):
 
     def updateProgress(self, newValue):
         self.progressBar.setValue(self.progressBar.value() + newValue)
-
-    def setMaximumBar(self, testNum):
-        self.progressBar.setMaximum(self.studentCount * testNum * 3)
-
+        
     def handleResults(self,output):
         self.names = output[0]
         self.results = output[1]
+
     ## Allows for Scrollable Text
     def resizeEvent(self, event):
         super().resizeEvent(event)
@@ -335,39 +342,35 @@ class MainWindow(QMainWindow):
 
     def exit_clicked(self):
         self.dialog.close()
-        
+
     def show_spaces(self, result):
       '''
       This function makes the spaces in the student submissions visible
       The purpose of this is to remove the frustration that occurs when results appear to be correct
       but is off by only a space or a tab causing some invisible differences.
       '''
-      try:
-        if(type(result) == str):
-          to_return = list(result)
-          i=0
-          while(i < len(result) and to_return[i] in " \t"):
-            if(to_return[i] == " "):
-              to_return[i] = '\u2423'
-            else:
-              to_return[i] = "\\t"
-            i += 1
-          i = -1
-          while(i < len(result) and to_return[i] in " \t"):
-            if(to_return[i] == " "):
-              to_return[i] = '\u2423'
-            else:
-              to_return[i] = "\\t"
-            i -= 1
-          to_return = "".join(to_return)
-        else:
-          to_return = result  
-        return to_return
-    
-      except Exception as e:
-        print("failed :(", e, result)
-        return result
+      if(type(result) == str):
+        to_return = list(result)
+        i=0
+        while(i < len(result) and to_return[i] in " \t"):
+          if(to_return[i] == " "):
+            to_return[i] = '\u2423'
+          else:
+            to_return[i] = "\\t"
+          i += 1
+        i = -1
+        while(i < len(result) and to_return[i] in " \t"):
+          if(to_return[i] == " "):
+            to_return[i] = '\u2423'
+          else:
+            to_return[i] = "\\t"
+          i -= 1
+        to_return = "".join(to_return)
+      else:
+        to_return = result
         
+      return to_return
+ 
     def syntax_checker(self, filename):
         try:
             with open(filename,"r") as f:
@@ -384,16 +387,10 @@ class MainWindow(QMainWindow):
         s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE)
 
         if("if __name__ != \"__main__\":" not in s_trimmed_code and "from input_override import input, print" not in s_trimmed_code):
-            return False, "The header structure has been deleted. Please ensure that the following line is in the submission:<br><br> <font color=orange>if</font> __name__ != <font color=green>\"__main__\"</font>:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=orange>from</font> input_override <font color=orange>import</font> <font color=purple>input</font>, <font color=purple>print</font>"
-
-        malicious_list = ["__import__(", "import os", ".run(", "from os import", "import subprocess", "import sys", "from sys import", "from subprocess import"]
-        malicious_search_list = ["(\\s|^)eval\\(", "[^a-zA-Z0-9]rm[^a-zA-Z0-9]"]
-        for phrase in malicious_list:
-            if(phrase in s_trimmed_code):    
-                return False, "WARNING"
-        for expression in malicious_search_list:
-            if(re.search(expression, s_trimmed_code) != None):
-                return False, "WARNING"
+            return False, "The header structure has been deleted. Please ensure that the following line is in the submission:<br><br> <font color=orange>if</font> __name__ != <font color=green>\"__main__\"</font>:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=orange>from</font> input_override <font color=orange>import</font> , <font color=purple>print</font>"
+    
+        if("import os" in s_trimmed_code or ".run(" in s_trimmed_code or ".eval(" in s_trimmed_code or " rm " in s_trimmed_code):
+            return False, "WARNING"
 
         if getattr(sys, "frozen", False):
             dir_path = os.path.dirname(sys.executable)
@@ -408,8 +405,6 @@ class MainWindow(QMainWindow):
                 return False, "There is a problem with your code, you may have an infinite loop outside of a function. Check that all loops have a ending condition."
             elif("input" in output[0]):
                 return False, "There is a problem with your code, you may have unexpected or extra input statements outside of a function. Run your code and check how many inputs are called."
-            else:
-                return False, "There is likely a syntax error in this code"
 
         # Check for triple quote and triple apostrophes
         s_triple_res = ""#check_for_triples()

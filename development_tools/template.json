@@ -1,0 +1,31 @@
+{
+        "testSets": [1,1,1,1],
+        "modules":["necessary_module_to_import", "any_number_of_modules"],
+        "0":{
+                "functionName": "some_function",
+                "inputs": ["input_list", "These values may be anything, but will be entered as strings"],
+		"parameters": ["Some set of parameters", "may be any type", 1, 6.28]
+                "output": "This is a single value that is compared against the student submission"
+          },
+        "1":{
+                "functionName": "some_function",
+                "inputs": ["The types do not matter, becuase input only returns strings", "4.59", "2", "fish", "1.99", "1", "done"],
+                "special":{
+                        "functionLocation":"module_name_should_be_same_as_above",
+                        "functionName":"function_in_module_in_functionLocation",
+                        "parameters":["Some set of parameters", "may be any type", 0, 45]
+		}
+	},
+         "2":{
+                "globalVariable": "a_variable_in_the_global_scope",
+                "expectedValue": "some value, any type"
+        },
+         "3":{
+                "globalVariable": "a_variable_in_the_global_scope",
+                "special":{
+                        "functionLocation":"module_name_should_be_same_as_in_moduels_list",
+                        "functionName":"a_function",
+                        "parameters":["a set of parameters"]
+		}
+        }
+}
