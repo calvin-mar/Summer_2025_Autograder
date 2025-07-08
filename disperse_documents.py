@@ -25,27 +25,28 @@ def disperse_documents():
     # Do the Copying
 
     for file in files:
-        
+
         if(file not in excludedFiles):
         #if(file == "autograder.py"):
             for directory in dirs:
                 matched = False
-                print(file)
+                #print(file)
                 if ((directory not in excludedDirs) and file != "check_all_syntax.py"):
                     shutil.copy(file, directory)
                     matched = True
                 elif (directory == "Zip_Files_Executables" or directory == "Zip_Files_Sources"):
+                    filePath = os.path.abspath(file)
                     matched = True
                     os.chdir(directory)
                     for name in os.listdir():
-                        if(os.path.isdir(name) and (name not in excludedDirs) and file != "check_all_syntax.py"):
-                            shutil.copy(file, name)
+                        if(os.path.isdir(name) and (name not in excludedDirs) and file != "check_all_syntax.py" and file != "test_all_submissions.py"):
+                            shutil.copy(filePath, name)
                         elif (os.path.isdir(name) and (name in checkAllSyntax) and file == "check_all_syntax.py"):
-                            shutil.copy(file, name)
+                            shutil.copy(filePath, name)
                     os.chdir("../")
                 elif ((directory in checkAllSyntax) and file == "check_all_syntax.py"):
                     matched = True
-                    print("copying checkall")
+                    #print("copying checkall")
                     shutil.copy(file, directory)
                 #if matched == False:
                     #print("none matched", directory, file)
