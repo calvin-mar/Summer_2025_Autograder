@@ -66,7 +66,7 @@ def wrapper(function, parameter_list, result):
             else:
                 result[0] = "Error"
         except:
-            result[0]
+            result[0] = "Error"
 
 
 #Copied from layout_colorwidget
@@ -162,7 +162,7 @@ class MainWindow(QMainWindow):
         #print(l_data)
         p = thread_with_trace(target=wrapper, args=(function,parameter_list, result), daemon=True)
         p.start()
-        p.join(3)
+        p.join(4)
         output = []
         if p.is_alive():
             p.kill()

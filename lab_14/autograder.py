@@ -66,7 +66,7 @@ def wrapper(function, parameter_list, result):
             else:
                 result[0] = "Error"
         except:
-            result[0]
+            result[0] = "Error"
 
 
 #Copied from layout_colorwidget

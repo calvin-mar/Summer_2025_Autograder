@@ -80,11 +80,13 @@ class Worker(QObject):
                     student_result = self.test_submission(name, window)
                 except Exception as exc:
                     print(exc)
-                    student_result = ["Bad"]
+                    student_result = [["Bad"], "Bad"]
                     
                 enablePrint()
                 self.names.append(name)
-                self.results.append(student_result)
+                if("WARNING" in student_result[1]):
+                    student_result[0].append("WARNING")
+                self.results.append(student_result[0])
 
     def test_submission(self,directory_name, window):
         # This function tests each individual submission
@@ -154,7 +156,7 @@ def wrapper(function, parameter_list, result):
             else:
                 result[0] = "Error"
         except:
-            result[0]
+            result[0] = "Error"
 
 class MainWindow(QMainWindow):
     progress = pyqtSignal(int)
@@ -238,6 +240,7 @@ class MainWindow(QMainWindow):
 
             num_passed = 0
             failed_list = []
+
             for index in range(len(self.results[student_num])):
                 if self.results[student_num][index] == True:
                     num_passed +=1
@@ -248,7 +251,9 @@ class MainWindow(QMainWindow):
                 text.setText("<font size=6><b>" + str(name) + " passed all tests!</b></font>")
             else:
                 image.setText("<img src='redX.png' width='52' height='52'>")
-                if(self.results[student_num][0] == "Bad"):
+                if(self.results[student_num][-1] == "WARNING"):
+                    text.setText("<font size=8 color=red><b>WARNING: </b></font> <font size=6><b>" + str(name) + "'s submission may contain malicious code.</b></font>")
+                elif(self.results[student_num][0] == "Bad"):
                     text.setText("<font size=6><b>" + str(name) + " The autograder has crashed, the most likely issue is a syntax error in the student submission.</b></font>")
                 elif(len(self.results[student_num]) > 1):
                     text.setText("<font size=6><b>" + str(name) + " passed " + str(num_passed) + " tests. They need to complete test(s) " + ", ".join(failed_list) + ".</b></font>")
@@ -288,7 +293,7 @@ class MainWindow(QMainWindow):
         #print(l_data)
         p = thread_with_trace(target=wrapper, args=(function,parameter_list, result), daemon=True)
         p.start()
-        p.join(3)
+        p.join(4)
         output = []
         if p.is_alive():
             p.kill()
@@ -326,6 +331,38 @@ class MainWindow(QMainWindow):
     def exit_clicked(self):
         self.dialog.close()
         
+    def show_spaces(self, result):
+      '''
+      This function makes the spaces in the student submissions visible
+      The purpose of this is to remove the frustration that occurs when results appear to be correct
+      but is off by only a space or a tab causing some invisible differences.
+      '''
+      try:
+        if(type(result) == str):
+          to_return = list(result)
+          i=0
+          while(i < len(result) and to_return[i] in " \t"):
+            if(to_return[i] == " "):
+              to_return[i] = '\u2423'
+            else:
+              to_return[i] = "\\t"
+            i += 1
+          i = -1
+          while(i < len(result) and to_return[i] in " \t"):
+            if(to_return[i] == " "):
+              to_return[i] = '\u2423'
+            else:
+              to_return[i] = "\\t"
+            i -= 1
+          to_return = "".join(to_return)
+        else:
+          to_return = result  
+        return to_return
+    
+      except Exception as e:
+        print("failed :(", e, result)
+        return result
+        
     def syntax_checker(self, filename):
         try:
             with open(filename,"r") as f:
@@ -341,8 +378,18 @@ class MainWindow(QMainWindow):
         pattern = r'^.*"""""".*$' # remove empty """"""
         s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE)
 
-        if("if __name__ != \"__main__\":" not in s_trimmed_code and "from input_override import input" not in s_trimmed_code):
-            return False, "The header structure has been deleted. Please ensure that the following line is in the submission:<br><br> <font color=orange>if</font> __name__ != <font color=green>\"__main__\"</font>:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=orange>from</font> input_override <font color=orange>import</font> <font color=purple>input</font>"
+        if("if __name__ != \"__main__\":" not in s_trimmed_code and "from input_override import input, print" not in s_trimmed_code):
+            return False, "The header structure has been deleted. Please ensure that the following line is in the submission:<br><br> <font color=orange>if</font> __name__ != <font color=green>\"__main__\"</font>:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=orange>from</font> input_override <font color=orange>import</font> <font color=purple>input</font>, <font color=purple>print</font>"
+
+        malicious_list = ["__import__(", "import os", ".run(", "from os import", "import subprocess", "import sys", "from sys import", "from subprocess import"]
+        malicious_search_list = ["(\\s|^)eval\\(", "[^a-zA-Z0-9]rm[^a-zA-Z0-9]"]
+        for phrase in malicious_list:
+            if(phrase in s_trimmed_code):    
+                return False, "WARNING"
+        for expression in malicious_search_list:
+            if(re.search(expression, s_trimmed_code) != None):
+                return False, "WARNING"
+
         if getattr(sys, "frozen", False):
             dir_path = os.path.dirname(sys.executable)
         else:
@@ -356,6 +403,8 @@ class MainWindow(QMainWindow):
                 return False, "There is a problem with your code, you may have an infinite loop outside of a function. Check that all loops have a ending condition."
             elif("input" in output[0]):
                 return False, "There is a problem with your code, you may have unexpected or extra input statements outside of a function. Run your code and check how many inputs are called."
+            else:
+                return False, "There is likely a syntax error in this code"
 
         # Check for triple quote and triple apostrophes
         s_triple_res = ""#check_for_triples()
