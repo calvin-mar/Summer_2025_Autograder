@@ -159,8 +159,7 @@ class MainWindow(QMainWindow):
         global l_data
         l_data = input_list
         result =["Error"]
-        #print(l_data)
-        p = thread_with_trace(target=wrapper, args=(function,parameter_list, result), daemon=True)
+        p = thread_with_trace(target=wrapper, args=(function,parameter_list, result))
         p.start()
         p.join(4)
         output = []
@@ -211,7 +210,8 @@ class MainWindow(QMainWindow):
 
     def updateWindow(self):
         if(sum(self.testSets) != len(self.passes)):
-            self.testSets = []
+          print("ERROR: self.testSets does not equal self.passes... ignoring task seperation")
+          self.testSets = []
         QApplication.restoreOverrideCursor()
         num_passed = 0
         error_count = 0
@@ -279,7 +279,7 @@ class MainWindow(QMainWindow):
         i=0
         while i < len(self.error_msgs):
             #print("errors", self.error_msgs)
-            self.error_msgs[i] = self.error_msgs[i].replace(" Failed: ", "")                
+            self.error_msgs[i] = self.error_msgs[i].replace("\\s*Failed:\\s*", " ")                
             i+=1
 
     def summaryScreen(self, num_passed):
@@ -533,10 +533,15 @@ def main():
         if(re.match("lab_\\d\\d_assistant.py", name)):
             assistantName = name
             filename = assistantName[:6] + "_student_submission.py"
+                
+    try:
+      specific = importlib.util.spec_from_file_location(assistantName[:-3], os.path.join(dir_path, assistantName))
+      assistant = importlib.util.module_from_spec(specific)
+      specific.loader.exec_module(assistant)
+    except:
+          print("FATAL ERROR: Could not load or find lab assistant. Make sure the autograder is in the correct folder")
+          sys.exit(1)
 
-    specific = importlib.util.spec_from_file_location(assistantName[:-3], os.path.join(dir_path, assistantName))
-    assistant = importlib.util.module_from_spec(specific)
-    specific.loader.exec_module(assistant)
 
     displayWindow(assistant.autoGrader, filename, assistant.getTestSets())
 
