@@ -8,7 +8,7 @@ def disperse_documents():
     ## This script will not copy over itself.
 
     excludedDirs = ["Windows_Zips", "Mac_Zips", "Linux_Zips", ".gitattributes", "__pycache__", "lab_01", "lab_03", "lab_16", "lab_19", "lab_20", "mastermind", ".git", "fish", "dice", "Solutions"]
-    excludedFiles = ["createExe.py", "disperse_documents.py", "README.md", "autograder_template.py", "lab_assistant_template.py"]
+    excludedFiles = ["notesForStudents.txt", "createExe.py", "disperse_documents.py", "README.md", "autograder_template.py", "lab_assistant_template.py"]
     
     # Organize Files and Directories
     files = []
