@@ -5,7 +5,7 @@ import subprocess
 import re
 from zipfile import ZipFile, ZIP_DEFLATED
 
-def create_zips():
+def createZips():
     appendage = ""
     tag = "000000"
     if sys.platform == "win32":
@@ -136,6 +136,7 @@ def createExecutables(osName, addDataEnd):
         for name in os.listdir(folder):
             nameSplit = name.split("_")
             if "autograder.py" in nameSplit:
+                # Defining the paths to our components
                 autograder = folder + "/" + name
                 exeName = folder + "_"+ osName + "_Autograder"
                 specFile = exeName + ".spec"
@@ -214,7 +215,7 @@ def main():
     else:
         print(f"Unsupported OS: {sys.platform}")
 
-    create_zips()
+    createZips()
 
 
 main()
