@@ -37,5 +37,7 @@ def disperse_documents():
                     os.chdir("../")
 
                     
+def main():
+    disperse_documents()
 
-disperse_documents()
+main()
