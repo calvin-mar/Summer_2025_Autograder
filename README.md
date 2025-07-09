@@ -56,10 +56,12 @@ This Repository contains files in the form, bolded points are folders:
       - lab_06_testFile.json
       - template.json
     
-- README.md 
+- README.md
+- How_to_use.tx  
 
-<br/><br/><br/><br/>
+<br/><br/><br/>
 
+<b>Short Usage Notes (see How_to_use.txt for more details)</b>
 1. Each student may be given a copy of the appropriate zip file for the relevant lab. The executables are directly created from the source code as found in the mirroring zip file. All code is runnable directly from idle.
    
 2. Create a folder in each lab folder for each student in the format firstname_lastname. When downloading student_submissions, download each student into the appropriate folder.
@@ -71,6 +73,9 @@ This Repository contains files in the form, bolded points are folders:
 5. If you wish to recompile the executables add whatever changed files are necessary to the folders in Zip_Files_Executables and run createExe.py. Running createExe.py will create the necessary executables, create a zip file without autograder.py or the lab_assistant, and places all zip files into the appropriate folders for the OS.
 
 6. Further information regarding executables may be found in the README within Zip_Files_Exectuables
+
+<br/>
+<b>Folder development_tools Notes</b>
    
 8. The development_tools folder contains files useful for expanding the current set of labs. lab_function_assistant_template.py demonstrates how to create a new lab_assistant to test functions. lab_global_variables_assistant_template.py demonstrates how to create a new lab_assistant to test global variables. The fundamentals may be mixed and matched in both.
    
