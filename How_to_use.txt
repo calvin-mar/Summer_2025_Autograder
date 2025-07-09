@@ -1,0 +1,49 @@
+This file contains descriptions about how to use the autograder. For information about the functioning of each autograder or the file system as a whole see "lab_assistant_template.py" or the README.
+
+There are three sections to this file: what to give students, testing all submissions, and creating executables.
+
+
+
+--What To Give Students--
+
+The students should be provided with the zip files as seen in either Zip_Files_Executables or Zip_Files_Sources. If using executables, seperate zip files for Mac, Linux, and Windows should be made available.
+
+Each zip file ought to contain an executable, input_override, necessary testing files, and an empty student submission (except for lab 7, the debugging lab, which has buggy code instead).
+
+The student ought to be notified of the following:
+
+	Executables may take 10-15 seconds longer to start on their first time running.
+
+	To run executables on mac: https://support.apple.com/en-us/102445#openanyway
+	Note: You need adminstrator access to run executables downloaded from the internet. This means that they do not work on library-loaned macs.
+
+	To run executables on Windows: When you attempt to launch the app. You need to click "more info" then click "run anyway" on the popup.
+
+	Notice that all student_submission files have a header structure at the top to import input, print. Please do not delete or modify it, it is necessary for the autograder.
+
+
+--Testing All Submissions--
+
+The primary folder contains sub folders for every lab. Each of these folder contain several files and sub folder themselves. 
+The files should include autograder.py, the check and X images, input_override, test_all_submissions.py, and the corresponding lab_xx_assistant.py.
+
+To test all student submissions, create a sub folder for each student of the format firstname_lastname in the appropriate lab. Download each student's submission into their folder. 
+Run test_all_submissions either from IDLE or from the terminal. All files will be dispersed as necessary across the student folders. The loading screen will appear as all submissions are tested.
+A summary for each student will be displayed informing the instructor of a pass, a global error (such as a syntax error or misnamed file), a set of failed tests, or a warning for malicious code. 
+For failed tests and for a malicious code warning especially, we highly recommend that the grader spends extra time to ensure that no false negatives have occurred,
+
+
+Some labs do not have an autograder. For these labs, a file called check_all_syntax is provided to the grader instead. This runs only the syntax_checker from test_all_submissions on all files instead. 
+It may useful to provide very broad check for submissions before requiring the grader to grade all submissions manually.
+
+
+--Creating Executables--
+
+For more detailed explanations regarding executables see the README in the Zip_Files_Executables folder.
+
+To be able to create exectubles, certain packages must be downloaded, run python3 -m pip install -r requirements.txt in the terminal to install the prerequisites.
+
+To create the executables and zip files for a particular OS, simply run createExe.py on the appropriate system. It is likely that it must be run from the terminal. 
+The code will create executables and zip files for all lab folders and place them in the appropriate sub folder; Linux_Zips, Mac_Zips, or Windows_Zips.
+
+This function must be run independently on each system to obtain the executables and zips for each one.
