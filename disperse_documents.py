@@ -41,8 +41,6 @@ def disperse_documents():
                     for name in os.listdir():
                         if(os.path.isdir(name) and (name not in excludedDirs) and file != "check_all_syntax.py" and file != "test_all_submissions.py"):
                             shutil.copy(filePath, name)
-                        elif (os.path.isdir(name) and (name in checkAllSyntax) and file == "check_all_syntax.py"):
-                            shutil.copy(filePath, name)
                     os.chdir("../")
                 elif ((directory in checkAllSyntax) and file == "check_all_syntax.py"):
                     matched = True
