@@ -57,7 +57,7 @@ This Repository contains files in the form, bolded points are folders:
       - template.json
     
 - README.md
-- How_to_use.tx  
+- How_to_use.txt  
 
 <br/><br/><br/>
 
