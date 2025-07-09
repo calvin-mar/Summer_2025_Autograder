@@ -7,18 +7,19 @@ This Repository contains files in the form, bolded points are folders:
     - createExe.py
     - README.md
     - requirements.txt
-   - <b>Lab_**</b>
+   - <b>Lab_**</b>  
        - Empty Student Submission
-       - executable_autograder
+       - autograder.py
+       - lab_assistant
        - Check
        - redX
        - Necessary testing files
    - <b>Linux_Zips</b>
-       - Contains Zip files for each lab
+       - Contains Zip files for each lab with Linux executables
    - <b>Mac_Zips</b>
-       - Contains Zip files for each lab
+       - Contains Zip files for each lab with Mac executables
    - <b>Windows_Zips</b>
-       - Contains Zip files for each lab
+       - Contains Zip files for each lab with Windows executables
 
 -  <b>Zip Files_Sources</b>
     - <b>lab_**</b>  
