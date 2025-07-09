@@ -294,7 +294,7 @@ class MainWindow(QMainWindow):
             object.setWordWrap(True)
             object.setAlignment(Qt.AlignmentFlag.AlignCenter)
             if(len(self.passes) == num_passed):
-                object.setText("<font color=green>CONGRATULATIONS YOU PASSED ALL TESTS!!!</font>")
+                object.setText("<font color=green>CONGRATULATIONS YOU PASSED ALL THE TESTS!!!</font>")
             else:
                 object.setText("<font color=red>You passed " + str(num_passed) + "/" + str(len(self.passes)) + " tests")
             image.setGeometry(QRect(object.x(), object.y(), object.width()-100, object.height()))
