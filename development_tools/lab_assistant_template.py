@@ -1,7 +1,5 @@
 ## This autograder is non-functioning. This is a template to demonstrate how to construct an autograder module for a new lab.
-## This template is to test a lab with functions
 ## This template is divided into 5 functions
-
 ## Function 1: autoGrader
 ## This function is called from the autograder assistant in order to run the specific tests for a given lab
 ## To create the autograder copy the portion between "Start of Test" and "End of Test".
@@ -35,7 +33,7 @@ from multiprocessing import shared_memory as shm
 from multiprocessing import freeze_support
 
 def autoGrader(student_submission, window):
-    '''
+        '''
     This function takes three arguments: student_submission, assistant, and window
     student_submission is the name of the file the student submitted to test.
     assistant is loaded module of autograder_assistant
