@@ -56,6 +56,7 @@ def autoGrader(student_submission, window):
         # Start of tests #######################################################
         ########################################################################
         # Test 1:
+        print("before test 1", l_data)
         try:
             assert sm.f_temp_fahr == (9/5) * sm.f_celsius + 32
             passes.append(True)
@@ -123,7 +124,11 @@ def autoGrader(student_submission, window):
 
 
         try:
-            i_people = sm.i_people
+            i = 2
+            for item in l_data:
+                if item != None:
+                    i-=1
+            i_people = l_data_copy[i]
             i_roll_packs = i_people // 12 + 1
             i_soda_packs = (2 * i_people) // 12 + 1
             i_hot_dog_packs = i_people // 8 + 1
@@ -146,7 +151,7 @@ def autoGrader(student_submission, window):
         except:
             passes.append(False)
             try:
-                error_msgs.append(" Olympics Party Failed:  For " + str(sm.i_people) + " people, the values should be " + str(i_roll_packs) + " roll packs, "  + str(i_soda_packs) + " soda packs, "  + str(i_hot_dog_packs) + " hot dog packs, "  + str(i_chip_boxes) + " chip boxes.  There should be the following items left over: "  + str(i_rem_rolls) + " rolls, "  + str(i_rem_sodas) + " sodas, "  + str(i_rem_hot_dogs) + " hot dogs, and "  + str(i_rem_chips) + " bags of chips.  Make sure your variables are named correctly if your values are correct.</font>")
+                error_msgs.append(" Olympics Party Failed:  For " + str(i_people) + " people, the values should be " + str(i_roll_packs) + " roll packs, "  + str(i_soda_packs) + " soda packs, "  + str(i_hot_dog_packs) + " hot dog packs, "  + str(i_chip_boxes) + " chip boxes.  There should be the following items left over: "  + str(i_rem_rolls) + " rolls, "  + str(i_rem_sodas) + " sodas, "  + str(i_rem_hot_dogs) + " hot dogs, and "  + str(i_rem_chips) + " bags of chips.  Make sure your variables are named correctly if your values are correct.</font>")
             except:
                 error_msgs.append(" Olympics Party Failed:  variables are not named correctly or have incorrect values.</font>")
 
