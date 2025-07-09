@@ -504,7 +504,7 @@ def autoGrader(student_submission, window):
     return passes, error_msgs
 
 def getTestSets():
-    return [2, 9, 14]
+    return [2, 9, 4, 3, 7]
 
 def testing(window):
     passes, error_msgs = autoGrader("lab_05_student_submission.py", window)

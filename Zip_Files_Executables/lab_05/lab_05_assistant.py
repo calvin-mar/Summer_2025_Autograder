@@ -56,7 +56,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: get_estimate() should return 252 when the user enters s:1, m:2, l:3, xl:4, xxl:5, xxxl:6. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: get_estimate() should return 252 when the user enters s:1, m:2, l:3, xl:4, xxl:5, xxxl:6. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function get_estimate() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -78,7 +78,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: get_quantities() should return 1, 2, 3, 4, 5, 6 when the user enters s:1, m:2, l:3, xl:4, xxl:5, xxxl:6. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: get_quantities() should return 1, 2, 3, 4, 5, 6 when the user enters s:1, m:2, l:3, xl:4, xxl:5, xxxl:6. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function get_quantities() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -101,7 +101,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: validate_combination() should return True when given 3 valid numbers like 12, 33, 0. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: validate_combination() should return True when given 3 valid numbers like 12, 33, 0. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function validate_combination() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -138,7 +138,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: validate_combination() should return False with second number &#60; 0. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: validate_combination() should return False with second number &#60; 0. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function validate_combination() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -156,7 +156,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: validate_combination() should return False with third number &#60; 0. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: validate_combination() should return False with third number &#60; 0. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function validate_combination() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -174,7 +174,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: validate_combination() should return False with first number > 39. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: validate_combination() should return False with first number > 39. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function validate_combination() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -191,7 +191,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: validate_combination() should return False with second number > 39. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: validate_combination() should return False with second number > 39. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function validate_combination() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -209,7 +209,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: validate_combination() should return False with third number > 39. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: validate_combination() should return False with third number > 39. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function validate_combination() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -243,7 +243,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: validate_combination() should return False with the same second and third numbers. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: validate_combination() should return False with the same second and third numbers. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function validate_combination() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -262,7 +262,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: order_combo_meal() should return 8.97 and True when given a sandwich, side, and drink with values of 1, 2, and 4 respectively. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: order_combo_meal() should return 8.97 and True when given a sandwich, side, and drink with values of 1, 2, and 4 respectively. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function order_combo_meal() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -279,7 +279,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: order_combo_meal() should return 2.99 and False when given a side and drink with values of 1 and a sandwich with a value of 0. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: order_combo_meal() should return 2.99 and False when given a side and drink with values of 1 and a sandwich with a value of 0. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function order_combo_meal() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -297,7 +297,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: order_combo_meal() should return 2.99 and False when given a sandwich and drink with values of 1 and a side with a value of 0. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: order_combo_meal() should return 2.99 and False when given a sandwich and drink with values of 1 and a side with a value of 0. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function order_combo_meal() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -315,7 +315,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: order_combo_meal() should return 3.98 and False when given a sandwich and side with values of 1 and a drink with a value of 0. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: order_combo_meal() should return 3.98 and False when given a sandwich and side with values of 1 and a drink with a value of 0. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function order_combo_meal() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -332,7 +332,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: get_item_price() should return 3.99 when given a drink with a value of 4. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: get_item_price() should return 3.99 when given a drink with a value of 4. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function get_item_price() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -349,7 +349,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: get_item_price() should return 0.0 when given a sandwich with a value of -1. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: get_item_price() should return 0.0 when given a sandwich with a value of -1. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function get_item_price() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -367,7 +367,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: get_item_price() should return 0.0 when given a sandwich with a value of 5. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: get_item_price() should return 0.0 when given a sandwich with a value of 5. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function get_item_price() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -384,7 +384,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: validate_meal() should return True when given a sandwich, side, and drink all with values of 1. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: validate_meal() should return True when given a sandwich, side, and drink all with values of 1. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function validate_meal() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -401,7 +401,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: validate_meal() should return False when given a sandwich with a value of 0. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: validate_meal() should return False when given a sandwich with a value of 0. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function validate_meal() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -418,7 +418,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: validate_meal() should return False when given a side with a value of 0. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: validate_meal() should return False when given a side with a value of 0. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function validate_meal() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -435,7 +435,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: validate_meal() should return False when given a drink with a value of 0. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: validate_meal() should return False when given a drink with a value of 0. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function validate_meal() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -452,7 +452,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: validate_meal() should return False when given a sandwich with a value of 4. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: validate_meal() should return False when given a sandwich with a value of 4. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function validate_meal() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -469,7 +469,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: validate_meal() should return False when given a side with a value of 3. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: validate_meal() should return False when given a side with a value of 3. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function validate_meal() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -486,7 +486,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: validate_meal() should return False when given a drink with a value of 5. Instead it returned " + str(window.show_space(result[0])) + "</font>")
+                    error_msgs.append(" Failed: validate_meal() should return False when given a drink with a value of 5. Instead it returned " + str(window.show_spaces(result[0])) + "</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function validate_meal() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -502,7 +502,7 @@ def autoGrader(student_submission, window):
     return passes, error_msgs
 
 def getTestSets():
-    return [2, 9, 14]
+    return [2, 9, 4, 3, 7]
 
 def testing(window):
     passes, error_msgs = autoGrader("lab_05_student_submission.py", window)

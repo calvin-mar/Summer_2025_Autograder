@@ -281,10 +281,8 @@ class MainWindow(QMainWindow):
     def trimFailed(self):
         i=0
         while i < len(self.error_msgs):
-            #print("errors", self.error_msgs)
-            self.error_msgs[i] = self.error_msgs[i].replace("\\s*Failed:\\s*", " ")                
+            self.error_msgs[i] = re.sub("\\s*Failed:\\s*", " ", self.error_msgs[i])                
             i+=1
-
     def summaryScreen(self, num_passed):
         # Summary at top
         if(len(self.passes) > 1):
