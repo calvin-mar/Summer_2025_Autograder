@@ -1,0 +1,139 @@
+{
+	"testSets": [4,2,6,3,7, 2],
+	"modules":["math", "specialTester"],
+	"0":{
+		"functionName": "biggest_number",
+		"inputs": [100, 80, 30, 90, 20, 10, 50, 40, 70, 60],
+		"output": 100
+	},
+	"1":{
+		"functionName": "biggest_number",
+		"inputs": [50, 20, 80, 40, 10, 70, 90, 60, 30, 100],
+		"output": 100
+	},
+	"2":{
+		"functionName": "biggest_number",
+		"inputs": [40, 70, 30, 80, 100, 90, 60, 10, 20, 50],
+		"output": 100
+	},
+	"3":{
+		"functionName": "biggest_number",
+		"inputs": [-50, -80, -100, -30, -10, -20, -70, -90, -60, -40],
+		"output": -10
+	},
+	"4":{
+		"functionName": "repeated_doubler",
+		"parameters": [5,4],
+		"output": 80
+	},
+	"5":{
+		"functionName":"repeated_doubler",
+		"parameters": [0,3],
+		"output": 0
+	},
+	"6":{
+		"functionName": "fib_num",
+		"parameters": [1],
+		"output": 0
+	},
+	"7":{
+		"functionName": "fib_num",
+		"parameters": [2],
+		"output": 1
+	},
+	"8":{
+		"functionName": "fib_num",
+		"parameters": [3],
+		"output": 1
+	},
+	"9":{
+		"functionName": "fib_num",
+		"parameters": [4],
+		"output": 2
+	},
+	"10":{
+		"functionName": "fib_num",
+		"parameters": [9],
+		"output": 21
+	},
+	"11":{
+		"functionName": "fib_num",
+		"parameters": [16],
+		"output": 610
+	},
+	"12":{
+		"functionName": "make_bill",
+		"inputs": ["coke", "1.99", "2", "burger", "4.99", "2", "done"],
+		"special":{
+			"functionLocation":"math",
+			"functionName":"isclose",
+			"parameters":[17.84088]
+		}
+	},
+	"13":{
+		"functionName": "make_bill",
+		"inputs": ["coke", "-1", "-4", "0", "1.99", "4", "burger", "4.99", "3", "fries", "3.49", "3","done"],
+		"special":{
+			"functionLocation":"math",
+		        "functionName":"isclose",
+	       		"parameters":[42.6852]
+		}
+	},
+	"14":{
+		"functionName": "make_bill",
+		"inputs": ["shake", "4.59", "2", "fish", "9.99", "0", "-4", "0", "2", "broccoli", "1.99", "1", "done"],
+		"special":{
+			"functionLocation":"math",
+		        "functionName":"isclose",
+	       	        "parameters":[39.8097]
+		}
+	},
+	"15":{
+		"functionName": "is_prime",
+		"parameters": [3],
+		"output": true
+	},
+	"16":{
+		"functionName": "is_prime",
+		"parameters": [11],
+		"output": true
+	},
+	"17":{
+		"functionName": "is_prime",
+		"parameters": [1],
+		"output": false
+	},
+	"18":{
+		"functionName": "is_prime",
+		"parameters": [2],
+		"output": true
+	},
+	"19":{
+		"functionName": "is_prime",
+		"parameters": [12],
+		"output": false
+	},	
+	"20":{
+		"functionName": "count_primes",
+		"parameters": [17],
+		"output": 7
+	},
+	"21":{
+		"functionName": "count_primes",
+		"parameters": [16],
+		"output": 6
+	},
+	"22":{
+		"functionName": "is_prime",
+		"parameters": [15],
+		"special":{
+			"functionLocation":"specialTester",
+			"functionName":"always_true",
+			"parameters":[]
+		}	
+	},
+	"23":{
+		"globalVariable": "globalScope",
+		"expectedValue": true
+	}
+}

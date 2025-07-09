@@ -71,6 +71,7 @@ class Worker(QObject):
         self.end.emit(output)
         
     def navigate_submissions(self, window, testInfo):
+        # This function navigates the file structure to find appropriate files to test.
         for name in os.listdir(self.cwd):
             if(not os.path.isfile(name) and name != "__pycache__"):
                 testCase = QHBoxLayout()

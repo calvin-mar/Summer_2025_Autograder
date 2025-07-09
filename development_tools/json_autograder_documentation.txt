@@ -1,0 +1,101 @@
+This is additional documentation for the json autograder. This folder contains three other files, template.json, json_autograder, and json_test_all_submissions. 
+This document will discuss the basic structure of each file, their usage, notable features, and work that should be done. 
+
+Recommended features to be added will be marked in asterisks ***.
+Instruction on how to utilize each file are marked by #####USAGE#####
+
+
+***Currently all files are named differently than is expected within their code. The code expects autograder.py rather than json_autograder.py and lab_xx_testFile.json rather than template.json***
+
+--template.json--
+
+This file contains the information for the test cases for a specific lab. 
+
+#####USAGE#####
+For a new lab, create a new json file in the format as scene in the template file.
+
+***Consider making a GUI in order to autocreate json files in the correct format. Submit the data and use json.dump in order to format as a json***
+The json file contains a main dictionary that contains three types of key:value papers -> testSets, modules, and tests.
+
+"testSets", This is a list of ints that contains the information of how the tests are divided into tasks. The format appears as such ->
+"testSets":[task1NumTests, task2NumTests, task3NumTests]
+
+The sum of the testSets list should add to the total number of tests. If you do not wish to have any division by tasks, this should still exist as a list with a single value ->
+"testSets": [numTests]
+
+
+"modules", This is a list of strings. Each item in the list is the name of an external module that must be imported to run a test fuction. This includes built-in python modules such as "math".
+
+"int", There is one of these for each test, indexed from 0: "0", "1", "2", etc... Each one is a dictionary containing the several values for different tests.
+
+One or the other section is necessary. The test must either contain "functionName" and the associated keys, or "globalVariable" and the associated keys.
+	"functionName", This contains the name of the function from the student submission that is to be tested. It is a single string.
+	"inputs", This is an optional parameter. It is a list of values in order that the student submission will receive when asking for an input with the "input" function.
+	"parameters", This is an optional parameter. It is a list of values that will be passed to the function in the student submission.
+	"output", This parameter xor the "special" parameter are required. This is a single value, of any type that will be compared against the output from the student result with ==.
+	"special", This parameter xor the "output" parameter are required. This is a dictionary containg information about an external boolean function for testing the student submission.
+		"functionLocation", This is a single string, that is the name of the external module that contains the function for testing.
+		"functionName", This is a single string, that is the name of the external function for testing. It must accept the student result as the first parameter of the function and return a boolean.
+		"parameters", This is a list of parameters that will be passed to the external function for testing. ***It is currently not optional. It should be made optional***
+	OR
+
+	"globalVariable", This contains the name of the global variable in the student submission, whose value to check.
+	"expectedValue", This parameter xor the "special" parameter are required. This is a single value, of any type that will be compared against the output from the student result with ==.
+	"special", This parameter xor the "expectedValue" parameter are required. This is a dictionary containing information about an external boolean function for testing the student submission.
+		"functionLocation", This is a single string, that is the name of the external module that contains the function for testing.
+		"functionName", This is a single string, that is the name of the external function for testing. It must accept the student result as the first parameter of the function and return a boolean.
+		"parameters", This is a list of parameters that will be passed to the external function for testing. ***It is currently not optional. It should be made optional***
+
+
+
+Json files to actually be used by the autograder are expected to have the naming format lab_xx_testFile.json, where xx is some two digit number.
+
+
+--json_autograder--
+
+This file is the main file to read and use the infomation from the json file. 
+
+#####USAGE#####
+To use this file, it must run in a folder with the student_submission, the check and X images, additional modules containing testing functions, and the json file.
+This file may be run from IDLE or from the terminal. The basic sequence of function calls is as such ->
+
+Running the program calls displayWindow, which creates an instance of MainWindow, launching the loading screen
+The loading screen launches a QThread to run autoFrader while the screen updates.
+AutoFrader calls testFunction from the window to notify the progress bar to update and test the submission functions in an additional thread
+Once autoGrader completes all tests, it ends the thread and returns to the MainWindow
+The MainWindow updates itself to display the results in the structure of a QVBoxLayout containg QHBoxLayouts for each test
+
+
+***This function should be checked that all potential tests are covered.***
+***Cover global input statements. This likely requires a new parameter in the main dictionary.***
+***No testing has been done regarding its compatability as an executable, measures have been taken similar to the regular autograder, but it has not been tested***
+
+
+--json_test_all_submissions--
+
+This file is for use by the professor or other grader to run autograders on all student submissions.
+
+#####USAGE#####
+To use this file, folders of the form firstname_lastname for each student should be created in a primary folder. Each sub folder should contain the submission with the title lab_xx_student_submission.
+The primary folder should contain the json_test_all_submissions, the json autograder, the check and X images, necessary testing modules, and the json file. 
+Running this file will disperse documents to all student folders and display the results for each student in a summary. This file may be run from IDLE or from the terminal.
+
+The running of this function is very similar to the regular autograder, the key differences come from how data is displayed. The file uses the autoGrader function from the json_autograder file. 
+Essentially, only the summary screen from json_autograder is displayed for each student. There is also additional functionality to detect potentially malicious code such as "import os", "eval", or ".run()".
+Check the Worker to see the differences in how all files are navigated with navigate_submissions and test_submission.
+
+***This file has not been fully tested. It almost certainly has holes regarding the usage with the json_autograder***
+
+
+
+
+
+
+
+
+
+
+
+
+
+

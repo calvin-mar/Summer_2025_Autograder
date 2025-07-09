@@ -4,7 +4,7 @@
         "0":{
                 "functionName": "some_function",
                 "inputs": ["input_list", "These values may be anything, but will be entered as strings"],
-		"parameters": ["Some set of parameters", "may be any type", 1, 6.28]
+		"parameters": ["Some set of parameters", "may be any type", 1, 6.28],
                 "output": "This is a single value that is compared against the student submission"
           },
         "1":{

@@ -1,3 +1,6 @@
+This README provides an overview of the files structure and a high level understanding of the files within the folder. 
+For a more detailed description of how to use the autograder see the  "How_to_use.txt" file.
+
 This Repository contains files in the form, bolded points are folders:
 
 -  <b>Solutions</b>
