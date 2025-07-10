@@ -175,7 +175,10 @@ def createExecutables(osName, addDataEnd):
                     sys.exit(result.returncode)
                 os.remove(specFile)
                 if sys.platform == "darwin":
-                    shutil.rmtree(appName)
+                    try:
+                        shutil.rmtree(appName)
+                    except:
+                        pass
     try:
         shutil.rmtree("build")
         print("Success! All executables are ready for use.")

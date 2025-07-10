@@ -20,8 +20,6 @@ def autoGrader(student_submission, window):
     passes = []
     error_msgs = []
     l_data = shm.ShareableList([50,10,15], name="l_data")
-    l_data_copy = [50,10,15]
-
     i_test_num = 1
     print("Autograder starting...")
     if getattr(sys, "frozen", False):
@@ -56,13 +54,14 @@ def autoGrader(student_submission, window):
         # Start of tests #######################################################
         ########################################################################
         # Test 1:
+        
         try:
             assert sm.f_temp_fahr == (9/5) * sm.f_celsius + 32
             passes.append(True)
         except:
             passes.append(False)
             try:
-                error_msgs.append(" Temperature Conversions Failed:  " + str(sm.f_celsius) + " degrees Celsius should be around " + str(round(((9/5) * sm.f_celsius + 32))) + " degrees Fahrenheit but your code has it equal " + str(sm.f_temp_fahr) + " degrees Fahrenheit.  Make sure your variables are named correctly if your value is correct.</font>")
+                error_msgs.append(" Temperature Conversions Failed:  " + str(sm.f_celsius) + " degrees Celsius should equal " + str(((9/5) * sm.f_celsius + 32)) + " degrees Fahrenheit but your code has it equal " + str(sm.f_temp_fahr) + " degrees Fahrenheit.  Make sure your variables are named correctly if your value is correct.</font>")
             except:
                 error_msgs.append(" Temperature Conversions Failed:  variables are not named correctly or have incorrect values.</font>")
 
@@ -83,7 +82,6 @@ def autoGrader(student_submission, window):
                 error_msgs.append(" Distance Conversions Failed:  " + str(sm.f_miles) + " miles should equal " + str((sm.f_miles / 3.1) * 5) + " kilometers but your code has it equal " + str(sm.f_distance_km) + " kilometers.  Make sure your variables are named correctly if your value is correct.</font>")
             except:
                 error_msgs.append(" Distance Conversions Failed: variables are not named correctly or have incorrect values.</font>")
-                
                 
 
         
@@ -123,7 +121,7 @@ def autoGrader(student_submission, window):
 
 
         try:
-            i_people = sm.i_people
+            i_people = 15
             i_roll_packs = i_people // 12 + 1
             i_soda_packs = (2 * i_people) // 12 + 1
             i_hot_dog_packs = i_people // 8 + 1
