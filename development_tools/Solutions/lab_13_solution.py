@@ -1,5 +1,5 @@
 if __name__ != "__main__":
-    from input_override import input
+    from input_override import input, print
 
 def read_data(file_name):
     input_file = open(file_name, "r")

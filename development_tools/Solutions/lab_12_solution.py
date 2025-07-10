@@ -2,7 +2,7 @@
 # Date:
 # Purpose: Strings lab 1
 if __name__ != "__main__":
-    from input_override import input
+    from input_override import input, print
     
 import csc170_strings_data
 from csc170_strings_data import *

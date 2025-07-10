@@ -91,14 +91,14 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: count_item_records(\"student\", [\"John Harney\", \"faculty\", \"faculty_id_123\", \"John Doe\", \"faculty\", \"faculty_id_151\", \"Bruce Johnson\", \"faculty\", \"faculty_id_563\", \"John Ac\", \"staff\", \"staff_id_15632\", \"Ilike Badjokes\", \"faculty\", \"faculty_id_542151\", \"Ima Plumber\", \"staff\", \"staff_id_5653\"]) should return 2, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: count_item_records(\"faculty\", [\"John Harney\", \"faculty\", \"faculty_id_123\", \"John Doe\", \"faculty\", \"faculty_id_151\", \"Bruce Johnson\", \"faculty\", \"faculty_id_563\", \"John Ac\", \"staff\", \"staff_id_15632\", \"Ilike Badjokes\", \"faculty\", \"faculty_id_542151\", \"Ima Plumber\", \"staff\", \"staff_id_5653\"]) should return 4, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function count_item_records() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
         # Test 4: Test count_item_records() function
         try:
-            result = window.testFunction(sm.count_item_records, ("faculty", ["Michael Phelps", "athlete", "athlete_id_023", "Katie Ledecky", "athlete", "athlete_id_800", "Ryan George", "staff", "staff_id_404", "King Arthur", "staff", "staff_id_1217", "Percy Jackson", "student", "student_id_1609", "John Cena", "____", "id_007"]))
+            result = window.testFunction(sm.count_item_records, ("faculty", ["Calvin Mar", "athlete", "athlete_id_023", "Adam Ibrahim", "athlete", "athlete_id_800", "Ryan George", "staff", "staff_id_404", "King Arthur", "staff", "staff_id_1217", "Percy Jackson", "student", "student_id_1609", "John Cena", "____", "id_007"]))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
