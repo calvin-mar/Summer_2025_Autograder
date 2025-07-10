@@ -34,10 +34,10 @@ Then run createExe.py from IDLE or from the terminal. You can only run createExe
 
 <h2>To manually compile:</h2>
 <h3>Linux/Mac:</h3>
-python3 -m PyInstaller --add-data "lab_xx_assistant.py:." --add-data "check.png:." --add-data "redX.png:." --hidden-import lab_xx_assistant.py:. --hidden-import trace --hidden-import multiprocessing --hidden-import PyQt6.QtWidgets --onefile --noupx --noconsole --distpath . --clean autograder.py
+python3 -m PyInstaller --add-data "lab_xx_assistant.py:." --add-data "check.png:." --add-data "redX.png:." --hidden-import lab_xx_assistant.py:. --hidden-import trace --hidden-import multiprocessing --hidden-import PyQt6.QtWidgets --hidden-import input_override --onefile --noupx --noconsole --distpath . --clean autograder.py
 
 <h3>Windows:</h3>
-python -m PyInstaller --add-data "lab_xx_assistant.py;." --add-data "check.png;." --add-data "redX.png;."  --hidden-import lab_xx_assistant.py:. --hidden-import trace --hidden-import multiprocessing --hidden-import PyQt6.QtWidgets --onefile --noupx --noconsole --distpath . --clean autograder.py
+python -m PyInstaller --add-data "lab_xx_assistant.py;." --add-data "check.png;." --add-data "redX.png;."  --hidden-import lab_xx_assistant.py:. --hidden-import trace --hidden-import multiprocessing --hidden-import PyQt6.QtWidgets --hidden-import input_override --onefile --noupx --distpath . --clean autograder.py
 
 <h2>Issues that may occur:</h2>
   Pyinstaller throwing a MoudleNotFound error:
