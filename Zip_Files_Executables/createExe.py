@@ -159,7 +159,7 @@ def createExecutables(osName, addDataEnd):
                     "--hidden-import", "csc170_lists_data",
                     "--hidden-import", "input_override",
                     "--onefile",
-                    "--noupx", "--noconsole",
+                    "--noupx",
                     "--distpath", folder,
                     "--clean", "-n",
                     exeName,
