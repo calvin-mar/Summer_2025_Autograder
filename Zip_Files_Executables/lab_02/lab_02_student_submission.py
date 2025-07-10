@@ -22,9 +22,6 @@ if __name__ != "__main__":
 # they ran into the variable f_miles.  Convert the number of miles to kilometers,
 # save the result in the variable f_distance_km, and print out the result.  Note
 # that 5 kilometers is equal to 3.1 miles.
-#f_miles = float(input("Enter the number of miles "))
-#f_distance_km = (f_miles / 3.1) * 5
-#print(str(f_miles) + " miles is " + str(f_distance_km) + " km")
 
 # 3 Pizza Calculator
 
@@ -75,4 +72,3 @@ if __name__ != "__main__":
 # - i_rem_sodas
 # - i_rem_hot_dogs
 # - i_rem_chips
->>>>>>> c58ca0155a03cf3cc380f4252d291bbb5385bb3d
