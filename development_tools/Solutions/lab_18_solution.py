@@ -1,9 +1,9 @@
 if __name__ != "__main__":
     from input_override import input, print
 
-def get_data():
+def get_data(filename):
     # Get all candy data
-    input_file = open("candy_data.txt", "r")
+    input_file = open(filename, "r")
     l_candy_data = input_file.readlines()
     input_file.close()
 
@@ -40,7 +40,7 @@ def get_avg_sat_fat(l2d_candy):
             f_total_sat_fat = f_total_sat_fat + f_sat_fat
     return f_total_sat_fat / i_num_items
 
-def add_allergy_info(l2d_candy):
+def add_allergy_info(nuts_file, chocolate_file, l2d_candy):
     l2d_allergy = []
 
     # add the two columns
@@ -52,14 +52,14 @@ def add_allergy_info(l2d_candy):
         l2d_allergy.append(allergy_row)
 
     # load nuts & chocolate data
-    input_file = open("nuts.txt", "r")
+    input_file = open(nuts_file, "r")
     l_nuts = input_file.readlines()
     input_file.close()
 
     for index in range(len(l_nuts)):
         l_nuts[index] = l_nuts[index].strip()
 
-    input_file = open("chocolate.txt", "r")
+    input_file = open(chocolate_file, "r")
     l_chocolate = input_file.readlines()
     input_file.close()
 
@@ -81,8 +81,8 @@ def add_allergy_info(l2d_candy):
     return l2d_allergy
 
 
-def write_safe_candies(l2d_allergy):
-    output_file = open("safe.csv", "w")
+def write_safe_candies(safe_file, l2d_allergy):
+    output_file = open(safe_file, "w")
     for row in range(len(l2d_allergy)):
         if l2d_allergy[row][9] == False and l2d_allergy[row][10] == False:
             sodium = float(l2d_allergy[row][7].strip("mg"))
@@ -92,11 +92,11 @@ def write_safe_candies(l2d_allergy):
 
 
 def main():
-    l2d_data = get_data()
+    l2d_data = get_data("canday_data.txt")
     print(get_avg_sat_fat(l2d_data))
-    l2d_alg = add_allergy_info(l2d_data)
+    l2d_alg = add_allergy_info("nuts.txt", "chocolate.txt", l2d_data)
     print(l2d_alg)
-    write_safe_candies(l2d_alg)
+    write_safe_candies("safe.csv", l2d_alg)
     
     print()
 

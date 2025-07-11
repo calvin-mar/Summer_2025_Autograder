@@ -21,6 +21,8 @@ The student ought to be notified of the following:
 
 	Notice that all student_submission files have a header structure at the top to import input, print. Please do not delete or modify it, it is necessary for the autograder.
 
+	When the autograder returns results, don't be confused by this symbol ␣, it just indicates spaces or tabs.
+
 
 --Testing All Submissions--
 

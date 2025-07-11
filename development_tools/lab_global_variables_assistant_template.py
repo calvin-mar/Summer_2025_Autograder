@@ -1,3 +1,28 @@
+## This autograder is non-functioning. This is a template to demonstrate how to construct an autograder module for a new lab.
+## Specifically this assistant template is to demonstrate how to construct an autograder to test a lab with global variables
+## This template is divided into 5 functions
+
+## Function 1: autoGrader
+## This function is called from the autograder assistant in order to run the specific tests for a given lab
+## To create the autograder copy the portion between "Start of Test" and "End of Test".
+## Provide the function to be tested, parameters and inputs as necessary, and the correct result
+
+## Function 2: loadAssistant
+## This function is called in order to load the assistant so that it's function may be used by the autograder
+## In particular it calls the main displayWindow function and the syntax checker
+
+## Function 3: getTestsNum
+## This function only returns the number of tests to test_all_submissions in order to accurately measure the progress bar
+
+## Function 4: testing
+## This function is called by test_all_submissions in order to return only the results and not run the window
+
+## Function 5: main
+## This function is called when the file is run directly from idle. This calls the displayWindow from the assistant.
+## The loading window is displayed while the autograder runs and the results are afterwards displayed
+
+
+# The following are the required imports
 # Python imports
 import sys
 import ast
@@ -10,19 +35,36 @@ import multiprocessing
 
 
 def autoGrader(student_submission, window):
+    '''
+    This function takes three arguments: student_submission, assistant, and window
+    student_submission is the name of the file the student submitted to test.
+    assistant is loaded module of autograder_assistant
+    window is the active display window running from either autograder_assistant or test_all_submissions
+
+    This function returns two lists: passes and s_error_msgs
+    passes is a list of bools indicating whether the ith test passed or not
+    error_msgs are append for each failed test and are accessed to be displayed in autograder_assistant
+    '''
+
+    # Ensure that the shareable list does not currently exist, if so delete it
     try:
         l_data = shm.ShareableList(sequence=None, name="l_data")
         l_data.shm.close()
         l_data.shm.unlink()
     except:
         pass
-    
+
+
+    # Initialize the output variables
     passes = []
     error_msgs = []
-    l_data = shm.ShareableList([50,10,15], name="l_data")
-    l_data_copy = [50,10,15]
+
+    # Initialize the input list for the entirety of the submission
+    l_data = shm.ShareableList([value1,value2,value3], name="l_data")
 
     i_test_num = 1
+
+    # This if else is necessary to ensure that the exectuables are able to locate the appropriate files
     print("Autograder starting...")
     if getattr(sys, "frozen", False):
         dir_path = os.path.dirname(sys.executable)
@@ -36,8 +78,10 @@ def autoGrader(student_submission, window):
 
 
     b_proceed, s_error_msg = window.syntax_checker(os.path.join(dir_path, student_submission))
+    ## The first set of inputs is used in the syntax_checker to look for infinite loops, l_data must be closed and remade
     l_data.shm.close()
     l_data.shm.unlink()
+    
     if b_proceed == False:
         passes.append(False)
         if s_error_msg != "":
@@ -45,115 +89,46 @@ def autoGrader(student_submission, window):
         else:
             error_msgs.append("There is a problem with your file.")
     else:
-        l_data = shm.ShareableList([50,10,15], name="l_data")
+        ## Remake l_data for the inputs of the student submission
+        l_data = shm.ShareableList([value1,value2,value3], name="l_data")
         specific_student.loader.exec_module(sm)
-        #l_data.shm.close()
-        #l_data.shm.unlink()
+
         
 
 
         ########################################################################
         # Start of tests #######################################################
         ########################################################################
-        # Test 1:
-        print("before test 1", l_data)
+
+        ######################### Start of Test n: Task k: Test global_variable #############################
         try:
-            assert sm.f_temp_fahr == (9/5) * sm.f_celsius + 32
-            passes.append(True)
-        except:
-            passes.append(False)
-            try:
-                error_msgs.append(" Temperature Conversions Failed:  " + str(sm.f_celsius) + " degrees Celsius should be around " + str(round(((9/5) * sm.f_celsius + 32))) + " degrees Fahrenheit but your code has it equal " + str(sm.f_temp_fahr) + " degrees Fahrenheit.  Make sure your variables are named correctly if your value is correct.</font>")
-            except:
-                error_msgs.append(" Temperature Conversions Failed:  variables are not named correctly or have incorrect values.</font>")
 
-
-        
-        i_test_num = i_test_num + 1
-
-        # Test 2: 
-
-
-
-        try:
-            assert sm.f_distance_km == (sm.f_miles / 3.1) * 5
-            passes.append(True)
-        except:
-            passes.append(False)
-            try:
-                error_msgs.append(" Distance Conversions Failed:  " + str(sm.f_miles) + " miles should equal " + str((sm.f_miles / 3.1) * 5) + " kilometers but your code has it equal " + str(sm.f_distance_km) + " kilometers.  Make sure your variables are named correctly if your value is correct.</font>")
-            except:
-                error_msgs.append(" Distance Conversions Failed: variables are not named correctly or have incorrect values.</font>")
-                
-                
-
-        
-        i_test_num = i_test_num + 1
-
-        # Test 3: 
-
-
-
-        try:
-            f_small_area = 3.14 * 6 ** 2
-            f_med_area = 3.14 * 8 ** 2
-            f_large_area = 3.14 * 9 ** 2
-            f_small_cost = 8 / f_small_area
-            f_med_cost = 12 / f_med_area
-            f_large_cost = 16 / f_large_area
-
-            assert sm.f_small_area == f_small_area
-            assert sm.f_med_area == f_med_area
-            assert sm.f_large_area == f_large_area
-            assert sm.f_small_cost == f_small_cost
-            assert sm.f_med_cost == f_med_cost
-            assert sm.f_large_cost == f_large_cost
-            passes.append(True)
-        except:
-            passes.append(False)
-            try:
-                error_msgs.append(" Pizza Data Failed:  Areas should be S: " + str(f_small_area) + ", M: " + str(f_med_area) + ", L: " + str(f_large_area) + " and costs should be S: " + str(f_small_cost) + ", M: " + str(f_med_cost) + ", L: " + str(f_large_cost) + ". Make sure your variables are named correctly if your values are correct.</font>")
-            except:
-                error_msgs.append(" Pizza Data Failed:  variables are not named correctly or have incorrect values.</font>")
-
-        
-        i_test_num = i_test_num + 1
-
-        # Test 4: 
-
-
-
-        try:
-            i = 2
-            for item in l_data:
-                if item != None:
-                    i-=1
-            i_people = l_data_copy[i]
-            i_roll_packs = i_people // 12 + 1
-            i_soda_packs = (2 * i_people) // 12 + 1
-            i_hot_dog_packs = i_people // 8 + 1
-            i_chip_boxes = i_people // 16 + 1
-
-            i_rem_rolls = (i_roll_packs * 12) - i_people
-            i_rem_sodas = (i_soda_packs * 12) - (i_people * 2)
-            i_rem_hot_dogs = (i_hot_dog_packs * 8) - i_people
-            i_rem_chips = (i_chip_boxes * 16) - i_people
+            ## Additonal input variables may be added
+            ## Similarly multiple correct answers may be compared against multiple variable in the submission
+            input_variable = sm.input_variable
+            correct_answer1 = solution_calculation1(input_variable)
+            correct_answer2 = solution_calculation2(input_variable)
+           # __________OR___________ #
+            correct_answer1
+            correct_answer2
             
-            assert sm.i_roll_packs == i_roll_packs
-            assert sm.i_soda_packs == i_soda_packs
-            assert sm.i_hot_dog_packs == i_hot_dog_packs
-            assert sm.i_chip_boxes == i_chip_boxes
-            assert sm.i_rem_rolls == i_rem_rolls
-            assert sm.i_rem_sodas == i_rem_sodas
-            assert sm.i_rem_hot_dogs == i_rem_hot_dogs
-            assert sm.i_rem_chips == i_rem_chips
+
+            
+            assert sm.final_answer1 == correct_answer1
+            assert sm.final_answer2 == correct_answer2
+ 
             passes.append(True)
         except:
             passes.append(False)
             try:
-                error_msgs.append(" Olympics Party Failed:  For " + str(i_people) + " people, the values should be " + str(i_roll_packs) + " roll packs, "  + str(i_soda_packs) + " soda packs, "  + str(i_hot_dog_packs) + " hot dog packs, "  + str(i_chip_boxes) + " chip boxes.  There should be the following items left over: "  + str(i_rem_rolls) + " rolls, "  + str(i_rem_sodas) + " sodas, "  + str(i_rem_hot_dogs) + " hot dogs, and "  + str(i_rem_chips) + " bags of chips.  Make sure your variables are named correctly if your values are correct.</font>")
+                error_msgs.append("Failed: " + str(correct_answer1) + " and " + str(correct_answer2) + "expected, but " +str(sm.final_answer1) + " and " + str(sm.final_answer2) + " received. </font>")
             except:
-                error_msgs.append(" Olympics Party Failed:  variables are not named correctly or have incorrect values.</font>")
+                error_msgs.append(" Failed:  variables are not named correctly or have incorrect values.</font>")
+
+
+        
+        ###################################### End of Test ##############################################
+
 
         ########################################################################
         # End of tests
@@ -168,12 +143,24 @@ def autoGrader(student_submission, window):
     return passes, error_msgs
 
 def getTestSets():
+    '''
+    This function returns the TestSets
+    TestSets is a list representing how the tests are organized into tasks in the lab.
+    
+    For example: Lab 6 has 22 tests divided into 5 tasks. Task 1 contains 4 tests, task 2 has 2 tests, etc.
+                 Thus lab 6 has the line -> testsSets = [4,2,6,3,7]
+
+
+    '''
     return [4]
 
 def testing(window):
+        '''
+    This function takes the window from testing_all_submissions
+    It proceeds to fun the autograder and return student passes
+    It does not return the error messages
+
+    This function is called from testing_all_submissions
+    '''
     passes, error_msgs = autoGrader("lab_02_student_submission.py", window)
     return passes
-
-if __name__ == "__main__":
-    multiprocessing.freeze_support()
-    main()

@@ -91,7 +91,7 @@ def autoGrader(student_submission, window):
             ['WHATCHAMACALLIT (H)', '1 bar (51g)', '256.5', '13g', '5.5g', '4.5g', '30g', '116.5mg', '62mg'],
             ['YORK PEPPERMINT PATTIE (H)', '1 lg. pattie (43g)', '149', '4g', 'n/a', '1.5g', '33.5g', '16.5mg', '7.5mg']]
         try:
-            result = window.testFunction(sm.get_data)
+            result = window.testFunction(sm.get_data, (os.path.join(dir_path, "candy_data.txt"),))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -164,7 +164,7 @@ def autoGrader(student_submission, window):
                          ['WHATCHAMACALLIT (H)', '1 bar (51g)', '256.5', '13g', '5.5g', '4.5g', '30g', '116.5mg', '62mg', True, True],
                          ['YORK PEPPERMINT PATTIE (H)', '1 lg. pattie (43g)', '149', '4g', 'n/a', '1.5g', '33.5g', '16.5mg', '7.5mg', False, True]]
         try:
-            result = window.testFunction(sm.add_allergy_info, (l2d_solution2,))
+            result = window.testFunction(sm.add_allergy_info, (os.path.join(dir_path, "nuts.txt"), os.path.join(dir_path, "chocolate.txt"), l2d_solution2))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -180,15 +180,15 @@ def autoGrader(student_submission, window):
 
         # Test 4: Task 4: Test write_safe_candies() function
         try:
-            result = window.testFunction(sm.write_safe_candies, (l2d_solution2,))
+            result = window.testFunction(sm.write_safe_candies, (os.path.join(dir_path, "safe.csv"), l2d_solution2))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
             else:
-                inp_file_1 = open("safe.csv", "r")
+                inp_file_1 = open(os.path.join(dir_path, "safe.csv"), "r")
                 s_data1 = inp_file_1.read()
                 inp_file_1.close()
-                inp_file_2 = open("correct.csv", "r")
+                inp_file_2 = open(os.path.join(dir_path, "correct.csv"), "r")
                 s_data2 = inp_file_2.read()
                 inp_file_2.close()
                 if(s_data1.strip() == s_data2.strip()):

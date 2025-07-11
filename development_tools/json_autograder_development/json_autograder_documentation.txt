@@ -9,7 +9,7 @@ Instruction on how to utilize each file are marked by #####USAGE#####
 
 --template.json--
 
-This file contains the information for the test cases for a specific lab. 
+This file contains the information for the test cases for a specific lab. There is also lab_06_testFile, a full working example of a json file for lab 06, with some additional cases for demonstration and testing purposes.
 
 #####USAGE#####
 For a new lab, create a new json file in the format as scene in the template file.
