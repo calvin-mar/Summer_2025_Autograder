@@ -8,7 +8,7 @@ There are three sections to this file: what to give students, testing all submis
 
 The students should be provided with the zip files as seen in either Zip_Files_Executables or Zip_Files_Sources. If using executables, seperate zip files for Mac, Linux, and Windows should be made available.
 
-Each zip file ought to contain an executable, input_override, necessary testing files, and an empty student submission (except for lab 7, the debugging lab, which has buggy code instead).
+Each zip file ought to contain an executable, input_override, necessary testing files, and an empty student submission (all files have a header structure, and some files contain partial code).
 
 The student ought to be notified of the following:
 
@@ -21,13 +21,13 @@ The student ought to be notified of the following:
 
 	Notice that all student_submission files have a header structure at the top to import input, print. Please do not delete or modify it, it is necessary for the autograder.
 
-	When the autograder returns results, don't be confused by this symbol ␣, it just indicates spaces or tabs.
+	When the autograder returns results, don't be confused by this symbol ␣, it just indicates spaces.
 
 
 --Testing All Submissions--
 
 The primary folder contains sub folders for every lab. Each of these folder contain several files and sub folder themselves. 
-The files should include autograder.py, the check and X images, input_override, test_all_submissions.py, and the corresponding lab_xx_assistant.py.
+The folders should include autograder.py, the check and X images, input_override, test_all_submissions.py, and the corresponding lab_xx_assistant.py.
 
 To test all student submissions, create a sub folder for each student of the format firstname_lastname in the appropriate lab. Download each student's submission into their folder. 
 Run test_all_submissions either from IDLE or from the terminal. All files will be dispersed as necessary across the student folders. The loading screen will appear as all submissions are tested.
@@ -36,7 +36,7 @@ For failed tests and for a malicious code warning especially, we highly recommen
 
 
 Some labs do not have an autograder. For these labs, a file called check_all_syntax is provided to the grader instead. This runs only the syntax_checker from test_all_submissions on all files instead. 
-It may useful to provide very broad check for submissions before requiring the grader to grade all submissions manually.
+It may be useful to provide a very broad check for submissions before requiring the grader to grade all submissions manually.
 
 
 --Creating Executables--
