@@ -422,17 +422,17 @@ def autoGrader(student_submission, window):
 
 
         try:
-            result = window.testFunction(sm.count_evens, (8,2))
+            result = window.testFunction(sm.count_evens, (17,1))
             if(result[1]):
-                result[0] = result[0] + " The parameters were 8, 2. </font>"
+                result[0] = result[0] + " The parameters were 17, 1. </font>"
                 error_msgs.append(result[0])
                 passes.append(False)
             else:
-                if(result[0] == 2):
+                if(result[0] == 8):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: count_evens() should return 2 when the arguments are 8 and 2, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: count_evens() should return 8 when the arguments are 17 and 1, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function count_evens() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")

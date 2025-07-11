@@ -148,7 +148,7 @@ def autoGrader(student_submission, window):
             
         except:
             passes.append(False)
-            error_msgs.append(" Failed: Make sure the variable b_task_7 exists and has the correct value. </font>")
+            error_msgs.append(" Failed: Make sure the variable b_task_5 exists and has the correct value. </font>")
 
 
         i_test_num = i_test_num + 1

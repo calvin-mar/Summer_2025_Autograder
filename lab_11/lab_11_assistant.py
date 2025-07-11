@@ -499,7 +499,7 @@ def autoGrader(student_submission, window):
                     error_msgs.append(" Failed: my_sort() should return [0, 1, 2, 3, 4, 5, 6, 7, 8] with this list [8, 7, 6, 5, 4, 3, 2, 1, 0], but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
-            error_msgs.append(" Failed: Function my_remove() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")            
+            error_msgs.append(" Failed: Function my_sort() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")            
 
         ########################################################################
         # End of tests
