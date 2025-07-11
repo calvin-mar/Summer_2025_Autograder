@@ -20,11 +20,14 @@ import PyQt6.QtWidgets
 
 # Disable Printing
 def blockPrint():
+    idleStdout = sys.stdout
     sys.stdout = open(os.devnull, 'w')
+    return idleStdout
 
 # Restore Printing
-def enablePrint():
-    sys.stdout = sys.__stdout__
+def enablePrint(idleStdout):
+    sys.stdout = idleStdout
+
 
 def disperse_documents():
     ## Place this document into a top level folder
@@ -75,14 +78,14 @@ class Worker(QObject):
                 text.setWordWrap(True)
                 text.setMargin(5)
                 
-                blockPrint()
+                idleStdout = blockPrint()
                 try:
                     student_result = self.test_submission(name, window)
                 except Exception as exc:
                     print(exc)
                     student_result = [["Bad"], "Bad"]
                     
-                enablePrint()
+                enablePrint(idleStdout)
                 self.names.append(name)
                 if("WARNING" in student_result[1]):
                     student_result[0].append("WARNING")

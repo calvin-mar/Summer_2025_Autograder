@@ -212,8 +212,9 @@ class MainWindow(QMainWindow):
       # Vbox layout
       # Each "Test" line and image are HBox items layed out in the Vbox
       # Summary screen is its own HBox layout inside the Vbox
-        if(sum(self.testSets) != len(self.passes)):
+        if(sum(self.testSets) != len(self.passes) and sum(self.testSets) != 0):
           print("ERROR: self.testSets does not equal self.passes... ignoring task seperation")
+          print(self.testSets, self.passes)
           self.testSets = []
         QApplication.restoreOverrideCursor()
         num_passed = 0
@@ -396,7 +397,9 @@ class MainWindow(QMainWindow):
         name = filename[:-3]
         specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, filename))
         sm = importlib.util.module_from_spec(specific_student)
+        idleStdout = blockPrint()
         output = self.testFunction(specific_student.loader.exec_module, (sm,))
+        enablePrint(idleStdout)
         if(output[1]):
             if("infinite" in output[0]):
                 return False, "There is a problem with your code, you may have an infinite loop outside of a function. Check that all loops have a ending condition."
@@ -512,6 +515,14 @@ class MainWindow(QMainWindow):
 
         return b_proceed, s_error_msg
 
+def blockPrint():
+    idleStdout = sys.stdout
+    sys.stdout = open(os.devnull, 'w')
+    return idleStdout
+
+# Restore Printing
+def enablePrint(idleStdout):
+    sys.stdout = idleStdout
 
         
 def displayWindow(autoGrader, filename, testSets = []):
