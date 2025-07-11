@@ -169,7 +169,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: is_even() should return True with odd number 16, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: is_even() should return True with even number 16, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function is_even() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -243,7 +243,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: km_to_miles() should return 26.26.164000000000005 with 42.2 km as argument, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: km_to_miles() should return 26.164000000000005 with 42.2 km as argument, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function km_to_miles() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")

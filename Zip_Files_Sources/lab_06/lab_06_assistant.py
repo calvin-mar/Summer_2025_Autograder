@@ -191,6 +191,40 @@ def autoGrader(student_submission, window):
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function repeated_doubler() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        # Test 6.1: Task 2: Test repeated_doubler() function - double 5 0 times
+
+        try:
+            result = window.testFunction(sm.repeated_doubler, (5,0))
+            if(result[1]):
+                result[0] = result[0] + " The paramters were 5, 0. </font>"
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == 5):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: repeated_doubler() should return 5 when the arguments are 5 and 0, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function repeated_doubler() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        # Test 6.2: Task 2: Test repeated_doubler() function - double 0 3 times
+
+        try:
+            result = window.testFunction(sm.repeated_doubler, (9,9))
+            if(result[1]):
+                result[0] = result[0] + " The paramters were 9, 9. </font>"
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == 4608):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: repeated_doubler() should return 4608 when the arguments are 9 and 9, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function repeated_doubler() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
        ######################
 
@@ -505,7 +539,7 @@ def autoGrader(student_submission, window):
     return passes, error_msgs
 
 def getTestSets():
-    return [4,2,6,3,7]
+    return [4,4,6,3,5,2]
 
 def testing(window):
     passes, error_msgs = autoGrader("lab_06_student_submission.py", window)

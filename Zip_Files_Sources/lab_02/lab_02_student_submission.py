@@ -1,5 +1,6 @@
 if __name__ != "__main__":
-    from input_override import input
+    from input_override import input, print
+
 
 # Name: 
 # Purpose: CSC 170, Lab 2, Arithmetic
@@ -77,3 +78,6 @@ if __name__ != "__main__":
 # - i_rem_sodas
 # - i_rem_hot_dogs
 # - i_rem_chips
+
+
+

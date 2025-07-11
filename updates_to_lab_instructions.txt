@@ -1,0 +1,14 @@
+lab2: 
+When discussing the import header structure ath the top of each student file, the document should be update to reflect the new statement. 
+The statements is as follows ->
+if __name __ != "__main__":
+	from input_override import input, print
+
+
+lab8:
+I recommend that the instructions for class_leaf_sum should be updated to clarify that it needs to have input statements to pass numbers of days to each student.
+
+
+lab18:
+This is a change that we made to the autograder. All student functions need to accept the filename as a paramter rather than explicitly coding in the name into their open statements.
+The reason for this is because is not friendly with executables and doesn't like file reading from them, so it requires the absolute path.
