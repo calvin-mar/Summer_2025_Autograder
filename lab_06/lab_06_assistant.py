@@ -493,6 +493,23 @@ def autoGrader(student_submission, window):
             passes.append(False)
             error_msgs.append(" Failed: Function count_primes() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
+        # Test 23: Task 5: Test count_primes() function with 1000: 168 <= 1000 are prime
+        try:
+            result = window.testFunction(sm.count_primes, (1000,))
+            if(result[1]):
+                result[0] = result[0] + ' The parameter was 1000. </font>'
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == 168):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: count_primes() should return 168 with argument 1000, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function count_primes() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
         
         ########################################################################
         # End of tests
