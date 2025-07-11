@@ -43,7 +43,7 @@ def disperse_documents():
 
     # Do the Copying
     for file in files:
-        if(file != "check_all_syntax.py" and len(re.findall("lab_\d\d_student_submission", file)) != 1):
+        if(file != "check_all_syntax.py" and not (re.match("lab_[^\s]+_student_submission.py", file))):
             for directory in dirs:
                 if(directory != "__pycache__"):
                     shutil.copy(file, directory)
@@ -94,28 +94,43 @@ class Worker(QObject):
 
         # Find the autograder amongst the files 
         for file in files:
-            if( len(re.findall("lab_\d\d_student_submission.py", file)) == 1):
-                student_result, s_error_msg = syntax_checker(os.path.join(os.getcwd(), directory_name, file), window)
+            if(re.match("lab_[^\s]+_student_submission.py", file)):
+                try:
+                    student_result, s_error_msg = syntax_checker(os.path.join(os.getcwd(), directory_name, file), window)
+                except Exception as exc:
+                    print(exc)
+                    s_error_msg = "Syntax Error or File Error"
+                    student_result = "Crash"
                 print(s_error_msg)
-
                 return student_result
-        return False
+        return "nofile"
     
 def syntax_checker(filename, window, timeout=0):
         try:
             with open(filename,"r") as f:
                 code = f.read()
-        except Exception as exc:
+        except:
             return False, "Your file could not be read.  Make sure it is named correctly.  "
-
         parsed = ast.parse(code)
         for node in ast.walk(parsed):
             if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
                 # set value to empty string
                 node.value = ast.Constant(value='') 
-        s_trimmed_code = astor.to_source(parsed)
+        s_trimmed_code = astor.to_source(parsed)  
         pattern = r'^.*"""""".*$' # remove empty """"""
         s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE)
+        if("if __name__ != \"__main__\":" not in s_trimmed_code and "from input_override import input, print" not in s_trimmed_code):
+            return False, "The header structure has been deleted. Please ensure that the following line is in the submission:<br><br> <font color=orange>if</font> __name__ != <font color=green>\"__main__\"</font>:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=orange>from</font> input_override <font color=orange>import</font> <font color=purple>input</font>, <font color=purple>print</font>"
+
+        malicious_list = ["__import__(", "import os", ".run(", "from os import", "import subprocess", "import sys", "from sys import", "from subprocess import"]
+        malicious_search_list = ["(\\s|^)eval\\(", "[^a-zA-Z0-9]rm[^a-zA-Z0-9]"]
+        for phrase in malicious_list:
+            if(phrase in s_trimmed_code):    
+                return False, "WARNING"
+        for expression in malicious_search_list:
+            if(re.search(expression, s_trimmed_code) != None):
+                return False, "WARNING"
+
         if getattr(sys, "frozen", False):
             dir_path = os.path.dirname(sys.executable)
         else:
@@ -129,6 +144,8 @@ def syntax_checker(filename, window, timeout=0):
                 return False, "There is a problem with your code, you may have an infinite loop outside of a function. Check that all loops have a ending condition."
             elif("input" in output[0]):
                 return False, "There is a problem with your code, you may have unexpected or extra input statements outside of a function. Run your code and check how many inputs are called."
+            else:
+                return False, "There is likely a syntax error in this code"
 
         # Check for triple quote and triple apostrophes
         s_triple_res = ""#check_for_triples()
@@ -285,7 +302,7 @@ def wrapper(function, parameter_list, result):
             else:
                 result[0] = "Error"
         except:
-            result[0]
+            result[0] = "Error"
 
 class MainWindow(QMainWindow):
     progress = pyqtSignal(int)
@@ -369,8 +386,17 @@ class MainWindow(QMainWindow):
                 text.setText("<font size=6><b>" + str(name) + " has no banned syntax</b></font>")
             else:
                 image.setText("<img src='redX.png' width='52' height='52'>")
+                if(self.results[student_num] == "WARNING"):
+                    text.setText("<font size=8 color=red><b>WARNING: </b></font> <font size=6><b>" + str(name) + "'s submission may contain malicious code.</b></font>")
                 if(self.results[student_num] == "Bad"):
                     text.setText("<font size=6><b>" + str(name) + " The syntax checker has crashed, the most likely issue is a filename error in the student submission.</b></font>")
+                elif(self.results[student_num] == "Crash"):
+                    text.setText("<font size=6><b>" + str(name) + " The syntax checker has crashed, there is either a syntax issue or a filename error in the student submission.</b></font>")
+                elif(self.results[student_num] == "Error"):
+                    text.setText("<font size=6><b>" + str(name) + " The syntax checker has crashed, there is either a syntax issue or a filename error in the student submission.</b></font>")
+                elif(self.results[student_num] == "nofile"):
+                    text.setText("<font size=6><b>" + str(name) + " The syntax checker has crashed, the submission file could not be found.</b></font>")
+
                 else:
                     text.setText("<font size=6><b>" + str(name) + " There is banned syntax within the student submission.</b></font>")
                 
