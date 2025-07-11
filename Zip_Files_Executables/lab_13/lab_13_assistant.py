@@ -54,7 +54,7 @@ def autoGrader(student_submission, window):
         # Test 1: Test read_data() function with shark file: AAACCCGGGTTTACTTAGCGA\n
 
         try:
-            result = window.testFunction(sm.read_data, ("shark.txt",))
+            result = window.testFunction(sm.read_data, (os.path.join(dir_path,"shark.txt"),))
             if(result[1]):
                 result[0] = result[0] + " The filename was 'shark.txt'. </font>"
                 error_msgs.append(result[0])
@@ -64,7 +64,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: read_data(\"shark.txt\") should return AAACCCGGGTTTACTTAGCGA, but it returns " + repr() + ".</font>")
+                    error_msgs.append(" Failed: read_data(\"shark.txt\") should return AAACCCGGGTTTACTTAGCGA, but it returns " + repr(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function read_data() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -72,7 +72,7 @@ def autoGrader(student_submission, window):
         # Test 2: Test read_data() function with elephant file: ACGACGTTTAAACCR
 
         try:
-            result = window.testFunction(sm.read_data, ("elephant.txt",))
+            result = window.testFunction(sm.read_data, (os.path.join(dir_path,"elephant.txt"),))
             if(result[1]):
                 result[0] = result[0] + " The filename was 'elephant.txt'. </font>"
                 error_msgs.append(result[0])
@@ -82,7 +82,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: read_data(\"elephant.txt\") should return ACGACGTTTAAACCR, but it returns " + repr() + ".</font>")
+                    error_msgs.append(" Failed: read_data(\"elephant.txt\") should return ACGACGTTTAAACCR, but it returns " + repr(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function read_data() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")

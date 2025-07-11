@@ -54,7 +54,7 @@ def autoGrader(student_submission, window):
         # Test 1: Test read_data() function with shark file: AAACCCGGGTTTACTTAGCGA\n
 
         try:
-            result = window.testFunction(sm.read_data, ("shark.txt",))
+            result = window.testFunction(sm.read_data, (os.path.join(dir_path,"shark.txt"),))
             if(result[1]):
                 result[0] = result[0] + " The filename was 'shark.txt'. </font>"
                 error_msgs.append(result[0])
@@ -72,7 +72,7 @@ def autoGrader(student_submission, window):
         # Test 2: Test read_data() function with elephant file: ACGACGTTTAAACCR
 
         try:
-            result = window.testFunction(sm.read_data, ("elephant.txt",))
+            result = window.testFunction(sm.read_data, (os.path.join(dir_path,"elephant.txt"),))
             if(result[1]):
                 result[0] = result[0] + " The filename was 'elephant.txt'. </font>"
                 error_msgs.append(result[0])
