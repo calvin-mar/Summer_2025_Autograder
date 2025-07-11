@@ -28,7 +28,7 @@ print(str(f_celsius) + " C = " + str(f_temp_fahr) + "F")
 # save the result in the variable f_distance_km, and print out the result.  Note
 # that 5 kilometers is equal to 3.1 miles.
 f_miles = int(input("Enter the number of miles "))
-f_distance_km = (f_miles / 3.2) * 5
+f_distance_km = (f_miles / 3.1) * 5
 print(str(f_miles) + " miles is " + str(f_distance_km) + " km")
 
 # 3 Pizza Calculator
