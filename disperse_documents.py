@@ -10,7 +10,7 @@ def disperse_documents():
     excludedDirs = ["Windows_Zips", "Mac_Zips", "Linux_Zips", "__pycache__", "lab_01", "lab_03",
                     "lab_16", "lab_19", "lab_20", "mastermind", ".git", "fish", "dice", "Solutions", "Zip_Files_Executables", "Zip_Files_Sources", ".gitignore"]
     checkAllSyntax = ["lab_01", "lab_03", "lab_16", "lab_19", "lab_20", "mastermind", "fish", "dice"]
-    excludedFiles = ["How_to_use.txt", "createExe.py", "disperse_documents.py", "README.md", "autograder_template.py", "lab_assistant_template.py", ".gitignore"]
+    excludedFiles = ["lab_globalvariables_assistant.py", "How_to_use.txt", "createExe.py", "disperse_documents.py", "README.md", "autograder_template.py", "lab_assistant_template.py", ".gitignore"]
     
     # Organize Files and Directories
     files = []

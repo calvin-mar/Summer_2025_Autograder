@@ -1,8 +1,9 @@
-# Name: 
-# Purpose: CSC 170, Lab 2, Arithmetic
-
 if __name__ != "__main__":
     from input_override import input, print
+
+
+# Name: 
+# Purpose: CSC 170, Lab 2, Arithmetic
 
 
 
@@ -17,20 +18,18 @@ if __name__ != "__main__":
 # variable f_celsius.  Convert the temperature to degrees Fahrenheit, save the
 # result in the variable f_temp_fahr, and print it out.  Note that
 # Fahrenheit = (9/5) * Celsius + 32.
-#f_celsius = float(input("Enter temp in Celsius "))
-#f_temp_fahr = (9/5) * f_celsius + 32
-#print(str(f_celsius) + " C = " + str(f_temp_fahr) + "F")
-
+f_celsius = float(input("Enter temp in Celsius "))
+f_temp_fahr = (9/5) * f_celsius + 32
+print(str(f_celsius) + " C = " + str(f_temp_fahr) + "F")
 # 2 Distance Conversion
-
 
 # Have the user enter a floating point number representing the number of miles
 # they ran into the variable f_miles.  Convert the number of miles to kilometers,
 # save the result in the variable f_distance_km, and print out the result.  Note
 # that 5 kilometers is equal to 3.1 miles.
-#f_miles = float(input("Enter the number of miles "))
-#f_distance_km = (f_miles / 3.1) * 5
-#print(str(f_miles) + " miles is " + str(f_distance_km) + " km")
+f_miles = int(input("Enter the number of miles "))
+f_distance_km = (f_miles / 3.2) * 5
+print(str(f_miles) + " miles is " + str(f_distance_km) + " km")
 
 # 3 Pizza Calculator
 
@@ -48,6 +47,20 @@ if __name__ != "__main__":
 # Also, have your program calculate the cost per square inch of each pizza size,
 # store the results in f_small_cost, f_med_cost, and f_large_cost, and print out
 # the results.  The cost per square inch is just the price divided by the area.
+f_small_area = 3.14 * 6 ** 2
+f_med_area = 3.14 * 8 ** 2
+f_large_area = 3.14 * 9 ** 2
+f_small_cost = 8 / f_small_area
+f_med_cost = 12 / f_med_area
+f_large_cost = 16 / f_large_area
+
+print(f_small_area)
+print(f_med_area)
+print(f_large_area)
+print(f_small_cost)
+print(f_med_cost)
+print(f_large_cost)
+
 
 # 4 Olympics Party
 
@@ -81,3 +94,27 @@ if __name__ != "__main__":
 # - i_rem_sodas
 # - i_rem_hot_dogs
 # - i_rem_chips
+
+
+i_people = int(input("Enter the number of people coming: "))
+
+i_roll_packs = i_people // 12 + 1
+i_soda_packs = (2 * i_people) // 12 + 1
+i_hot_dog_packs = i_people // 8 + 1
+i_chip_boxes = i_people // 16 + 1
+
+i_rem_rolls = (i_roll_packs * 12) - i_people
+i_rem_sodas = (i_soda_packs * 12) - (i_people * 2)
+i_rem_hot_dogs = (i_hot_dog_packs * 8) - i_people
+i_rem_chips = (i_chip_boxes * 16) - i_people
+
+print("Packs of rolls needed:", i_roll_packs)
+print("Packs of sodas needed:", i_soda_packs)
+print("Packs of hot dogs needed:", i_hot_dog_packs)
+print("Boxes of chips needed:", i_chip_boxes)
+
+print("Left over rolls:", i_rem_rolls)
+print("Left over sodas:", i_rem_sodas)
+print("Left over hot dogs:", i_rem_hot_dogs)
+print("Left over chips:", i_rem_chips)
+
