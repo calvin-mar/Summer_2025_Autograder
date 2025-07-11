@@ -34,7 +34,11 @@ def createZips():
         print("Creating ZIP for " + directory)
         # Copy Directory
         copyName = str(directory + appendage)
-        shutil.copytree(directory, copyName)
+        try:
+            shutil.rmtree(os.path.join(directory, copyName))
+        except:
+            pass
+        shutil.copytree(directory, copyName, dirs_exist_ok=True)
 
         # Remove executable from original
         for file in os.listdir(directory):
@@ -44,11 +48,12 @@ def createZips():
                 else:
                     os.remove(os.path.join(cwd, directory, file))
 
-        # Remove Autograder from copy
+        # Remove Autograder and Assistant and __pycache__ from copy
         for file in os.listdir(copyName):
             if(len(re.findall("lab_\\d\\d_assistant.py", file)) == 1 or file=="autograder.py"):
                 os.remove(os.path.join(cwd, copyName, file))
-
+            if(file=="__pycache__"):
+                shutil.rmtree(os.path.join(cwd,copyName, "__pycache__"))
         # Create Zip File from copy
         with ZipFile(copyName + ".zip", "w", ZIP_DEFLATED) as zipf:
             for root, dirs, files in os.walk(copyName):
