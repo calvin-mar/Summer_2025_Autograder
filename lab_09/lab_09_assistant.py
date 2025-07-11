@@ -230,7 +230,7 @@ def autoGrader(student_submission, window):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append(" Failed: i_biggest is not the biggest value in the list l_grades3. </font>")
+            error_msgs.append(" Failed: i_biggest is not the biggest value in the list l_grades. </font>")
 
         # Test 17: 
         
@@ -239,7 +239,7 @@ def autoGrader(student_submission, window):
             passes.append(True)
         except:
             passes.append(False)
-            error_msgs.append(" Failed: i_smallest is not the smallest value in the list l_grades3. </font>")
+            error_msgs.append(" Failed: i_smallest is not the smallest value in the list l_grades. </font>")
 
 
         ########################################################################

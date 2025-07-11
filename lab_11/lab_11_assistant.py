@@ -423,9 +423,28 @@ def autoGrader(student_submission, window):
             passes.append(False)
             error_msgs.append(" Failed: Function my_insert() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")    
 
+
+        # Test 21: Task 7: Test my_insert() function with list [0, 1, 2, 3, 4], 5, and "X"
+           
+        try:
+            result = window.testFunction(sm.my_insert, ([0, 1, 2, 3, 4],5, "X"))
+            if(result[1]):
+                result[0] = result[0] + ' The parameters were [6, 77, 3, 5, -1], 5, and "X". </font>'
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == [0, 1, 2, 3, 4, "X"]):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: my_insert() should return [0, 1, 2, 3, 4, \"X\"] with this list [0, 1, 2, 3, 4], 5, and \"X\" as argument, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function my_insert() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")    
+
         ###
 
-        # Test 21: Task 8: Test my_remove() function with list [0, 1, 2, 3, 4, 1, 2, 1, 2], 1
+        # Test 22: Task 8: Test my_remove() function with list [0, 1, 2, 3, 4, 1, 2, 1, 2], 1
         
         try:
             result = window.testFunction(sm.my_remove, ([0, 1, 2, 3, 4, 1, 2, 1, 2], 1))
@@ -443,7 +462,7 @@ def autoGrader(student_submission, window):
             passes.append(False)
             error_msgs.append(" Failed: Function my_remove() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")            
 
-        # Test 22: Task 8: Test my_remove() function with list [0, 1, 2, 3, 4, 1, 2, 1, 2], 11
+        # Test 23: Task 8: Test my_remove() function with list [0, 1, 2, 3, 4, 1, 2, 1, 2], 11
         
         try:
             result = window.testFunction(sm.my_remove, ([0, 1, 2, 3, 4, 1, 2, 1, 2], 11))
@@ -463,7 +482,7 @@ def autoGrader(student_submission, window):
 
         ###
 
-        # Test 23: Task 9: Test my_sort() function with list [8, 7, 6, 5, 4, 3, 2, 1, 0]
+        # Test 24: Task 9: Test my_sort() function with list [8, 7, 6, 5, 4, 3, 2, 1, 0]
         
         
         try:
@@ -480,7 +499,7 @@ def autoGrader(student_submission, window):
                     error_msgs.append(" Failed: my_sort() should return [0, 1, 2, 3, 4, 5, 6, 7, 8] with this list [8, 7, 6, 5, 4, 3, 2, 1, 0], but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
-            error_msgs.append(" Failed: Function my_sort() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")            
+            error_msgs.append(" Failed: Function my_remove() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")            
 
         ########################################################################
         # End of tests
@@ -494,7 +513,7 @@ def autoGrader(student_submission, window):
     return passes, error_msgs
 
 def getTestSets():
-    return [2, 4, 3, 2, 5, 2, 2, 2, 1]
+    return [2, 4, 3, 2, 5, 2, 3, 2, 1]
 
 def testing(window):
     passes, error_msgs = autoGrader("lab_11_student_submission.py", window)

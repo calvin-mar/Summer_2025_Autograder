@@ -179,7 +179,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: calc_avg() should return 4when the user enters 4, -5, 8, 9, -1, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: calc_avg() should return 4 when the user enters 4, -5, 8, 9, -1, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function calc_avg() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -274,7 +274,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: find_smallest() should return 40 when the user calls it with argument 6 and then enters -100, -30, 20, 40, -10, -45, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: find_smallest() should return -100 when the user calls it with argument 6 and then enters -100, -30, 20, 40, -10, -45, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function find_smallest() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -297,7 +297,7 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: find_smallest() should return 40 when the user calls it with argument 5 and then enters 999, 459, 289, 439, 109, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: find_smallest() should return 109 when the user calls it with argument 5 and then enters 999, 459, 289, 439, 109, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function find_smallest() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -323,6 +323,29 @@ def autoGrader(student_submission, window):
                 else:
                     passes.append(False)
                     error_msgs.append(" Failed: count_num_fives() should return 3 when the user calls it with argument 10 and then enters 100, 5, 60, 5, 70, 1, 6, 5, 4, 77 but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function count_num_fives() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        l_data.shm.close()
+        l_data.shm.unlink()
+
+
+        # Test 13.1: Task 6: Test count_num_fives() function 
+
+
+        l_data = shm.ShareableList([100, 7, 60, 7, 70], name="l_data")
+        try:
+            result = window.testFunction(sm.count_num_fives, (5,))
+            if(result[1]):
+                result[0] = result[0] + " The parameter given was 5 and the inputs were 100, 7, 60, 7, 70. </font>"
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == 0):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: count_num_fives() should return 0 when the user calls it with argument 5 and then enters 100, 7, 60, 7, 70 but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function count_num_fives() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -422,17 +445,17 @@ def autoGrader(student_submission, window):
 
 
         try:
-            result = window.testFunction(sm.count_evens, (17,1))
+            result = window.testFunction(sm.count_evens, (8,2))
             if(result[1]):
-                result[0] = result[0] + " The parameters were 17, 1. </font>"
+                result[0] = result[0] + " The parameters were 8, 2. </font>"
                 error_msgs.append(result[0])
                 passes.append(False)
             else:
-                if(result[0] == 8):
+                if(result[0] == 2):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: count_evens() should return 8 when the arguments are 17 and 1, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+                    error_msgs.append(" Failed: count_evens() should return 2 when the arguments are 8 and 2, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function count_evens() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -452,7 +475,47 @@ def autoGrader(student_submission, window):
                     passes.append(True)
                 else:
                     passes.append(False)
-                    error_msgs.append(" Failed: temp_monitor() should return pleasant for argument 60.5.</font>")
+                    error_msgs.append(" Failed: temp_monitor() should return pleasant for argument 60.5.</font> ,but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function temp_monitor() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
+
+        # Test 20: Task 10: Test temp_monitor() function with arg 60.5 which returns the wrong value until the function is fixed
+
+
+
+        try:
+            result = window.testFunction(sm.temp_monitor, (80, ))
+            if(result[1]):
+                result[0] = result[0] + " The parameter was 80. </font>"
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == "hot"):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: temp_monitor() should return hot for argument 80,  but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function temp_monitor() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+        # Test 21: Task 10: Test temp_monitor() function with arg 60.5 which returns the wrong value until the function is fixed
+
+
+
+        try:
+            result = window.testFunction(sm.temp_monitor, (-10, ))
+            if(result[1]):
+                result[0] = result[0] + " The parameter was -10. </font>"
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == "freezing"):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: temp_monitor() should return freezing for argument -10.</font>, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
         except:
             passes.append(False)
             error_msgs.append(" Failed: Function temp_monitor() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
@@ -465,7 +528,7 @@ def autoGrader(student_submission, window):
 
 
 def getTestSets():
-    return [3,2,2,2,3,1,1,1,1,3]
+    return [3,2,2,2,3,2,1,2,2,3]
 
 def testing(window):
     passes, error_msgs = autoGrader("lab_07_student_submission.py", window)
