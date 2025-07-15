@@ -50,7 +50,7 @@ def autoGrader(student_submission, window):
         # Test 1: Task 1: Test load_misspellings() function
         test_dict = {"doofis":"doofus", "gote":"goat", "miztake":"mistake", "l8":"late", "kat":"cat"}
         try:
-            result = window.testFunction(sm.load_misspellings)
+            result = window.testFunction(sm.load_misspellings, (os.path.join(dir_path, "misspellings.txt"),))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -69,7 +69,7 @@ def autoGrader(student_submission, window):
         test_dict = {"doofis":"doofus", "gote":"goat", "miztake":"mistake", "l8":"late", "kat":"cat"}
 
         try:
-            result = window.testFunction(sm.fix_misspellings, (test_dict,))
+            result = window.testFunction(sm.fix_misspellings, (os.path.join(dir_path, "checkme.txt"), test_dict))
             if(result[1]):
                 result[0] = result[0] + " The testing dictionary was 'doofis':'doofus', 'gote':'goat', 'miztake':'mistake', 'l8':'late', 'kat':'cat'. </font>"
                 error_msgs.append(result[0])
@@ -82,7 +82,7 @@ def autoGrader(student_submission, window):
                     error_msgs.append(" Failed: fix_misspellings() should return \"when i am late getting home my goat doofus may make a mistake and eat my cat this keeps mee from getting home late all the time becuz i love my goat and dont want him to get a hairball from eating my cat\", but it returns \"" + str(result) + "\".</font>")
         except:
             passes.append(False)
-            error_msgs.append(" Failed: Function load_misspellings() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+            error_msgs.append(" Failed: Function fix_misspellings() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
 
         # Test 3: Task 1: Test word_count() function 
 
@@ -121,10 +121,10 @@ def autoGrader(student_submission, window):
                 error_msgs.append(result[0])
                 passes.append(False)
             else:
-                inp_file_1 = open("fixed.txt", "r")
+                inp_file_1 = open(os.path.join(dir_path, "fixed.txt"), "r")
                 s_data1 = inp_file_1.read()
                 inp_file_1.close()
-                inp_file_2 = open("fixed_example.txt", "r")
+                inp_file_2 = open(os.path.join(dir_path, "fixed_example.txt"), "r")
                 s_data2 = inp_file_2.read()
                 inp_file_2.close()
                 if(s_data1.strip() == s_data2.strip()):
@@ -141,7 +141,7 @@ def autoGrader(student_submission, window):
 
         spanish_dict = {"amigo":"friend", "hola":"hello", "mi":"my", "donde":"where", "esta":"is", "diablo":"devil", "bano":"bathroom"}        
         try:
-            result = window.testFunction(sm.make_dictionary)
+            result = window.testFunction(sm.make_dictionary, (os.path.join(dir_path, "Spanish_to_English.txt"),))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
@@ -157,7 +157,7 @@ def autoGrader(student_submission, window):
 
         # Test 6: Task 2: Test get_text_to_translate() function
         try:
-            result = window.testFunction(sm.get_text_to_translate)
+            result = window.testFunction(sm.get_text_to_translate, (os.path.join(dir_path, "file_to_translate.txt"),))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)

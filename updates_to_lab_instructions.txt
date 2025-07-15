@@ -9,6 +9,8 @@ lab8:
 I recommend that the instructions for class_leaf_sum should be updated to clarify that it needs to have input statements to pass numbers of days to each student.
 
 
-lab18:
+
+
+lab17  & lab18:
 This is a change that we made to the autograder. All student functions need to accept the filename as a paramter rather than explicitly coding in the name into their open statements.
 The reason for this is because is not friendly with executables and doesn't like file reading from them, so it requires the absolute path.
