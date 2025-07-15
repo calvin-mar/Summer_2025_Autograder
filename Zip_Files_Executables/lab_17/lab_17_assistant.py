@@ -50,7 +50,7 @@ def autoGrader(student_submission, window):
         # Test 1: Task 1: Test load_misspellings() function
         test_dict = {"doofis":"doofus", "gote":"goat", "miztake":"mistake", "l8":"late", "kat":"cat"}
         try:
-            result = window.testFunction(sm.load_misspellings)
+            result = window.testFunction(sm.load_misspellings, (os.path.join(dir_path, "misspellings.txt.txt"),))
             if(result[1]):
                 error_msgs.append(result[0])
                 passes.append(False)
