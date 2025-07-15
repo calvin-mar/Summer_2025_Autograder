@@ -1,9 +1,9 @@
 if __name__ != "__main__":
     from input_override import input, print
 
-def load_misspellings():
+def load_misspellings(filename):
     d_stuff = {}
-    input_file = open("misspellings.txt", "r")
+    input_file = open(filename, "r")
     kv = input_file.readline()
     while kv != "":
         kv = kv.strip()
@@ -14,8 +14,8 @@ def load_misspellings():
     return d_stuff
 
 
-def fix_misspellings(d_info):
-    input_file = open("checkme.txt", "r")
+def fix_misspellings(filename, d_info):
+    input_file = open(filename, "r")
     s_text = input_file.readline() 
     input_file.close()
     s_text = s_text.strip()
@@ -45,9 +45,9 @@ def output_fixed_text(s_data):
     output_file.write(s_data)
     output_file.close()
 
-def make_dictionary():
+def make_dictionary(filename):
     d_stuff = {}
-    input_file = open("Spanish_to_English.txt", "r")
+    input_file = open(filename, "r")
     kv = input_file.readline()
     while kv != "":
         kv = kv.strip()
@@ -58,8 +58,8 @@ def make_dictionary():
     return d_stuff    
 
 
-def get_text_to_translate():
-    input_file = open("file_to_translate.txt", "r")
+def get_text_to_translate(filename):
+    input_file = open(filename, "r")
     s_text = input_file.read()
     input_file.close()
     s_text = s_text.strip()
@@ -85,7 +85,8 @@ def translate(d_xlate, s_text):
     return s_translation, d_errors
     
 def main():
-    print()
+    print(load_misspellings("misspellings.txt"))
+    print(fix_misspellings("checkme.txt", load_misspellings("misspellings.txt")))
 
     
 
