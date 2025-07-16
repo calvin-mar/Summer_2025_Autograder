@@ -47,6 +47,7 @@ This Repository contains files in the form, bolded points are folders:
    - input_override.py   
    - lab_assistant_template.py
    - lab_global_variables_assistant_template.py
+   - replace_documents.py
    - test_all_submissions.py
    - <b>Solutions</b>
    - <b>json_autograder_development</b>
@@ -79,8 +80,10 @@ This Repository contains files in the form, bolded points are folders:
    
 8. The development_tools folder contains files useful for expanding the current set of labs. lab_function_assistant_template.py demonstrates how to create a new lab_assistant to test functions. lab_global_variables_assistant_template.py demonstrates how to create a new lab_assistant to test global variables. The fundamentals may be mixed and matched in both.
    
-10. The development_tools folder also contains autograder.py, check_all_syntax.py, input_override.py, and test_all_submissions.py. These are the necessary files for most testing. If changes wish to be made, particularly to autograder.py, make them here. Use disperse_documents to send the file you wish to change everywhere, by moving the file to be dispersed and disperse_documents into the primary folder and running disperse_documents.
+9. The development_tools folder also contains autograder.py, check_all_syntax.py, input_override.py, and test_all_submissions.py. These are the necessary files for most testing. If changes wish to be made, particularly to autograder.py, make them here.
+
+10. The development_tools folder contians disperse_documents.py and replace_documents.py for propogating changes made. Disperse documents takes most files and spreads them to all appropriate folders and subfolders. Replace documents asks for the filename and replaces all other files of the same name with the version in the same folder.
+   
+11. The development_tools folder contains the solutions for all labs with autograders.
     
-12. The development_tools folder contains the solutions for all labs with autograders.
-    
-14. The development_tools folder also contains work in progress regarding the implementation of an autograder using json files. This autograder would be more easily expandable to new labs and new tests, than the current version. It is incomplete and thorough explanations may be found in the json_autograder_documentation.txt document. 
+12. The development_tools folder also contains work in progress regarding the implementation of an autograder using json files. This autograder would be more easily expandable to new labs and new tests, than the current version. It is incomplete and thorough explanations may be found in the json_autograder_documentation.txt document. 
