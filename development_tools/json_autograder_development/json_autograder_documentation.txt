@@ -11,6 +11,29 @@ Instruction on how to utilize each file are marked by #####USAGE#####
 
 This file contains the information for the test cases for a specific lab. There is also lab_06_testFile, a full working example of a json file for lab 06, with some additional cases for demonstration and testing purposes.
 
+
+*******************************************
+I reccomend attempting an implementation similar to the following paper. This would make for extremely flexible autograder generation in conjuction with a GUI system for input and the json file reading for easier implementation and transportablity.
+
+@inproceedings{10.1145/3641554.3701862,
+author = {Challen, Geoffrey and Nordick, Ben},
+title = {Accelerating Accurate Assignment Authoring Using Solution-Generated Autograders},
+year = {2025},
+isbn = {9798400705311},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3641554.3701862},
+doi = {10.1145/3641554.3701862},
+abstract = {Students learning to program benefit from access to large numbers of practice problems. Autograders are commonly used to support programming questions by providing quick feedback on submissions. But authoring accurate autograders remains challenging. Autograders are frequently created by enumerating test cases-a tedious process that can produce inaccurate autograders that fail to correctly classify submissions. When authoring accurate autograders is slow, it is difficult to create large banks of practice problems to support beginning programmers.We present solution-generated autograding: a faster, more accurate, and more enjoyable way to create autograders. Our approach leverages a key difference between software testing and autograding: The question author can provide a solution. By starting with a solution, we can eliminate the need to manually enumerate test cases, validate the autograder's accuracy, and evaluate other aspects of submission code quality beyond behavioral correctness. We describe Questioner, an implementation of solution-generated autograding for Java and Kotlin, and share experiences from four years using Questioner to support a large CS1 course: authoring nearly 800 programming questions used by thousands of students to evaluate millions of submissions.},
+booktitle = {Proceedings of the 56th ACM Technical Symposium on Computer Science Education V. 1},
+pages = {227–233},
+numpages = {7},
+keywords = {autograding, code quality evaluation, problem authoring},
+location = {Pittsburgh, PA, USA},
+series = {SIGCSETS 2025}
+}
+*******************************************
+
 #####USAGE#####
 For a new lab, create a new json file in the format as scene in the template file.
 
