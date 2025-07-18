@@ -37,7 +37,7 @@ series = {SIGCSETS 2025}
 #####USAGE#####
 For a new lab, create a new json file in the format as scene in the template file.
 
-***Consider making a GUI in order to autocreate json files in the correct format. Submit the data and use json.dump in order to format as a json***
+***Consider making a GUI in order to autocreate json files in the correct format. Submit the data and use json.dump in order to format as a json. Take a look at the protype in the json_GUI.py file***
 The json file contains a main dictionary that contains three types of key:value papers -> testSets, modules, and tests.
 
 "testSets", This is a list of ints that contains the information of how the tests are divided into tasks. The format appears as such ->
