@@ -59,6 +59,7 @@ This Repository contains files in the form, bolded points are folders:
     
 - README.md
 - How_to_use.txt  
+- updates_to_lab_instructions.txt
 
 <br/><br/><br/>
 

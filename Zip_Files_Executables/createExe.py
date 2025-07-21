@@ -50,7 +50,7 @@ def createZips():
 
         # Remove Autograder and Assistant and __pycache__ from copy
         for file in os.listdir(copyName):
-            if(len(re.findall("lab_\\d\\d_assistant.py", file)) == 1 or file=="autograder.py"):
+            if(len(re.findall("lab_\\d\\d_assistant.py", file)) == 1 or file=="autograder.py" or file=="syntax_checker.py"):
                 os.remove(os.path.join(cwd, copyName, file))
             if(file=="__pycache__"):
                 shutil.rmtree(os.path.join(cwd,copyName, "__pycache__"))
@@ -184,6 +184,47 @@ def createExecutables(osName, addDataEnd):
                         shutil.rmtree(appName)
                     except:
                         pass
+                    
+            elif name == "syntax_checker.py":
+                syntax_checker = folder + "/" + name
+                exeName = folder + "_"+ osName + "_SyntaxChecker"
+                specFile = exeName + ".spec"
+                appName = folder + "/" + exeName + ".app"
+                check = folder + "/check.png" + addDataEnd
+                redX = folder + "/redX.png" + addDataEnd
+                                    
+                result = subprocess.run([
+                    *pyinstaller_path, syntax_checker,
+                    "--add-data", check,
+                    "--add-data", redX,
+                    "--hidden-import", "astor",
+                    "--hidden-import", "trace",
+                    "--hidden-import", "multiprocessing",
+                    "--hidden-import", "PyQt6.QtWidgets",
+                    "--hidden-import", "csc170_lists_data",
+                    "--hidden-import", "input_override",
+                    "--onefile",
+                    "--noupx",
+                    "--distpath", folder,
+                    "--clean", "-n",
+                    exeName,
+                    #"--debug", "all"
+                ], capture_output=True, text=True)
+                
+                if result.returncode == 0:
+                    print(exeName, "has been created!")
+                else:
+                    print("An error may have occurred")
+                    print("Stdout:", result.stdout)
+                    print("Stderr:", result.stderr)
+                    sys.exit(result.returncode)
+                os.remove(specFile)
+                if sys.platform == "darwin":
+                    try:
+                        shutil.rmtree(appName)
+                    except:
+                        pass
+                
     try:
         shutil.rmtree("build")
         print("Success! All executables are ready for use.")

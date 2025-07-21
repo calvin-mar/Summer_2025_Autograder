@@ -172,7 +172,7 @@ def getTestSets():
 
 def testing(window):
     passes, error_msgs = autoGrader("lab_02_student_submission.py", window)
-    return passes
+    return passes, error_msgs
 
 if __name__ == "__main__":
     multiprocessing.freeze_support()
