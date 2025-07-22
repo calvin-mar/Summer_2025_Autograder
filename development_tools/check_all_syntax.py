@@ -43,7 +43,7 @@ def disperse_documents():
 
     # Do the Copying
     for file in files:
-        if(file != "check_all_syntax.py" and not (re.match("lab_[^\s]+_student_submission.py", file))):
+        if(file != "check_all_syntax.py" and re.search("(_student_submission.py)$", file) == None):
             for directory in dirs:
                 if(directory != "__pycache__"):
                     shutil.copy(file, directory)
@@ -67,7 +67,7 @@ class Worker(QObject):
         
     def navigate_submissions(self, window):
         for name in os.listdir(self.cwd):
-            if(not os.path.isfile(name) and name != "__pycache__"):
+            if(os.path.isdir(name) and name != "__pycache__"):
                 testCase = QHBoxLayout()
                 image = QLabel("")
                 image.setFixedSize(52,52)
@@ -79,7 +79,6 @@ class Worker(QObject):
                 try:
                     student_result = self.test_submission(name, window)
                 except Exception as exc:
-                    print(exc)
                     student_result = "Bad"
                     
                 #enablePrint()
@@ -94,167 +93,50 @@ class Worker(QObject):
 
         # Find the autograder amongst the files 
         for file in files:
-            if(re.match("lab_[^\s]+_student_submission.py", file)):
+            if(re.search("(_student_submission.py)$", file) != None):
+
+                ## MALICIOUS CODE CHECK
                 try:
-                    student_result, s_error_msg = syntax_checker(os.path.join(os.getcwd(), directory_name, file), window)
+                    with open(os.path.join(directory_name,file),"r") as f:
+                        code = f.read()
+                except Exception as exc:
+                    return False, "Your file could not be read.  Make sure it is named correctly.  "
+                parsed = ast.parse(code)
+                for node in ast.walk(parsed):
+                    if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
+                        # set value to empty string
+                        node.value = ast.Constant(value='') 
+                s_trimmed_code = astor.to_source(parsed)  
+                pattern = r'^.*"""""".*$' # remove empty """"""
+                s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE)
+
+
+
+                malicious_list = ["__import__(", "import os", ".run(", "from os import", "import subprocess", "import sys", "from sys import", "from subprocess import"]
+                malicious_search_list = ["(\\s|^)eval\\(", "[^a-zA-Z0-9]rm[^a-zA-Z0-9]"]
+                for phrase in malicious_list:
+                    if(phrase in s_trimmed_code):    
+                        return "WARNING"
+                for expression in malicious_search_list:
+                    if(re.search(expression, s_trimmed_code) != None):
+                        return "WARNING"
+
+                try:
+                    cwd = os.getcwd()
+                    path_to_checker = os.path.join(cwd, "syntax_checker.py")
+                    specific = importlib.util.spec_from_file_location("syntax_checker", path_to_checker)
+                    syntax_mod = importlib.util.module_from_spec(specific)
+                    specific.loader.exec_module(syntax_mod)
+                    student_result, s_error_msg = syntax_mod.syntax_checker(os.path.join(os.getcwd(), directory_name, file), window)
+                    if("infinite" in s_error_msg):
+                        student_result = "infinite"
                 except Exception as exc:
                     print(exc)
                     s_error_msg = "Syntax Error or File Error"
                     student_result = "Crash"
-                print(s_error_msg)
                 return student_result
         return "nofile"
     
-def syntax_checker(filename, window, timeout=0):
-        try:
-            with open(filename,"r") as f:
-                code = f.read()
-        except:
-            return False, "Your file could not be read.  Make sure it is named correctly.  "
-        parsed = ast.parse(code)
-        for node in ast.walk(parsed):
-            if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
-                # set value to empty string
-                node.value = ast.Constant(value='') 
-        s_trimmed_code = astor.to_source(parsed)  
-        pattern = r'^.*"""""".*$' # remove empty """"""
-        s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE)
-        if("if __name__ != \"__main__\":" not in s_trimmed_code and "from input_override import input, print" not in s_trimmed_code):
-            return False, "The header structure has been deleted. Please ensure that the following line is in the submission:<br><br> <font color=orange>if</font> __name__ != <font color=green>\"__main__\"</font>:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=orange>from</font> input_override <font color=orange>import</font> <font color=purple>input</font>, <font color=purple>print</font>"
-
-        malicious_list = ["__import__(", "import os", ".run(", "from os import", "import subprocess", "import sys", "from sys import", "from subprocess import"]
-        malicious_search_list = ["(\\s|^)eval\\(", "[^a-zA-Z0-9]rm[^a-zA-Z0-9]"]
-        for phrase in malicious_list:
-            if(phrase in s_trimmed_code):    
-                return False, "WARNING"
-        for expression in malicious_search_list:
-            if(re.search(expression, s_trimmed_code) != None):
-                return False, "WARNING"
-
-        if getattr(sys, "frozen", False):
-            dir_path = os.path.dirname(sys.executable)
-        else:
-            dir_path = os.path.dirname(os.path.realpath(__file__))
-        name = filename[:-3]
-        specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, filename))
-        sm = importlib.util.module_from_spec(specific_student)
-        output = window.testFunction(specific_student.loader.exec_module, (sm,))
-        if(output[1]):
-            if("infinite" in output[0]):
-                return False, "There is a problem with your code, you may have an infinite loop outside of a function. Check that all loops have a ending condition."
-            elif("input" in output[0]):
-                return False, "There is a problem with your code, you may have unexpected or extra input statements outside of a function. Run your code and check how many inputs are called."
-            else:
-                return False, "There is likely a syntax error in this code"
-
-        # Check for triple quote and triple apostrophes
-        s_triple_res = ""#check_for_triples()
-        try:
-            input_file = open(filename, "r")
-            s_text = input_file.read()
-            if "'''" in s_text or '"""' in s_text:
-                s_triple_res = "Contains Triples"
-            else:
-                s_triple_res = "No Triples"
-            input_file.close()
-        except:
-            s_triple_res = "Error Reading File"
-        
-        # if no triples, remove comments and continue
-        s_error_msg = ""
-        if s_triple_res == "No Triples":
-            b_proceed = True
-            # remove comments
-
-
-            # https://stackoverflow.com/questions/1769332/script-to-remove-python-comments-docstrings
-##            with open(filename,"r") as f:
-##                code = f.read() 
-##            parsed = ast.parse(code)
-##            for node in ast.walk(parsed):
-##                if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
-##                    # set value to empty string
-##                    node.value = ast.Constant(value='') 
-##            s_trimmed_code = astor.to_source(parsed)  
-##            pattern = r'^.*"""""".*$' # remove empty """"""
-##            s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE) 
-
-            
-            # look for syntax that is not allowed
-            if "join(" in s_trimmed_code:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains <b>join</b>() which is not allowed.  "
-            if "zip(" in s_trimmed_code:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains <b>zip</b>() which is not allowed.  "
-            if "exit(" in s_trimmed_code:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains <b><font color=purple>exit</font></b>() which is not allowed.  "
-            if "quit(" in s_trimmed_code:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains <b><font color=purple>quit</font></b>() which is not allowed.  "
-            if "break" in s_trimmed_code:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains <b><font color=orange>break</font></b> which is not allowed.  "
-            if "continue" in s_trimmed_code:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains <b><font color=orange>continue</font></b> which is not allowed.  "
-            if "random.choice(" in s_trimmed_code:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains <b><font color=orange>random.choice</font></b> which is not allowed.  "
-
-            # look for print(f or print(F
-            if re.search("print\\s*\\(\\s*[fF]\\s*[\'\"]+", s_trimmed_code) != None:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains formatted print statement(s) like print(f... or print(F... which are not allowed.  "
-
-
-            # look for naked return
-            if re.search(".*\\s+return\\s*\\n", s_trimmed_code) != None or re.search(".*\\s+return(\\s*\\\\s*)*\\n", s_trimmed_code) != None:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains a 'naked return' which is not allowed.  A naked return is a return that is not followed by a variable or literal.  "
-
-            # look for with open(
-            if re.search("with\\s+open\\s*\\(", s_trimmed_code) != None:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code uses a <b><font color=orange>with</font> <font color=purple>open</font></b> statement which is not allowed.  "
-            
-            
-            # look for _ as a variable name
-            if re.search(".*\\s+_\\s+=.*", s_trimmed_code) != None:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains a variable named _ which is not allowed.  "
-            
-            # look for comprehensions
-            if re.search("=\\s*\\[+\\s*\\w+\\s+for\\s+", s_trimmed_code) != None:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains a list comprehension which is not allowed.  "
-                
-            elif re.search("=\\s*\\[+.*for\\s+", s_trimmed_code) != None:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains a list comprehension which is not allowed.  "
-                
-            if re.search("=\\s*\\{\\s*.*:\\s*.+\\s+for\\s+", s_trimmed_code) != None: 
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains a dictionary comprehension which is not allowed.  "
-          
-            if re.search("=\\s*\\{+\\s*\\w+\\s+for\\s+", s_trimmed_code) != None:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains a set comprehension which is not allowed.  "
-            
-            if re.search("=\\s*\\(+\\s*\\w+\\s+for\\s+", s_trimmed_code) != None:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains a generator comprehension which is not allowed.  "
-    
-        
-        else: # otherwise error message re triples and exit
-            b_proceed = False
-            if s_triple_res == "Contains Triples":
-                s_error_msg = "Your code contains either triple quotes \"\"\" or triple apostrophes ''' which are not allowed."
-            else:
-                s_error_msg = "Your file could not be read.  Make sure it is named correctly.  "
-
-        return b_proceed, s_error_msg
     
 class thread_with_trace(threading.Thread):
   """
@@ -324,7 +206,7 @@ class MainWindow(QMainWindow):
         self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
         self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
         self.setGeometry(600, 100, 800, 600)
-        self.setWindowTitle('Test All Submissions')
+        self.setWindowTitle('Check All Submissions for Syntax')
         QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
 
         ## Loading Screen
@@ -396,6 +278,8 @@ class MainWindow(QMainWindow):
                     text.setText("<font size=6><b>" + str(name) + " The syntax checker has crashed, there is either a syntax issue or a filename error in the student submission.</b></font>")
                 elif(self.results[student_num] == "nofile"):
                     text.setText("<font size=6><b>" + str(name) + " The syntax checker has crashed, the submission file could not be found.</b></font>")
+                elif(self.results[student_num] == "infinite"):
+                    text.setText("<font size=6><b>" + str(name) + " There is a infinite loop in the global scope, so the further testing was aborted.</b></font>")
 
                 else:
                     text.setText("<font size=6><b>" + str(name) + " There is banned syntax within the student submission.</b></font>")
@@ -417,7 +301,7 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.scroll)
 
         self.setGeometry(600, 100, 820, 600)
-        self.setWindowTitle('All Submissions')
+
         self.show()
         
         return

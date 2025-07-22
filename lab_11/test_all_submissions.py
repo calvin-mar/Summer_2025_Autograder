@@ -52,6 +52,7 @@ class Worker(QObject):
     end = pyqtSignal(object)
     errorOccurredSig = pyqtSignal(object)
     testNum = pyqtSignal(int)
+    dir_name = pyqtSignal(str)
 
     def __init__(self, cwd, window):
         super().__init__()
@@ -75,14 +76,15 @@ class Worker(QObject):
                 text.setWordWrap(True)
                 text.setMargin(5)
                 
-                blockPrint()
+                #blockPrint()
                 try:
                     student_result = self.test_submission(name, window)
                 except Exception as exc:
+                    print(name)
                     print(exc)
                     student_result = [["Bad"], "Bad"]
                     
-                enablePrint()
+                #enablePrint()
                 self.names.append(name)
                 if("WARNING" in student_result[1]):
                     student_result[0].append("WARNING")
@@ -91,22 +93,23 @@ class Worker(QObject):
     def test_submission(self,directory_name, window):
         # This function tests each individual submission
         # Given the directory name, it runs the autograder inside and returns the result
-        # This requires each autograder to be refactored to include a 
+        # This requires each autograder to be refactored to include a
         files = os.listdir(directory_name)
-
+    
         # Find the autograder amongst the files 
         for file in files:
             if( len(re.findall("lab_\\d\\d_assistant.py", file)) == 1):
+                self.dir_name.emit(directory_name)
                 cwd = os.getcwd()
                 path_to_autograder = os.path.join(cwd,directory_name,file)
                 sys.path.append(os.path.join(cwd,directory_name))
                 autograder_file = file[:-3]
                 specific = importlib.util.spec_from_file_location(autograder_file, path_to_autograder)
-                assistant = importlib.util.module_from_spec(specific)
-                specific.loader.exec_module(assistant)
-                test_num = sum(assistant.getTestSets())
+                autograder = importlib.util.module_from_spec(specific)
+                specific.loader.exec_module(autograder)
+                test_num = sum(autograder.getTestSets())
                 self.testNum.emit(test_num)
-                student_result = assistant.testing(window)
+                student_result = autograder.testing(window)
                 return student_result
         return [False]
     
@@ -159,11 +162,6 @@ def wrapper(function, parameter_list, result):
             result[0] = "Error"
 
 class MainWindow(QMainWindow):
-    # VBox layout
-    # Similar to AutoGrader Main Window
-    # But displays one QHLayout per student, instead of per test.
-    # Changes to AutoGrader Main Window methods should be implemented here as well
-
     progress = pyqtSignal(int)
     def __init__(self):
         ## Prepare Window
@@ -222,6 +220,7 @@ class MainWindow(QMainWindow):
         self.worker.testNum.connect(self.setMaximumBar)
         self.worker.end.connect(self.handleResults)
         self.worker.end.connect(self.updateWindow)
+        self.worker.dir_name.connect(self.set_directory)
 
         self.thread.start()
 
@@ -282,7 +281,6 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.scroll)
 
         self.setGeometry(600, 100, 820, 600)
-        self.setWindowTitle('All Submissions')
         self.show()
         
         return
@@ -333,6 +331,9 @@ class MainWindow(QMainWindow):
             if isinstance(widget, QLabel):
                 widget.setMaximumWidth(self.scroll.viewport().width()-20)
 
+    def set_directory(self, directory):
+        self.directory_name = directory
+
     def exit_clicked(self):
         self.dialog.close()
         
@@ -370,10 +371,11 @@ class MainWindow(QMainWindow):
         
     def syntax_checker(self, filename):
         try:
-            with open(filename,"r") as f:
+            with open(os.path.join(self.directory_name,filename),"r") as f:
                 code = f.read()
         except:
             return False, "Your file could not be read.  Make sure it is named correctly.  "
+        
         parsed = ast.parse(code)
         for node in ast.walk(parsed):
             if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
@@ -395,128 +397,13 @@ class MainWindow(QMainWindow):
             if(re.search(expression, s_trimmed_code) != None):
                 return False, "WARNING"
 
-        if getattr(sys, "frozen", False):
-            dir_path = os.path.dirname(sys.executable)
-        else:
-            dir_path = os.path.dirname(os.path.realpath(__file__))
-        name = filename[:-3]
-        specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, filename))
-        sm = importlib.util.module_from_spec(specific_student)
-        output = self.testFunction(specific_student.loader.exec_module, (sm,))
-        if(output[1]):
-            if("infinite" in output[0]):
-                return False, "There is a problem with your code, you may have an infinite loop outside of a function. Check that all loops have a ending condition."
-            elif("input" in output[0]):
-                return False, "There is a problem with your code, you may have unexpected or extra input statements outside of a function. Run your code and check how many inputs are called."
-            else:
-                return False, "There is likely a syntax error in this code"
+        cwd = os.getcwd()
+        path_to_checker = os.path.join(cwd, "syntax_checker.py")
+        specific = importlib.util.spec_from_file_location("syntax_checker", path_to_checker)
+        syntax_mod = importlib.util.module_from_spec(specific)
+        specific.loader.exec_module(syntax_mod)
+        b_proceed, s_error_msg = syntax_mod.syntax_checker(os.path.join(os.getcwd(), self.directory_name, filename), self)
 
-        # Check for triple quote and triple apostrophes
-        s_triple_res = ""#check_for_triples()
-        try:
-            input_file = open(filename, "r")
-            s_text = input_file.read()
-            if "'''" in s_text or '"""' in s_text:
-                s_triple_res = "Contains Triples"
-            else:
-                s_triple_res = "No Triples"
-            input_file.close()
-        except:
-            s_triple_res = "Error Reading File"
-        
-        # if no triples, remove comments and continue
-        s_error_msg = ""
-        if s_triple_res == "No Triples":
-            b_proceed = True
-            # remove comments
-
-
-            # https://stackoverflow.com/questions/1769332/script-to-remove-python-comments-docstrings
-##            with open(filename,"r") as f:
-##                code = f.read() 
-##            parsed = ast.parse(code)
-##            for node in ast.walk(parsed):
-##                if isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant):
-##                    # set value to empty string
-##                    node.value = ast.Constant(value='') 
-##            s_trimmed_code = astor.to_source(parsed)  
-##            pattern = r'^.*"""""".*$' # remove empty """"""
-##            s_trimmed_code = re.sub(pattern, '', s_trimmed_code, flags=re.MULTILINE) 
-
-            
-            # look for syntax that is not allowed
-            if "join(" in s_trimmed_code:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains <b>join</b>() which is not allowed.  "
-            if "zip(" in s_trimmed_code:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains <b>zip</b>() which is not allowed.  "
-            if "exit(" in s_trimmed_code:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains <b><font color=purple>exit</font></b>() which is not allowed.  "
-            if "quit(" in s_trimmed_code:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains <b><font color=purple>quit</font></b>() which is not allowed.  "
-            if "break" in s_trimmed_code:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains <b><font color=orange>break</font></b> which is not allowed.  "
-            if "continue" in s_trimmed_code:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains <b><font color=orange>continue</font></b> which is not allowed.  "
-            if "random.choice(" in s_trimmed_code:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains <b><font color=orange>random.choice</font></b> which is not allowed.  "
-
-            # look for print(f or print(F
-            if re.search("print\\s*\\(\\s*[fF]\\s*[\'\"]+", s_trimmed_code) != None:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains formatted print statement(s) like print(f... or print(F... which are not allowed.  "
-
-
-            # look for naked return
-            if re.search(".*\\s+return\\s*\\n", s_trimmed_code) != None or re.search(".*\\s+return(\\s*\\\\s*)*\\n", s_trimmed_code) != None:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains a 'naked return' which is not allowed.  A naked return is a return that is not followed by a variable or literal.  "
-
-            # look for with open(
-            if re.search("with\\s+open\\s*\\(", s_trimmed_code) != None:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code uses a <b><font color=orange>with</font> <font color=purple>open</font></b> statement which is not allowed.  "
-            
-            
-            # look for _ as a variable name
-            if re.search(".*\\s+_\\s+=.*", s_trimmed_code) != None:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains a variable named _ which is not allowed.  "
-            
-            # look for comprehensions
-            if re.search("=\\s*\\[+\\s*\\w+\\s+for\\s+", s_trimmed_code) != None:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains a list comprehension which is not allowed.  "
-                
-            elif re.search("=\\s*\\[+.*for\\s+", s_trimmed_code) != None:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains a list comprehension which is not allowed.  "
-                
-            if re.search("=\\s*\\{\\s*.*:\\s*.+\\s+for\\s+", s_trimmed_code) != None: 
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains a dictionary comprehension which is not allowed.  "
-          
-            if re.search("=\\s*\\{+\\s*\\w+\\s+for\\s+", s_trimmed_code) != None:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains a set comprehension which is not allowed.  "
-            
-            if re.search("=\\s*\\(+\\s*\\w+\\s+for\\s+", s_trimmed_code) != None:
-                b_proceed = False
-                s_error_msg = s_error_msg + "Your code contains a generator comprehension which is not allowed.  "
-    
-        
-        else: # otherwise error message re triples and exit
-            b_proceed = False
-            if s_triple_res == "Contains Triples":
-                s_error_msg = "Your code contains either triple quotes \"\"\" or triple apostrophes ''' which are not allowed."
-            else:
-                s_error_msg = "Your file could not be read.  Make sure it is named correctly.  "
 
         return b_proceed, s_error_msg
 
