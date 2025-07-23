@@ -1,0 +1,287 @@
+# Python imports
+import sys
+import math
+import ast
+import astor
+import re
+import os
+from multiprocessing import shared_memory as shm
+from multiprocessing import freeze_support
+import importlib.util
+
+# Graphics/PyQt imports
+from PyQt6.QtCore import QSize, Qt
+from PyQt6.QtWidgets import *
+#from layout_colorwidget import Color
+
+
+def autoGrader(student_submission, window):
+
+    try:
+        l_data = shm.ShareableList(sequence=None, name="l_data")
+        l_data.shm.close()
+        l_data.shm.unlink()
+    except:
+        pass
+
+    passes = []
+    error_msgs = []
+    print("Autograder starting...")
+    if getattr(sys, "frozen", False):
+        dir_path = os.path.dirname(sys.executable)
+    else:
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+
+    name = student_submission[:-3]
+    specific_student = importlib.util.spec_from_file_location(name, os.path.join(dir_path, student_submission))
+    sm = importlib.util.module_from_spec(specific_student)
+    
+    b_proceed, s_error_msg = window.syntax_checker(os.path.join(dir_path, student_submission))
+    if b_proceed == False:
+        passes.append(False)
+        if s_error_msg != "":
+            error_msgs.append(s_error_msg)
+        else:
+            error_msgs.append("There is a problem with your file.")
+
+    else:
+        specific_student.loader.exec_module(sm)
+
+        ########################################################################
+        # Start of tests #######################################################
+        ########################################################################
+        i_test_num = 1
+        # Test 1: Test read_data() function with shark file: AAACCCGGGTTTACTTAGCGA\n
+
+        try:
+            result = window.testFunction(sm.read_data, (os.path.join(dir_path,"shark.txt"),))
+            if(result[1]):
+                result[0] = result[0] + " The filename was 'shark.txt'. </font>"
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == "AAACCCGGGTTTACTTAGCGA"):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: read_data(\"shark.txt\") should return AAACCCGGGTTTACTTAGCGA, but it returns " + repr(window.show_spaces(result[0])) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function read_data() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
+        # Test 2: Test read_data() function with elephant file: ACGACGTTTAAACCR
+
+        try:
+            result = window.testFunction(sm.read_data, (os.path.join(dir_path,"elephant.txt"),))
+            if(result[1]):
+                result[0] = result[0] + " The filename was 'elephant.txt'. </font>"
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == "ACGACGTTTAAACCR"):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: read_data(\"elephant.txt\") should return ACGACGTTTAAACCR, but it returns " + repr(window.show_spaces(result[0])) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function read_data() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
+        ##### Task2: is_valid_strand() #####
+
+        # Test 3: Test is_valid_strand() function with valid strand
+
+        try:
+            result = window.testFunction(sm.is_valid_strand, ("ACGCGTGTATACAAATTT",))
+            if(result[1]):
+                result[0] = result[0] + " The parameter was ACGCGTGTATACAAATTT. </font>"
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == True):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: is_valid_strand() with strand \"ACGCGTGTATACAAATTT\" should return True, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function is_valid_strand() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
+        # Test 4: Test is_valid_strand() function with invalid strands
+
+        tests = ["BCGCGTGTATACAAATTT", "ADGCGTGTATACAAATTT", "ACECGTGTATACAAATTT", "ACGFGTGTATACAAATTT", "ACGCHTGTATACAAATTT", "ACGCGIGTATACAAATTT",
+                 "ACGCGTJTATACAAATTT", "ACGCGTGKATACAAATTT", "ACGCGTGTLTACAAATTT", "ACGCGTGTMTACAAATTT", "ACGCGTGTANACAAATTT", "ACGCGTGTATOCAAATTT",
+                 "ACGCGTGTATAPAAATTT", "ACGCGTGTATACQAATTT", "ACGCGTGTATACARATTT", "ACGCGTGTATACAASTTT", "ACGCGTGTATACAAAUTT", "ACGCGTGTATACAAATVT",
+                 "ACGCGTGTATACAAATTW", "XCGCGTGTATACAAATTT", "AYGCGTGTATACAAATTT", "ACZCGTGTATACAAATTT"]
+        try:
+            cumulative = True
+            for sequence in tests:
+                result = window.testFunction(sm.is_valid_strand,(sequence,))
+                if(result[1]):
+                    result[0] = result[0] + " The parameters were a variety of strands with length 18 with invalid characters in each position. </font>"
+                    error_msgs.append(result[0])
+                    passes.append(False)
+                    cumulative = "Nope"
+                    break
+                else:
+                    if(result[0]):
+                        cumulative = False
+                        break
+            if(cumulative == True):
+                passes.append(True)
+            elif(cumulative == False):
+                passes.append(False)
+                error_msgs.append(" Failed: is_valid_strand() with an invalid strand should return False, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function is_valid_strand() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+      
+        ##### Task 3: num_differences #####
+        
+        # Test 5: Test num_differences() function with 2 strands that have no differences
+
+        try:
+            result = window.testFunction(sm.num_differences, ("AAACCCGGGTTTACT", "AAACCCGGGTTTACT"))
+            if(result[1]):
+                result[0] = result[0] + ' The parameters were "AAACCCGGGTTTACT", "AAACCCGGGTTTACT". </font>'
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == 0):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: num_differences() with 2 identical strands should return 0, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function num_differences() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
+        # Test 6: Test num_differences() function with 2 strands that have 5 differences including one on each end
+
+        try:
+            result = window.testFunction(sm.num_differences, ("TAACGCTGGTGTACA", "AAACCCGGGTTTACT"))
+            if(result[1]):
+                result[0] = result[0] + ' The parameters were "TAACGCTGGTGTACA", "AAACCCGGGTTTACT". </font>'
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == 5):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: num_differences() with these strands \"TAACGCTGGTGTACA\" and \"AAACCCGGGTTTACT\" should return 5, but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function num_differences() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
+        ##### Task 4: complement #####
+        
+        # Test 7: Test complement() function 
+
+        try:
+            result = window.testFunction(sm.complement, ("AAACCCGGGTTTACT",))
+            if(result[1]):
+                result[0] = result[0] + ' The parameter was "AAACCCGGGTTTACT". </font>'
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == "TTTGGGCCCAAATGA"):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: complement() with strand \"AAACCCGGGTTTACT\" should return \"TTTGGGCCCAAATGA\", but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function complement() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
+        ##### Task 5: get_triplets() #####
+        
+        # Test 8: Test get_triplets() function 
+
+        try:
+            result = window.testFunction(sm.get_triplets,("ACGCGTGTATACAAATTT",))
+            if(result[1]):
+                result[0] = result[0] + ' The parameter was "ACGCGTGTATACAAATTT". </font>'
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == ["ACG", "CGT", "GTA", "TAC", "AAA", "TTT"]):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: get_triplets() with strand \"ACGCGTGTATACAAATTT\" should return [\"ACG\", \"CGT\", \"GTA\", \"TAC\", \"AAA\", \"TTT\"], but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function get_triplets() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
+        ##### Task 6: get_amino_acids() #####
+        
+        # Test 9: Test get_amino_acids() function 
+
+        try:
+            result = window.testFunction(sm.get_amino_acids,(["ACG", "CGT", "GTA", "TAC", "AAA", "TTT"],))
+            if(result[1]):
+                result[0] = result[0] + ' The parameter was ["ACG", "CGT", "GTA", "TAC", "AAA", "TTT"]. </font>'
+                error_msgs.append(result[0])
+                passes.append(False)
+            else:
+                if(result[0] == "TRVYKF"):
+                    passes.append(True)
+                else:
+                    passes.append(False)
+                    error_msgs.append(" Failed: get_amino_acids() with argument [\"ACG\", \"CGT\", \"GTA\", \"TAC\", \"AAA\", \"TTT\"] should return \"TRVYKF\", but it returns " + str(window.show_spaces(result[0])) + ".</font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function get_amino_acids() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+
+        ##### Task 7: get_acid() #####
+
+        # Test 10: Test get_acid() function 
+        results = []
+        
+        testCases = ["TTT", "TTC","TTA","TTG","TCT","TCC","TCA","TCG","TAT","TAC","TAA","TAG","TGT","TGC","TGA","TGG","CTT","CTC","CTA","CTG",
+                     "CCT","CCC","CCA","CCG","CAT","CAC","CAA","CAG","CGT","CGC","CGA","CGG","ATT","ATC","ATA","ATG","ACT","ACC","ACA","ACG",
+                     "AAT","AAC","AAA","AAG","AGT","AGC","AGA","AGG","GTT","GTC","GTA","GTG","GCT", "GCC","GCA","GCG","GAT","GAC","GAA",
+                     "GAG","GGT","GGC","GGA","GGG"]
+        acids = ["F","F","L","L","S","S","S","S","Y","Y","*","*","C","C","*","W","L","L","L","L","P","P","P","P","H","H","Q","Q","R","R","R","R","I","I","I","M","T","T","T","T","N","N","K","K","S","S","R","R","V","V","V","V","A","A","A","A","D","D","D","D","G","G","G","G"]
+
+
+        try:
+                cumulative = True
+                for index in range(len(testCases)):
+                    result = window.testFunction(sm.get_acid,(testCases[index],))
+                    if(result[1]):
+                        result[0] = result[0] + " The parameter was a list of all triplets. </font>"
+                        error_msgs.append(result[0])
+                        passes.append(False)
+                        cumulative = "Nope"
+                        break
+                    else:
+                        if(result[0] != acids[index]):
+                            cumulative = False
+                            break
+                if(cumulative == True):
+                    passes.append(True)
+                elif(cumulative == False):
+                    passes.append(False)
+                    error_msgs.append(" Failed: get_acid() returns an incorrect value for one of the 64 inputs! Which one?  Happy debugging! </font>")
+        except:
+            passes.append(False)
+            error_msgs.append(" Failed: Function get_acid() caused an error. The function might not be defined (perhaps you made a typo in the name) or it may contain code inside it that causes Python to crash.  Try adding some print statements to it to see what is happening!</font>")
+ 
+        ########################################################################
+        # End of tests
+        ########################################################################
+    print("...Autograder completed.")
+    print()
+    print("You may close the Autograder window to exit.")
+
+    return passes, error_msgs
+
+
+def getTestSets():
+    return [2,2,2,1,1,1,1]
+
+def testing(window):
+    passes, error_msgs = autoGrader("lab_13_student_submission.py", window)
+    return passes, error_msgs

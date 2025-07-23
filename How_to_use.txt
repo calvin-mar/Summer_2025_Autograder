@@ -32,11 +32,13 @@ The folders should include autograder.py, the check and X images, input_override
 To test all student submissions, create a sub folder for each student of the format firstname_lastname in the appropriate lab. Download each student's submission into their folder. 
 Run test_all_submissions either from IDLE or from the terminal. All files will be dispersed as necessary across the student folders. The loading screen will appear as all submissions are tested.
 A summary for each student will be displayed informing the instructor of a pass, a global error (such as a syntax error or misnamed file), a set of failed tests, or a warning for malicious code. 
-For failed tests and for a malicious code warning especially, we highly recommend that the grader spends extra time to ensure that no false negatives have occurred,
+For failed tests and for a malicious code warning especially, we highly recommend that the grader spends extra time to ensure that no false negatives have occurred.
 
 
-Some labs do not have an autograder. For these labs, a file called check_all_syntax is provided to the grader instead. This runs only the syntax_checker from test_all_submissions on all files instead. 
+Some labs do not have an autograder. For these labs, a file called check_all_syntax is provided to the grader instead. This runs only the syntax_checker on all files instead. 
 It may be useful to provide a very broad check for submissions before requiring the grader to grade all submissions manually.
+
+Both test_all_submissions and check_all_syntax function by using the file syntax_checker.py.
 
 
 --Creating Executables--

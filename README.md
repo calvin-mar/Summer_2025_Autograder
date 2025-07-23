@@ -9,7 +9,7 @@ This Repository contains files in the form, bolded points are folders:
     - requirements.txt
    - <b>Lab_**</b>  
        - Empty Student Submission
-       - autograder.py
+       - autograder.py/syntax_checker.py  
        - lab_assistant
        - Check
        - redX
@@ -25,7 +25,7 @@ This Repository contains files in the form, bolded points are folders:
     - <b>lab_**</b>  
        - Empty Student Submission  
        - lab_assistant  
-       - autograder.py  
+       - autograder.py/syntax_checker.py  
        - Check  
        - redX  
        - Necessary testing files
@@ -36,7 +36,8 @@ This Repository contains files in the form, bolded points are folders:
    - autograder.py
    - Check.png
    - redX.png
-   - test_all_submissions
+   - syntax_checker.py
+   - test_all_submissions/check_all_syntax  
    - Necessary testing files
    - *Required: Folder for each student. Currently contains examples: student_name1 and student_name2*
      
